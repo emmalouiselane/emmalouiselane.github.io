@@ -63,7 +63,7 @@
         margin-top: 1rem;
       }
 
-      .top-note {
+      .left-note {
         position: absolute;
         left: 5%;
         top: 1vh;
@@ -72,10 +72,10 @@
         color: rgb(238, 238, 238);
       }
 
-      .bottom-note {
+      .right-note {
         position: absolute;
         right: 5%;
-        bottom: 1vh;
+        top: 1vh;
         display: flex;
         flex-direction: column;
         color: red;
@@ -83,7 +83,7 @@
     </style>
     <div id="app">
       <div>
-        <p class="top-note">Tap/Click around to move</p>
+        <p class="left-note">Tap/Click around to move</p>
 
         <div id="textbox-container" style="display: none">
           <div id="textbox">
@@ -94,7 +94,7 @@
           </div>
         </div>
 
-        <p class="bottom-note">IN DEVELOPMENT</p>
+        <p class="right-note">IN DEVELOPMENT</p>
       </div>
       <canvas id="game"></canvas>
     </div>
