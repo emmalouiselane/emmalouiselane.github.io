@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
+    <title>Emma Louise Lane - Developer Portfolio</title>
   </head>
   <body>
     <style>
@@ -63,7 +63,7 @@
         margin-top: 1rem;
       }
 
-      .note {
+      .top-note {
         position: absolute;
         left: 5%;
         top: 1vh;
@@ -71,10 +71,19 @@
         flex-direction: column;
         color: rgb(238, 238, 238);
       }
+
+      .bottom-note {
+        position: absolute;
+        right: 5%;
+        bottom: 1vh;
+        display: flex;
+        flex-direction: column;
+        color: red;
+      }
     </style>
     <div id="app">
       <div>
-        <p class="note">IN DEVELOPMENT - Tap/Click around to move</p>
+        <p class="top-note">Tap/Click around to move</p>
 
         <div id="textbox-container" style="display: none">
           <div id="textbox">
@@ -84,6 +93,8 @@
             </div>
           </div>
         </div>
+
+        <p class="bottom-note">IN DEVELOPMENT</p>
       </div>
       <canvas id="game"></canvas>
     </div>
