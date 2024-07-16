@@ -1,4 +1,4 @@
-import { dialogueData, scaleFactor } from "./constants";
+import { backgroundColour, dialogueData, scaleFactor } from "./constants";
 import { k } from "./kaplayCtx";
 import { displayDialogue, setCamScale } from "./utils";
 
@@ -17,7 +17,7 @@ k.loadSprite("spritesheet", "./spritesheet.png", {
 
 k.loadSprite("map", "./map.png");
 
-k.setBackground(k.Color.fromHex("#311047"));
+k.setBackground(k.Color.fromHex(backgroundColour));
 
 k.scene("scene_1", async () => {
     const mapData = await (await fetch("./map.json")).json();
