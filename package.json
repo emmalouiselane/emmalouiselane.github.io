@@ -1,36 +1,49 @@
 {
-  "name": "developer-portfolio",
-  "homepage": "https://emmalouiselane.github.io/",
-  "version": "1.0.0",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview --port 4173",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
+  "name": "emmalouiselane.github.io",
+  "private": true,
+  "description": "A starter for a blog powered by Gatsby and Markdown",
+  "version": "0.1.0",
+  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/gatsbyjs/gatsby/issues"
   },
   "dependencies": {
-    "@popperjs/core": "2.11.5",
-    "bootstrap": "5.1.3",
-    "kaplay": "^3001.0.0-alpha.17",
-    "pinia": "2.0.14",
-    "prismjs": "1.28.0",
-    "typed.js": "2.0.12",
-    "vue": "3.2.36",
-    "vue-clipboard3": "2.0.0",
-    "vue-count-to": "1.0.13",
-    "vue-prism-editor": "2.0.0-alpha.2",
-    "vue-router": "4.0.15"
+    "@fontsource-variable/montserrat": "^5.0.17",
+    "@fontsource/merriweather": "^5.0.8",
+    "gatsby": "^5.14.1",
+    "gatsby-plugin-dark-mode": "^1.1.2",
+    "gatsby-plugin-feed": "^5.14.0",
+    "gatsby-plugin-image": "^3.14.0",
+    "gatsby-plugin-manifest": "^5.14.0",
+    "gatsby-plugin-sharp": "^5.14.0",
+    "gatsby-remark-images": "^7.14.0",
+    "gatsby-remark-prismjs": "^7.14.0",
+    "gatsby-remark-responsive-iframe": "^6.14.0",
+    "gatsby-source-filesystem": "^5.14.0",
+    "gatsby-transformer-remark": "^6.14.0",
+    "gatsby-transformer-sharp": "^5.14.0",
+    "prismjs": "^1.29.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
-    "@rushstack/eslint-patch": "1.1.0",
-    "@vitejs/plugin-vue": "5.2.1",
-    "@vue/eslint-config-prettier": "7.0.0",
-    "eslint": "8.19.0",
-    "eslint-plugin-vue": "9.0.0",
-    "prettier": "2.5.1",
-    "sass": "1.52.3",
-    "sass-loader": "13.0.0",
-    "terser": "^5.31.2",
-    "vite": "^6.2.0"
+    "prettier": "^2.8.8"
+  },
+  "keywords": [
+    "gatsby"
+  ],
+  "license": "0BSD",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emmalouiselane/emmalouiselane.github.io.git"
+  },
+  "scripts": {
+    "build": "gatsby build",
+    "develop": "gatsby develop",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
+    "start": "gatsby develop",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean",
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
   }
 }
