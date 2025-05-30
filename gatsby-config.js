@@ -116,7 +116,7 @@ module.exports = {
         background_color: `#1a1a1a`,
         theme_color: `#1a1a1a`,
         display: `minimal-ui`,
-        icon: `src/images/logo.png`,
+        // icon: `src/images/logo.png`,
       },
     },
     {
@@ -124,7 +124,7 @@ module.exports = {
       options: {
         className: "dark-mode",
         enable: true,
-        defaultDark: false,
+        defaultDark: true,
         storageKey: "darkMode",
         mediaQuery: "(prefers-color-scheme: dark)",
       }

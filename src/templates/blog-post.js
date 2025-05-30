@@ -26,7 +26,7 @@ const BlogPostTemplate = ({
           dangerouslySetInnerHTML={{ __html: post.html }}
           itemProp="articleBody"
         />
-        <i style={{ textAlign: "center" }}>
+        <i style={{ display: "flow", textAlign: "center" }}>
           Your insights matter! Let's keep the discussion going!
         </i>
       </article>
