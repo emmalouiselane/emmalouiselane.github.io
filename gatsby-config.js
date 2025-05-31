@@ -12,7 +12,7 @@ module.exports = {
     title: `Spark Lane Dev`,
     author: {
       name: `Emma Lane`,
-      summary: `who lives and works in Somerset; dabbling with different tech stacks and hopefully building useful things.`,
+      summary: `a full stack developer based in the southwest of England; dabbling with different tech stacks and hopefully building useful things.`,
     },
     description: ``,
     siteUrl: `https://sparklane.dev/`,
