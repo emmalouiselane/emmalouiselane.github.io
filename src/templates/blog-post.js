@@ -1,15 +1,24 @@
 import * as React from "react"
+import { useEffect } from "react"
 import { Link, graphql } from "gatsby"
 
-import Bio from "../components/bio"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
+import { useTracking } from "../hooks/useTracking"
 
 const BlogPostTemplate = ({
   data: { previous, next, site, markdownRemark: post },
   location,
 }) => {
+  const { trackEvent } = useTracking();
+
   const siteTitle = site.siteMetadata?.title || `Title`
+
+  useEffect(() => {
+    trackEvent('blog_post_viewed', {
+      post_title: post.frontmatter.title
+    });
+  }, [post.frontmatter.title]);
 
   return (
     <Layout location={location} title={siteTitle}>

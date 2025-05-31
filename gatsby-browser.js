@@ -8,3 +8,10 @@ import "./src/style.css"
 
 // Highlighting for code blocks
 import "prismjs/themes/prism.css"
+
+// Initialize PostHog
+export const onRouteUpdate = () => {
+    if (window.posthog) {
+        window.posthog.capture('$pageview')
+    }
+}

@@ -1,9 +1,18 @@
 import React from "react";
 import { Link } from "gatsby";
-import { useDarkMode } from "../providers/dark-mode-provider";
+import DarkModeToggle from "./dark-mode-toggle";
+
+import { useTracking } from "../hooks/useTracking";
 
 const Navbar = () => {
-  const { isDarkMode, toggleDarkMode } = useDarkMode();
+  const { trackEvent } = useTracking();
+
+  const handleNavigation = (section) => {
+    trackEvent('navigation_clicked', {
+      section,
+      location: window.location.pathname
+    });
+  };
 
   const navLinks = [
     { text: "Home", path: "/" },
@@ -17,28 +26,13 @@ const Navbar = () => {
         <ul className="navbar-list">
           {navLinks.map((link) => (
             <li key={link.path} className="navbar-item">
-              <Link className="navbar-link" to={link.path}>
+              <Link className="navbar-link" to={link.path} onClick={() => handleNavigation(link.text)}>
                 {link.text}
               </Link>
             </li>
           ))}
           <li className="navbar-item">
-            <button
-              onClick={toggleDarkMode}
-              className="navbar-dark-mode-toggle"
-              style={{
-                background: "none",
-                border: "none",
-                cursor: "pointer",
-                padding: "8px",
-                borderRadius: "4px",
-                fontSize: "16px",
-                color: isDarkMode ? "#ffffff" : "#000000",
-                backgroundColor: isDarkMode ? "#333333" : "#f0f0f0",
-              }}
-            >
-              {isDarkMode ? "☀️" : "🌙"}
-            </button>
+            <DarkModeToggle />
           </li>
         </ul>
       </nav>

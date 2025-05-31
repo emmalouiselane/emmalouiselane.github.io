@@ -21,23 +21,23 @@ const Layout = ({ location, title, children }) => {
   )
 
   return (
-    <DarkModeProvider>
-      <Seo />
-      <div className="global-wrapper" data-is-root-path={isRootPath}>
-        <header className="global-header">
-          {header}
-        </header>
-        <main>{children}</main>
-        <footer>
-          <Bio />
-          <div className="footer-content">
-            &copy; {new Date().getFullYear()}, Built with
-            {` `}
-            <a href="https://www.gatsbyjs.com">Gatsby</a>
+      <DarkModeProvider>  
+          <Seo />
+          <div className="global-wrapper" data-is-root-path={isRootPath}>
+            <header className="global-header">
+              {header}
+            </header>
+            <main>{children}</main>
+            <footer>
+              <Bio />
+              <div className="footer-content">
+                &copy; {new Date().getFullYear()}, Built with
+                {` `}
+                <a href="https://www.gatsbyjs.com">Gatsby</a>
+              </div>
+            </footer>
           </div>
-        </footer>
-      </div>
-    </DarkModeProvider>
+      </DarkModeProvider>
   )
 }
 

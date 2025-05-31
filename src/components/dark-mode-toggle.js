@@ -1,12 +1,22 @@
 import React from "react";
 import { useDarkMode } from "../providers/dark-mode-provider";
 
+import { useTracking } from "../hooks/useTracking";
+
 const DarkModeToggle = () => {
   const { isDarkMode, toggleDarkMode } = useDarkMode();
+  const { trackEvent } = useTracking();
+
+  const handleToggleDarkMode = () => {
+    toggleDarkMode();
+    trackEvent('dark_mode_toggled', {
+      is_dark_mode: isDarkMode
+    });
+  };
 
   return (
     <button
-      onClick={toggleDarkMode}
+      onClick={handleToggleDarkMode}
       style={{
         background: "none",
         border: "none",
