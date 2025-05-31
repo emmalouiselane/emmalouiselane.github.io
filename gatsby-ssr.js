@@ -36,8 +36,11 @@ export const onRenderBody = (
 	      }}
       />
   );
+  const tinylyticsScript = (
+    <script src="https://tinylytics.app/embed/XpJY1f7mwvZcsmaUenvF.js" defer></script>
+  );
 
-  setHeadComponents([posthogScript]);
+  setHeadComponents([posthogScript, tinylyticsScript]);
 
   return null;
 };
