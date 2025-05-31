@@ -26,9 +26,16 @@ const Layout = ({ location, title, children }) => {
             <header className="global-header">
               {header}
             </header>
-            <main>{children}</main>
+            <main>
+              <div className="content-wrapper">
+                {children}
+              </div>
+            </main>
             <footer>
               <Bio />
+              <div className="footer-content">
+                <Link to="/accessibility-statement">Accessibility Statement</Link>
+              </div>
             </footer>
           </div>
       </DarkModeProvider>
