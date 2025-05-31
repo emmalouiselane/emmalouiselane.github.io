@@ -2,6 +2,7 @@ import * as React from "react"
 
 import { DarkModeProvider } from "../providers/dark-mode-provider"
 
+import { Link } from "gatsby"
 import Bio from "../components/bio"
 import Seo from "../components/seo"
 import Navbar from "../components/navbar"
