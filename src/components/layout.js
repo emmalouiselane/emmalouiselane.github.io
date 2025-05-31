@@ -1,5 +1,4 @@
 import * as React from "react"
-import { Link } from "gatsby"
 
 import { DarkModeProvider } from "../providers/dark-mode-provider"
 
@@ -14,7 +13,7 @@ const Layout = ({ location, title, children }) => {
   const header = (
     <div className="header-container">
       <h1 className="main-heading">
-        <Link to="/">{title}</Link>
+        {title}
       </h1>
       <Navbar />
     </div>
@@ -30,11 +29,6 @@ const Layout = ({ location, title, children }) => {
             <main>{children}</main>
             <footer>
               <Bio />
-              <div className="footer-content">
-                &copy; {new Date().getFullYear()}, Built with
-                {` `}
-                <a href="https://www.gatsbyjs.com">Gatsby</a>
-              </div>
             </footer>
           </div>
       </DarkModeProvider>
