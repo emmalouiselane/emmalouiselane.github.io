@@ -404,6 +404,16 @@ a:focus {
 }
 
 /* Custom classes */
+/* Add this to prevent initial flash */
+[data-theme="loading"] {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+[data-theme="loaded"] {
+  opacity: 1;
+}
+
 .content-wrapper {
   margin: var(--spacing-6);
 }

@@ -1,4 +1,5 @@
 import * as React from "react"
+import { useState, useEffect } from "react"
 
 import { DarkModeProvider } from "../providers/dark-mode-provider"
 
@@ -8,8 +9,14 @@ import Seo from "../components/seo"
 import Navbar from "../components/navbar"
 
 const Layout = ({ location, title, children }) => {
+  const [isInitialized, setIsInitialized] = useState(false);
+
   const rootPath = `${__PATH_PREFIX__}/`
   const isRootPath = location.pathname === rootPath
+
+  useEffect(() => {
+    setIsInitialized(true);
+  }, []);
 
   const header = (
     <div className="header-container">
@@ -23,7 +30,7 @@ const Layout = ({ location, title, children }) => {
   return (
       <DarkModeProvider>  
           <Seo />
-          <div className="global-wrapper" data-is-root-path={isRootPath}>
+          <div className="global-wrapper" data-is-root-path={isRootPath} data-theme={isInitialized ? "loaded" : "loading"}>
             <header className="global-header">
               {header}
             </header>

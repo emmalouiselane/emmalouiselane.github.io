@@ -10,10 +10,17 @@ export const DarkModeProvider = ({ children }) => {
   const [isDarkMode, setIsDarkMode] = useState(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem("darkMode");
-      return saved ? JSON.parse(saved) : false;
+      const initialValue = saved ? JSON.parse(saved) : false;
+      return initialValue;
     }
     return false;
   });
+
+  // Add CSS transitions for smoother switching
+  useEffect(() => {
+    const root = document.documentElement;
+    root.style.transition = 'background-color 0.3s ease, color 0.3s ease';
+  }, []);
 
   const toggleDarkMode = () => {
     if (typeof window !== 'undefined') {

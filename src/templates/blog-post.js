@@ -18,7 +18,7 @@ const BlogPostTemplate = ({
     trackEvent('blog_post_viewed', {
       post_title: post.frontmatter.title
     });
-  }, [post.frontmatter.title]);
+  }, [trackEvent, post.frontmatter.title]);
 
   return (
     <Layout location={location} title={siteTitle}>
