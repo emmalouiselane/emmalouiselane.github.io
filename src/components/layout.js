@@ -35,9 +35,7 @@ const Layout = ({ location, title, children }) => {
             <footer>
               <Bio />
               <div className="footer-content">
-                &copy; {new Date().getFullYear()}, Built with
-                {` `}
-                <a href="https://www.gatsbyjs.com">Gatsby</a>
+                <Link to="/accessibility-statement">Accessibility Statement</Link>
               </div>
             </footer>
           </div>
