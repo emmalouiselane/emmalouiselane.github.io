@@ -26,8 +26,6 @@ const DarkModeToggle = () => {
         fontSize: "16px",
         color: isDarkMode ? "#ffffff" : "#000000",
         backgroundColor: isDarkMode ? "#333333" : "#f0f0f0",
-        float: "right",
-        marginTop: "15px",
       }}
     >
       {isDarkMode ? "☀️" : "🌙"}
