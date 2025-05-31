@@ -41,8 +41,12 @@ jobs:
         run: npm run build
       - name: Setup Pages
         uses: actions/configure-pages@v4
-      - uses: enriikke/gatsby-gh-pages-action@v2
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          access-token: ${{ secrets.ACCESS_TOKEN }}
-          deploy-branch: main
-          gatsby-args: --prefix-paths
+          path: public
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
