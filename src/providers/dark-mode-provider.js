@@ -6,7 +6,14 @@ const DarkModeContext = React.createContext({
 });
 
 export const DarkModeProvider = ({ children }) => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  // Initialize state from localStorage if available
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem("darkMode");
+      return saved ? JSON.parse(saved) : false;
+    }
+    return false;
+  });
 
   const toggleDarkMode = () => {
     if (typeof window !== 'undefined') {
@@ -18,62 +25,42 @@ export const DarkModeProvider = ({ children }) => {
     }
   };
 
-  useEffect(() => {
-    // Only initialize on client side
-    if (typeof window !== 'undefined') {
-      // Get saved value from localStorage or return default
-      const saved = localStorage.getItem("darkMode");
-      setIsDarkMode(saved ? JSON.parse(saved) : false);
-    }
-
-    // Set CSS variables for dark mode
+  const updateCSSVariables = (dark) => {
     const root = document.documentElement;
-    const darkModeVars = {
-      '--bg-color': '#1a1a1a',
-      '--text-color': '#ffffff',
-      '--secondary-bg': '#2d2d2d',
-      '--accent-color': '#4a90e2',
-      '--border-color': '#333333',
-      '--shadow-color': 'rgba(0, 0, 0, 0.5)',
-      '--header-bg': '#1a1a1a',
-      '--header-text': '#ffffff',
-      '--nav-bg': '#2d2d2d',
-      '--nav-text': '#ffffff',
-      '--footer-bg': '#1a1a1a',
-      '--footer-text': '#ffffff',
-      '--link-color': '#4a90e2',
-      '--link-hover': '#66a3ff',
-    };
-    const lightModeVars = {
-      '--bg-color': '#ffffff',
-      '--text-color': '#000000',
-      '--secondary-bg': '#f5f5f5',
-      '--accent-color': '#007bff',
-      '--border-color': '#e0e0e0',
-      '--shadow-color': 'rgba(0, 0, 0, 0.1)',
-      '--header-bg': '#ffffff',
-      '--header-text': '#000000',
-      '--nav-bg': '#f5f5f5',
-      '--nav-text': '#000000',
-      '--footer-bg': '#f5f5f5',
-      '--footer-text': '#000000',
-      '--link-color': '#007bff',
-      '--link-hover': '#0056b3',
+    const cssVars = {
+      '--bg-color': dark ? '#1a1a1a' : '#ffffff',
+      '--text-color': dark ? '#ffffff' : '#000000',
+      '--secondary-bg': dark ? '#2d2d2d' : '#f5f5f5',
+      '--accent-color': dark ? '#4a90e2' : '#007bff',
+      '--border-color': dark ? '#333333' : '#e0e0e0',
+      '--shadow-color': dark ? 'rgba(0, 0, 0, 0.5)' : 'rgba(0, 0, 0, 0.1)',
+      '--header-bg': dark ? '#1a1a1a' : '#ffffff',
+      '--header-text': dark ? '#ffffff' : '#000000',
+      '--nav-bg': dark ? '#2d2d2d' : '#f5f5f5',
+      '--nav-text': dark ? '#ffffff' : '#000000',
+      '--footer-bg': dark ? '#1a1a1a' : '#f5f5f5',
+      '--footer-text': dark ? '#ffffff' : '#000000',
+      '--link-color': dark ? '#4a90e2' : '#007bff',
+      '--link-hover': dark ? '#66a3ff' : '#0056b3',
     };
 
-    const modeVars = isDarkMode ? darkModeVars : lightModeVars;
-    Object.entries(modeVars).forEach(([prop, value]) => {
+    Object.entries(cssVars).forEach(([prop, value]) => {
       root.style.setProperty(prop, value);
     });
 
-    // Update meta theme-color for browser tab
     const metaThemeColor = document.querySelector('meta[name="theme-color"]');
     if (metaThemeColor) {
-      metaThemeColor.content = isDarkMode ? '#1a1a1a' : '#ffffff';
+      metaThemeColor.content = dark ? '#1a1a1a' : '#ffffff';
     }
 
-    // Apply dark mode class to body for fallback styles
-    document.body.classList.toggle("dark-mode", isDarkMode);
+    document.body.classList.toggle("dark-mode", dark);
+  };
+
+  // Update CSS variables when state changes
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      updateCSSVariables(isDarkMode);
+    }
   }, [isDarkMode]);
 
   return (
