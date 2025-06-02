@@ -1,11 +1,11 @@
 {
   "name": "emmalouiselane.github.io",
   "private": true,
-  "description": "A starter for a blog powered by Gatsby and Markdown",
+  "description": "A blog/portfolio powered by Gatsby and Markdown",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "Emma Lane <emma@sparklane.dev>",
   "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
+    "url": "https://github.com/emmalouiselane/emmalouiselane.github.io"
   },
   "dependencies": {
     "@fontsource-variable/montserrat": "^5.0.17",

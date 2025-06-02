@@ -29,7 +29,7 @@ const PortfolioIndex = ({ data, location }) => {
             >
               <header>
                 <h2>
-                  <Link to="/portfolio/2D-portfolio/">2D Portfolio</Link>
+                  <Link to="/portfolio/2D-portfolio-preview/">2D Portfolio</Link>
                 </h2>
               </header>
               <section>
