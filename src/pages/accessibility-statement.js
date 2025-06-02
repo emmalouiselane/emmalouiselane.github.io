@@ -50,7 +50,7 @@ const AccessibilityStatementPage = ({ data, location }) => {
             <ul class="basic-information feedback h-card">
                 <li>
                 E-mail:{` `}
-                <a class="email u-email" href="mailto:emma.louise.lane@pm.me">emma.louise.lane@pm.me</a>
+                <a class="email u-email" href="mailto:emma@sparklane.dev">emma@sparklane.dev</a>
             </li>
             </ul>
             <hr noshade="noshade" />
