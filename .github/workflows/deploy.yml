@@ -39,6 +39,9 @@ jobs:
         run: npm ci --legacy-peer-deps
       - name: Build
         run: npm run build
+        env:
+          GATSBY_CONTENTFUL_SPACE_ID: ${{ secrets.GATSBY_CONTENTFUL_SPACE_ID }}
+          GATSBY_CONTENTFUL_DELIVERY_TOKEN: ${{ secrets.GATSBY_CONTENTFUL_DELIVERY_TOKEN }}
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Upload artifact
