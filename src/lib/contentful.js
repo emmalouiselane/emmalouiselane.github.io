@@ -1,5 +1,5 @@
-const SPACE = process.env.CONTENTFUL_SPACE_ID 
-const TOKEN = process.env.CONTENTFUL_DELIVERY_TOKEN
+const SPACE = process.env.GATSBY_CONTENTFUL_SPACE_ID
+const TOKEN = process.env.GATSBY_CONTENTFUL_DELIVERY_TOKEN
 
 async function apiCall(query, variables) {
   const fetchUrl = `https://graphql.contentful.com/content/v1/spaces/${SPACE}/environments/master`;
@@ -17,7 +17,7 @@ async function apiCall(query, variables) {
 async function getAllBlogs() {
     const query = `
       {
-          blogPostCollection {
+          blogPostCollection(order: date_DESC) {
             items {
               sys {
                   id
