@@ -51,20 +51,20 @@ exports.createPages = async ({ actions, reporter }) => {
 /**
  * @type {import('gatsby').GatsbyNode['onCreateNode']}
  */
-exports.onCreateNode = ({ node, actions, getNode }) => {
-  const { createNodeField } = actions
+// exports.onCreateNode = ({ node, actions, getNode }) => {
+//   const { createNodeField } = actions
 
-  if (node.internal.type === `MarkdownRemark`) {
-    const value = createFilePath({ node, getNode })
-    // Add /blog-posts/ prefix to blog posts
-    const slug = value.startsWith(`/blog-posts/`) ? value : `/blog-posts${value}`
-    createNodeField({
-      name: `slug`,
-      node,
-      value: slug,
-    })
-  }
-}
+//   if (node.internal.type === `MarkdownRemark`) {
+//     const value = createFilePath({ node, getNode })
+//     // Add /blog-posts/ prefix to blog posts
+//     const slug = value.startsWith(`/blog-posts/`) ? value : `/blog-posts${value}`
+//     createNodeField({
+//       name: `slug`,
+//       node,
+//       value: slug,
+//     })
+//   }
+// }
 
 /**
  * @type {import('gatsby').GatsbyNode['createSchemaCustomization']}
