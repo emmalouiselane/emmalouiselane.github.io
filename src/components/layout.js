@@ -8,7 +8,7 @@ import Bio from "../components/bio"
 import Seo from "../components/seo"
 import Navbar from "../components/navbar"
 
-const Layout = ({ location, title, children }) => {
+const Layout = ({ location, children }) => {
   const [isInitialized, setIsInitialized] = useState(false);
 
   const rootPath = `${__PATH_PREFIX__}/`
@@ -21,7 +21,7 @@ const Layout = ({ location, title, children }) => {
   const header = (
     <div className="header-container">
       <h1 className="main-heading">
-        {title}
+        Spark Lane Dev
       </h1>
       <Navbar />
     </div>

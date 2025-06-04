@@ -1,0 +1,66 @@
+const SPACE = process.env.CONTENTFUL_SPACE_ID 
+const TOKEN = process.env.CONTENTFUL_DELIVERY_TOKEN
+
+async function apiCall(query, variables) {
+  const fetchUrl = `https://graphql.contentful.com/content/v1/spaces/${SPACE}/environments/master`;
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${TOKEN}`,
+    },
+    body: JSON.stringify({ query, variables }),
+  }
+  return await fetch(fetchUrl, options)
+}
+
+async function getAllBlogs() {
+    const query = `
+      {
+          blogPostCollection {
+            items {
+              sys {
+                  id
+              }
+              title
+              date
+              slug
+              description
+            }
+          }
+        } `;
+    const response = await apiCall(query);
+    const json = await response.json()
+    return await json.data.blogPostCollection.items;
+  }
+
+  async function getBlogPostBySlug(slug) {
+    const query = `
+      query ($slug: String!) {
+        blogPostCollection(where: { slug: $slug }) {
+          items {
+            sys {
+              id
+            }
+            title
+            date
+            slug
+            description
+            blogContent {
+              json
+            }
+          }
+        }
+      } `;
+
+        
+    const variables = {
+        slug: slug
+    };
+    const response = await apiCall(query, variables);
+    const json = await response.json();
+    console.log(json)
+    return await json.data.blogPostCollection.items[0];
+  }
+
+export const client = { getAllBlogs, getBlogPostBySlug }

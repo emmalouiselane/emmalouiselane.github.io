@@ -7,60 +7,44 @@
 const path = require(`path`)
 const { createFilePath } = require(`gatsby-source-filesystem`)
 
+const { client } = require("./src/lib/contentful");
+
 // Define the template for blog post
 const blogPost = path.resolve(`./src/templates/blog-post.js`)
 
 /**
  * @type {import('gatsby').GatsbyNode['createPages']}
  */
-exports.createPages = async ({ graphql, actions, reporter }) => {
+exports.createPages = async ({ actions, reporter }) => {
   const { createPage } = actions
 
-  // Get all markdown blog posts sorted by date
-  const result = await graphql(`
-    {
-      allMarkdownRemark(sort: { frontmatter: { date: ASC } }, limit: 1000) {
-        nodes {
-          id
-          fields {
-            slug
-          }
-        }
-      }
+  try {
+    const posts = await client.getAllBlogs()
+    
+    if (!posts || posts.length === 0) {
+      reporter.panicOnBuild('No blog posts found in Contentful')
+      return
     }
-  `)
 
-  if (result.errors) {
-    reporter.panicOnBuild(
-      `There was an error loading your blog posts`,
-      result.errors
-    )
-    return
-  }
-
-  const posts = result.data.allMarkdownRemark.nodes
-
-  // Create blog posts pages
-  // But only if there's at least one markdown file found at "content/blog" (defined in gatsby-config.js)
-  // `context` is available in the template as a prop and as a variable in GraphQL
-
-  if (posts.length > 0) {
+    // Create blog posts pages
     posts.forEach((post, index) => {
-      const previousPostId = index === 0 ? null : posts[index - 1].id
-      const nextPostId = index === posts.length - 1 ? null : posts[index + 1].id
+      const previousPost = index === 0 ? null : posts[index - 1]
+      const nextPost = index === posts.length - 1 ? null : posts[index + 1]
 
-      const slug = post.fields.slug.startsWith(`/blog-posts/`) ? post.fields.slug : `/blog-posts${post.fields.slug}`
+      const slug = `/blog-posts/${post.slug}`
 
       createPage({
         path: slug,
         component: blogPost,
         context: {
-          id: post.id,
-          previousPostId,
-          nextPostId,
+          slug: post.slug,
+          previousPost: previousPost ? previousPost.slug : null,
+          nextPost: nextPost ? nextPost.slug : null,
         },
       })
     })
+  } catch (error) {
+    reporter.panicOnBuild('Error fetching blog posts from Contentful', error)
   }
 }
 

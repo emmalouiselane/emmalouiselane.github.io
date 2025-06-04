@@ -1,4 +1,10 @@
 import * as React from "react"
+import { useState, useEffect } from "react"
+import moment from "moment"
+
+//import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
+
+import { client } from "../lib/contentful";
 import { Link, graphql } from "gatsby"
 
 import Layout from "../components/layout"
@@ -8,19 +14,17 @@ import { useTracking } from "../hooks/useTracking"
 const BlogIndex = ({ data, location }) => {
   const { trackEvent } = useTracking();
 
+  const [blogPosts, setBlogPosts] = useState([]);
+
   const siteTitle = data.site.siteMetadata?.title || `Title`
-  const posts = data.allMarkdownRemark.nodes
-
-  if (posts.length === 0) {
-    return (
-      <Layout location={location} title={siteTitle}>
-        <p>
-          Something went wrong; No blog posts found.
-        </p>
-      </Layout>
-    )
-  }
-
+  
+  useEffect(() => {
+    async function getBlogPosts() {
+      const posts = await client.getAllBlogs();
+      setBlogPosts(posts);
+    }
+    getBlogPosts();
+  }, []);
 
   const handlePostClick = (postSlug, postTitle) => {
     trackEvent('blog_post_clicked', {
@@ -29,45 +33,50 @@ const BlogIndex = ({ data, location }) => {
     });
   };
 
-  return (
-    <Layout location={location} title={siteTitle}>
-      <div className="blog-list">
-        <ol style={{ listStyle: `none` }}>
-          {posts.map(post => {
-            const title = post.frontmatter.title || post.fields.slug
-
-            return (
-              <li key={post.fields.slug}>
-                <article
-                  className="post-list-item"
-                  itemScope
-                  itemType="http://schema.org/Article"
-                  
-                >
-                  <header>
-                    <h2>
-                      <Link to={post.fields.slug} itemProp="url" onClick={() => handlePostClick(post.fields.slug, title)}>
-                        <span itemProp="headline">{title}</span>
-                      </Link>
-                    </h2>
-                    <small>{post.frontmatter.date}</small>
-                  </header>
-                  <section>
-                    <p
-                      dangerouslySetInnerHTML={{
-                        __html: post.frontmatter.description || post.excerpt,
-                      }}
-                      itemProp="description"
-                    />
-                  </section>
-                </article>
-              </li>
-            )
-          })}
-        </ol>
-      </div>
+  if (blogPosts.length === 0) {  
+    return (
+      <Layout location={location} title={siteTitle}>
+        <p>
+          Something went wrong; No blog posts found.
+        </p>
       </Layout>
-  )
+    )
+  } else {
+    return (
+      <Layout location={location} title={siteTitle}>
+        <div className="blog-list">
+          <ol style={{ listStyle: `none` }}>
+            {blogPosts.map(post => {
+              const title = post.title
+  
+              return (
+                <li key={post.slug}>
+                  <article
+                    className="post-list-item"
+                    itemScope
+                    itemType="http://schema.org/Article"
+                    
+                  >
+                    <header>
+                      <h2>
+                        <Link to={`/blog-posts/${post.slug}`} itemProp="url" onClick={() => handlePostClick(post.slug, title)}>
+                          <span itemProp="headline">{title}</span>
+                        </Link>
+                      </h2>
+                      <small>{moment(post.date).format("MMMM DD, YYYY")}</small>
+                    </header>
+                    <section>
+                      <p>{post.description}</p>
+                    </section>
+                  </article>
+                </li>
+              )
+            })}
+          </ol>
+        </div>
+      </Layout>
+    )
+  }
 }
 
 export default BlogIndex
