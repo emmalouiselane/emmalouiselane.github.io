@@ -93,9 +93,9 @@
 }
 
 .site-banner {
-  background-color: #ff7e33;
+  background-color: #006631;
   color: white;
-  padding: 0.5rem;
+  padding: 0.2rem;
   text-align: center;
   font-size: 0.875rem;
   font-weight: bold;
@@ -104,7 +104,7 @@
   left: 0;
   right: 0;
   z-index: 1000;
-  opacity: 0.9;
+  opacity: 0.8;
 }
 
 .site-banner p {

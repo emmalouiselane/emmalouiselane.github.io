@@ -7,6 +7,7 @@
 
 import * as React from "react"
 import { useStaticQuery, graphql } from "gatsby"
+import { Link } from "gatsby"
 import { StaticImage } from "gatsby-plugin-image"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons'
@@ -52,14 +53,14 @@ const Bio = () => {
           </p>
           <div className="social-links">
             {social?.gitHub && (
-              <a href={social.gitHub} target="_blank" rel="noopener noreferrer">
-                <FontAwesomeIcon icon={faGithub} size="2x" />
-              </a>
+              <Link to={social.gitHub} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                <FontAwesomeIcon icon={faGithub} size="2x" aria-hidden="true" />
+              </Link>
             )}
             {social?.linkedIn && (
-              <a href={social.linkedIn} target="_blank" rel="noopener noreferrer">
-                <FontAwesomeIcon icon={faLinkedin} size="2x" />
-              </a>
+              <Link to={social.linkedIn} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                <FontAwesomeIcon icon={faLinkedin} size="2x" alt="LinkedIn" aria-hidden="true" />
+              </Link>
             )}
           </div>
         </div>
