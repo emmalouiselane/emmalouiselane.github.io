@@ -71,6 +71,7 @@ exports.createSchemaCustomization = ({ actions }) => {
 
     type Social {
       linkedIn: String
+      gitHub: String
     }
 
     type Fields {

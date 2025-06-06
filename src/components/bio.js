@@ -8,6 +8,8 @@
 import * as React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import { StaticImage } from "gatsby-plugin-image"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons'
 
 const Bio = () => {
   const data = useStaticQuery(graphql`
@@ -20,6 +22,7 @@ const Bio = () => {
           }
           social {
             linkedIn
+            gitHub
           }
         }
       }
@@ -28,7 +31,7 @@ const Bio = () => {
 
   // Set these values by editing "siteMetadata" in gatsby-config.js
   const author = data.site.siteMetadata?.author
-  //const social = data.site.siteMetadata?.social
+  const social = data.site.siteMetadata?.social
 
   return (
     <div className="bio">
@@ -43,15 +46,22 @@ const Bio = () => {
         alt="Profile picture"
       />
       {author?.name && (
-        <div>
+        <div style={{width: "-webkit-fill-available"}}>
           <p>
             Created by <strong>{author.name}</strong> {author?.summary || null}
           </p>
-          {/* <p>
-            <a href={`https://linkedin.com/in/${social?.linkedIn || ``}`}>
-              Check out my LinkedIn profile!
-            </a>
-          </p> */}
+          <div className="social-links">
+            {social?.gitHub && (
+              <a href={social.gitHub} target="_blank" rel="noopener noreferrer">
+                <FontAwesomeIcon icon={faGithub} size="2x" />
+              </a>
+            )}
+            {social?.linkedIn && (
+              <a href={social.linkedIn} target="_blank" rel="noopener noreferrer">
+                <FontAwesomeIcon icon={faLinkedin} size="2x" />
+              </a>
+            )}
+          </div>
         </div>
       )}
     </div>

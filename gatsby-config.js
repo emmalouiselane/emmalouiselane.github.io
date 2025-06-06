@@ -21,7 +21,8 @@ module.exports = {
     description: ``,
     siteUrl: `https://sparklane.dev/`,
     social: {
-      linkedIn: `emmalouiselane`,
+      linkedIn: `https://linkedin.com/in/emmalouiselane`,
+      gitHub: `https://github.com/emmalouiselane`,
     },
   },
   plugins: [

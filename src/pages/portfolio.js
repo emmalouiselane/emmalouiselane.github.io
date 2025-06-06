@@ -33,7 +33,7 @@ const PortfolioIndex = ({ data, location }) => {
                 </h2>
               </header>
               <section>
-              Information to be added. 
+                Information to be added. 
               </section>
             </article>
           </li>
