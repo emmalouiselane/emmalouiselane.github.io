@@ -6,6 +6,7 @@ import { DarkModeProvider } from "../providers/dark-mode-provider"
 import { Link } from "gatsby"
 import Bio from "../components/bio"
 import Seo from "../components/seo"
+import SiteBanner from "../components/site-banner"
 import Navbar from "../components/navbar"
 
 const Layout = ({ location, children }) => {
@@ -30,9 +31,11 @@ const Layout = ({ location, children }) => {
   )
 
   return (
-      <DarkModeProvider>  
+      <>
+        <SiteBanner />
+        <DarkModeProvider>  
           <Seo />
-          <div className="global-wrapper" data-is-root-path={isRootPath} data-theme={isInitialized ? "loaded" : "loading"}>
+          <div className="global-wrapper" data-is-root-path={isRootPath} data-theme={isInitialized ? "loaded" : "loading"}>  
             <header className="global-header">
               {header}
             </header>
@@ -44,11 +47,12 @@ const Layout = ({ location, children }) => {
             <footer>
               <Bio />
               <div className="footer-content">
-                <Link to="/accessibility-statement">Accessibility Statement</Link>
+                <Link className="navbar-link" to="/accessibility-statement">Accessibility Statement</Link>
               </div>
             </footer>
           </div>
-      </DarkModeProvider>
+        </DarkModeProvider>
+      </>
   )
 }
 

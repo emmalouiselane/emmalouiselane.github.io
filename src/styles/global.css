@@ -92,6 +92,27 @@
   --color-accent: #d1dce5;
 }
 
+.site-banner {
+  background-color: #ff7e33;
+  color: white;
+  padding: 0.5rem;
+  text-align: center;
+  font-size: 0.875rem;
+  font-weight: bold;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  opacity: 0.9;
+}
+
+.site-banner p {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
 /* HTML elements */
 
 *,
