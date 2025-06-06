@@ -1,5 +1,5 @@
 # Simple workflow for deploying static content to GitHub Pages
-name: Deploy static content to Pages
+name: contentful-content-update
 
 on:
   # Runs on pushes of contentful publish events
