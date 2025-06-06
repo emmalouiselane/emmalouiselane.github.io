@@ -21,7 +21,9 @@ const Layout = ({ location, children }) => {
   const header = (
     <div className="header-container">
       <h1 className="main-heading">
-        Spark Lane Dev
+        <Link to="/"> 
+          Spark Lane Dev
+        </Link>
       </h1>
       <Navbar />
     </div>
