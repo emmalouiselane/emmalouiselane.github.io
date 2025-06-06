@@ -4,7 +4,7 @@ name: contentful-content-update
 on:
   # Runs on pushes of contentful publish events
  repository_dispatch:
-    types: [publish-event]
+    types: [contentful-content-update]
 
 # Sets the GITHUB_TOKEN permissions to allow deployment to GitHub Pages
 permissions:
