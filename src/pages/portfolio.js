@@ -3,19 +3,19 @@ import { Link, graphql } from "gatsby"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
-//import { useTracking } from "../hooks/useTracking"
+import { useTracking } from "../hooks/useTracking"
 
 const PortfolioIndex = ({ data, location }) => {
-  //const { trackEvent } = useTracking();
+  const { trackEvent } = useTracking();
 
   const siteTitle = data.site.siteMetadata?.title || `Title`
 
-  // const handlePostClick = (postSlug, postTitle) => {
-  //   trackEvent('blog_post_clicked', {
-  //     post_slug: postSlug,
-  //     post_title: postTitle
-  //   });
-  // };
+  const handlePostClick = (slug, title) => {
+    trackEvent('portfolio_clicked', {
+      slug: slug,
+      title: title
+    });
+  };
 
   return (
     <Layout location={location} title={siteTitle}>
@@ -29,11 +29,14 @@ const PortfolioIndex = ({ data, location }) => {
             >
               <header>
                 <h2>
-                  <Link to="/portfolio/2D-portfolio-preview/">2D Portfolio</Link>
+                  <Link to="/portfolio/2D-portfolio-preview/" 
+                  onClick={() => handlePostClick("2D-portfolio-preview", "2D Portfolio")}>
+                    2D Portfolio
+                  </Link>
                 </h2>
               </header>
               <section>
-                Information to be added. 
+                Small 2D Portfolio built in KaboomJS, still in development - but has minor functionality.
               </section>
             </article>
           </li>

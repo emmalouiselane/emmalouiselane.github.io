@@ -25,7 +25,7 @@ const Portfolio2DIndex = ({ data, location }) => {
         </h2>
         <div style={{ display: "flex" }}>
             <section style={{ justifyContent: "left", width: "40%" }}>
-                <p> Information to be added. </p>
+                <p> Small 2D Portfolio built in KaboomJS, still in development - but has minor functionality. </p>
                 <Link to="https://sparklane.dev/2D-portfolio/">View Fullscreen</Link>
             </section> 
             <section style={{ justifyContent: "right", width: "60%" }}>
