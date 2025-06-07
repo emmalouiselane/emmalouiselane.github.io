@@ -516,10 +516,26 @@ a:focus {
   }
 }
 
-.social-links {
+
+/* Footer Styles */
+.badges {
   float: right;
+  margin-top: var(--spacing-2);
+}
+.badges img {
+  margin-right: var(--spacing-1);
 }
 
-.social-links a {
+.social-links {
+  float: right;
+  margin-top: var(--spacing-2);
+}
+
+.social-links > a  {
     margin: var(--spacing-1);
+}
+
+.social-links > a > .svg-inline--fa {
+  width: 2rem;
+  height: 42px;
 }
