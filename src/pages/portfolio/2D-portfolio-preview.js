@@ -29,7 +29,7 @@ const Portfolio2DIndex = ({ data, location }) => {
                 <Link to="https://sparklane.dev/2D-portfolio/">View Fullscreen</Link>
             </section> 
             <section style={{ justifyContent: "right", width: "60%" }}>
-                <iframe src="https://sparklane.dev/2D-portfolio/" width="100%" height="500px"></iframe>
+                <iframe src="https://sparklane.dev/2D-portfolio/" title="2D Portfolio" width="100%" height="500px"></iframe>
             </section> 
         </div>
       </div>

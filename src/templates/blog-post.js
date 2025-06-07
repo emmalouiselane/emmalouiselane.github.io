@@ -26,7 +26,7 @@ const BlogPostTemplate = ({ location, pageContext }) => {
     }
 
     fetchPost()
-  }, [])
+  })
 
   if (!post) {
     return (
