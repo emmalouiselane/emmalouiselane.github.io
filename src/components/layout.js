@@ -7,7 +7,7 @@ import { Link } from "gatsby"
 import Bio from "../components/bio"
 import Seo from "../components/seo"
 import SiteBanner from "../components/site-banner"
-import Navbar from "../components/navbar"
+import NavbarComponent from "../components/navbar"
 
 const Layout = ({ location, children }) => {
   const [isInitialized, setIsInitialized] = useState(false);
@@ -19,26 +19,13 @@ const Layout = ({ location, children }) => {
     setIsInitialized(true);
   }, []);
 
-  const header = (
-    <div className="header-container">
-      <h1 className="main-heading">
-        <Link to="/"> 
-          Spark Lane Dev
-        </Link>
-      </h1>
-      <Navbar />
-    </div>
-  )
-
   return (
       <>
         <SiteBanner />
         <DarkModeProvider>  
           <Seo />
           <div className="global-wrapper" data-is-root-path={isRootPath} data-theme={isInitialized ? "loaded" : "loading"}>  
-            <header className="global-header">
-              {header}
-            </header>
+            <NavbarComponent />
             <main>
               <div className="content-wrapper">
                 {children}
