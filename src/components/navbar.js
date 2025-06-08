@@ -39,7 +39,7 @@ const NavbarComponent = () => {
         <Container className="custom-navbar-container">
           <DarkModeToggle />
           <Navbar.Brand href="/">
-            <h1 className="main-heading">
+            <h1 className="main-heading" style={{ fontSize: "150%" }}>
               Spark Lane Dev
             </h1>
           </Navbar.Brand>

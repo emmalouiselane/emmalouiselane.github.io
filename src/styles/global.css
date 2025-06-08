@@ -100,7 +100,7 @@
   font-size: 0.875rem;
   font-weight: bold;
   position: fixed;
-  top: 75px;
+  top: 90px;
   left: 0;
   right: 0;
   opacity: 0.8;
@@ -431,7 +431,7 @@ a:focus {
 }
 
 .content-wrapper {
-  margin: var(--spacing-6);
+  margin: var(--spacing-16);
 }
 
 .accessibility-wrapper li {
@@ -503,7 +503,6 @@ a:focus {
 }
 
 /* Media queries */
-
 @media (max-width: 42rem) {
   blockquote {
     padding: var(--spacing-0) var(--spacing-0) var(--spacing-0) var(--spacing-4);
