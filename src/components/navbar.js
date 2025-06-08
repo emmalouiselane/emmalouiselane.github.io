@@ -23,19 +23,18 @@ const NavbarComponent = () => {
   const navLinks = [
     { text: "Blog", path: "/blog-posts/" },
     { text: "Portfolio", path: "/portfolio/" }, 
-    { text: "Shelves", path: "/shelves/" },
-    // { text: "Shelves", path: "/shelves/", children: [
-    //     { text: "Reading", path: "/shelves/reading/" },
-    //     { text: "Watching", path: "/shelves/watching/" },
-    //     { text: "Listening", path: "/shelves/listening/" },
-    //     { text: "Gaming", path: "/shelves/gaming/" },
-    //     { text: "Cooking", path: "/shelves/cooking/" },
+    { text: "Workshop", path: "/workshop/" },
+    // { text: "Workshop", path: "/workshop/", children: [
+    //     { text: "Cooking", path: "/workshop/cooking/" },
+    //     { text: "Reading", path: "/workshop/reading/" },
+    //     { text: "Watching", path: "/workshop/watching/" },
+    //     { text: "Listening", path: "/workshop/listening/" },
+    //     { text: "Gaming", path: "/workshop/gaming/" },
     // ] },
   ];
 
   return (
-    <div>
-      <Navbar expand="lg" fixed="top">
+      <Navbar expand="md" fixed="top">
         <Container className="custom-navbar-container">
           <DarkModeToggle />
           <Navbar.Brand href="/">
@@ -72,7 +71,6 @@ const NavbarComponent = () => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-    </div>
   );
 };
 

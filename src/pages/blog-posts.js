@@ -37,7 +37,7 @@ const BlogIndex = ({ data, location }) => {
     return (
       <Layout location={location} title={siteTitle}>
         <p>
-          Something went wrong; No blog posts found.
+          No blog posts found.
         </p>
       </Layout>
     )

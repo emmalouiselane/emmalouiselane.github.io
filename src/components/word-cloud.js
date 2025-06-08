@@ -56,11 +56,15 @@ const WordCloudComponent = () => {
     };
 
     const animatedWordRenderer = (data, ref) => (
-        <AnimatedWordRenderer ref={ref} data={data} animationDelay={(_word, index) => index * 150} />
+        <AnimatedWordRenderer ref={ref} data={data} animationDelay={(_word, index) => index * 100} />
     );
 
+    if (typeof window === 'undefined') {
+        return <></>;
+    }
+
     const height = window.innerHeight * 0.25; // 25% of viewport height
-    const width = window.innerWidth * 0.8; // 80% of viewport width
+    const width = window.innerWidth * 0.75; // 80% of viewport width
 
     return (
         <div
