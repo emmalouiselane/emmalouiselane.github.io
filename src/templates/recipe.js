@@ -7,30 +7,30 @@ import { useTracking } from "../hooks/useTracking"
 import { BLOCKS, MARKS } from '@contentful/rich-text-types';
 import { documentToReactComponents  } from "@contentful/rich-text-react-renderer";
 
-const BlogPostTemplate = ({ location, pageContext }) => {
+const RecipeTemplate = ({ location, pageContext }) => {
   const { slug } = pageContext
   const { trackEvent } = useTracking()
-  const [post, setPost] = useState(null)
+  const [recipe, setRecipe] = useState(null)
 
   useEffect(() => {
-    const fetchPost = async () => {
+    const fetchRecipe = async () => {
       try {
-        const post = await client.getBlogPostBySlug(slug)
-        setPost(post)
-        trackEvent('blog_post_viewed', {
-          post_title: post?.title
+        const recipe = await client.getRecipeBySlug(slug)
+        setRecipe(recipe)
+        trackEvent('recipe_viewed', {
+          recipe_title: recipe?.name
         })
       } catch (error) {
-        console.error('Error fetching blog post:', error)
+        console.error('Error fetching recipe:', error)
       }
     }
 
-    if (post === null) {
-      fetchPost()
+    if (recipe === null) {
+      fetchRecipe()
     }
-  })
+  });
 
-  if (!post) {
+  if (!recipe) {
     return (
       <Layout location={location}>
         <div>Loading...</div>
@@ -70,21 +70,40 @@ const BlogPostTemplate = ({ location, pageContext }) => {
     <Layout location={location}>
       <article className="blog-post">
         <header>
-          <h1>{post.title}</h1>
-          <p>{moment(post.date).format("MMMM DD, YYYY")}</p>
+          <h1>{recipe.name}</h1>
+          <p>{recipe.rating}</p>
         </header>
         
-        <div>
-          {documentToReactComponents(post.blogContent.json, options)}
-        </div>
+        {/* Add Recipe Images */}
+
+        {recipe.ingredients && (
+          <div>
+            {documentToReactComponents(recipe.ingredients.json, options)}
+          </div>
+        )}
         
-        <i style={{ display: "flow", textAlign: "center" }}>
-          Your insights matter! Let's keep the discussion going!
-        </i>
+        {recipe.directions && (
+          <div>
+            {documentToReactComponents(recipe.directions.json, options)}
+          </div>
+        )}
+        
+        {recipe.notes && (
+          <i>
+            {documentToReactComponents(recipe.notes.json, options)}
+          </i>
+        )}
+        
+        {recipe.review && (
+          <div>
+            {documentToReactComponents(recipe.review.json, options)}
+          </div>
+        )}
+        
       </article>
     </Layout>
   )
 }
 
-export default BlogPostTemplate
+export default RecipeTemplate
 

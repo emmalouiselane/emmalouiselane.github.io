@@ -59,8 +59,61 @@ async function getAllBlogs() {
     };
     const response = await apiCall(query, variables);
     const json = await response.json();
-    console.log(json)
     return await json.data.blogPostCollection.items[0];
+}
+
+async function getAllRecipes() {
+    const query = `
+      {
+          recipeCollection {
+            items {
+              sys {
+                  id
+              }
+              name
+              rating
+              slug
+            }
+          }
+        } `;
+    const response = await apiCall(query);
+    const json = await response.json()
+    return await json.data.recipeCollection.items;
   }
 
-export const client = { getAllBlogs, getBlogPostBySlug }
+  async function getRecipeBySlug(slug) {
+    const query = `
+      query ($slug: String!) {
+        recipeCollection(where: { slug: $slug }) {
+          items {
+            sys {
+              id
+            }
+            name
+            rating
+            slug
+            ingredients {
+              json
+            }
+            directions {
+              json
+            }
+            notes {
+              json
+            }
+            review {
+              json
+            }
+          }
+        }
+      } `;
+
+    const variables = {
+        slug: slug
+    };
+    const response = await apiCall(query, variables);
+    const json = await response.json();
+    return await json.data.recipeCollection.items[0];
+}
+
+export const client = { getAllBlogs, getBlogPostBySlug, getAllRecipes, getRecipeBySlug }
