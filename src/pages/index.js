@@ -3,13 +3,16 @@ import { graphql } from "gatsby"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
+import WordCloudComponent from "../components/word-cloud"
 
 const Index = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata?.title || `Title`;
 
   return (
     <Layout location={location} title={siteTitle}>
-      <h2 style={{ textAlign: "center" }}>Under Construction!</h2>
+      <div className="word-cloud-container">
+        <WordCloudComponent />
+      </div>
     </Layout>
   )
 }
