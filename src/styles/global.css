@@ -99,8 +99,6 @@
   text-align: center;
   font-size: 0.875rem;
   font-weight: bold;
-  position: fixed;
-  top: 100px;
   left: 0;
   right: 0;
   opacity: 0.8;
@@ -523,7 +521,6 @@ a:focus {
 
 .word-cloud {
   width: 100%;
-  max-width: 800px;
   margin: var(--spacing-4) 0;
 }
 .word-cloud svg {
