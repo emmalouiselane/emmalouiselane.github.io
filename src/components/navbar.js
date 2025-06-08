@@ -35,7 +35,7 @@ const NavbarComponent = () => {
 
   return (
     <div>
-      <Navbar expand="lg" fixed="top">
+      <Navbar expand="md" fixed="top">
         <Container className="custom-navbar-container">
           <DarkModeToggle />
           <Navbar.Brand href="/">
