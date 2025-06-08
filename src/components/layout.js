@@ -23,21 +23,19 @@ const Layout = ({ location, children }) => {
       <>
         <DarkModeProvider>  
           <Seo />
-          <div className="global-wrapper" data-is-root-path={isRootPath} data-theme={isInitialized ? "loaded" : "loading"}>  
-            <NavbarComponent />
-            <main>
-              <div className="content-wrapper">
-                {children}
-              </div>
-            </main>
-            <footer>
+          <NavbarComponent />
+          <main className="global-wrapper" data-is-root-path={isRootPath} data-theme={isInitialized ? "loaded" : "loading"}>
+            <div className="content-wrapper">
+              {children}
+            </div>
+          </main>
+          <footer>
             <SiteBanner />
-              <Bio />
-              <div className="footer-content">
-                <Link className="navbar-link" to="/accessibility-statement">Accessibility Statement</Link>
-              </div>
-            </footer>
-          </div>
+            <Bio />
+            <div className="footer-content">
+              <Link className="navbar-link" to="/accessibility-statement">Accessibility Statement</Link>
+            </div>
+          </footer>
         </DarkModeProvider>
       </>
   )

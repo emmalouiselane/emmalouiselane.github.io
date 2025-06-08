@@ -34,7 +34,6 @@ const NavbarComponent = () => {
   ];
 
   return (
-    <div>
       <Navbar expand="md" fixed="top">
         <Container className="custom-navbar-container">
           <DarkModeToggle />
@@ -72,7 +71,6 @@ const NavbarComponent = () => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-    </div>
   );
 };
 

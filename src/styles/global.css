@@ -172,13 +172,15 @@ body {
   flex: 1;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  position: relative;
 }
 
 /* Navbar styles */
 .navbar {
   position: sticky;
+  top: 0;
   z-index: 100;
+  background-color: var(--color-background);
 }
 
 .custom-navbar-container {
@@ -227,9 +229,7 @@ body {
 }
 
 main {
-  flex: 1;
   overflow-y: auto;
-  padding-bottom: calc(var(--spacing-10) + 100px); /* Add extra padding for footer height */
 }
 
 /* Dark mode navbar styles */
@@ -247,7 +247,7 @@ main {
 }
 
 footer {
-  position: fixed;
+  position: sticky;
   bottom: 0;
   left: 0;
   right: 0;
@@ -429,7 +429,7 @@ a:focus {
 }
 
 .content-wrapper {
-  margin: var(--spacing-16);
+  margin: var(--spacing-8);
 }
 
 .accessibility-wrapper li {
@@ -559,3 +559,73 @@ a:focus {
   width: 2rem;
   height: 42px;
 }
+
+
+/* Workshop */
+.workshop-list {}
+
+.workshop-list > ol {
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.workshop-list > ol > li {
+  border-radius: var(--spacing-2);
+  min-width: 150px;
+  width: 25vw;
+  max-width: 275px;
+  height: 125px;
+  margin: var(--spacing-2);
+
+  padding: 2px;
+  background-color: #e0e0e0a8;
+  border: 2px dashed #ccc;
+}
+
+.workshop-link, .workshop-link-disabled {
+  width: -webkit-fill-available;
+  height: -webkit-fill-available;
+  display: block;
+  text-align: center;
+  align-content: center;
+
+  text-decoration: none;
+  color: var(--color-text) !important;
+  font-weight: var(--fontWeight-bold);
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.workshop-link div, .workshop-link-disabled div {
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  display: block;
+  background-color: var(--color-background);
+  border: 2px dashed #ccc;
+  border-radius: 2px;
+  height: 100%;
+  align-content: center;
+}
+
+.workshop-link div p, .workshop-link-disabled div p {
+  font-size: 14px;
+  letter-spacing: 0.25em;
+  text-align: center;
+  text-transform: uppercase;
+  padding: 0;
+  margin: 0;
+  display: block;
+  
+}
+
+.workshop-link div:hover {
+  color: var(--color-primary);
+  background-color: var(--color-accent);
+}
+
+.workshop-link-disabled div p {
+  cursor: default;
+}
+  

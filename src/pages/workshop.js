@@ -31,14 +31,16 @@ const WorkshopIndex = ({ data, location }) => {
         <p>This is more of a personal workspace for me - maybe even as far as saying this is my workshop.</p>
         <p>This will be the home of my favourite and go to recipes, musings about any current reads, talk about any obsessions with what I'm watching or listening to as well as personal guides and notes for any games that I play.</p>
         <p>I will be updating this page as I go, so expect it to be a work in progress.</p>
-        <ol style={{ listStyle: `none` }}>
+        <ol>
           {workshop.map((space) => (
             <li key={space.slug}>
               {space.enabled ? 
-              (<Link to={`/workshop/${space.slug}/`} onClick={() => handlePostClick(space.slug)} aria-disabled>
-                {space.title}
+              (<Link className="workshop-link" to={`/workshop/${space.slug}/`} onClick={() => handlePostClick(space.slug)}>
+                <div><p>{space.title}</p></div>
               </Link>) 
-              : <span>{space.title}</span>}
+              : (<Link className="workshop-link-disabled" onClick={() => handlePostClick(space.slug)} aria-disabled>
+                  <div><p>{space.title}</p></div>
+                </Link>)}
             </li>
           ))}
         </ol>
