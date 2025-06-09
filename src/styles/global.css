@@ -101,7 +101,9 @@
   font-weight: bold;
   left: 0;
   right: 0;
-  opacity: 0.8;
+  opacity: 0.6;
+  bottom: 60px;
+  position: fixed;
 }
 
 .site-banner p {
@@ -173,11 +175,13 @@ body {
   display: flex;
   flex-direction: column;
   position: relative;
+  margin-top: 100px; /* Navbar height */
+  margin-bottom: 60px; /* Footer height */
 }
 
 /* Navbar styles */
 .navbar {
-  position: sticky;
+  position: fixed;
   top: 0;
   z-index: 100;
   background-color: var(--color-background);
@@ -219,9 +223,18 @@ body {
   width: 100px;
 }
 
-.footer-content > .navbar-link {
-  width: fit-content;
+.navbar-link-disabled {
+  text-decoration: none;
+  color: var(--color-text-light) !important;
+  font-weight: var(--fontWeight-bold);
+  padding: var(--spacing-2) var(--spacing-4);
+  margin: var(--spacing-2);
+  border-radius: var(--spacing-2);
+  cursor: default;
+  width: 100px;
 }
+
+
 
 .navbar-link:hover {
   color: var(--color-primary);
@@ -247,18 +260,55 @@ main {
 }
 
 footer {
-  position: sticky;
+  position: fixed;
+  display: flex;
+  
   bottom: 0;
   left: 0;
   right: 0;
   border-top: 1px solid var(--color-accent);
   background-color: var(--color-background);
   z-index: 10;
+  height: 60px;
 }
 
 .footer-content {
-  text-align: center; 
+  display: flex;
+  margin: auto;
   padding-bottom: var(--spacing-3);
+  align-content: space-between;
+  flex-wrap: wrap;
+  flex: 1;
+}
+
+.footer-content-left {
+  margin-right: auto;
+}
+
+.footer-content-right {
+  margin-left: auto;
+} 
+
+.footer-content > div {
+  display: flex;
+}
+
+.footer-content > div > .navbar-link, .footer-content > div > .navbar-link-disabled {
+  font-size: 80%;
+  padding: var(--spacing-2);
+  margin-top: 0;
+  text-align: center;
+}
+
+
+
+.social-link {
+    margin: var(--spacing-1);
+}
+
+.social-link, .social-link > .svg-inline--fa {
+  width: 2rem;
+  height: 42px;
 }
 
 /* Dark mode footer styles */
@@ -429,7 +479,7 @@ a:focus {
 }
 
 .content-wrapper {
-  margin: var(--spacing-8);
+  margin: 0 var(--spacing-4);
 }
 
 .accessibility-wrapper li {
@@ -469,7 +519,32 @@ a:focus {
 
 .bio {
   display: flex;
-  padding: var(--spacing-2) var(--spacing-6);
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: var(--spacing-2);
+  border-radius: var(--spacing-2);
+  margin: var(--spacing-10) auto;
+  width: fit-content;  
+
+  padding: 2px;
+  background-color: #e0e0e0a8;
+  border: 2px dashed #ccc;
+}
+
+.bio-content {
+  display: flex;
+  text-align: center;
+  background-color: var(--color-background);
+  border: 2px dashed #ccc;
+  border-radius: 2px;
+  height: 100%;
+  margin: auto;
+}
+
+.bio-content-text {
+  margin: auto;
+  height: fit-content;
+  width: -webkit-fill-available;
 }
 
 .bio p {
@@ -477,8 +552,7 @@ a:focus {
 }
 
 .bio-avatar {
-  margin-right: var(--spacing-4);
-  margin-bottom: var(--spacing-0);
+  margin: auto auto auto var(--spacing-1);
   min-width: 50px;
   border-radius: 100%;
 }
@@ -537,28 +611,7 @@ a:focus {
 }
 
 
-/* Footer Styles */
-.badges {
-  float: right;
-  margin-top: var(--spacing-2);
-}
-.badges img {
-  margin-right: var(--spacing-1);
-}
 
-.social-links {
-  float: right;
-  margin-top: var(--spacing-2);
-}
-
-.social-links > a  {
-    margin: var(--spacing-1);
-}
-
-.social-links > a > .svg-inline--fa {
-  width: 2rem;
-  height: 42px;
-}
 
 
 /* Workshop */

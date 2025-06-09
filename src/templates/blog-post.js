@@ -6,6 +6,7 @@ import Layout from "../components/layout"
 import { useTracking } from "../hooks/useTracking"
 import { BLOCKS, MARKS } from '@contentful/rich-text-types';
 import { documentToReactComponents  } from "@contentful/rich-text-react-renderer";
+import Bio from "../components/bio"
 
 const BlogPostTemplate = ({ location, pageContext }) => {
   const { slug } = pageContext
@@ -82,6 +83,7 @@ const BlogPostTemplate = ({ location, pageContext }) => {
           Your insights matter! Let's keep the discussion going!
         </i>
       </article>
+      <Bio />
     </Layout>
   )
 }

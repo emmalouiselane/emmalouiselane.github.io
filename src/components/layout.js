@@ -3,11 +3,10 @@ import { useState, useEffect } from "react"
 
 import { DarkModeProvider } from "../providers/dark-mode-provider"
 
-import { Link } from "gatsby"
-import Bio from "../components/bio"
 import Seo from "../components/seo"
 import SiteBanner from "../components/site-banner"
 import NavbarComponent from "../components/navbar"
+import Footer from "../components/footer"
 
 const Layout = ({ location, children }) => {
   const [isInitialized, setIsInitialized] = useState(false);
@@ -24,17 +23,16 @@ const Layout = ({ location, children }) => {
         <DarkModeProvider>  
           <Seo />
           <NavbarComponent />
+
           <main className="global-wrapper" data-is-root-path={isRootPath} data-theme={isInitialized ? "loaded" : "loading"}>
             <div className="content-wrapper">
               {children}
             </div>
           </main>
+
+          <SiteBanner />
           <footer>
-            <SiteBanner />
-            <Bio />
-            <div className="footer-content">
-              <Link className="navbar-link" to="/accessibility-statement">Accessibility Statement</Link>
-            </div>
+            <Footer />
           </footer>
         </DarkModeProvider>
       </>
