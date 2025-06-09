@@ -11,7 +11,7 @@
     "@contentful/rich-text-html-renderer": "^17.0.0",
     "@contentful/rich-text-react-renderer": "^16.0.1",
     "@fontsource-variable/montserrat": "^5.0.17",
-    "@fontsource/merriweather": "^5.0.8",
+    "@fontsource/merriweather": "^5.2.9",
     "@fortawesome/free-brands-svg-icons": "^6.7.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@isoterik/react-word-cloud": "^1.2.0",
