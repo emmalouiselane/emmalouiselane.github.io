@@ -1,6 +1,5 @@
 import * as React from "react"
 import { useEffect, useState } from "react"
-import moment from "moment"
 import { client } from "../lib/contentful"
 import Layout from "../components/layout"
 import { useTracking } from "../hooks/useTracking"

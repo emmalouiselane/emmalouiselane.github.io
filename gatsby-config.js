@@ -18,7 +18,7 @@ module.exports = {
       name: `Emma Lane`,
       summary: `a full stack developer based in Somerset; dabbling with different tech stacks and building (hopefully useful) things.`,
     },
-    description: ``,
+    description: `Emma Lane's (Full-stack developer) blog and portfolio showcasing projects.`,
     siteUrl: `https://sparklane.dev/`,
     social: {
       linkedIn: `https://linkedin.com/in/emmalouiselane`,
@@ -28,6 +28,21 @@ module.exports = {
   plugins: [
     `gatsby-plugin-image`,
     `gatsby-plugin-postcss`,
+    `gatsby-plugin-sitemap`,
+    {
+      resolve: `gatsby-plugin-robots-txt`,
+      options: {
+        policy: [{ userAgent: '*', allow: '/' }],
+        sitemap: `https://sparklane.dev/sitemap.xml`,
+      },
+    },
+    {
+      resolve: `gatsby-plugin-canonical-urls`,
+      options: {
+        siteUrl: `https://sparklane.dev`,
+        stripQueryString: true,
+      },
+    },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
