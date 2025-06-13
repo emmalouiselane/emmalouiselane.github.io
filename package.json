@@ -45,7 +45,7 @@
   "keywords": [
     "gatsby"
   ],
-  "license": "0BSD",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/emmalouiselane/emmalouiselane.github.io.git"
