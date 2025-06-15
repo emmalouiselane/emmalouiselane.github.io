@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import React from "react";
+import * as React from "react";
 import { useDarkMode } from "../providers/dark-mode-provider";
 
 import { useTracking } from "../hooks/useTracking";

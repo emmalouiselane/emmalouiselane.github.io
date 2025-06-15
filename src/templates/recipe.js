@@ -106,4 +106,3 @@ const RecipeTemplate = ({ location, pageContext }) => {
 }
 
 export default RecipeTemplate
-
