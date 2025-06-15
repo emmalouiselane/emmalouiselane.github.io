@@ -11,6 +11,8 @@ require('dotenv').config({
   path: `.env`,
 })
 
+const siteUrl = 'https://sparklane.dev'
+
 module.exports = {
   siteMetadata: {
     title: `Spark Lane Dev`,
@@ -19,7 +21,7 @@ module.exports = {
       summary: `a full stack developer based in Somerset; dabbling with different tech stacks and building (hopefully useful) things.`,
     },
     description: `Emma Lane's (Full-stack developer) blog and portfolio showcasing projects.`,
-    siteUrl: `https://sparklane.dev/`,
+    siteUrl: siteUrl,
     social: {
       linkedIn: `https://linkedin.com/in/emmalouiselane`,
       gitHub: `https://github.com/emmalouiselane`,
@@ -28,12 +30,32 @@ module.exports = {
   plugins: [
     `gatsby-plugin-image`,
     `gatsby-plugin-postcss`,
-    `gatsby-plugin-sitemap`,
+    {
+      resolve: "gatsby-plugin-sitemap",
+      options: {
+        query: `
+        {
+          allSitePage {
+            nodes {
+              path
+            }
+          }
+        }
+      `,
+        resolveSiteUrl: () => siteUrl,
+        serialize: ({ path, modifiedGmt }) => {
+          return {
+            url: path,
+            lastmod: modifiedGmt,
+          }
+        },
+      },
+    },
     {
       resolve: `gatsby-plugin-robots-txt`,
       options: {
         policy: [{ userAgent: '*', allow: '/' }],
-        sitemap: `https://sparklane.dev/sitemap.xml`,
+        sitemap: `https://sparklane.dev/sitemap-index.xml`,
       },
     },
     {
