@@ -5,67 +5,47 @@
  */
 
 const path = require(`path`)
-const { createFilePath } = require(`gatsby-source-filesystem`)
-
 const { client } = require("./src/lib/contentful");
 
-// Define the template for blog post
-const blogPostTemplate = path.resolve(`./src/templates/blog-post.js`)
-const recipeTemplate = path.resolve(`./src/templates/recipe.js`)
-
-async function createRecipePages({ actions, reporter }) {
+exports.createPages = async ({ actions, reporter }) => {
   const { createPage } = actions;
 
   try {
-    const recipes = await client.getAllRecipes()
+    // Get all recipes from Contentful
+    const recipes = await client.getAllRecipes();
     
-    // Create blog posts pages
-    recipes.forEach((recipe, index) => {
-      const slug = `/workshop/cooking/${recipe.slug}`
+    // Create recipe pages
+    recipes.forEach((recipe) => {
+      const slug = `/workshop/cooking/${recipe.slug}`;
 
       createPage({
         path: slug,
-        component: recipeTemplate,
+        component: path.resolve(`./src/templates/recipe.js`),
         context: {
           slug: recipe.slug,
         },
-      })
-    })
-  } catch (error) {
-    reporter.panicOnBuild('Error fetching blog posts from Contentful', error)
-  }
-}
+      });
+    });
 
-async function createBlogPages({ actions, reporter }) {
-  try {
-    const { createPage } = actions;
-
-    const posts = await client.getAllBlogs()
+    // Get all blog posts from Contentful
+    const blogPosts = await client.getAllBlogs();
     
-    // Create blog posts pages
-    posts.forEach((post, index) => {
-      const slug = `/blog-posts/${post.slug}`
+    // Create blog post pages
+    blogPosts.forEach((post) => {
+      const slug = `/blog-posts/${post.slug}`;
 
       createPage({
         path: slug,
-        component: blogPostTemplate,
+        component: path.resolve(`./src/templates/blog-post.js`),
         context: {
           slug: post.slug,
         },
-      })
-    })
+      });
+    });
   } catch (error) {
-    reporter.panicOnBuild('Error fetching recipes from Contentful', error)
+    reporter.panicOnBuild('Error fetching content from Contentful', error);
   }
-}
-
-/**
- * @type {import('gatsby').GatsbyNode['createPages']}
- */
-exports.createPages = async ({ actions, reporter }) => {
-  createBlogPages({ actions, reporter });
-  createRecipePages({ actions, reporter });
-}
+};
 
 /**
  * @type {import('gatsby').GatsbyNode['createSchemaCustomization']}
