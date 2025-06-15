@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import * as React from "react"
 import { Link, graphql } from "gatsby"
 
@@ -16,6 +17,12 @@ const WorkshopIndex = ({ data, location }) => {
     });
   };
 
+  const introductionText = [
+    "This is more of a personal workspace for me - maybe even as far as saying this is my workshop.",
+    "This will be the home of my favourite and go to recipes, musings about any current reads, talk about any obsessions with what I'm watching or listening to as well as personal guides and notes for any games that I play.",
+    "I will be updating this page as I go, so expect it to be a work in progress.",
+  ]
+
   const workshop = [
     { slug: "cooking", title: "Cooking", enabled: true },
     { slug: "reading", title: "Reading" },
@@ -28,9 +35,9 @@ const WorkshopIndex = ({ data, location }) => {
   return (
     <Layout location={location} title={siteTitle}>
       <div className="workshop-list">
-        <p>This is more of a personal workspace for me - maybe even as far as saying this is my workshop.</p>
-        <p>This will be the home of my favourite and go to recipes, musings about any current reads, talk about any obsessions with what I'm watching or listening to as well as personal guides and notes for any games that I play.</p>
-        <p>I will be updating this page as I go, so expect it to be a work in progress.</p>
+        {introductionText.map((text, index) => (
+          <p key={index}>{text}</p>
+        ))}
         <ol>
           {workshop.map((space) => (
             <li key={space.slug}>

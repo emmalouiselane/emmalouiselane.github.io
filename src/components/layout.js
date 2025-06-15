@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import * as React from "react"
 import { useState, useEffect } from "react"
 
@@ -11,6 +12,7 @@ import Footer from "../components/footer"
 const Layout = ({ location, children }) => {
   const [isInitialized, setIsInitialized] = useState(false);
 
+  // eslint-disable-next-line no-undef
   const rootPath = `${__PATH_PREFIX__}/`
   const isRootPath = location.pathname === rootPath
 

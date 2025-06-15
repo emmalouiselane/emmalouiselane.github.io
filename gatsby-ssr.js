@@ -8,8 +8,6 @@
  * @type {import('gatsby').GatsbySSR['onRenderBody']}
  */
 
-import React from "react"
-
 export const onRenderBody = (
   { setHtmlAttributes, setHeadComponents },
 ) => {
@@ -17,6 +15,7 @@ export const onRenderBody = (
 
   const isEnabled = process.env.NODE_ENV !== 'development';
   if (!isEnabled) {
+    // eslint-disable-next-line no-console
     console.log("PostHog Analytics not enabled");
     return null;
   }

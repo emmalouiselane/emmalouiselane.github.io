@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import * as React from "react"
 import { useEffect, useState } from "react"
 import moment from "moment"
@@ -80,7 +81,7 @@ const BlogPostTemplate = ({ location, pageContext }) => {
         </div>
         
         <i style={{ display: "flow", textAlign: "center" }}>
-          Your insights matter! Let's keep the discussion going!
+          {"Your insights matter! Let's keep the discussion going!"}
         </i>
       </article>
       <Bio />

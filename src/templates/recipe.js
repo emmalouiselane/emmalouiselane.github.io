@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import * as React from "react"
 import { useEffect, useState } from "react"
 import { client } from "../lib/contentful"
@@ -67,7 +68,7 @@ const RecipeTemplate = ({ location, pageContext }) => {
 
   return (
     <Layout location={location}>
-      <article className="blog-post">
+      <article className="recipe">
         <header>
           <h1>{recipe.name}</h1>
           <p>{recipe.rating}</p>

@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React from "react";
 import { useDarkMode } from "../providers/dark-mode-provider";
 
@@ -9,7 +10,7 @@ const DarkModeToggle = () => {
 
   const handleToggleDarkMode = () => {
     toggleDarkMode();
-    trackEvent('dark_mode_toggled', {
+    trackEvent('dark_mode_toggled', { 
       is_dark_mode: isDarkMode
     });
   };
