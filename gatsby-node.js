@@ -5,14 +5,14 @@
  */
 
 const path = require(`path`)
-const { client } = require("./src/lib/contentful");
+const { entriesClient } = require("./src/api/contentful/contentful-entries");
 
 exports.createPages = async ({ actions, reporter }) => {
   const { createPage } = actions;
 
   try {
     // Get all recipes from Contentful
-    const recipes = await client.getAllRecipes();
+    const recipes = await entriesClient.getAllRecipes();
     
     // Create recipe pages
     recipes.forEach((recipe) => {
@@ -28,7 +28,7 @@ exports.createPages = async ({ actions, reporter }) => {
     });
 
     // Get all blog posts from Contentful
-    const blogPosts = await client.getAllBlogs();
+    const blogPosts = await entriesClient.getAllBlogs();
     
     // Create blog post pages
     blogPosts.forEach((post) => {

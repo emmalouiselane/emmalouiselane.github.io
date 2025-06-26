@@ -2,7 +2,7 @@
 import React from "react"
 import { useState, useEffect } from "react"
 
-import { client } from "../../lib/contentful";
+import { entriesClient } from "../../api/contentful/contentful-entries";
 import { Link, graphql } from "gatsby"
 
 import Layout from "../../components/layout"
@@ -18,7 +18,7 @@ const CookingIndex = ({ data, location }) => {
   
   useEffect(() => {
     async function getRecipes() {
-      const recipes = await client.getAllRecipes();
+      const recipes = await entriesClient.getAllRecipes();
       setRecipes(recipes);
     }
     getRecipes();

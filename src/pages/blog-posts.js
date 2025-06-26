@@ -5,7 +5,7 @@ import moment from "moment"
 
 //import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 
-import { client } from "../lib/contentful";
+import { entriesClient } from "../api/contentful/contentful-entries";
 import { Link, graphql } from "gatsby"
 
 import Layout from "../components/layout"
@@ -21,7 +21,7 @@ const BlogIndex = ({ data, location }) => {
   
   useEffect(() => {
     async function getBlogPosts() {
-      const posts = await client.getAllBlogs();
+      const posts = await entriesClient.getAllBlogs();
       setBlogPosts(posts);
     }
     getBlogPosts();

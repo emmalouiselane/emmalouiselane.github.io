@@ -2,7 +2,7 @@
 import * as React from "react"
 import { useEffect, useState } from "react"
 import moment from "moment"
-import { client } from "../lib/contentful"
+import { entriesClient } from "../api/contentful/contentful-entries"
 import Layout from "../components/layout"
 import { useTracking } from "../hooks/useTracking"
 import { BLOCKS, MARKS } from '@contentful/rich-text-types';
@@ -17,7 +17,7 @@ const BlogPostTemplate = ({ location, pageContext }) => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const post = await client.getBlogPostBySlug(slug)
+        const post = await entriesClient.getBlogPostBySlug(slug)
         setPost(post)
         trackEvent('blog_post_viewed', {
           post_title: post?.title

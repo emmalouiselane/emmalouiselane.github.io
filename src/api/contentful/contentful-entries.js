@@ -1,7 +1,7 @@
 const SPACE = process.env.GATSBY_CONTENTFUL_SPACE_ID
 const TOKEN = process.env.GATSBY_CONTENTFUL_DELIVERY_TOKEN
 
-async function apiCall(query, variables) {
+async function entriesApiCall(query, variables) {
   const fetchUrl = `https://graphql.contentful.com/content/v1/spaces/${SPACE}/environments/master`;
   const options = {
     method: 'POST',
@@ -29,7 +29,7 @@ async function getAllBlogs() {
             }
           }
         } `;
-    const response = await apiCall(query);
+    const response = await entriesApiCall(query);
     const json = await response.json()
     return await json.data.blogPostCollection.items;
   }
@@ -57,7 +57,7 @@ async function getAllBlogs() {
     const variables = {
         slug: slug
     };
-    const response = await apiCall(query, variables);
+    const response = await entriesApiCall(query, variables);
     const json = await response.json();
     return await json.data.blogPostCollection.items[0];
 }
@@ -76,7 +76,7 @@ async function getAllRecipes() {
             }
           }
         } `;
-    const response = await apiCall(query);
+    const response = await entriesApiCall(query);
     const json = await response.json()
     return await json.data.recipeCollection.items;
   }
@@ -111,9 +111,9 @@ async function getAllRecipes() {
     const variables = {
         slug: slug
     };
-    const response = await apiCall(query, variables);
+    const response = await entriesApiCall(query, variables);
     const json = await response.json();
     return await json.data.recipeCollection.items[0];
 }
 
-export const client = { getAllBlogs, getBlogPostBySlug, getAllRecipes, getRecipeBySlug }
+export const entriesClient = { getAllBlogs, getBlogPostBySlug, getAllRecipes, getRecipeBySlug }

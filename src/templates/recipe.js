@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import * as React from "react"
 import { useEffect, useState } from "react"
-import { client } from "../lib/contentful"
+import { entriesClient } from "../api/contentful/contentful-entries"
 import Layout from "../components/layout"
 import { useTracking } from "../hooks/useTracking"
 import { BLOCKS, MARKS } from '@contentful/rich-text-types';
@@ -15,7 +15,7 @@ const RecipeTemplate = ({ location, pageContext }) => {
   useEffect(() => {
     const fetchRecipe = async () => {
       try {
-        const recipe = await client.getRecipeBySlug(slug)
+        const recipe = await entriesClient.getRecipeBySlug(slug)
         setRecipe(recipe)
         trackEvent('recipe_viewed', {
           recipe_title: recipe?.name
