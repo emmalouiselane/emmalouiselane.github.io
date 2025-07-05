@@ -1,9 +1,6 @@
 @use "./_variables" as *;
 
 .recipe {
-  margin-bottom: 95px; // Footer height & under construction banner
-}
-.recipe {
   margin: var(--spacing-0) var(--spacing-4) 95px var(--spacing-4); // Footer height & under construction banner
 }
 

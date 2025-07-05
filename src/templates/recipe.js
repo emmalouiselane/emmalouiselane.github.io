@@ -3,6 +3,8 @@ import * as React from "react"
 import { useEffect, useState } from "react"
 import { entriesClient } from "../api/contentful/contentful-entries"
 import Layout from "../components/layout"
+import SignComponent from "../components/sign"
+import { Link } from "gatsby"
 import { useTracking } from "../hooks/useTracking"
 import { BLOCKS, MARKS } from '@contentful/rich-text-types';
 import { documentToReactComponents  } from "@contentful/rich-text-react-renderer";
@@ -11,6 +13,17 @@ const RecipeTemplate = ({ location, pageContext }) => {
   const { slug } = pageContext
   const { trackEvent } = useTracking()
   const [recipe, setRecipe] = useState(null)
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsDesktop(window.innerWidth >= 768);
+    };
+
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
 
   useEffect(() => {
     const fetchRecipe = async () => {
@@ -70,6 +83,12 @@ const RecipeTemplate = ({ location, pageContext }) => {
     <Layout location={location}>
       <article className="recipe">
         <header>
+          {isDesktop && (
+            <SignComponent content={recipe.personalNote}
+                containerStyle={{position: 'absolute', right: '30px' }}
+                signStyle={{ width: '250px', fontSize: '16px' }} />
+          )}
+
           <h1>{recipe.name}</h1>
           <p>{recipe.rating}</p>
         </header>

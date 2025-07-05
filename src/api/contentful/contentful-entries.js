@@ -149,6 +149,7 @@ async function getAllRecipes() {
             notes {
               json
             }
+            personalNote
             review {
               json
             }

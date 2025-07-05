@@ -4,8 +4,8 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-
 import { useTracking } from "../hooks/useTracking";
+import QuickNavComponent from "./quick-nav";
 
 const NavbarComponent = () => {
   const { trackEvent } = useTracking();
@@ -40,6 +40,9 @@ const NavbarComponent = () => {
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="navbar-nav" />
           <Navbar.Collapse id="navbar-nav">
+
+            <QuickNavComponent />
+
             <Nav className="custom-nav-links">
               {navLinks.map((link) => (
                 link.children ? (
