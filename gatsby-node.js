@@ -23,6 +23,9 @@ exports.createPages = async ({ actions, reporter }) => {
         component: path.resolve(`./src/templates/recipe.js`),
         context: {
           slug: recipe.slug,
+          headers: {
+            'Cache-Control': 'public, max-age=31536000, immutable'
+          }
         },
       });
     });
@@ -39,6 +42,9 @@ exports.createPages = async ({ actions, reporter }) => {
         component: path.resolve(`./src/templates/blog-post.js`),
         context: {
           slug: post.slug,
+          headers: {
+            'Cache-Control': 'public, max-age=31536000, immutable'
+          }
         },
       });
     });
@@ -55,6 +61,9 @@ exports.createPages = async ({ actions, reporter }) => {
         component: path.resolve(`./src/templates/portfolio-preview.js`),
         context: {
           slug: item.slug,
+          headers: {
+            'Cache-Control': 'public, max-age=31536000, immutable'
+          }
         },
       });
     });
