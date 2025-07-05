@@ -33,6 +33,7 @@ const WordCloudComponent = () => {
         { text: "Cybersecurity", value: 700 },
         { text: "Collaboration", value: 850 },
         { text: "Problem Solving", value: 1000 },
+        { text: "VBA", value: 700 },
     ];
 
     const gradients = [
@@ -66,8 +67,8 @@ const WordCloudComponent = () => {
         return <></>;
     }
 
-    const height = window.innerHeight * 0.25; // 25% of viewport height
-    const width = window.innerWidth * 0.75; // 80% of viewport width
+    const height = window.innerHeight * 0.15; // 15% of viewport height
+    const width = window.innerWidth; // 100% of viewport width
 
     return (
         <div

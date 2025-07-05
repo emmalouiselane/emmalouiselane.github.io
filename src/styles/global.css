@@ -176,7 +176,7 @@ body {
   flex-direction: column;
   position: relative;
   margin-top: 100px; /* Navbar height */
-  margin-bottom: 60px; /* Footer height */
+  
 }
 
 /* Navbar styles */
@@ -331,7 +331,7 @@ h4,
 h5,
 h6 {
   font-family: var(--font-heading);
-  margin-top: var(--spacing-12);
+  margin-top: var(--spacing-6);
   margin-bottom: var(--spacing-6);
   line-height: var(--lineHeight-tight);
   letter-spacing: -0.025em;
@@ -392,7 +392,7 @@ p {
   line-height: var(--lineHeight-relaxed);
   --baseline-multiplier: 0.179;
   --x-height-multiplier: 0.35;
-  margin: var(--spacing-0) var(--spacing-0) var(--spacing-8) var(--spacing-0);
+  margin: var(--spacing-0) var(--spacing-0) var(--spacing-6) var(--spacing-0);
   padding: var(--spacing-0);
 }
 
@@ -401,7 +401,7 @@ ol {
   margin-left: var(--spacing-0);
   margin-right: var(--spacing-0);
   padding: var(--spacing-0);
-  margin-bottom: var(--spacing-8);
+  margin-bottom: var(--spacing-6);
   list-style-position: outside;
   list-style-image: none;
 }
@@ -557,6 +557,10 @@ a:focus {
   border-radius: 100%;
 }
 
+.blog-post, .recipe {
+  margin-bottom: 95px; /* Footer height & under construction banner */
+}
+
 .blog-post header h1 {
   margin: var(--spacing-0) var(--spacing-0) var(--spacing-4) var(--spacing-0);
 }
@@ -588,6 +592,10 @@ a:focus {
 
 /* Word Cloud */
 .word-cloud-container {
+  position: fixed;
+  bottom: 90px;
+  left: 0;
+  right: 0;
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -42,6 +42,22 @@ exports.createPages = async ({ actions, reporter }) => {
         },
       });
     });
+    
+    // Get all portfolio items from Contentful
+    const portfolioItems = await entriesClient.getAllPortfolioItems();
+    
+    // Create portfolio item pages
+    portfolioItems.forEach((item) => {
+      const slug = `/portfolio/${item.slug}`;
+
+      createPage({
+        path: slug,
+        component: path.resolve(`./src/templates/portfolio-preview.js`),
+        context: {
+          slug: item.slug,
+        },
+      });
+    });
   } catch (error) {
     reporter.panicOnBuild('Error fetching content from Contentful', error);
   }

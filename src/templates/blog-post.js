@@ -83,8 +83,8 @@ const BlogPostTemplate = ({ location, pageContext }) => {
         <i style={{ display: "flow", textAlign: "center" }}>
           {"Your insights matter! Let's keep the discussion going!"}
         </i>
+        <Bio />
       </article>
-      <Bio />
     </Layout>
   )
 }

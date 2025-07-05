@@ -1,6 +1,9 @@
 // eslint-disable-next-line no-unused-vars
 import * as React from "react"
+import { useState, useEffect } from "react"
 import { Link, graphql } from "gatsby"
+
+import { entriesClient } from "../api/contentful/contentful-entries";
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
@@ -9,7 +12,17 @@ import { useTracking } from "../hooks/useTracking"
 const PortfolioIndex = ({ data, location }) => {
   const { trackEvent } = useTracking();
 
+  const [portfolioItems, setPortfolioItems] = useState([]);
+
   const siteTitle = data.site.siteMetadata?.title || `Title`
+    
+  useEffect(() => {
+    async function getPortfolioItems() {
+      const items = await entriesClient.getAllPortfolioItems();
+      setPortfolioItems(items);
+    }
+    getPortfolioItems();
+  }, []);
 
   const handlePostClick = (slug, title) => {
     trackEvent('portfolio_clicked', {
@@ -22,26 +35,28 @@ const PortfolioIndex = ({ data, location }) => {
     <Layout location={location} title={siteTitle}>
       <div className="portfolio-list">
         <ol style={{ listStyle: `none` }}>
-          <li>
-            <article 
-                  className="post-list-item"
-                  itemScope
-                  itemType="http://schema.org/Article"
-            >
+          {portfolioItems.map((item) => (
+            <li key={item.slug}>
+              <article 
+                    className="post-list-item"
+                    itemScope
+                    itemType="http://schema.org/Article"
+              >
               <header>
                 <h2>
-                  <Link to="/portfolio/2D-portfolio-preview/" 
-                  onClick={() => handlePostClick("2D-portfolio-preview", "2D Portfolio")}>
-                    2D Portfolio
+                  <Link to={`/portfolio/${item.slug}`} 
+                  onClick={() => handlePostClick(item.slug, item.title)}>
+                    {item.title}
                   </Link>
                 </h2>
               </header>
               <section>
-                Small 2D Portfolio built in KaboomJS, still in development - but has minor functionality.
+                <p> {item.description} </p>
               </section>
             </article>
           </li>
-        </ol>
+        ))}
+      </ol>
       </div>
     </Layout>
   )

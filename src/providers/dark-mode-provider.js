@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 
 const DarkModeContext = React.createContext({
-  isDarkMode: false,
+  isDarkMode: true,
   toggleDarkMode: () => {},
 });
 
@@ -11,10 +11,10 @@ export const DarkModeProvider = ({ children }) => {
   const [isDarkMode, setIsDarkMode] = useState(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem("darkMode");
-      const initialValue = saved ? JSON.parse(saved) : false;
+      const initialValue = saved ? JSON.parse(saved) : true;
       return initialValue;
     }
-    return false;
+    return true;
   });
 
   // Add CSS transitions for smoother switching
