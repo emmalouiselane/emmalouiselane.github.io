@@ -7,8 +7,29 @@
 const path = require(`path`)
 const { entriesClient } = require("./src/api/contentful/contentful-entries");
 
+exports.onCreateWebpackConfig = ({ actions }) => {
+  actions.setWebpackConfig({
+    output: {
+      filename: '[name].[contenthash].js',
+      chunkFilename: '[name].[contenthash].chunk.js',
+    },
+  })
+};
+
 exports.createPages = async ({ actions, reporter }) => {
   const { createPage } = actions;
+
+  // Add cache headers for static assets
+  actions.setWebpackConfig({
+    output: {
+      publicPath: '/',
+      filename: '[name].[contenthash].js',
+      chunkFilename: '[name].[contenthash].chunk.js',
+    },
+    optimization: {
+      runtimeChunk: 'single',
+    },
+  });
 
   try {
     // Get all recipes from Contentful
