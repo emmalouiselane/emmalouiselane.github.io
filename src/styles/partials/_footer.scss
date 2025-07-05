@@ -1,0 +1,72 @@
+// Footer styles
+@use "./_variables" as *;
+
+footer {
+  position: fixed;
+  display: flex;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--color-background);
+  z-index: 10;
+  height: 60px;
+
+  .footer-content {
+    display: flex;
+    margin: auto;
+    padding-bottom: var(--spacing-3);
+    align-content: space-between;
+    flex-wrap: wrap;
+    flex: 1;
+
+    &-left {
+      margin-left: var(--spacing-3);
+      margin-right: auto;
+    }
+
+    &-right {
+      margin-left: auto;
+      margin-right: var(--spacing-3);
+    }
+
+    > div {
+      display: flex;
+
+      > .navbar-link,
+      > .navbar-link-disabled {
+        padding: var(--spacing-2) var(--spacing-4);
+        margin: var(--spacing-2);
+        border-radius: var(--spacing-2);
+        text-decoration: none;
+        font-weight: var(--fontWeight-bold);
+        background-color: var(--color-accent-light);
+
+        &.navbar-link {
+          color: var(--color-text) !important;
+          transition: color 0.2s ease, background-color 0.2s ease;
+
+          &:hover {
+            color: var(--color-primary);
+            background-color: var(--color-accent);
+          }
+        }
+
+        &.navbar-link-disabled {
+          color: var(--color-text-light) !important;
+          cursor: default;
+        }
+      }
+    }
+  }
+
+  .social-link,
+  .social-link > .svg-inline--fa {
+    width: 2rem;
+    height: 42px;
+    margin: var(--spacing-1);
+  }
+
+  .badge {
+    margin-top: var(--spacing-1);
+  }
+}

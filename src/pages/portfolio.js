@@ -38,7 +38,7 @@ const PortfolioIndex = ({ data, location }) => {
           {portfolioItems.map((item) => (
             <li key={item.slug}>
               <article 
-                    className="post-list-item"
+                    className="portfolio-list-item"
                     itemScope
                     itemType="http://schema.org/Article"
               >

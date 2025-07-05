@@ -26,7 +26,7 @@ const Footer = () => {
         {/* TODO: Migrate these two links to the about page */}
         {/* <Link className="navbar-link-disabled" aria-disabled="true">Sitemap</Link>
         <Link className="navbar-link-disabled" aria-disabled="true">Changelog</Link> */}
-        <Link className="navbar-link" to="/accessibility-statement">Accessibility Statement</Link>
+        <Link className="navbar-link" to="/accessibility-statement">Accessibility</Link>
         </div>
         <div className="footer-content-right">
         <a id="not-by-ai" className="badge" href="https://notbyai.fyi">

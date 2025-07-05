@@ -42,18 +42,18 @@ const RecipeTemplate = ({ location, pageContext }) => {
   const options = {
     renderNode: {
       [BLOCKS.PARAGRAPH]: (node, children) => {
-        return <p className="blog-post-paragraph">{children}</p>
+        return <p className="recipe-post-paragraph">{children}</p>
       },
       [BLOCKS.HEADING_1]: (node, children) => {
-        return <h2 className="blog-post-heading">{children}</h2>
+        return <h2 className="recipe-post-heading">{children}</h2>
       },
       [BLOCKS.HEADING_2]: (node, children) => {
-        return <h3 className="blog-post-subheading">{children}</h3>
+        return <h3 className="recipe-post-subheading">{children}</h3>
       },
       // [BLOCKS.EMBEDDED_ASSET]: (node) => {
       //   console.log(node)
       //   return (
-      //     <div className="blog-post-image">
+      //     <div className="recipe-post-image">
       //       <img src={node.data.target.fields.file.url} alt={node.data.target.fields.title} />
       //     </div>
       //   )

@@ -1,0 +1,208 @@
+@use "./_variables" as *;
+
+// Accessibility wrapper
+[data-theme="loading"] {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+[data-theme="loaded"] {
+  opacity: 1;
+}
+
+// Box sizing
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+// HTML & Body
+html {
+  line-height: var(--lineHeight-normal);
+  font-size: var(--fontSize-root);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--fontSize-1);
+  color: var(--color-text);
+  background-color: var(--color-background);
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  overflow-y: auto;
+}
+
+hr {
+  background: var(--color-accent);
+  height: 1px;
+  border: 0;
+}
+
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=Spicy+Rice&display=swap');
+
+@keyframes sway {
+    0% {
+        transform: rotate(0);
+        animation-timing-function: ease-in-out;
+    }
+    10% {
+        transform: rotate(-12deg);
+        animation-timing-function: ease-in-out;
+    }
+    30% {
+        transform: rotate(8deg);
+        animation-timing-function: ease-in-out;
+    }
+    45% {
+        transform: rotate(-4deg);
+        animation-timing-function: ease-in-out;
+    }
+    60% {
+        transform: rotate(2deg);
+        animation-timing-function: ease-in-out;
+    }
+    70% {
+        transform: rotate(-.1deg);
+        animation-timing-function: ease-in-out;
+    }
+    75% {
+        transform: rotate(.05deg);
+        animation-timing-function: ease-in-out;
+    }
+    80% {
+        transform: rotate(0);
+        animation-timing-function: ease-in-out;
+    }
+    100% {
+        transform: rotate(0);
+    }
+}
+
+.swinging-sign-container {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    height: 50vh;
+    overflow: hidden;
+}
+
+.swinging-sign {
+    position: relative;
+    margin-top: 65px;
+    display: inline-block;
+    font-style: italic;
+    text-align: center;
+    line-height: 1;
+    font-size: 48px;
+    padding: 32px 32px 24px 32px;
+    cursor: pointer;
+    animation: sway 6s linear forwards;
+    transform-origin: 50% -32px;
+    background: linear-gradient(to right, #eeceba 0%, #eeceba 100%),
+                linear-gradient(to right, #eeceba 0%, #eeceba 100%),
+                linear-gradient(to right, #eeceba 0%, #eeceba 100%),
+                linear-gradient(to right, #eeceba 0%, #eeceba 100%),
+        
+                radial-gradient(circle at 100% 100%, #eeceba 0%, #eeceba 44%, var(--color-text-light) 46%, var(--color-text-light) 55%, #eeceba 57%, #eeceba 70%, transparent 72%, transparent 100%),
+                radial-gradient(circle at 0 100%,    #eeceba 0%, #eeceba 44%, var(--color-text-light) 46%, var(--color-text-light) 55%, #eeceba 57%, #eeceba 70%, transparent 72%, transparent 100%),
+                radial-gradient(circle at 0 0,       #eeceba 0%, #eeceba 44%, var(--color-text-light) 46%, var(--color-text-light) 55%, #eeceba 57%, #eeceba 70%, transparent 72%, transparent 100%),
+                radial-gradient(circle at 100% 0,    #eeceba 0%, #eeceba 44%, var(--color-text-light) 46%, var(--color-text-light) 55%, #eeceba 57%, #eeceba 70%, transparent 72%, transparent 100%),
+
+                linear-gradient(to top,    #eeceba 0%, #eeceba 63%, var(--color-text-light) 65%, var(--color-text-light) 78%, #eeceba 80%, #eeceba 100%),
+                linear-gradient(to bottom, #eeceba 0%, #eeceba 63%, var(--color-text-light) 65%, var(--color-text-light) 78%, #eeceba 80%, #eeceba 100%),
+
+                linear-gradient(to left,   #eeceba 0%, #eeceba 63%, var(--color-text-light) 65%, var(--color-text-light) 78%, #eeceba 80%, #eeceba 100%),
+                linear-gradient(to left,   #eeceba 0%, #eeceba 63%, var(--color-text-light) 65%, var(--color-text-light) 78%, #eeceba 80%, #eeceba 100%),
+                linear-gradient(to right,  #eeceba 0%, #eeceba 63%, var(--color-text-light) 65%, var(--color-text-light) 78%, #eeceba 80%, #eeceba 100%),
+                linear-gradient(to right,  #eeceba 0%, #eeceba 63%, var(--color-text-light) 65%, var(--color-text-light) 78%, #eeceba 80%, #eeceba 100%),
+
+                radial-gradient(circle at 0 50%,    transparent 0%, transparent 30%, #eeceba 32%, #eeceba 42%, var(--color-text-light) 44%, var(--color-text-light) 48%, #eeceba 50%, #eeceba 100%),
+                radial-gradient(circle at 100% 50%, transparent 0%, transparent 30%, #eeceba 32%, #eeceba 42%, var(--color-text-light) 44%, var(--color-text-light) 48%, #eeceba 50%, #eeceba 100%),
+
+                linear-gradient(to right, #eeceba 0%, #eeceba 100%);
+    
+    background-size: 3px 3px,
+        3px 3px,
+        3px 3px,
+        3px 3px,
+        
+        16px 16px,
+        16px 16px,
+        16px 16px,
+        16px 16px,
+        
+        calc(100% - 32px + 4px) 16px,
+        calc(100% - 32px + 4px) 16px,
+        
+        16px calc(50% - 32px),
+        16px calc(50% - 32px),
+        16px calc(50% - 32px),
+        16px calc(50% - 32px),
+        
+        32px 32px,
+        32px 32px,
+        
+        calc(100% - 32px + 4px) calc(100% - 32px);
+    
+    background-position: 0 calc(50% - 16px),
+        100% calc(50% - 16px),
+        0 calc(50% + 16px),
+        100% calc(50% + 16px),
+        
+        0 0,
+        100% 0,
+        100% 100%,
+        0 100%,
+        
+        calc(16px - 1px) 0,
+        calc(16px - 1px) 100%,
+        
+        0 16px,
+        0 calc(100% - 16px),
+        100% 16px,
+        100% calc(100% - 16px),
+        
+        0 50%,
+        100% 50%,
+        
+        calc(16px - 1px) 16px;
+    
+    background-repeat: no-repeat;
+    
+    &::before {
+        content: '';
+        height: 2px;
+        width: 51%;
+        position: absolute;
+        top: -16px;
+        left: 0;
+        z-index: -1;
+        transform: rotate(-15deg);
+        opacity: 0.6;
+        background: linear-gradient(to right, transparent 0%, transparent 25%, var(--color-primary) 25%,  var(--color-primary) 100%);
+    }
+    
+    &::after {
+        content: '';
+        height: 2px;
+        width: 51%;
+        position: absolute;
+        top: -16px;
+        right: 0;
+        z-index: -1;
+        transform: rotate(15deg);
+        opacity: 0.6;
+        background: linear-gradient(to left, transparent 0%, transparent 25%, var(--color-primary) 25%,  var(--color-primary) 100%);
+    }
+}

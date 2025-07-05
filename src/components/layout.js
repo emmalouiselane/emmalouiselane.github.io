@@ -1,9 +1,8 @@
 // eslint-disable-next-line no-unused-vars
-import React from "react"
+import * as React from "react"
 import { useState, useEffect } from "react"
 
 import Seo from "../components/seo"
-import SiteBanner from "../components/site-banner"
 import NavbarComponent from "../components/navbar"
 import Footer from "../components/footer"
 
@@ -29,7 +28,6 @@ const Layout = ({ location, children }) => {
             </div>
           </main>
 
-          <SiteBanner />
           <footer>
             <Footer />
           </footer>

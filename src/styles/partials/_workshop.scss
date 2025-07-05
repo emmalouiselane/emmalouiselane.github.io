@@ -1,0 +1,66 @@
+// Workshop styles
+@use "./_variables" as *;
+
+.workshop-list {
+  > ol {
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  > ol > li {
+    border-radius: var(--spacing-2);
+    min-width: 150px;
+    width: 25vw;
+    max-width: 275px;
+    height: 125px;
+    margin: var(--spacing-2);
+    padding: 2px;
+    background-color: #e0e0e0a8;
+    border: 2px dashed #ccc;
+  }
+
+  .workshop-link, .workshop-link-disabled {
+    width: -webkit-fill-available;
+    height: -webkit-fill-available;
+    display: block;
+    text-align: center;
+    align-content: center;
+    text-decoration: none;
+    color: var(--color-text) !important;
+    font-weight: var(--fontWeight-bold);
+    transition: color 0.2s ease, background-color 0.2s ease;
+
+    div {
+      text-align: center;
+      padding: 0;
+      margin: 0;
+      display: block;
+      background-color: var(--color-background);
+      border: 2px dashed #ccc;
+      border-radius: 2px;
+      height: 100%;
+      align-content: center;
+
+      p {
+        font-size: 14px;
+        letter-spacing: 0.25em;
+        text-align: center;
+        text-transform: uppercase;
+        padding: 0;
+        margin: 0;
+        display: block;
+      }
+    }
+
+    &.workshop-link div:hover {
+      color: var(--color-primary);
+      background-color: #ecd26d40;
+    }
+
+    &.workshop-link-disabled div p {
+      cursor: default;
+    }
+  }
+}

@@ -35,30 +35,7 @@ const WordCloudComponent = () => {
         { text: "Problem Solving", value: 1000 },
         { text: "VBA", value: 700 },
     ];
-
-    const gradients = [
-        {
-            id: "gradient1",
-            type: "linear",
-            stops: [
-                { offset: "0%", color: "#00674F" },
-                { offset: "100%", color: "#2E6F40" },
-            ],
-        },
-        {
-            id: "gradient2",
-            type: "linear",
-            stops: [
-                { offset: "0%", color: "#05472A" },
-                { offset: "100%", color: "#2C5F34" },
-            ],
-        },
-    ];
       
-    const resolveFill = (_word, index) => {
-        return index % 3 === 0 ? "url(#gradient1)" : "url(#gradient2)";
-    };
-
     const animatedWordRenderer = (data, ref) => (
         <AnimatedWordRenderer ref={ref} data={data} animationDelay={(_word, index) => index * 100} />
     );
@@ -71,16 +48,17 @@ const WordCloudComponent = () => {
     const width = window.innerWidth; // 100% of viewport width
 
     return (
-        <div
-            className="word-cloud"
-            style={{
-                width: width,
-                height: height,
-            }}
-            >
-            <WordCloud words={words} width={width} height={height} 
-                gradients={gradients} fill={resolveFill}
-                renderWord={animatedWordRenderer} />
+        <div className="word-cloud" >
+            <div className="outer-border">
+                <div className="mid-border">
+                    <div className="inner-border">
+                        <img className="vertical-decoration top" alt="Vertical Decoration - Top" src="https://i.ibb.co/JRTK9z4/horizontally-centered-vertical-decoration.png" />
+                        <img className="vertical-decoration bottom" alt="Vertical Decoration - Bottom" src="https://i.ibb.co/JRTK9z4/horizontally-centered-vertical-decoration.png" />
+                        
+                        <WordCloud words={words} width={width} height={height} renderWord={animatedWordRenderer} />
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }

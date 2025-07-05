@@ -5,9 +5,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import "@fontsource-variable/montserrat"
 import "@fontsource/merriweather"
 
-// normalize CSS across browsers
-import "./src/styles/normalize.css"
-import "./src/styles/global.css"
+import './src/styles/global.scss'
 
 // Highlighting for code blocks
 import "prismjs/themes/prism.css"

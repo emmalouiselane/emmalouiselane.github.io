@@ -44,6 +44,12 @@ const Seo = ({ description, title, children }) => {
       />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={metaDescription} /> */}
+
+      <link
+        href="https://fonts.googleapis.com/css2?family=Josefin+Slab:wght@400;700&display=swap"
+        rel="stylesheet"
+      />
+
       {children}
     </>
   )

@@ -9,8 +9,20 @@ import WordCloudComponent from "../components/word-cloud"
 const Index = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata?.title || `Title`;
 
+  const handleSwingClick = () => {
+    const sign = document.querySelector('.swinging-sign');
+    sign.style.animation = 'none';
+    sign.offsetHeight; // trigger reflow
+    sign.style.animation = 'sway 6s linear forwards';
+  };
+
   return (
     <Layout location={location} title={siteTitle}>
+
+      <div className="swinging-sign-container">
+        <div className='swinging-sign' onClick={handleSwingClick}>Under Construction</div>
+      </div>
+
       <div className="word-cloud-container">
         <WordCloudComponent />
       </div>
