@@ -5,6 +5,12 @@ Built with **Gatsby 5**, Contentful, and modern tooling.
 
 ---
 
+## 📊 Page Speed
+
+https://pagespeed.web.dev/analysis/https-sparklane-dev/bdvg7izmx9?form_factor=desktop
+
+---
+
 ## ✨ Features
 
 | Area | What we use |
