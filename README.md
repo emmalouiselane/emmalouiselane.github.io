@@ -58,11 +58,11 @@ npm run serve        # optional: serve the build locally
 ```
 .
 ├── src
+│   ├── api             # API clients (Contentful)
 │   ├── components      # Reusable UI (Navbar, SEO, Word Cloud…)
 │   ├── hooks           # Custom React hooks (PostHog tracking)
-│   ├── providers       # Context providers (DarkMode)
 │   ├── pages           # Static & CMS-sourced pages
-│   ├── templates       # Gatsby page templates (blog, recipe)
+│   ├── templates       # Gatsby page templates (blog, recipe, portfolio)
 │   └── styles          # Global & component CSS
 ├── gatsby-config.js    # Plugin & metadata configuration
 ├── gatsby-node.js      # Dynamic page creation from Contentful

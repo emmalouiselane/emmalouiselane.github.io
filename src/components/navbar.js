@@ -5,8 +5,6 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
-import DarkModeToggle from "./dark-mode-toggle";
-
 import { useTracking } from "../hooks/useTracking";
 
 const NavbarComponent = () => {
@@ -35,7 +33,6 @@ const NavbarComponent = () => {
   return (
       <Navbar expand="md" fixed="top">
         <Container className="custom-navbar-container">
-          <DarkModeToggle />
           <Navbar.Brand href="/">
             <h1 className="main-heading" style={{ fontSize: "150%" }}>
               Spark Lane Dev

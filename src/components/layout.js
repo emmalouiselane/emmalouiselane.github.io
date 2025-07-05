@@ -2,8 +2,6 @@
 import React from "react"
 import { useState, useEffect } from "react"
 
-import { DarkModeProvider } from "../providers/dark-mode-provider"
-
 import Seo from "../components/seo"
 import SiteBanner from "../components/site-banner"
 import NavbarComponent from "../components/navbar"
@@ -22,7 +20,6 @@ const Layout = ({ location, children }) => {
 
   return (
       <>
-        <DarkModeProvider>  
           <Seo />
           <NavbarComponent />
 
@@ -36,7 +33,6 @@ const Layout = ({ location, children }) => {
           <footer>
             <Footer />
           </footer>
-        </DarkModeProvider>
       </>
   )
 }
