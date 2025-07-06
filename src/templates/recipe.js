@@ -83,14 +83,19 @@ const RecipeTemplate = ({ location, pageContext }) => {
     <Layout location={location}>
       <article className="recipe">
         <header>
-          {isDesktop && (
+          {isDesktop && recipe.personalNote && (
             <SignComponent content={recipe.personalNote}
                 containerStyle={{position: 'absolute', right: '30px' }}
                 signStyle={{ width: '250px', fontSize: '16px' }} />
           )}
 
           <h1>{recipe.name}</h1>
-          <p>{recipe.rating}</p>
+
+          <div className="recipe-rating">
+            {recipe.rating && Array(recipe.rating).fill().map((_, index) => (
+              <span key={index}>⭐</span>
+            ))}
+          </div>
         </header>
         
         {/* Add Recipe Images */}
