@@ -39,7 +39,7 @@ export const onRenderBody = (
       />
   );
   const tinylyticsScript = (
-    <script src="https://tinylytics.app/embed/XpJY1f7mwvZcsmaUenvF.js" defer></script>
+    <script src="https://tinylytics.app/embed/XpJY1f7mwvZcsmaUenvF.js?kudos=❤️" />
   );
 
   setHeadComponents([posthogScript, tinylyticsScript]);

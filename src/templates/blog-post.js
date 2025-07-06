@@ -13,6 +13,8 @@ const BlogPostTemplate = ({ location, pageContext }) => {
   const { slug } = pageContext
   const { trackEvent } = useTracking()
   const [post, setPost] = useState(null)
+  const [kudosInitialized, setKudosInitialized] = useState(false);
+
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -31,6 +33,14 @@ const BlogPostTemplate = ({ location, pageContext }) => {
       fetchPost()
     }
   })
+
+  useEffect(() => {
+    const button = document.querySelector('.tinylytics_kudos');
+    if (button) {
+      button.setAttribute('data-path', `/blog-posts/${post.slug}`);
+      setKudosInitialized(true);
+    }
+  }, [post]);
 
   if (!post) {
     return (
@@ -74,6 +84,7 @@ const BlogPostTemplate = ({ location, pageContext }) => {
         <header>
           <h1>{post.title}</h1>
           <p>{moment(post.date).format("MMMM DD, YYYY")}</p>
+          {!kudosInitialized && <button className="tinylytics_kudos"></button>}
         </header>
         
         <div>
