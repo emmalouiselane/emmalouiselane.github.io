@@ -15,7 +15,7 @@ https://pagespeed.web.dev/analysis/https-sparklane-dev/bdvg7izmx9?form_factor=de
 
 | Area | What we use |
 |------|-------------|
-| Styling | PostCSS + CSS Custom Properties, Bootstrap 5 utility classes |
+| Styling | (S)CSS Custom Properties, Bootstrap 5 utility classes |
 | CMS | [Contentful](https://www.contentful.com/) (blog posts & recipes) |
 | Images | `gatsby-plugin-image` & `gatsby-remark-images` |
 | SEO | Sitemap, robots.txt, canonical URLs, Open-Graph/Twitter meta, social share image |
