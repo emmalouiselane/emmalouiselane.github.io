@@ -6,11 +6,14 @@ import moment from "moment"
 //import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 
 import { entriesClient } from "../api/contentful/contentful-entries";
+import { useTracking } from "../hooks/useTracking"
 import { Link, graphql } from "gatsby"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
-import { useTracking } from "../hooks/useTracking"
+
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
 
 const BlogIndex = ({ data, location }) => {
   const { trackEvent } = useTracking();
@@ -45,13 +48,12 @@ const BlogIndex = ({ data, location }) => {
   } else {
     return (
       <Layout location={location} title={siteTitle}>
-        <div className="blog-list">
-          <ol style={{ listStyle: `none` }}>
-            {blogPosts.map(post => {
+        <Container  className="blog-list"> 
+          {blogPosts.map(post => {
               const title = post.title
   
               return (
-                <li key={post.slug}>
+                <Row key={post.slug}>
                   <article
                     className="post-list-item"
                     itemScope
@@ -70,11 +72,10 @@ const BlogIndex = ({ data, location }) => {
                       <p>{post.description}</p>
                     </section>
                   </article>
-                </li>
+                </Row>
               )
             })}
-          </ol>
-        </div>
+        </Container>
       </Layout>
     )
   }

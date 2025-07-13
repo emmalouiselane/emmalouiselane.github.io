@@ -2,25 +2,34 @@
 
 .recipe {
   margin: var(--spacing-0) var(--spacing-4) 95px var(--spacing-4); // Footer height & under construction banner
-}
 
-.recipe header {
+  header {
     display: flex;
 
     .recipe-rating {
        padding: 10px
     }
-}
 
-.recipe header h1 {
-  margin: var(--spacing-0) var(--spacing-0) var(--spacing-4) var(--spacing-0);
-  width: fit-content
+    h1 {
+      margin: var(--spacing-0) var(--spacing-0) var(--spacing-4) var(--spacing-0);
+      width: fit-content
+    }
+  }
+
+  .row > ul {
+    margin-left: var(--spacing-3);
+    margin-bottom: var(--spacing-2);
+  }
+
+  .row > ol {
+    margin-left: var(--spacing-3);
+  }
 }
 
 // Post list item
 .recipe-list-item {
   margin-bottom: var(--spacing-8);
-  margin-top: var(--spacing-8);
+  margin-top: var(--spacing-4);
 }
 
 .recipe-list-item p {
@@ -36,4 +45,9 @@
 
 .recipe-list-item header {
   margin-bottom: var(--spacing-4);
+}
+
+.recipe-post-paragraph {
+  margin: var(--spacing-0) var(--spacing-0) var(--spacing-2) var(--spacing-0);
+  width: fit-content;
 }

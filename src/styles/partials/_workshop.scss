@@ -2,19 +2,26 @@
 @use "./_variables" as *;
 
 .workshop-list {
-  > ol {
+  text-align: center;
+
+  > .row > .col {
     list-style-type: none;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
   }
 
-  > ol > li {
+  > .row > .col > a {
     border-radius: var(--spacing-2);
-    margin: var(--spacing-2);
+    margin: var(--spacing-4);
     padding: var(--spacing-1);
     background-color: #e0e0e0a8;
     border: 2px dashed #ccc;
+
+    > div > p {
+      width: -webkit-fill-available;
+      text-align: center;
+    }
   }
 
   .workshop-link, .workshop-link-disabled {
@@ -38,6 +45,7 @@
       border-radius: 2px;
       height: 100%;
       align-content: center;
+      text-align: center;
 
       p {
         width: 135px;
@@ -47,6 +55,7 @@
         text-transform: uppercase;
         margin: 0;
         display: block;
+      text-align: center;
       }
     }
 

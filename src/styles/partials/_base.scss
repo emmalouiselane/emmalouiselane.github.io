@@ -52,3 +52,14 @@ hr {
   height: 1px;
   border: 0;
 }
+
+.gray-emoji-fill {
+  color: transparent;
+  text-shadow: 0 0 0 #ccc;
+}
+
+@media (min-width: 1800px) {
+  .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+    max-width: 1780px;
+  }
+}

@@ -6,6 +6,10 @@ import Layout from "../components/layout"
 import Seo from "../components/seo"
 import { useTracking } from "../hooks/useTracking"
 
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+
 const WorkshopIndex = ({ data, location }) => {
   const { trackEvent } = useTracking();
 
@@ -17,41 +21,51 @@ const WorkshopIndex = ({ data, location }) => {
     });
   };
 
-  const introductionText = [
-    "This is more of a personal workspace for me - maybe even as far as saying this is my workshop.",
-    "This will be the home of my favourite and go to recipes, musings about any current reads, talk about any obsessions with what I'm watching or listening to as well as personal guides and notes for any games that I play.",
-    "I will be updating this page as I go, so expect it to be a work in progress.",
-  ]
-
-  const workshop = [
-    { slug: "cooking", title: "Cooking", enabled: true },
-    { slug: "reading", title: "Reading" },
-    { slug: "watching", title: "Watching" },
-    { slug: "listening", title: "Listening" },
-    { slug: "gaming", title: "Gaming" },
-    { slug: "suggestions", title: "Suggestions" },
-  ];
-
   return (
     <Layout location={location} title={siteTitle}>
-      <div className="workshop-list">
-        {introductionText.map((text, index) => (
-          <p key={index}>{text}</p>
-        ))}
-        <ol>
-          {workshop.map((space) => (
-            <li key={space.slug}>
-              {space.enabled ? 
-              (<Link className="workshop-link" to={`/workshop/${space.slug}/`} onClick={() => handlePostClick(space.slug)}>
-                <div><p>{space.title}</p></div>
-              </Link>) 
-              : (<Link className="workshop-link-disabled" onClick={() => handlePostClick(space.slug)} aria-disabled>
-                  <div><p>{space.title}</p></div>
-                </Link>)}
-            </li>
-          ))}
-        </ol>
-      </div>
+      <Container className="workshop-list">
+        <Row>
+           <h2>Welcome to my workshop!</h2>
+       
+           <p>This is more of a personal workspace for me, including my favourite and go to recipes, musings about any current reads, talking about any obsessions with what I'm watching or listening to as well as personal guides and notes for any games that I play.</p>
+           <p>I will be updating this page as I go, so expect it to be a work in progress.</p>
+        </Row>
+       
+        <Row>
+          <Col>
+            <Link className="workshop-link" to={`/workshop/cooking/`} onClick={() => handlePostClick("cooking")}>
+              <div><p>Cooking</p></div>
+            </Link>
+          </Col>
+          <Col>
+            <Link className="workshop-link-disabled" aria-disabled>
+              <div><p>Reading</p></div>
+            </Link>
+          </Col>
+          <Col>
+            <Link className="workshop-link-disabled" aria-disabled>
+              <div><p>Watching</p></div>
+            </Link>
+          </Col>
+       </Row>
+       <Row>
+          <Col>
+            <Link className="workshop-link-disabled" aria-disabled>
+              <div><p>Listening</p></div>
+            </Link>
+          </Col>
+          <Col>
+            <Link className="workshop-link-disabled" aria-disabled>
+              <div><p>Gaming</p></div>
+            </Link>
+          </Col>
+          <Col>
+            <Link className="workshop-link-disabled" aria-disabled>
+              <div><p>Suggestions</p></div>
+            </Link>
+          </Col>
+       </Row>
+      </Container>
     </Layout>
   )
 }

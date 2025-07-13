@@ -9,6 +9,10 @@ import { useTracking } from "../hooks/useTracking"
 import { BLOCKS, MARKS } from '@contentful/rich-text-types';
 import { documentToReactComponents  } from "@contentful/rich-text-react-renderer";
 
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+
 const RecipeTemplate = ({ location, pageContext }) => {
   const { slug } = pageContext
   const { trackEvent } = useTracking()
@@ -81,50 +85,60 @@ const RecipeTemplate = ({ location, pageContext }) => {
 
   return (
     <Layout location={location}>
-      <article className="recipe">
-        <header>
-          {isDesktop && recipe.personalNote && (
-            <SignComponent content={recipe.personalNote}
-                containerStyle={{position: 'absolute', right: '30px' }}
-                signStyle={{ width: '250px', fontSize: '16px' }} />
+      <Container className="recipe">
+        <article className="recipe">
+          <header>
+            {isDesktop && recipe.personalNote && (
+              <SignComponent content={recipe.personalNote}
+                  containerStyle={{position: 'absolute', top: '100px', right: '30px' }}
+                  signStyle={{ width: '250px', fontSize: '16px' }} />
+            )}
+
+            <h1>{recipe.name}</h1>
+
+            <div className="recipe-rating">
+              {recipe.rating ? Array(recipe.rating).fill().map((_, index) => (
+                <span key={index}>⭐</span>
+              )) : <span className="gray-emoji-fill">⭐ Untried</span>}
+            </div>
+          </header>
+          
+          {/* Add Recipe Images */}
+
+          {recipe.ingredients && (
+            <Row>
+              <Col>
+                {documentToReactComponents(recipe.ingredients.json, options)}
+              </Col>
+
+              {recipe.ingredients2 && (
+                <Col>
+                  {documentToReactComponents(recipe.ingredients2.json, options)}
+                </Col>
+              )}
+            </Row>
           )}
-
-          <h1>{recipe.name}</h1>
-
-          <div className="recipe-rating">
-            {recipe.rating && Array(recipe.rating).fill().map((_, index) => (
-              <span key={index}>⭐</span>
-            ))}
-          </div>
-        </header>
+          
+          {recipe.directions && (
+            <Row>
+              {documentToReactComponents(recipe.directions.json, options)}
+            </Row>
+          )}
+          
+          {recipe.notes && (
+            <Row>
+              {documentToReactComponents(recipe.notes.json, options)}
+            </Row>
+          )}
+          
+          {recipe.review && (
+            <Row>
+              {documentToReactComponents(recipe.review.json, options)}
+            </Row>
+          )}
         
-        {/* Add Recipe Images */}
-
-        {recipe.ingredients && (
-          <div>
-            {documentToReactComponents(recipe.ingredients.json, options)}
-          </div>
-        )}
-        
-        {recipe.directions && (
-          <div>
-            {documentToReactComponents(recipe.directions.json, options)}
-          </div>
-        )}
-        
-        {recipe.notes && (
-          <i>
-            {documentToReactComponents(recipe.notes.json, options)}
-          </i>
-        )}
-        
-        {recipe.review && (
-          <div>
-            {documentToReactComponents(recipe.review.json, options)}
-          </div>
-        )}
-        
-      </article>
+        </article>
+      </Container>
     </Layout>
   )
 }

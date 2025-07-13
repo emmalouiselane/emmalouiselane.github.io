@@ -143,6 +143,9 @@ async function getAllRecipes() {
             ingredients {
               json
             }
+            ingredients2 {
+              json
+            }
             directions {
               json
             }

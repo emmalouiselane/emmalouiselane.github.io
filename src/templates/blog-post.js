@@ -9,6 +9,10 @@ import { BLOCKS, MARKS } from '@contentful/rich-text-types';
 import { documentToReactComponents  } from "@contentful/rich-text-react-renderer";
 import Bio from "../components/bio"
 
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+
 const BlogPostTemplate = ({ location, pageContext }) => {
   const { slug } = pageContext
   const { trackEvent } = useTracking()
@@ -80,22 +84,27 @@ const BlogPostTemplate = ({ location, pageContext }) => {
 
   return (
     <Layout location={location}>
-      <article className="blog-post">
-        <header>
-          <h1>{post.title}</h1>
-          <p>{moment(post.date).format("MMMM DD, YYYY")}</p>
-          {!kudosInitialized && <button className="tinylytics_kudos"></button>}
-        </header>
-        
-        <div>
-          {documentToReactComponents(post.blogContent.json, options)}
-        </div>
-        
-        <i style={{ display: "flow", textAlign: "center" }}>
-          {"Your insights matter! Let's keep the discussion going!"}
-        </i>
-        <Bio />
-      </article>
+      <Container className="blog-post">
+        <article>
+          <header>
+            <h1>{post.title}</h1>
+            <p>{moment(post.date).format("MMMM DD, YYYY")}</p>
+            {!kudosInitialized && <button className="tinylytics_kudos"></button>}
+          </header>
+          
+          <Row>
+            {documentToReactComponents(post.blogContent.json, options)}
+          </Row>
+          
+          <Row>
+            <i style={{ display: "flow", textAlign: "center" }}>
+              {"Your insights matter! Let's keep the discussion going!"}
+            </i>
+          </Row>
+          
+          <Bio />
+        </article>
+      </Container>
     </Layout>
   )
 }

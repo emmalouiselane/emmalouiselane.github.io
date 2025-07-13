@@ -5,6 +5,7 @@
 @use "./partials/_blog" as *;
 @use "./partials/_navbar" as *;
 @use "./partials/_footer" as *;
+@use "./partials/_portfolio" as *;
 @use "./partials/_workshop" as *;
 @use "./partials/_wordCloud" as *;
 @use "./partials/_recipe" as *;
@@ -17,11 +18,6 @@
   flex-direction: column;
   position: relative;
   margin-top: 100px; // Navbar height
-}
-
-// Content wrapper
-.content-wrapper {
-  margin: 0 var(--spacing-4);
 }
 
 // Accessibility wrapper

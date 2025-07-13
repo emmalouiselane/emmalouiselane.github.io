@@ -9,6 +9,9 @@ import Layout from "../components/layout"
 import Seo from "../components/seo"
 import { useTracking } from "../hooks/useTracking"
 
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+
 const PortfolioIndex = ({ data, location }) => {
   const { trackEvent } = useTracking();
 
@@ -33,10 +36,9 @@ const PortfolioIndex = ({ data, location }) => {
 
   return (
     <Layout location={location} title={siteTitle}>
-      <div className="portfolio-list">
-        <ol style={{ listStyle: `none` }}>
+      <Container className="portfolio-list">
           {portfolioItems.map((item) => (
-            <li key={item.slug}>
+            <Row key={item.slug}>
               <article 
                     className="portfolio-list-item"
                     itemScope
@@ -54,10 +56,9 @@ const PortfolioIndex = ({ data, location }) => {
                 <p> {item.description} </p>
               </section>
             </article>
-          </li>
+          </Row>
         ))}
-      </ol>
-      </div>
+      </Container>
     </Layout>
   )
 }

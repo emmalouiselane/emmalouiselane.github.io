@@ -9,6 +9,9 @@ import Layout from "../../components/layout"
 import Seo from "../../components/seo"
 import { useTracking } from "../../hooks/useTracking"
 
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+
 const CookingIndex = ({ data, location }) => {
   const { trackEvent } = useTracking();
 
@@ -34,19 +37,20 @@ const CookingIndex = ({ data, location }) => {
   if (recipes.length === 0) {  
     return (
       <Layout location={location} title={siteTitle}>
-        <p>
-          No recipes found.
-        </p>
+        <Container>
+          <Row>
+            No recipes found.
+          </Row>
+        </Container>
       </Layout>
     )
   } else {
     return (
       <Layout location={location} title={siteTitle}>
-        <div className="recipe-list">
-          <ol style={{ listStyle: `none` }}>
-            {recipes.map(recipe => {  
+        <Container className="recipe-list"> 
+            {recipes.sort((a, b) => a.name.localeCompare(b.name)).map(recipe => {  
               return (
-                <li key={recipe.slug}>
+                <Row key={recipe.slug}>
                   <article
                     className="recipe-list-item"
                     itemScope
@@ -59,17 +63,20 @@ const CookingIndex = ({ data, location }) => {
                           <span itemProp="headline">{recipe.name}</span>
                         </Link>
                       </h2>
-                      {/* Rating */}
+                      <div className="recipe-rating">
+                        {recipe.rating ? Array(recipe.rating).fill().map((_, index) => (
+                          <span key={index}>⭐</span>
+                        )) : <span className="gray-emoji-fill">⭐ Untried</span>}
+                      </div>
                     </header>
                     <section>
                       {/* <p>{recipe.description}</p> */}
                     </section>
                   </article>
-                </li>
+                </Row>
               )
             })}
-          </ol>
-        </div>
+        </Container>
       </Layout>
     )
   }
