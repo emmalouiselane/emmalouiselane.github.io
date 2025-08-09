@@ -7,6 +7,12 @@ import { entriesClient } from "../api/contentful/contentful-entries"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import { useTracking } from "../hooks/useTracking"
+import { BLOCKS, MARKS } from '@contentful/rich-text-types';
+import { documentToReactComponents  } from "@contentful/rich-text-react-renderer";
+
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 const PortfolioPreviewTemplate = ({ data, location, pageContext }) => {
   const { slug } = pageContext
@@ -41,22 +47,69 @@ const PortfolioPreviewTemplate = ({ data, location, pageContext }) => {
     )
   }
 
+  console.log(portfolioItem)
+
+  // Define custom render options for rich text
+    const options = {
+      renderNode: {
+        [BLOCKS.PARAGRAPH]: (node, children) => {
+          return <p className="recipe-post-paragraph">{children}</p>
+        },
+        [BLOCKS.HEADING_1]: (node, children) => {
+          return <h2 className="recipe-post-heading">{children}</h2>
+        },
+        [BLOCKS.HEADING_2]: (node, children) => {
+          return <h3 className="recipe-post-subheading">{children}</h3>
+        },
+        // [BLOCKS.EMBEDDED_ASSET]: (node) => {
+        //   console.log(node)
+        //   return (
+        //     <div className="recipe-post-image">
+        //       <img src={node.data.target.fields.file.url} alt={node.data.target.fields.title} />
+        //     </div>
+        //   )
+        // },
+      },
+      renderMark: {
+        [MARKS.BOLD]: (text) => <strong>{text}</strong>,
+        [MARKS.ITALIC]: (text) => <em>{text}</em>,
+        [MARKS.UNDERLINE]: (text) => <u>{text}</u>,
+      },
+    }
+
   return (
     <Layout location={location} title={siteTitle}>
-      <div className="portfolio-item-content">
-        <h2>
-            {portfolioItem.title}
-        </h2>
-        <p> {portfolioItem.detailedDescription} </p>
-        <div style={{ width: "-webkit-fill-available", height: "-webkit-fill-available", overflow: "hidden" }}>
-          {portfolioItem.isIframe && (
-            <iframe src={portfolioItem.externalUrl} title={portfolioItem.title} width="100%" height="500px"></iframe>
-          )}
+      <Container className="portfolio-item-content">
+        <article>
+          <header>
+            <h2>
+                {portfolioItem.title}
+            </h2>
+          </header>
+          {portfolioItem.detailedDescription ? 
+          (<p> {portfolioItem.detailedDescription} </p>)
+          : (<p> {portfolioItem.description} </p>)}
+
+          <section>
+            {portfolioItem.features && (
+              <Row>
+                {documentToReactComponents(portfolioItem.features.json, options)}
+              </Row>
+            )}
+          </section>
           
-          <a href={portfolioItem.externalUrl} style={{ display: "flow", textAlign: "center" }} target="_blank" rel="noopener noreferrer">View in a new tab</a>
-          
-        </div>
-      </div>
+          <div style={{ width: "-webkit-fill-available", height: "-webkit-fill-available", overflow: "hidden" }}>
+            {portfolioItem.isIframe ? (
+              <>
+                <iframe src={portfolioItem.externalUrl} title={portfolioItem.title} width="100%" height="500px"></iframe>
+                <a href={portfolioItem.externalUrl} style={{ display: "flow", textAlign: "center" }} target="_blank" rel="noopener noreferrer">Explore in a new tab</a>
+              </>
+            ) : (
+              <a href={portfolioItem.externalUrl} style={{ display: "flow", textAlign: "center" }} target="_blank" rel="noopener noreferrer">Explore</a>
+            )}
+          </div>
+        </article>
+      </Container>
     </Layout>
   )
 }

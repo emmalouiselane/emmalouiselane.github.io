@@ -45,7 +45,11 @@ async function getAllPortfolioItems() {
             }
             title
             slug
+            description
             detailedDescription
+            features {
+              json
+            }
             externalUrl
             isInDevelopment
             isIframe
