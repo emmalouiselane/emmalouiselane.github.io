@@ -19,7 +19,7 @@ const NavbarComponent = () => {
 
   const navLinks = [
     { text: "Blog", path: "/blog-posts/" },
-    { text: "Portfolio", path: "/portfolio/" }, 
+    // { text: "Portfolio", path: "/portfolio/" }, 
     { text: "Workshop", path: "/workshop/" },
     // { text: "Workshop", path: "/workshop/", children: [
     //     { text: "Cooking", path: "/workshop/cooking/" },
@@ -35,7 +35,7 @@ const NavbarComponent = () => {
         <Container className="custom-navbar-container">
           <Navbar.Brand href="/">
             <h1 className="main-heading" style={{ fontSize: "150%" }}>
-              Spark Lane Dev
+              Emerald Spark
             </h1>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="navbar-nav" />

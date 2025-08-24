@@ -15,7 +15,7 @@ const SignComponent = ({ content, containerStyle, signStyle }) => {
             style={signStyle}
             onClick={handleSwingClick}
         >
-            {content}
+            <p>{content}</p>
         </div>
       </div>
   )

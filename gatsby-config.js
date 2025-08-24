@@ -15,7 +15,7 @@ const siteUrl = 'https://sparklane.dev'
 
 module.exports = {
   siteMetadata: {
-    title: `Spark Lane Dev`,
+    title: `Emerald Spark`,
     author: {
       name: `Emma Lane`,
       summary: `a full stack developer based in Somerset; dabbling with different tech stacks and building (hopefully useful) things.`,
@@ -97,8 +97,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Spark Lane Dev`,
-        short_name: `Spark Lane Dev`,
+        name: `Emerald Spark`,
+        short_name: `Emerald Spark`,
         start_url: `/`,
         background_color: `#1a1a1a`,
         theme_color: `#1a1a1a`,

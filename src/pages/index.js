@@ -20,7 +20,7 @@ const Index = ({ data, location }) => {
           <Col>
             <SignComponent content="Under Construction" 
             containerStyle={{ justifyContent: 'center' }}
-            signStyle={{ width: '250px', fontSize: '36px' }} />
+            signStyle={{ width: '450px', fontSize: '36px' }} />
           </Col>
         </Row>
 

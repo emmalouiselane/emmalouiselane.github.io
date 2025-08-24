@@ -29,6 +29,13 @@ footer {
       margin-right: var(--spacing-3);
     }
 
+    &-center {
+      margin: auto;
+      font-size: var(--fontSize-2);
+      font-weight: var(--fontWeight-boldish);
+      color: var(--color-text);
+    }
+
     > div {
       display: flex;
 

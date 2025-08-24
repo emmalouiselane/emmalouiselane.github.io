@@ -46,35 +46,34 @@
     position: relative;
     margin-top: 50px;
     display: inline-block;
-    font-style: italic;
     text-align: center;
     line-height: 1;    
     padding: 32px 32px 24px 32px;
     cursor: pointer;
     animation: sway 6s linear forwards;
     transform-origin: 50% -32px;
-    background: linear-gradient(to right, #eeceba 0%, #eeceba 100%),
-                linear-gradient(to right, #eeceba 0%, #eeceba 100%),
-                linear-gradient(to right, #eeceba 0%, #eeceba 100%),
-                linear-gradient(to right, #eeceba 0%, #eeceba 100%),
+    background: linear-gradient(to right, var(--color-primary) 0%, var(--color-primary) 100%),
+                linear-gradient(to right, var(--color-primary) 0%, var(--color-primary) 100%),
+                linear-gradient(to right, var(--color-primary) 0%, var(--color-primary) 100%),
+                linear-gradient(to right, var(--color-primary) 0%, var(--color-primary) 100%),
         
-                radial-gradient(circle at 100% 100%, #eeceba 0%, #eeceba 44%, var(--color-text-light) 46%, var(--color-text-light) 55%, #eeceba 57%, #eeceba 70%, transparent 72%, transparent 100%),
-                radial-gradient(circle at 0 100%,    #eeceba 0%, #eeceba 44%, var(--color-text-light) 46%, var(--color-text-light) 55%, #eeceba 57%, #eeceba 70%, transparent 72%, transparent 100%),
-                radial-gradient(circle at 0 0,       #eeceba 0%, #eeceba 44%, var(--color-text-light) 46%, var(--color-text-light) 55%, #eeceba 57%, #eeceba 70%, transparent 72%, transparent 100%),
-                radial-gradient(circle at 100% 0,    #eeceba 0%, #eeceba 44%, var(--color-text-light) 46%, var(--color-text-light) 55%, #eeceba 57%, #eeceba 70%, transparent 72%, transparent 100%),
+                radial-gradient(circle at 100% 100%, var(--color-primary) 0%, var(--color-primary) 44%, var(--color-text-light) 46%, var(--color-text-light) 55%, var(--color-primary) 57%, var(--color-primary) 70%, transparent 72%, transparent 100%),
+                radial-gradient(circle at 0 100%,    var(--color-primary) 0%, var(--color-primary) 44%, var(--color-text-light) 46%, var(--color-text-light) 55%, var(--color-primary) 57%, var(--color-primary) 70%, transparent 72%, transparent 100%),
+                radial-gradient(circle at 0 0,       var(--color-primary) 0%, var(--color-primary) 44%, var(--color-text-light) 46%, var(--color-text-light) 55%, var(--color-primary) 57%, var(--color-primary) 70%, transparent 72%, transparent 100%),
+                radial-gradient(circle at 100% 0,    var(--color-primary) 0%, var(--color-primary) 44%, var(--color-text-light) 46%, var(--color-text-light) 55%, var(--color-primary) 57%, var(--color-primary) 70%, transparent 72%, transparent 100%),
 
-                linear-gradient(to top,    #eeceba 0%, #eeceba 63%, var(--color-text-light) 65%, var(--color-text-light) 78%, #eeceba 80%, #eeceba 100%),
-                linear-gradient(to bottom, #eeceba 0%, #eeceba 63%, var(--color-text-light) 65%, var(--color-text-light) 78%, #eeceba 80%, #eeceba 100%),
+                linear-gradient(to top,    var(--color-primary) 0%, var(--color-primary) 63%, var(--color-text-light) 65%, var(--color-text-light) 78%, var(--color-primary) 80%, var(--color-primary) 100%),
+                linear-gradient(to bottom, var(--color-primary) 0%, var(--color-primary) 63%, var(--color-text-light) 65%, var(--color-text-light) 78%, var(--color-primary) 80%, var(--color-primary) 100%),
 
-                linear-gradient(to left,   #eeceba 0%, #eeceba 63%, var(--color-text-light) 65%, var(--color-text-light) 78%, #eeceba 80%, #eeceba 100%),
-                linear-gradient(to left,   #eeceba 0%, #eeceba 63%, var(--color-text-light) 65%, var(--color-text-light) 78%, #eeceba 80%, #eeceba 100%),
-                linear-gradient(to right,  #eeceba 0%, #eeceba 63%, var(--color-text-light) 65%, var(--color-text-light) 78%, #eeceba 80%, #eeceba 100%),
-                linear-gradient(to right,  #eeceba 0%, #eeceba 63%, var(--color-text-light) 65%, var(--color-text-light) 78%, #eeceba 80%, #eeceba 100%),
+                linear-gradient(to left,   var(--color-primary) 0%, var(--color-primary) 63%, var(--color-text-light) 65%, var(--color-text-light) 78%, var(--color-primary) 80%, var(--color-primary) 100%),
+                linear-gradient(to left,   var(--color-primary) 0%, var(--color-primary) 63%, var(--color-text-light) 65%, var(--color-text-light) 78%, var(--color-primary) 80%, var(--color-primary) 100%),
+                linear-gradient(to right,  var(--color-primary) 0%, var(--color-primary) 63%, var(--color-text-light) 65%, var(--color-text-light) 78%, var(--color-primary) 80%, var(--color-primary) 100%),
+                linear-gradient(to right,  var(--color-primary) 0%, var(--color-primary) 63%, var(--color-text-light) 65%, var(--color-text-light) 78%, var(--color-primary) 80%, var(--color-primary) 100%),
 
-                radial-gradient(circle at 0 50%,    transparent 0%, transparent 30%, #eeceba 32%, #eeceba 42%, var(--color-text-light) 44%, var(--color-text-light) 48%, #eeceba 50%, #eeceba 100%),
-                radial-gradient(circle at 100% 50%, transparent 0%, transparent 30%, #eeceba 32%, #eeceba 42%, var(--color-text-light) 44%, var(--color-text-light) 48%, #eeceba 50%, #eeceba 100%),
+                radial-gradient(circle at 0 50%,    transparent 0%, transparent 30%, var(--color-primary) 32%, var(--color-primary) 42%, var(--color-text-light) 44%, var(--color-text-light) 48%, var(--color-primary) 50%, var(--color-primary) 100%),
+                radial-gradient(circle at 100% 50%, transparent 0%, transparent 30%, var(--color-primary) 32%, var(--color-primary) 42%, var(--color-text-light) 44%, var(--color-text-light) 48%, var(--color-primary) 50%, var(--color-primary) 100%),
 
-                linear-gradient(to right, #eeceba 0%, #eeceba 100%);
+                linear-gradient(to right, var(--color-primary) 0%, var(--color-primary) 100%);
     
     background-size: 3px 3px,
         3px 3px,
@@ -124,6 +123,11 @@
     
     background-repeat: no-repeat;
     
+    > p {
+        margin: 0;
+        color: white;
+    }
+
     &::before {
         content: '';
         height: 2px;

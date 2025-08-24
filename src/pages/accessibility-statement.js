@@ -5,12 +5,14 @@ import { graphql } from "gatsby"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 
+import Container from 'react-bootstrap/Container';
+
 const AccessibilityStatementPage = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata.title
 
   return (
     <Layout location={location} title={siteTitle}>
-        <div className="accessibility-wrapper">   
+        <Container className="accessibility-wrapper">   
             <h2>Accessibility Statement for <span className="basic-information website-name">Spark Lane Dev</span></h2>
             <p>
                 This is an accessibility statement from <span className="basic-information organization-name">Spark Lane Dev</span>.
@@ -61,7 +63,7 @@ const AccessibilityStatementPage = ({ data, location }) => {
                 <span className="basic-information statement-created-date">31 May 2025</span>
                 {` `}using the <a href="https://www.w3.org/WAI/planning/statements/">W3C Accessibility Statement Generator Tool</a>.
             </p>
-        </div>
+        </Container>
     </Layout>
   )
 }

@@ -33,22 +33,22 @@ const WorkshopIndex = ({ data, location }) => {
        
         <Row>
           <Col>
+            <Link className="workshop-link" to={`/portfolio/`} onClick={() => handlePostClick("portfolio")}>
+              <div><p>Portfolio</p></div>
+            </Link>
+          </Col>
+          <Col>
             <Link className="workshop-link" to={`/workshop/cooking/`} onClick={() => handlePostClick("cooking")}>
               <div><p>Cooking</p></div>
             </Link>
           </Col>
+       </Row>
+        <Row>
           <Col>
             <Link className="workshop-link-disabled" aria-disabled>
               <div><p>Reading</p></div>
             </Link>
           </Col>
-          <Col>
-            <Link className="workshop-link-disabled" aria-disabled>
-              <div><p>Watching</p></div>
-            </Link>
-          </Col>
-       </Row>
-       <Row>
           <Col>
             <Link className="workshop-link-disabled" aria-disabled>
               <div><p>Listening</p></div>
@@ -59,6 +59,8 @@ const WorkshopIndex = ({ data, location }) => {
               <div><p>Gaming</p></div>
             </Link>
           </Col>
+       </Row>
+       <Row>         
           <Col>
             <Link className="workshop-link-disabled" aria-disabled>
               <div><p>Suggestions</p></div>
