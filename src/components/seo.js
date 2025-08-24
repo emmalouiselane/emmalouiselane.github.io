@@ -45,10 +45,10 @@ const Seo = ({ description, title, children }) => {
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={metaDescription} /> */}
 
-      <link
-        href="https://fonts.googleapis.com/css2?family=Josefin+Slab:wght@400;700&display=swap"
-        rel="stylesheet"
-      />
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+      <link href="https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Cursive:wght@400..700&family=Poiret+One&display=swap" rel="stylesheet" />
+      
 
       {children}
     </>
