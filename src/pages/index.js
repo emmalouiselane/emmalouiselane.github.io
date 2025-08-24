@@ -4,7 +4,6 @@ import { graphql } from "gatsby"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
-import WordCloudComponent from "../components/word-cloud"
 import SignComponent from "../components/sign"
 
 import Container from 'react-bootstrap/Container';
@@ -27,10 +26,6 @@ const Index = ({ data, location }) => {
 
         {/* Spacer - Buffer row for construction sign */}
         <Row style={{ height: '50px' }} />
-       
-        <Row className="word-cloud-container">
-          <WordCloudComponent />
-        </Row>
       </Container>
     </Layout>
   )

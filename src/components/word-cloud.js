@@ -40,12 +40,18 @@ const WordCloudComponent = () => {
         <AnimatedWordRenderer ref={ref} data={data} animationDelay={(_word, index) => index * 100} />
     );
 
+    const resolveFont = (word, _index) => {
+        return Math.sqrt(word.value) * 1.5;
+    };
+
     if (typeof window === 'undefined') {
         return <></>;
     }
 
-    const height = window.innerHeight * 0.15; // 15% of viewport height
+    const height = window.innerHeight; // 100% of viewport height
     const width = window.innerWidth; // 100% of viewport width
+
+    console.log(height, width)
 
     return (
         <div className="word-cloud" >
@@ -55,7 +61,11 @@ const WordCloudComponent = () => {
                         <img className="vertical-decoration top" alt="Vertical Decoration - Top" src="https://i.ibb.co/JRTK9z4/horizontally-centered-vertical-decoration.png" />
                         <img className="vertical-decoration bottom" alt="Vertical Decoration - Bottom" src="https://i.ibb.co/JRTK9z4/horizontally-centered-vertical-decoration.png" />
                         
-                        <WordCloud words={words} width={width} height={height} renderWord={animatedWordRenderer} />
+                        <WordCloud words={words} 
+                            width={width} height={height} 
+                            fontSize={resolveFont}
+                            renderWord={animatedWordRenderer}
+                            spiral="archimedean" />
                     </div>
                 </div>
             </div>

@@ -11,6 +11,8 @@ import { useTracking } from "../hooks/useTracking"
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import WordCloudComponent from "../components/word-cloud"
 
 const PortfolioIndex = ({ data, location }) => {
   const { trackEvent } = useTracking();
@@ -36,7 +38,8 @@ const PortfolioIndex = ({ data, location }) => {
 
   return (
     <Layout location={location} title={siteTitle}>
-      <Container className="portfolio-list">
+      <Container className="portfolio-list" style={{ display: 'flex', flexDirection: 'row' }} >
+        <Col md={8}>
           {portfolioItems.map((item) => (
             <Row key={item.slug}>
               <article 
@@ -44,20 +47,26 @@ const PortfolioIndex = ({ data, location }) => {
                     itemScope
                     itemType="http://schema.org/Article"
               >
-              <header>
-                <h2>
-                  <Link to={`/portfolio/${item.slug}`} 
-                  onClick={() => handlePostClick(item.slug, item.title)}>
-                    {item.title}
-                  </Link>
-                </h2>
-              </header>
-              <section>
-                <p> {item.description} </p>
-              </section>
-            </article>
+                <header>
+                  <h2>
+                    <Link to={`/portfolio/${item.slug}`} 
+                    onClick={() => handlePostClick(item.slug, item.title)}>
+                      {item.title}
+                    </Link>
+                  </h2>
+                </header>
+                <section>
+                  <p> {item.description} </p>
+                </section>
+              </article>
+            </Row>
+          ))}
+        </Col>
+        <Col md={4}>
+          <Row className="word-cloud-container">
+            <WordCloudComponent />
           </Row>
-        ))}
+        </Col>
       </Container>
     </Layout>
   )
