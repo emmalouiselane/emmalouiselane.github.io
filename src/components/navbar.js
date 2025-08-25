@@ -19,15 +19,7 @@ const NavbarComponent = () => {
 
   const navLinks = [
     { text: "Blog", path: "/blog-posts/" },
-    // { text: "Portfolio", path: "/portfolio/" }, 
-    { text: "Workshop", path: "/workshop/" },
-    // { text: "Workshop", path: "/workshop/", children: [
-    //     { text: "Cooking", path: "/workshop/cooking/" },
-    //     { text: "Reading", path: "/workshop/reading/" },
-    //     { text: "Watching", path: "/workshop/watching/" },
-    //     { text: "Listening", path: "/workshop/listening/" },
-    //     { text: "Gaming", path: "/workshop/gaming/" },
-    // ] },
+    { text: "Workshop", path: "/workshop/" }
   ];
 
   return (
@@ -40,7 +32,6 @@ const NavbarComponent = () => {
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="navbar-nav" />
           <Navbar.Collapse id="navbar-nav">
-
             <QuickNavComponent />
 
             <Nav className="custom-nav-links">

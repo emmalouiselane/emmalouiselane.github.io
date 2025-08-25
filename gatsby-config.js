@@ -21,6 +21,7 @@ module.exports = {
       summary: `a full stack developer based in Somerset; dabbling with different tech stacks and building (hopefully useful) things.`,
     },
     description: `Emma Lane's (Full-stack developer) blog and portfolio showcasing projects.`,
+    footerTagline: `Emerald Spark fuels ideas — SparkLane.dev brings them to life.`,
     siteUrl: siteUrl,
     social: {
       linkedIn: `https://linkedin.com/in/emmalouiselane`,

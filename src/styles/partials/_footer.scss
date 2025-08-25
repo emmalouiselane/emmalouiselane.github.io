@@ -12,21 +12,24 @@ footer {
   height: 60px;
 
   .footer-content {
-    display: flex;
-    margin: auto;
+    width: -webkit-fill-available;
     padding-bottom: var(--spacing-3);
-    align-content: space-between;
-    flex-wrap: wrap;
-    flex: 1;
+    
+    &-mobile {
+      font-size: var(--fontSize-0);
+      text-align: center;
 
-    &-left {
-      margin-left: var(--spacing-3);
-      margin-right: auto;
+      > div > div {
+        padding: 0px;
+
+        p {
+          margin: auto;
+        }
+      }
     }
 
     &-right {
-      margin-left: auto;
-      margin-right: var(--spacing-3);
+      direction: rtl;
     }
 
     &-center {
@@ -34,9 +37,13 @@ footer {
       font-size: var(--fontSize-2);
       font-weight: var(--fontWeight-boldish);
       color: var(--color-text);
+
+      p {
+        margin: auto;
+      }
     }
 
-    > div {
+    > div > div {
       display: flex;
 
       > .navbar-link,
