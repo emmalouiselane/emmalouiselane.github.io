@@ -9,6 +9,8 @@ import Seo from "../components/seo"
 import { useTracking } from "../hooks/useTracking"
 import { BLOCKS, MARKS } from '@contentful/rich-text-types';
 import { documentToReactComponents  } from "@contentful/rich-text-react-renderer";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -101,10 +103,18 @@ const PortfolioPreviewTemplate = ({ data, location, pageContext }) => {
               <>
                 <iframe src={portfolioItem.externalUrl} title={portfolioItem.title} width="100%" height="500px"></iframe>
                 
-                <a className="link" href={portfolioItem.externalUrl} style={{ display: "flow", textAlign: "center" }} target="_blank" rel="noopener noreferrer">Explore in a new tab</a>
+                <a className="link" href={portfolioItem.externalUrl} style={{ display: "flow", textAlign: "center", width: "250px", margin: "5px auto" }} target="_blank" rel="noopener noreferrer">Explore in a new tab</a>
+                <a className="link" href={portfolioItem.githubUrl} style={{ display: "flow", textAlign: "center", width: "250px", margin: "5px auto" }} target="_blank" rel="noopener noreferrer">
+                  <FontAwesomeIcon icon={faGithub} aria-hidden="true" /> GitHub
+                </a>
               </>
             ) : (
-              <a className="link" href={portfolioItem.externalUrl} style={{ display: "flow", textAlign: "center" }} target="_blank" rel="noopener noreferrer">Explore</a>
+              <>
+                <a className="link" href={portfolioItem.externalUrl} style={{ display: "flow", textAlign: "center", width: "250px", margin: "5px auto" }} target="_blank" rel="noopener noreferrer">Explore</a>
+                <a className="link" href={portfolioItem.githubUrl} style={{ display: "flow", textAlign: "center", width: "250px", margin: "5px auto" }} target="_blank" rel="noopener noreferrer">
+                  <FontAwesomeIcon icon={faGithub} aria-hidden="true" /> GitHub
+                </a>
+              </>
             )}
           </div>
         </article>

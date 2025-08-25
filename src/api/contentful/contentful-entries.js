@@ -26,6 +26,7 @@ async function getAllPortfolioItems() {
               slug
               description
               externalUrl
+              githubUrl
               isInDevelopment
             }
           }
@@ -51,6 +52,7 @@ async function getAllPortfolioItems() {
               json
             }
             externalUrl
+            githubUrl
             isInDevelopment
             isIframe
           }
