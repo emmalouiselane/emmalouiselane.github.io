@@ -58,9 +58,6 @@ const WordCloudComponent = () => {
             <div className="outer-border">
                 <div className="mid-border">
                     <div className="inner-border">
-                        <img className="vertical-decoration top" alt="Vertical Decoration - Top" src="https://i.ibb.co/JRTK9z4/horizontally-centered-vertical-decoration.png" />
-                        <img className="vertical-decoration bottom" alt="Vertical Decoration - Bottom" src="https://i.ibb.co/JRTK9z4/horizontally-centered-vertical-decoration.png" />
-                        
                         <WordCloud words={words} 
                             width={width} height={height} 
                             fontSize={resolveFont}

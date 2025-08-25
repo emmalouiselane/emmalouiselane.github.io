@@ -44,8 +44,8 @@ const QuickNavComponent = () => {
           </Link>
         )}  
 
-        {location.pathname !== "/workshop/cooking/" && location.pathname.startsWith('/workshop/cooking/') && (
-          <Link className="navbar-link" onClick={() => handleNavigation("recipe_list")} to="/workshop/cooking">
+        {location.pathname !== "/workshop/recipes/" && location.pathname.startsWith('/workshop/recipes/') && (
+          <Link className="navbar-link" onClick={() => handleNavigation("recipe_list")} to="/workshop/recipes">
             &larr; Recipe List
           </Link>
         )}

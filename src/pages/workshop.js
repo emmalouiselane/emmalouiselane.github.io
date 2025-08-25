@@ -27,7 +27,7 @@ const WorkshopIndex = ({ data, location }) => {
         <Row>
            <h2>Welcome to my workshop!</h2>
        
-           <p>This is more of a personal workspace for me, including my favourite and go to recipes, musings about any current reads, talking about any obsessions with what I'm watching or listening to as well as personal guides and notes for any games that I play.</p>
+           <p>This is a personal workspace, you can see what I'm currently working on, as well as my recipe bank, musings about any current reads, talking about any obsessions with what I'm listening to as well as personal guides and notes for any games that I play.</p>
            <p>I will be updating this page as I go, so expect it to be a work in progress.</p>
         </Row>
        
@@ -38,8 +38,8 @@ const WorkshopIndex = ({ data, location }) => {
             </Link>
           </Col>
           <Col>
-            <Link className="workshop-link" to={`/workshop/cooking/`} onClick={() => handlePostClick("cooking")}>
-              <div><p>Cooking</p></div>
+            <Link className="workshop-link" to={`/workshop/recipes/`} onClick={() => handlePostClick("recipes")}>
+              <div><p>Recipes</p></div>
             </Link>
           </Col>
        </Row>

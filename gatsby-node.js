@@ -37,7 +37,7 @@ exports.createPages = async ({ actions, reporter }) => {
     
     // Create recipe pages
     recipes.forEach((recipe) => {
-      const slug = `/workshop/cooking/${recipe.slug}`;
+      const slug = `/workshop/recipes/${recipe.slug}`;
 
       createPage({
         path: slug,

@@ -59,7 +59,7 @@ const CookingIndex = ({ data, location }) => {
                   >
                     <header>
                       <h2>
-                        <Link to={`/workshop/cooking/${recipe.slug}`} itemProp="url" onClick={() => handleRecipeClick(recipe.slug, recipe.name)}>
+                        <Link to={`/workshop/recipes/${recipe.slug}`} itemProp="url" onClick={() => handleRecipeClick(recipe.slug, recipe.name)}>
                           <span itemProp="headline">{recipe.name}</span>
                         </Link>
                       </h2>
@@ -89,7 +89,7 @@ export default CookingIndex
  *
  * See: https://www.gatsbyjs.com/docs/reference/built-in-components/gatsby-head/
  */
-export const Head = () => <Seo title="Cooking" description="My go to recipes!" />
+export const Head = () => <Seo title="Recipes" description="My go to recipes!" />
 
 export const pageQuery = graphql`
   {

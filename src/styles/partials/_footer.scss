@@ -22,8 +22,9 @@ footer {
       > div > div {
         padding: 0px;
 
-        p {
-          margin: auto;
+        > p {
+          margin-left: var(--spacing-2);
+          margin-top: var(--spacing-2);
         }
       }
     }

@@ -38,35 +38,37 @@ const PortfolioIndex = ({ data, location }) => {
 
   return (
     <Layout location={location} title={siteTitle}>
-      <Container className="portfolio-list" style={{ display: 'flex', flexDirection: 'row' }} >
-        <Col md={8}>
-          {portfolioItems.map((item) => (
-            <Row key={item.slug}>
-              <article 
-                    className="portfolio-list-item"
-                    itemScope
-                    itemType="http://schema.org/Article"
-              >
-                <header>
-                  <h2>
-                    <Link to={`/portfolio/${item.slug}`} 
-                    onClick={() => handlePostClick(item.slug, item.title)}>
-                      {item.title}
-                    </Link>
-                  </h2>
-                </header>
-                <section>
-                  <p> {item.description} </p>
-                </section>
-              </article>
+      <Container className="portfolio-list" style={{ width: '100%' }} >
+        <Row style={{ display: 'flex', flexDirection: 'row' }}>
+          <Col xs={12} sm={12} md={8}>
+            {portfolioItems.map((item) => (
+              <Row key={item.slug}>
+                <article 
+                      className="portfolio-list-item"
+                      itemScope
+                      itemType="http://schema.org/Article"
+                >
+                  <header>
+                    <h2>
+                      <Link to={`/portfolio/${item.slug}`} 
+                      onClick={() => handlePostClick(item.slug, item.title)}>
+                        {item.title}
+                      </Link>
+                    </h2>
+                  </header>
+                  <section>
+                    <p> {item.description} </p>
+                  </section>
+                </article>
+              </Row>
+            ))}
+          </Col>
+          <Col xs={12} sm={12} md={4}>
+            <Row className="word-cloud-container">
+              <WordCloudComponent />
             </Row>
-          ))}
-        </Col>
-        <Col md={4}>
-          <Row className="word-cloud-container">
-            <WordCloudComponent />
-          </Row>
-        </Col>
+          </Col>
+        </Row>
       </Container>
     </Layout>
   )
