@@ -39,14 +39,14 @@ const Footer = () => {
                     </Col>
                     <Col xs={4}>
                         {social?.gitHub && (
-                            <Link className="social-link" to={social.gitHub} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                            <a className="link social-link" to={social.gitHub} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
                                 <FontAwesomeIcon icon={faGithub} size="2x" aria-hidden="true" />
-                            </Link>
+                            </a>
                         )}
                         {social?.linkedIn && (
-                            <Link className="social-link" to={social.linkedIn} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                            <a className="link social-link" to={social.linkedIn} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
                                 <FontAwesomeIcon icon={faLinkedin} size="2x" alt="LinkedIn" aria-hidden="true" />
-                            </Link>
+                            </a>
                         )}
                     </Col>
                 </Row>
@@ -93,14 +93,14 @@ const Footer = () => {
 
                     
                     {social?.gitHub && (
-                        <Link className="social-link" to={social.gitHub} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                        <a className="link social-link" href={social.gitHub} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
                             <FontAwesomeIcon icon={faGithub} size="2x" aria-hidden="true" />
-                        </Link>
+                        </a>
                     )}
                     {social?.linkedIn && (
-                        <Link className="social-link" to={social.linkedIn} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                        <a className="link social-link" href={social.linkedIn} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
                             <FontAwesomeIcon icon={faLinkedin} size="2x" alt="LinkedIn" aria-hidden="true" />
-                        </Link>
+                        </a>
                     )}    
                 </Col>  
             </Row>      

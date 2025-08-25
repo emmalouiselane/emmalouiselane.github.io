@@ -48,10 +48,8 @@ const WordCloudComponent = () => {
         return <></>;
     }
 
-    const height = window.innerHeight; // 100% of viewport height
+    const height = window.innerHeight * 0.3; // 30% of viewport height
     const width = window.innerWidth; // 100% of viewport width
-
-    console.log(height, width)
 
     return (
         <div className="word-cloud" >

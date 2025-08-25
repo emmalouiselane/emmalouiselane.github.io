@@ -62,22 +62,12 @@
     }
 
     &.workshop-link div:hover {
-      color: var(--color-primary);
-      background-color: #ecd26d40;
+      color: var(--color-accent-light);
+      background-color: var(--color-accent-light);
     }
 
     &.workshop-link-disabled div p {
       cursor: default;
-    }
-  }
-
-  .workshop-link-disabled {
-    div {
-      background-color: var(--color-accent-light);
-
-      p {
-        color: var(--color-text-light);
-      }
     }
   }
 }

@@ -13,6 +13,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import WordCloudComponent from "../components/word-cloud"
+import QuickNavComponent from "../components/quick-nav";
 
 const PortfolioIndex = ({ data, location }) => {
   const { trackEvent } = useTracking();
@@ -37,10 +38,11 @@ const PortfolioIndex = ({ data, location }) => {
   };
 
   return (
-    <Layout location={location} title={siteTitle}>
+    <Layout location={location}>
+      <QuickNavComponent /> 
       <Container className="portfolio-list" style={{ width: '100%' }} >
         <Row style={{ display: 'flex', flexDirection: 'row' }}>
-          <Col xs={12} sm={12} md={8}>
+          <Col>
             {portfolioItems.map((item) => (
               <Row key={item.slug}>
                 <article 
@@ -62,8 +64,6 @@ const PortfolioIndex = ({ data, location }) => {
                 </article>
               </Row>
             ))}
-          </Col>
-          <Col xs={12} sm={12} md={4}>
             <Row className="word-cloud-container">
               <WordCloudComponent />
             </Row>

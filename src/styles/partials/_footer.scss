@@ -61,7 +61,8 @@ footer {
           transition: color 0.2s ease, background-color 0.2s ease;
 
           &:hover {
-            color: var(--color-primary);
+            transform: translateY(-2px);
+            color: var(--color-primary) !important;
             background-color: var(--color-accent);
           }
         }

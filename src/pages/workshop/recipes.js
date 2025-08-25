@@ -11,6 +11,7 @@ import { useTracking } from "../../hooks/useTracking"
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
+import QuickNavComponent from "../../components/quick-nav";
 
 const CookingIndex = ({ data, location }) => {
   const { trackEvent } = useTracking();
@@ -36,7 +37,7 @@ const CookingIndex = ({ data, location }) => {
 
   if (recipes.length === 0) {  
     return (
-      <Layout location={location} title={siteTitle}>
+      <Layout location={location}>
         <Container>
           <Row>
             No recipes found.
@@ -46,7 +47,9 @@ const CookingIndex = ({ data, location }) => {
     )
   } else {
     return (
-      <Layout location={location} title={siteTitle}>
+      <Layout location={location}>
+        <QuickNavComponent /> 
+
         <Container className="recipe-list"> 
             {recipes.sort((a, b) => a.name.localeCompare(b.name)).map(recipe => {  
               return (

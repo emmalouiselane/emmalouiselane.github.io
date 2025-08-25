@@ -22,7 +22,7 @@ const WorkshopIndex = ({ data, location }) => {
   };
 
   return (
-    <Layout location={location} title={siteTitle}>
+    <Layout location={location}>
       <Container className="workshop-list">
         <Row>
            <h2>Welcome to my workshop!</h2>
@@ -43,7 +43,7 @@ const WorkshopIndex = ({ data, location }) => {
             </Link>
           </Col>
        </Row>
-        <Row>
+        {/* <Row>
           <Col>
             <Link className="workshop-link-disabled" aria-disabled>
               <div><p>Reading</p></div>
@@ -66,7 +66,7 @@ const WorkshopIndex = ({ data, location }) => {
               <div><p>Suggestions</p></div>
             </Link>
           </Col>
-       </Row>
+       </Row> */}
       </Container>
     </Layout>
   )

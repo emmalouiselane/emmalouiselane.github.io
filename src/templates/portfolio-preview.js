@@ -12,14 +12,12 @@ import { documentToReactComponents  } from "@contentful/rich-text-react-renderer
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import QuickNavComponent from "../components/quick-nav";
 
 const PortfolioPreviewTemplate = ({ data, location, pageContext }) => {
   const { slug } = pageContext
   const { trackEvent } = useTracking();
   const [portfolioItem, setPortfolioItem] = useState(null)
-
-  const siteTitle = data.site.siteMetadata?.title || `Title`
 
   useEffect(() => {
     const fetchPortfolioItem = async () => {
@@ -41,13 +39,11 @@ const PortfolioPreviewTemplate = ({ data, location, pageContext }) => {
 
   if (!portfolioItem) {
     return (
-      <Layout location={location} title={siteTitle}>
+      <Layout location={location}>
         <div>Loading...</div>
       </Layout>
     )
   }
-
-  console.log(portfolioItem)
 
   // Define custom render options for rich text
     const options = {
@@ -78,7 +74,9 @@ const PortfolioPreviewTemplate = ({ data, location, pageContext }) => {
     }
 
   return (
-    <Layout location={location} title={siteTitle}>
+    <Layout location={location}>
+      <QuickNavComponent /> 
+
       <Container className="portfolio-item-content">
         <article>
           <header>
@@ -102,10 +100,11 @@ const PortfolioPreviewTemplate = ({ data, location, pageContext }) => {
             {portfolioItem.isIframe ? (
               <>
                 <iframe src={portfolioItem.externalUrl} title={portfolioItem.title} width="100%" height="500px"></iframe>
-                <a href={portfolioItem.externalUrl} style={{ display: "flow", textAlign: "center" }} target="_blank" rel="noopener noreferrer">Explore in a new tab</a>
+                
+                <a className="link" href={portfolioItem.externalUrl} style={{ display: "flow", textAlign: "center" }} target="_blank" rel="noopener noreferrer">Explore in a new tab</a>
               </>
             ) : (
-              <a href={portfolioItem.externalUrl} style={{ display: "flow", textAlign: "center" }} target="_blank" rel="noopener noreferrer">Explore</a>
+              <a className="link" href={portfolioItem.externalUrl} style={{ display: "flow", textAlign: "center" }} target="_blank" rel="noopener noreferrer">Explore</a>
             )}
           </div>
         </article>

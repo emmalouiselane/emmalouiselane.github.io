@@ -2,6 +2,7 @@
 
 .recipe {
   margin: var(--spacing-0) var(--spacing-4) 95px var(--spacing-4); // Footer height & under construction banner
+  margin-top: var(--spacing-12);
 
   header {
     display: flex;
@@ -26,7 +27,11 @@
   }
 }
 
-// Post list item
+.recipe-list {
+    margin-top: var(--spacing-12);
+}
+
+// Recipe list item
 .recipe-list-item {
   margin-bottom: var(--spacing-8);
   margin-top: var(--spacing-4);

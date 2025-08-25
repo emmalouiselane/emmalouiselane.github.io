@@ -39,7 +39,7 @@ const BlogIndex = ({ data, location }) => {
 
   if (blogPosts.length === 0) {  
     return (
-      <Layout location={location} title={siteTitle}>
+      <Layout location={location}>
         <p>
           No blog posts found.
         </p>
@@ -47,7 +47,7 @@ const BlogIndex = ({ data, location }) => {
     )
   } else {
     return (
-      <Layout location={location} title={siteTitle}>
+      <Layout location={location}>
         <Container className="blog-list"> 
           {blogPosts.map(post => {
               const title = post.title

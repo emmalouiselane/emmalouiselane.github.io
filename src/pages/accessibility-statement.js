@@ -11,7 +11,7 @@ const AccessibilityStatementPage = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata.title
 
   return (
-    <Layout location={location} title={siteTitle}>
+    <Layout location={location}>
         <Container className="accessibility-wrapper">   
             <h2>Accessibility Statement for <span className="basic-information website-name">Spark Lane Dev</span></h2>
             <p>

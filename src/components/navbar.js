@@ -1,14 +1,15 @@
 // eslint-disable-next-line no-unused-vars
 import * as React from "react"
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
+import { useEffect, useState } from "react"
+import { Nav, Navbar, Button, Container } from "react-bootstrap"
+import { useIsMobile } from "../hooks/useIsMobile";
 import { useTracking } from "../hooks/useTracking";
-import QuickNavComponent from "./quick-nav";
+import { Link } from "gatsby";
 
 const NavbarComponent = () => {
   const { trackEvent } = useTracking();
+  const { isMobile } = useIsMobile();
+  const [isDarkMode, setIsDarkMode] = useState(true);
 
   const handleNavigation = (section) => {
     trackEvent('navigation_clicked', {
@@ -22,41 +23,54 @@ const NavbarComponent = () => {
     { text: "Workshop", path: "/workshop/" }
   ];
 
+  const toggleDarkMode = () => {
+    const currentSavedTheme = localStorage.getItem('theme');
+    if (currentSavedTheme === 'dark') {
+      document.body.classList.remove('dark-mode');
+      localStorage.setItem('theme', 'light');
+      setIsDarkMode(false);
+    } else {
+      document.body.classList.add('dark-mode');
+      localStorage.setItem('theme', 'dark');
+      setIsDarkMode(true);
+    }
+  };
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      document.body.classList.add('dark-mode');
+      setIsDarkMode(true);
+    } else {
+      document.body.classList.remove('dark-mode');
+      setIsDarkMode(false);
+    }
+  }, []);
+
   return (
       <Navbar expand="md" fixed="top">
         <Container className="custom-navbar-container">
-          <Navbar.Brand href="/">
-            <h1 className="main-heading" style={{ fontSize: "150%" }}>
+          <Link className="main-heading" to="/">
+            <h1>
               Emerald Spark
             </h1>
-          </Navbar.Brand>
+          </Link>
+          
           <Navbar.Toggle aria-controls="navbar-nav" />
           <Navbar.Collapse id="navbar-nav">
-            <QuickNavComponent />
-
             <Nav className="custom-nav-links">
               {navLinks.map((link) => (
-                link.children ? (
-                  <NavDropdown className="navbar-link-dropdown"
-                  key={link.path} title={link.text} id="nav-dropdown">
-                    {link.children.map((child) => (
-                      <NavDropdown.Item
-                        key={child.path}
-                        href={child.path}
-                        onClick={() => handleNavigation(child.text)}
-                      >
-                        {child.text}
-                      </NavDropdown.Item>
-                    ))}
-                  </NavDropdown>
-                ) : (
-                  <Nav.Link className="navbar-link"
-                            key={link.path} href={link.path} 
+                  <Link className="navbar-link"
+                            key={link.path} to={link.path} 
                             onClick={() => handleNavigation(link.text)}>
                     {link.text}
-                  </Nav.Link>
-                )
+                  </Link>
               ))}
+
+              
+              <Button className="navbar-link dark-mode-toggle" style={isMobile ? { width: '100px' } : {}} onClick={toggleDarkMode}>
+                {isDarkMode ? "☀️" : "🌙"}
+              </Button>
             </Nav>
           </Navbar.Collapse>
         </Container>

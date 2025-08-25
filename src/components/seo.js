@@ -46,9 +46,8 @@ const Seo = ({ description, title, children }) => {
       <meta name="twitter:description" content={metaDescription} /> */}
 
       <link rel="preconnect" href="https://fonts.googleapis.com" />
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
       <link href="https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Cursive:wght@400..700&family=Poiret+One&display=swap" rel="stylesheet" />
-      
 
       {children}
     </>

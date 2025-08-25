@@ -12,6 +12,7 @@ import { documentToReactComponents  } from "@contentful/rich-text-react-renderer
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import QuickNavComponent from "../components/quick-nav";
 
 const RecipeTemplate = ({ location, pageContext }) => {
   const { slug } = pageContext
@@ -85,6 +86,8 @@ const RecipeTemplate = ({ location, pageContext }) => {
 
   return (
     <Layout location={location}>
+      <QuickNavComponent /> 
+
       <Container className="recipe">
         <article className="recipe">
           <header>

@@ -11,7 +11,7 @@ import Bio from "../components/bio"
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import QuickNavComponent from "../components/quick-nav";
 
 const BlogPostTemplate = ({ location, pageContext }) => {
   const { slug } = pageContext
@@ -83,8 +83,10 @@ const BlogPostTemplate = ({ location, pageContext }) => {
   }
 
   return (
-    <Layout location={location}>
-      <Container className="blog-post">
+    <Layout location={location}> 
+      <QuickNavComponent /> 
+      
+      <div className="blog-post">
         <article>
           <header>
             <h1>{post.title}</h1>
@@ -104,7 +106,7 @@ const BlogPostTemplate = ({ location, pageContext }) => {
           
           <Bio />
         </article>
-      </Container>
+      </div>
     </Layout>
   )
 }

@@ -1,3 +1,39 @@
+.portfolio-item {
+  &-content {
+    margin-top: var(--spacing-12);
+
+    .link {
+      transition: all 0.3s ease;
+      text-decoration: none;
+      font-weight: var(--fontWeight-bold);
+      padding: var(--spacing-2) var(--spacing-4);
+      margin: var(--spacing-2);
+      border-radius: var(--spacing-2);
+      border: none;
+      background-color: var(--color-accent-light);
+    
+      &:hover {
+        transform: translateY(-2px);
+        color: var(--color-primary) !important;
+        background-color: var(--color-accent);
+      }
+      
+      &:active {
+        transform: scale(0.95);
+        color: var(--color-primary) !important;
+      }
+
+      color: var(--color-text) !important;
+      transition: color 0.2s ease, background-color 0.2s ease;
+    }
+
+    &.link-disabled {
+      color: var(--color-text-light) !important;
+      cursor: default;
+    }
+  }
+}
+
 // Portfolio list item
 .portfolio-list-item {
     margin-bottom: var(--spacing-8);
