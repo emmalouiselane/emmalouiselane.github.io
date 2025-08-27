@@ -17,7 +17,7 @@
     "@fortawesome/free-brands-svg-icons": "^6.7.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@isoterik/react-word-cloud": "^1.2.0",
-    "bootstrap": "^5.3.6",
+    "bootstrap": "^5.3.8",
     "dotenv": "^16.5.0",
     "gatsby": "^5.14.4",
     "gatsby-plugin-canonical-urls": "^5.14.0",
