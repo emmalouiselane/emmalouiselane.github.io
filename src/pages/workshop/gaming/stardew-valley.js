@@ -53,6 +53,8 @@ const StardewValleyTemplate = ({ data, location, pageContext }) => {
                         src="../../../images/gaming/museum-layout.png" 
                         alt="Museum Layout Reference"
                         placeholder="blurred"
+                        layout="constrained"
+                        height={1000}
                       />
                     )}
                     {!showLargeMuseumLayout && (
