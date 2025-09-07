@@ -9,15 +9,16 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
+import { useIsMobile } from "../../../hooks/useIsMobile"
+
 import QuickNavComponent from "../../../components/quick-nav";
 import { Tabs, Tab, Button } from "react-bootstrap";
 
 const StardewValleyTemplate = ({ data, location, pageContext }) => {
+  const { isMobile } = useIsMobile();
 
   const [showLargeMuseumLayout, setShowLargeMuseumLayout] = useState(false);
   const [showLargeFishGuide, setShowLargeFishGuide] = useState(false);
-
-
 
   return (
     <Layout location={location}>
@@ -64,9 +65,11 @@ const StardewValleyTemplate = ({ data, location, pageContext }) => {
                       />
                     )}
                     
-                    <Button onClick={() => setShowLargeMuseumLayout(!showLargeMuseumLayout)}>
-                      Toggle Image Size
-                    </Button>
+                    {!isMobile && (
+                      <Button onClick={() => setShowLargeMuseumLayout(!showLargeMuseumLayout)}>
+                        Toggle Image Size
+                      </Button>
+                    )}
                   </div>
                 </Tab>
                 <Tab eventKey="fish-guide" title="Fish Guide">        
@@ -90,9 +93,11 @@ const StardewValleyTemplate = ({ data, location, pageContext }) => {
                       />
                     )}
                     <p>Created by me</p>
-                    <Button onClick={() => setShowLargeFishGuide(!showLargeFishGuide)}>
-                      Toggle Image Size
-                    </Button>
+                    {!isMobile && (
+                      <Button onClick={() => setShowLargeFishGuide(!showLargeFishGuide)}>
+                        Toggle Image Size
+                      </Button>
+                    )}
                   </div>            
                 </Tab>
             </Tabs>
