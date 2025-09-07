@@ -75,10 +75,11 @@
     margin: auto;
     height: fit-content;
     width: -webkit-fill-available;
-  }
-  
-  .bio p {
-    margin: var(--spacing-0) var(--spacing-1) var(--spacing-0) var(--spacing-0);
+    display: flex;
+
+    .badge, p {
+      margin: auto;
+    }
   }
   
   .bio-avatar {

@@ -29,6 +29,12 @@ const QuickNavComponent = () => {
           </Link>
         )}
 
+        {location.pathname !== "/workshop/gaming/" && location.pathname.startsWith('/workshop/gaming/') && (
+          <Link className="navbar-link" onClick={() => handleNavigation("gaming_list")} to="/workshop/gaming">
+            &larr; Gaming List
+          </Link>
+        )}
+
         {location.pathname !== "/blog-posts/" && location.pathname.startsWith('/blog-posts/') && (
           <Link className="navbar-link" onClick={() => handleNavigation("blog_posts")} to="/blog-posts/">
             &larr; Blog Posts

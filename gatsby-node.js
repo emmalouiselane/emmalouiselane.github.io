@@ -88,6 +88,39 @@ exports.createPages = async ({ actions, reporter }) => {
         },
       });
     });
+
+    // Create workshop pages
+    const games = [
+      {
+        name: "Stardew Valley",
+        slug: "stardew-valley"
+      }
+    ]
+
+    createPage({
+      path: '/workshop/gaming',
+      component: path.resolve(`./src/pages/workshop/gaming.js`),
+      context: {
+        headers: {
+          'Cache-Control': 'public, max-age=31536000, immutable'
+        }
+      },
+    });
+
+    games.forEach((game) => {
+      const slug = `/workshop/gaming/${game.slug}`;
+
+      createPage({
+        path: slug,
+        component: path.resolve(`./src/pages/workshop/gaming/${game.slug}.js`),
+        context: {
+          slug: game.slug,
+          headers: {
+            'Cache-Control': 'public, max-age=31536000, immutable'
+          }
+        },
+      });
+    });
   } catch (error) {
     reporter.panicOnBuild('Error fetching content from Contentful', error);
   }

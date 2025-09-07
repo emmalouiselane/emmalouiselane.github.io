@@ -4,7 +4,6 @@ import { useEffect, useState } from "react"
 import { entriesClient } from "../api/contentful/contentful-entries"
 import Layout from "../components/layout"
 import SignComponent from "../components/sign"
-import { Link } from "gatsby"
 import { useTracking } from "../hooks/useTracking"
 import { BLOCKS, MARKS } from '@contentful/rich-text-types';
 import { documentToReactComponents  } from "@contentful/rich-text-react-renderer";

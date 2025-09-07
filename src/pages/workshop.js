@@ -31,18 +31,25 @@ const WorkshopIndex = ({ data, location }) => {
            <p>I will be updating this page as I go, so expect it to be a work in progress.</p>
         </Row>
        
-        <Row>
-          <Col>
-            <Link className="workshop-link" to={`/portfolio/`} onClick={() => handlePostClick("portfolio")}>
-              <div><p>Portfolio</p></div>
-            </Link>
-          </Col>
-          <Col>
-            <Link className="workshop-link" to={`/workshop/recipes/`} onClick={() => handlePostClick("recipes")}>
-              <div><p>Recipes</p></div>
-            </Link>
-          </Col>
-       </Row>
+       <Row>
+         <Col>
+           <Link className="workshop-link" to={`/portfolio/`} onClick={() => handlePostClick("portfolio")}>
+             <div><p>Portfolio</p></div>
+           </Link>
+         </Col>
+      </Row>
+      <Row>
+         <Col>
+           <Link className="workshop-link" to={`/workshop/recipes/`} onClick={() => handlePostClick("recipes")}>
+             <div><p>Recipes</p></div>
+           </Link>
+         </Col>
+         <Col>
+           <Link className="workshop-link" to={`/workshop/gaming/`} onClick={() => handlePostClick("gaming")}>
+             <div><p>Gaming</p></div>
+           </Link>
+         </Col>
+      </Row>
         {/* <Row>
           <Col>
             <Link className="workshop-link-disabled" aria-disabled>
@@ -52,11 +59,6 @@ const WorkshopIndex = ({ data, location }) => {
           <Col>
             <Link className="workshop-link-disabled" aria-disabled>
               <div><p>Listening</p></div>
-            </Link>
-          </Col>
-          <Col>
-            <Link className="workshop-link-disabled" aria-disabled>
-              <div><p>Gaming</p></div>
             </Link>
           </Col>
        </Row>

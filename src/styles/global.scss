@@ -1,5 +1,7 @@
-// Import variables and component styles
+// Import variables first
 @use "./partials/_variables" as *;
+
+// Import component styles
 @use "./partials/_base" as *;
 @use "./partials/_typography" as *;
 @use "./partials/_blog" as *;
@@ -11,6 +13,7 @@
 @use "./partials/_recipe" as *;
 @use "./partials/_sign" as *;
 @use "./partials/_quickNav" as *;
+@use "./partials/_gaming" as *;
 
 // Layout
 .global-wrapper {
