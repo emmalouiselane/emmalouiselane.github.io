@@ -1,13 +1,23 @@
+.gaming-item-content {
+  .nav-item {
+    margin-bottom: 0;
+  }
+}
+
 .image-layout {
   position: relative;
   width: 100%;
   
+  p {
+    margin: var(--spacing-4) 0;
+  }
+
   button {
     position: absolute;
     top: 0;
     right: 0;
     z-index: 1;
-    margin: var(--spacing-2);
+    margin: 0 var(--spacing-2);
     background-color: var(--color-surface);
     border: 1px solid var(--color-primary);
     color: var(--color-primary);
