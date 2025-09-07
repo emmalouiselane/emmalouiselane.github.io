@@ -2,19 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-## [Unreleased]
-
-### Added
-- Automated changelog generation
-- Commit message validation
-- Git commit template
-
 ## [1.3.0] - 2025-08-20
 
 ### Added
 - Stardew Valley workshop page with interactive elements
 - Gaming section with responsive design
 - New styling for workshop pages
+- Automated changelog generation
+- Commit message validation
+- Git commit template
 
 ### Changed
 - Updated dependencies to latest versions
