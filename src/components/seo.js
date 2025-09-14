@@ -33,6 +33,11 @@ const Seo = ({ description, title, children }) => {
     <>
       <title>{title ? `${title} | ${defaultTitle}` : defaultTitle}</title>
       <meta name="description" content={metaDescription} />
+      <meta name="author" content="Emma Lane" />
+      <meta name="keywords" content="Emma Lane, Full-stack Developer, Web Developer, Portfolio, JavaScript, React, Node.js, .NET, Somerset, UK" />
+      <meta property="og:site_name" content={title} />
+      <meta property="og:image" content={`${site.siteMetadata.siteUrl}/images/profile-pic.png`} />
+      <meta property="og:url" content={site.siteMetadata.siteUrl} />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={metaDescription} />
       <meta property="og:type" content="website" />

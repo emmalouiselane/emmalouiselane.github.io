@@ -15,7 +15,7 @@ const siteUrl = 'https://sparklane.dev'
 
 module.exports = {
   siteMetadata: {
-    title: `Emerald Spark`,
+    title: `Emerald Spark | Emma Lane | Full-Stack Developer`,
     author: {
       name: `Emma Lane`,
       summary: `a full stack developer based in Somerset; dabbling with different tech stacks and building (hopefully useful) things.`,
