@@ -1,10 +1,13 @@
-# Workflow for building and deploying the Astro site to GitHub Pages
-name: Deploy Astro Site (Contentful)
+# Simple workflow for deploying static content to GitHub Pages
+name: Deploy static content to Pages
 
 on:
-  # Runs on pushes of contentful publish events
-  repository_dispatch:
-    types: [contentful-content-update]
+  # Runs on pushes targeting the default branch
+  push:
+    branches: ["main"]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
 
 # Sets the GITHUB_TOKEN permissions to allow deployment to GitHub Pages
 permissions:
@@ -14,10 +17,11 @@ permissions:
 
 # Allow one concurrent deployment
 concurrency:
-  group: 'pages'
+  group: "pages"
   cancel-in-progress: true
 
 jobs:
+  # Single deploy job since we're just deploying
   deploy:
     environment:
       name: github-pages
@@ -26,26 +30,25 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
+        
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'npm'
           cache-dependency-path: astro-site/package-lock.json
-
+          
       - name: Install dependencies
         run: npm ci
         working-directory: astro-site
-
+        
       - name: Build
         run: npm run build
         working-directory: astro-site
         env:
-          # Mapping existing Gatsby secrets to new Astro env vars
           CONTENTFUL_SPACE_ID: ${{ secrets.GATSBY_CONTENTFUL_SPACE_ID }}
           CONTENTFUL_DELIVERY_TOKEN: ${{ secrets.GATSBY_CONTENTFUL_DELIVERY_TOKEN }}
-
+          
       - name: Setup Pages
         uses: actions/configure-pages@v4
         
@@ -53,7 +56,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: astro-site/dist
-
+          
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
