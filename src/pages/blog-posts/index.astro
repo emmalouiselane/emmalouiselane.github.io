@@ -1,0 +1,41 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getAllBlogs } from '../../lib/contentful';
+import moment from 'moment';
+
+const blogPosts = await getAllBlogs();
+---
+
+<BaseLayout title="Blog Posts" description="Read my latest blog posts!">
+  {blogPosts.length === 0 ? (
+    <p>No blog posts found.</p>
+  ) : (
+    <div class="container blog-list">
+      {blogPosts.map((post: any) => {
+        const title = post.title;
+        
+        return (
+          <div class="row" key={post.slug}>
+            <article
+              class="post-list-item"
+              itemscope
+              itemtype="http://schema.org/Article"
+            >
+              <header>
+                <h2>
+                  <a href={"/blog-posts/" + post.slug} itemprop="url">
+                    <span itemprop="headline">{title}</span>
+                  </a>
+                </h2>
+                <small>{moment(post.date).format("MMMM DD, YYYY")}</small>
+              </header>
+              <section>
+                <p>{post.description}</p>
+              </section>
+            </article>
+          </div>
+        );
+      })}
+    </div>
+  )}
+</BaseLayout>

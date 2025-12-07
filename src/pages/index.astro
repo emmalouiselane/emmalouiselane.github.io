@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SignComponent from '../components/sign';
+---
+
+<BaseLayout title="Home">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <SignComponent 
+          content="Under Construction" 
+          containerStyle={{ justifyContent: 'center' }}
+          signStyle={{ width: '450px', fontSize: '36px' }}
+          client:load
+        />
+      </div>
+    </div>
+
+    <!-- Spacer - Buffer row for construction sign -->
+    <div class="row" style="height: 50px;"></div>
+  </div>
+</BaseLayout>

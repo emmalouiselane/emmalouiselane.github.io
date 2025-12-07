@@ -1,0 +1,40 @@
+---
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';
+import { Container, Row, Col } from 'react-bootstrap';
+
+const footerTagline = "Sparks fuel ideas — SparkLane.dev brings those ideas to life.";
+const social = {
+  linkedIn: "https://linkedin.com/in/emmalouiselane",
+  gitHub: "https://github.com/emmalouiselane"
+};
+---
+
+<Container>
+  <Row>
+    <Col md={2}>
+      <a class="navbar-link" href="/accessibility-statement">Accessibility</a>
+    </Col>
+
+    <Col md={8}>
+      <div class="footer-content-center">
+        <p>{footerTagline}</p>
+      </div>
+    </Col>
+
+    <Col md={2}>
+      <div class="footer-content-right">
+        {social?.gitHub && (
+          <a class="link social-link" href={social.gitHub} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+            <FontAwesomeIcon icon={faGithub} size="2x" aria-hidden="true" client:load />
+          </a>
+        )}
+        {social?.linkedIn && (
+          <a class="link social-link" href={social.linkedIn} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+            <FontAwesomeIcon icon={faLinkedin} size="2x" alt="LinkedIn" aria-hidden="true" client:load />
+          </a>
+        )}    
+      </div>    
+    </Col>  
+  </Row>      
+</Container>

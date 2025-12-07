@@ -1,0 +1,58 @@
+@use "./_variables" as *;
+
+.recipe {
+  margin: var(--spacing-0) var(--spacing-4) 95px var(--spacing-4); // Footer height & under construction banner
+  margin-top: var(--spacing-12);
+
+  header {
+    display: flex;
+
+    .recipe-rating {
+       padding: 10px
+    }
+
+    h1 {
+      margin: var(--spacing-0) var(--spacing-0) var(--spacing-4) var(--spacing-0);
+      width: fit-content
+    }
+  }
+
+  .row > ul {
+    margin-left: var(--spacing-3);
+    margin-bottom: var(--spacing-2);
+  }
+
+  .row > ol {
+    margin-left: var(--spacing-3);
+  }
+}
+
+.recipe-list {
+    margin-top: var(--spacing-12);
+}
+
+// Recipe list item
+.recipe-list-item {
+  margin-bottom: var(--spacing-8);
+  margin-top: var(--spacing-4);
+}
+
+.recipe-list-item p {
+  margin-bottom: var(--spacing-0);
+}
+
+.recipe-list-item h2 {
+  font-size: var(--fontSize-4);
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-2);
+  margin-top: var(--spacing-0);
+}
+
+.recipe-list-item header {
+  margin-bottom: var(--spacing-4);
+}
+
+.recipe-post-paragraph {
+  margin: var(--spacing-0) var(--spacing-0) var(--spacing-2) var(--spacing-0);
+  width: fit-content;
+}

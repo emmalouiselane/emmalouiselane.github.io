@@ -1,0 +1,180 @@
+import { createClient } from 'contentful';
+
+const SPACE = import.meta.env.CONTENTFUL_SPACE_ID;
+const TOKEN = import.meta.env.CONTENTFUL_DELIVERY_TOKEN;
+
+const client = createClient({
+    space: SPACE,
+    accessToken: TOKEN,
+});
+
+async function entriesApiCall(query: string, variables?: Record<string, any>) {
+    const fetchUrl = `https://graphql.contentful.com/content/v1/spaces/${SPACE}/environments/master`;
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${TOKEN}`,
+        },
+        body: JSON.stringify({ query, variables }),
+    };
+    return await fetch(fetchUrl, options);
+}
+
+export async function getAllPortfolioItems() {
+    const query = `
+    {
+      portfolioItemCollection {
+        items {
+          sys {
+            id
+          }
+          title
+          slug
+          description
+          externalUrl
+          githubUrl
+          isInDevelopment
+        }
+      }
+    }
+  `;
+    const response = await entriesApiCall(query);
+    const json = await response.json();
+    return json.data.portfolioItemCollection.items;
+}
+
+export async function getPortfolioItemBySlug(slug: string) {
+    const query = `
+    query ($slug: String!) {
+      portfolioItemCollection(where: { slug: $slug }) {
+        items {
+          sys {
+            id
+          }
+          title
+          slug
+          description
+          detailedDescription
+          features {
+            json
+          }
+          externalUrl
+          githubUrl
+          isInDevelopment
+          isIframe
+        }
+      }
+    }
+  `;
+
+    const variables = { slug };
+    const response = await entriesApiCall(query, variables);
+    const json = await response.json();
+    return json.data.portfolioItemCollection.items[0];
+}
+
+export async function getAllBlogs() {
+    const query = `
+    {
+      blogPostCollection(order: date_DESC) {
+        items {
+          sys {
+            id
+          }
+          title
+          date
+          slug
+          description
+        }
+      }
+    }
+  `;
+    const response = await entriesApiCall(query);
+    const json = await response.json();
+    return json.data.blogPostCollection.items;
+}
+
+export async function getBlogPostBySlug(slug: string) {
+    const query = `
+    query ($slug: String!) {
+      blogPostCollection(where: { slug: $slug }) {
+        items {
+          sys {
+            id
+          }
+          title
+          date
+          slug
+          description
+          blogContent {
+            json
+          }
+        }
+      }
+    }
+  `;
+
+    const variables = { slug };
+    const response = await entriesApiCall(query, variables);
+    const json = await response.json();
+    return json.data.blogPostCollection.items[0];
+}
+
+export async function getAllRecipes() {
+    const query = `
+    {
+      recipeCollection {
+        items {
+          sys {
+            id
+          }
+          name
+          rating
+          slug
+        }
+      }
+    }
+  `;
+    const response = await entriesApiCall(query);
+    const json = await response.json();
+    return json.data.recipeCollection.items;
+}
+
+export async function getRecipeBySlug(slug: string) {
+    const query = `
+    query ($slug: String!) {
+      recipeCollection(where: { slug: $slug }) {
+        items {
+          sys {
+            id
+          }
+          name
+          rating
+          slug
+          ingredients {
+            json
+          }
+          ingredients2 {
+            json
+          }
+          directions {
+            json
+          }
+          notes {
+            json
+          }
+          personalNote
+          review {
+            json
+          }
+        }
+      }
+    }
+  `;
+
+    const variables = { slug };
+    const response = await entriesApiCall(query, variables);
+    const json = await response.json();
+    return json.data.recipeCollection.items[0];
+}

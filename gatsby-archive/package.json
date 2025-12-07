@@ -1,0 +1,98 @@
+{
+  "name": "emmalouiselane.github.io",
+  "private": true,
+  "description": "A blog/portfolio powered by Gatsby and Markdown",
+  "version": "0.1.0",
+  "author": "Emma Lane <emma@sparklane.dev>",
+  "bugs": {
+    "url": "https://github.com/emmalouiselane/emmalouiselane.github.io"
+  },
+  "dependencies": {
+    "@contentful/rich-text-html-renderer": "^17.0.1",
+    "@contentful/rich-text-react-renderer": "^16.0.2",
+    "@contentful/rich-text-types": "^17.0.1",
+    "@fontsource-variable/montserrat": "^5.2.6",
+    "@fontsource/merriweather": "^5.2.9",
+    "@fortawesome/fontawesome-svg-core": "^6.7.2",
+    "@fortawesome/free-brands-svg-icons": "^6.7.2",
+    "@fortawesome/react-fontawesome": "^0.2.2",
+    "@isoterik/react-word-cloud": "^1.2.0",
+    "bootstrap": "^5.3.6",
+    "dotenv": "^16.5.0",
+    "gatsby": "^5.14.4",
+    "gatsby-plugin-canonical-urls": "^5.14.0",
+    "gatsby-plugin-feed": "^5.14.0",
+    "gatsby-plugin-image": "^3.14.0",
+    "gatsby-plugin-manifest": "^5.14.0",
+    "gatsby-plugin-robots-txt": "^1.8.0",
+    "gatsby-plugin-sass": "^6.14.0",
+    "gatsby-plugin-sharp": "^5.14.0",
+    "gatsby-plugin-sitemap": "^6.14.0",
+    "gatsby-remark-images": "^7.14.0",
+    "gatsby-remark-prismjs": "^7.14.0",
+    "gatsby-remark-responsive-iframe": "^6.14.0",
+    "gatsby-source-contentful": "^8.15.0",
+    "gatsby-source-filesystem": "^5.14.0",
+    "gatsby-transformer-remark": "^6.14.0",
+    "gatsby-transformer-sharp": "^5.14.0",
+    "moment": "^2.30.1",
+    "prismjs": "^1.29.0",
+    "react": "^18.3.1",
+    "react-bootstrap": "^2.10.10",
+    "react-dom": "^18.3.1",
+    "sass": "^1.89.2"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
+    "conventional-changelog-conventionalcommits": "^9.1.0",
+    "eslint": "^9.30.1",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-gatsby": "^1.0.2",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.2",
+    "prettier": "^3.5.3"
+  },
+  "keywords": [
+    "gatsby"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emmalouiselane/emmalouiselane.github.io.git"
+  },
+  "scripts": {
+    "build": "gatsby build",
+    "develop": "gatsby develop",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
+    "start": "gatsby develop",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean",
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
+  }
+}

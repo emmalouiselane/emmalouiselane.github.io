@@ -1,0 +1,66 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getAllPortfolioItems, getPortfolioItemBySlug } from '../../lib/contentful';
+import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
+import { BLOCKS } from '@contentful/rich-text-types';
+
+export const getStaticPaths = (async () => {
+  const portfolioItems = await getAllPortfolioItems();
+  
+  return portfolioItems.map((item: any) => ({
+    params: { slug: item.slug },
+    props: { item },
+  }));
+}) satisfies GetStaticPaths;
+
+const { item } = Astro.props;
+const fullItem = await getPortfolioItemBySlug(item.slug);
+
+const options = {
+  renderNode: {
+    [BLOCKS.PARAGRAPH]: (node: any) => `<p>${node.content.map((c: any) => c.value || '').join('')}</p>`,
+    [BLOCKS.UL_LIST]: (node: any, next: any) => `<ul>${next(node.content)}</ul>`,
+    [BLOCKS.LIST_ITEM]: (node: any, next: any) => `<li>${next(node.content)}</li>`,
+  },
+};
+---
+
+<BaseLayout title={fullItem.title} description={fullItem.description}>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h1>{fullItem.title}</h1>
+        {fullItem.isInDevelopment && (
+          <span class="badge bg-warning">In Development</span>
+        )}
+      </div>
+    </div>
+    
+    <div class="row mt-4">
+      <div class="col">
+        <p>{fullItem.detailedDescription || fullItem.description}</p>
+        
+        {fullItem.features && (
+          <div>
+            <h2>Features</h2>
+            <Fragment set:html={documentToHtmlString(fullItem.features.json, options)} />
+          </div>
+        )}
+        
+        <div class="mt-4">
+          {fullItem.externalUrl && (
+            <a href={fullItem.externalUrl} target="_blank" rel="noopener noreferrer" class="btn btn-primary me-2">
+              View Live Site
+            </a>
+          )}
+          {fullItem.githubUrl && (
+            <a href={fullItem.githubUrl} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+              View on GitHub
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

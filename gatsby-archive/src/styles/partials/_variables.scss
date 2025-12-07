@@ -1,0 +1,125 @@
+// CSS Custom Properties
+:root {
+  /* ---------- PRIMARY BRAND COLORS ---------- */
+  --color-primary: #2E8552;
+  /* Emerald Green for buttons, links, highlights */
+  --color-secondary: #003366;
+  /* Navy Blue for headings, nav, secondary buttons */
+  --color-accent: #c1f3b7;
+  /* Light Mint for subtle highlights, badges, cards */
+
+  /* ---------- BACKGROUND & SURFACE ---------- */
+  --color-background: #F2F2F2;
+  /* Pale Grey main background */
+  --color-surface: #FFFFFF;
+  /* White for cards, panels, content blocks */
+  --color-accent-light: #d6f4d0;
+  /* Very light mint for section backgrounds / hover */
+
+  /* ---------- TEXT ---------- */
+  --color-text: #1A202C;
+  /* Dark grey/blue for body text */
+  --color-heading: #003366;
+  /* Navy headings for hierarchy */
+  --color-text-light: #4F5969;
+  /* For secondary or meta text */
+
+  /* ---------- HIGHLIGHT / INTERACTIVE ---------- */
+  --color-highlight: #2E8552;
+  /* Emerald for hover states, active buttons */
+  --color-accent-highlight: #B2F2BB;
+  /* Mint for badges, small accents */
+
+  /* Overwrite Bootstrap variables */
+  --bs-primary-bg-subtle: #d9f0dc;
+  --bs-accordion-btn-focus-box-shadow: 0 0 0 0.25rem rgba(13, 225, 253, 0.25) !important;
+  --bs-primary-text-emphasis: #003366;
+  --bs-link-color: #2E8552;
+
+
+  /* Max widths */
+  --maxWidth-none: "none";
+  --maxWidth-xs: 20rem;
+  --maxWidth-sm: 24rem;
+  --maxWidth-md: 28rem;
+  --maxWidth-lg: 32rem;
+  --maxWidth-xl: 36rem;
+  --maxWidth-2xl: 42rem;
+  --maxWidth-3xl: 48rem;
+  --maxWidth-4xl: 56rem;
+  --maxWidth-full: "100%";
+  --maxWidth-wrapper: var(--maxWidth-4xl);
+
+  /* Spacing */
+  --spacing-0: 0;
+  --spacing-1: 0.25rem;
+  --spacing-2: 0.5rem;
+  --spacing-3: 0.75rem;
+  --spacing-4: 1rem;
+  --spacing-5: 1.25rem;
+  --spacing-6: 1.5rem;
+  --spacing-8: 2rem;
+  --spacing-10: 2.5rem;
+  --spacing-12: 3rem;
+  --spacing-16: 4rem;
+  --spacing-20: 5rem;
+  --spacing-24: 6rem;
+  --spacing-32: 8rem;
+
+  /* Typography */
+  --fontFamily: "Nunito", sans-serif;
+  --font-body: var(--fontFamily);
+  --font-heading: var(--fontFamily);
+  --fontWeight-normal: 400;
+  --fontWeight-boldish: 500;
+  --fontWeight-bold: 700;
+  --fontWeight-black: 900;
+  --fontSize-root: 16px;
+  --lineHeight-none: 1;
+  --lineHeight-tight: 1.1;
+  --lineHeight-normal: 1.5;
+  --lineHeight-relaxed: 1.625;
+
+  /* Type scale */
+  --fontSize-0: 0.833rem;
+  --fontSize-1: 1rem;
+  --fontSize-2: 1.2rem;
+  --fontSize-3: 1.44rem;
+  --fontSize-4: 1.728rem;
+  --fontSize-5: 2.074rem;
+  --fontSize-6: 2.488rem;
+  --fontSize-7: 2.986rem;
+}
+
+/* ---------- DARK MODE ---------- */
+.dark-mode {
+  /* ---------- PRIMARY BRAND COLORS ---------- */
+  --color-primary: #50C878;
+  /* Emerald Green for buttons, links, highlights */
+  --color-secondary: #003366;
+  /* Navy Blue for headings, nav, secondary buttons */
+  --color-accent: #B2F2BB;
+  /* Light Mint for subtle highlights, badges, cards */
+
+  /* ---------- BACKGROUND & SURFACE ---------- */
+  --color-background: #1C1C1C;
+  /* Dark charcoal background */
+  --color-surface: #2A2A2A;
+  /* Slightly lighter panels / content blocks */
+  --color-accent-light: #004D4D;
+  /* Dark teal for section backgrounds or hover areas */
+
+  /* ---------- TEXT ---------- */
+  --color-text: #E0E0E0;
+  /* Light grey for body text */
+  --color-heading: #B2F2BB;
+  /* Light Mint headings for hierarchy */
+  --color-text-light: #B0B0B0;
+  /* Secondary / meta text */
+
+  /* ---------- HIGHLIGHT / INTERACTIVE ---------- */
+  --color-highlight: #50C878;
+  /* Emerald for hover states, active buttons */
+  --color-accent-highlight: #FFD700;
+  /* Gold for spark / attention highlights */
+}

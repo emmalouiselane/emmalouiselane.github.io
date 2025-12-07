@@ -1,0 +1,55 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  url?: string;
+}
+
+const siteMetadata = {
+  title: 'Spark Lane | Emma Lane | Full-Stack Developer',
+  description: "Emma Lane's (Full-stack developer) blog and portfolio showcasing projects.",
+  siteUrl: 'https://sparklane.dev',
+  author: 'Emma Lane',
+};
+
+const {
+  title,
+  description = siteMetadata.description,
+  image = '/images/profile-pic.png',
+  url = siteMetadata.siteUrl,
+} = Astro.props;
+
+const pageTitle = title ? `${title} | ${siteMetadata.title}` : siteMetadata.title;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const imageUrl = new URL(image, Astro.site);
+---
+
+<!-- Primary Meta Tags -->
+<title>{pageTitle}</title>
+<meta name="title" content={pageTitle} />
+<meta name="description" content={description} />
+<meta name="author" content={siteMetadata.author} />
+<meta name="keywords" content="Emma Lane, Full-stack Developer, Web Developer, Portfolio, JavaScript, React, Node.js, .NET, Somerset, UK" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<!-- Canonical URL -->
+<link rel="canonical" href={canonicalURL} />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content={url} />
+<meta property="og:title" content={pageTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={imageUrl} />
+<meta property="og:site_name" content={siteMetadata.title} />
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet" />
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="/images/profile-pic.png" />
+
+<slot />

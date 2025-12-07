@@ -1,0 +1,72 @@
+// Workshop styles
+@use "./_variables" as *;
+
+.workshop-list {
+  text-align: center;
+
+  > .row > .col {
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  > .row > .col > a {
+    border-radius: var(--spacing-2);
+    margin: var(--spacing-4);
+    padding: var(--spacing-1);
+    background-color: #cae0c7a8;
+    border: 2px dashed #b9cfc3;
+
+    > div > p {
+      width: -webkit-fill-available;
+      text-align: center;
+    }
+  }
+
+  .workshop-link, .workshop-link-disabled {
+    width: -webkit-fill-available;
+    height: -webkit-fill-available;
+    max-height: 100px;
+    display: block;
+    text-align: center;
+    align-content: center;
+    text-decoration: none;
+    color: var(--color-text) !important;
+    font-weight: var(--fontWeight-bold);
+    transition: color 0.2s ease, background-color 0.2s ease;
+
+    div {
+      text-align: center;
+      padding: var(--spacing-8);
+      margin: 0;
+      display: block;
+      background-color: var(--color-background);
+      border: 2px dashed #b9cfc3;
+      border-radius: 2px;
+      height: 100%;
+      align-content: center;
+      text-align: center;
+
+      p {
+        color: var(--color-text);
+        width: 135px;
+        font-size: 14px;
+        letter-spacing: 0.25em;
+        text-align: center;
+        margin: 0;
+        display: block;
+        text-align: center;
+      }
+    }
+
+    &.workshop-link div:hover {
+      color: var(--color-accent-light);
+      background-color: var(--color-accent-light);
+    }
+
+    &.workshop-link-disabled div p {
+      cursor: default;
+    }
+  }
+}

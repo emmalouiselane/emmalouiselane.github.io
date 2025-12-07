@@ -1,0 +1,58 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getAllBlogs, getBlogPostBySlug } from '../../lib/contentful';
+import moment from 'moment';
+import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
+import { BLOCKS, MARKS } from '@contentful/rich-text-types';
+import Bio from '../../components/bio';
+import QuickNavComponent from '../../components/quick-nav';
+
+export const getStaticPaths = (async () => {
+  const blogPosts = await getAllBlogs();
+  
+  return blogPosts.map((post: any) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}) satisfies GetStaticPaths;
+
+const { post } = Astro.props;
+const fullPost = await getBlogPostBySlug(post.slug);
+
+// Define custom render options for rich text
+const options = {
+  renderNode: {
+    [BLOCKS.PARAGRAPH]: (node: any) => `<p class="blog-post-paragraph">${node.content.map((c: any) => c.value || '').join('')}</p>`,
+    [BLOCKS.HEADING_1]: (node: any) => `<h2 class="blog-post-heading">${node.content.map((c: any) => c.value || '').join('')}</h2>`,
+    [BLOCKS.HEADING_2]: (node: any) => `<h3 class="blog-post-subheading">${node.content.map((c: any) => c.value || '').join('')}</h3>`,
+  },
+};
+
+const blogContentHtml = documentToHtmlString(fullPost.blogContent.json, options);
+---
+
+<BaseLayout title={fullPost.title} description={fullPost.description}>
+  <QuickNavComponent client:load />
+  
+  <div class="blog-post">
+    <article>
+      <header>
+        <h1>{fullPost.title}</h1>
+        <p>{moment(fullPost.date).format("MMMM DD, YYYY")}</p>
+      </header>
+      
+      <div class="row">
+        <Fragment set:html={blogContentHtml} />
+      </div>
+      
+      <div class="row">
+        <i style="display: flow; text-align: center;">
+          Your insights matter! Let's keep the discussion going!
+        </i>
+      </div>
+      
+      <Bio client:load />
+    </article>
+  </div>
+</BaseLayout>

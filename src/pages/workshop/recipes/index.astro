@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getAllRecipes } from '../../../lib/contentful';
+
+const recipes = await getAllRecipes();
+---
+
+<BaseLayout title="Recipes" description="Browse my collection of recipes.">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h1>Recipes</h1>
+      </div>
+    </div>
+    
+    <div class="row mt-4">
+      {recipes.map((recipe: any) => (
+        <div class="col-md-6 col-lg-4 mb-4" key={recipe.slug}>
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">
+                <a href={"/workshop/recipes/" + recipe.slug}>{recipe.name}</a>
+              </h5>
+              {recipe.rating && (
+                <p class="card-text">
+                  Rating: {'⭐'.repeat(recipe.rating)}
+                </p>
+              )}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</BaseLayout>

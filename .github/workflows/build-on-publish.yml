@@ -32,15 +32,12 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
-          cache-dependency-path: astro-site/package-lock.json
 
       - name: Install dependencies
         run: npm ci
-        working-directory: astro-site
 
       - name: Build
         run: npm run build
-        working-directory: astro-site
         env:
           # Mapping existing Gatsby secrets to new Astro env vars
           CONTENTFUL_SPACE_ID: ${{ secrets.GATSBY_CONTENTFUL_SPACE_ID }}
@@ -52,7 +49,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: astro-site/dist
+          path: dist
 
       - name: Deploy to GitHub Pages
         id: deployment

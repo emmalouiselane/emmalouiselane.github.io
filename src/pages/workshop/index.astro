@@ -1,0 +1,34 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Workshop" description="My workshop!">
+  <div class="container workshop-list">
+    <div class="row">
+      <h2>Welcome to my workshop!</h2>
+      
+      <p>This is a personal workspace, you can see what I'm currently working on, as well as my recipe bank, musings about any current reads, talking about any obsessions with what I'm listening to as well as personal guides and notes for any games that I play.</p>
+      <p>I will be updating this page as I go, so expect it to be a work in progress.</p>
+    </div>
+    
+    <div class="row">
+      <div class="col">
+        <a class="workshop-link" href="/portfolio/">
+          <div><p>Portfolio</p></div>
+        </a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <a class="workshop-link" href="/workshop/recipes/">
+          <div><p>Recipes</p></div>
+        </a>
+      </div>
+      <div class="col">
+        <a class="workshop-link" href="/workshop/gaming/">
+          <div><p>Gaming</p></div>
+        </a>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

@@ -15,14 +15,17 @@
 @use "./partials/_quickNav" as *;
 @use "./partials/_gaming" as *;
 
+// Layout
+.global-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin-top: 100px; // Navbar height
+  margin-bottom: 60px; // Footer height
+}
+
 // Accessibility wrapper
 .accessibility-wrapper li {
   margin: var(--spacing-6);
-}
-
-body {
-  background-color: var(--color-background);
-  color: var(--color-text);
-  font-family: var(--font-body);
-  transition: background-color 0.3s ease, color 0.3s ease;
 }

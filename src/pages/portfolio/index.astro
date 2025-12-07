@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getAllPortfolioItems } from '../../lib/contentful';
+import QuickNavComponent from '../../components/quick-nav';
+import WordCloudComponent from '../../components/word-cloud';
+
+const portfolioItems = await getAllPortfolioItems();
+---
+
+<BaseLayout title="Portfolio" description="Take a peek at what I've been working on!">
+  <QuickNavComponent client:load />
+  
+  <div class="container portfolio-list" style="width: 100%;">
+    <div class="row" style="display: flex; flex-direction: row;">
+      <div class="col">
+        {portfolioItems.map((item: any) => (
+          <div class="row" key={item.slug}>
+            <article 
+              class="portfolio-list-item"
+              itemscope
+              itemtype="http://schema.org/Article"
+            >
+              <header>
+                <h2>
+                  <a href={"/portfolio/" + item.slug}>
+                    {item.title}
+                  </a>
+                </h2>
+              </header>
+              <section>
+                <p>{item.description}</p>
+              </section>
+            </article>
+          </div>
+        ))}
+        
+        <div class="row word-cloud-container">
+          <WordCloudComponent client:load />
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

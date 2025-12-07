@@ -1,0 +1,87 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getAllRecipes, getRecipeBySlug } from '../../../lib/contentful';
+import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
+import { BLOCKS } from '@contentful/rich-text-types';
+
+export const getStaticPaths = (async () => {
+  const recipes = await getAllRecipes();
+  
+  return recipes.map((recipe: any) => ({
+    params: { slug: recipe.slug },
+    props: { recipe },
+  }));
+}) satisfies GetStaticPaths;
+
+const { recipe } = Astro.props;
+const fullRecipe = await getRecipeBySlug(recipe.slug);
+
+const options = {
+  renderNode: {
+    [BLOCKS.PARAGRAPH]: (node: any) => `<p>${node.content.map((c: any) => c.value || '').join('')}</p>`,
+    [BLOCKS.UL_LIST]: (node: any, next: any) => `<ul>${next(node.content)}</ul>`,
+    [BLOCKS.OL_LIST]: (node: any, next: any) => `<ol>${next(node.content)}</ol>`,
+    [BLOCKS.LIST_ITEM]: (node: any, next: any) => `<li>${next(node.content)}</li>`,
+  },
+};
+---
+
+<BaseLayout title={fullRecipe.name} description={"Recipe for " + fullRecipe.name}>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h1>{fullRecipe.name}</h1>
+        {fullRecipe.rating && (
+          <p>Rating: {'⭐'.repeat(fullRecipe.rating)}</p>
+        )}
+      </div>
+    </div>
+    
+    <div class="row mt-4">
+      <div class="col-md-6">
+        <h2>Ingredients</h2>
+        {fullRecipe.ingredients && (
+          <Fragment set:html={documentToHtmlString(fullRecipe.ingredients.json, options)} />
+        )}
+        {fullRecipe.ingredients2 && (
+          <Fragment set:html={documentToHtmlString(fullRecipe.ingredients2.json, options)} />
+        )}
+      </div>
+      
+      <div class="col-md-6">
+        <h2>Directions</h2>
+        {fullRecipe.directions && (
+          <Fragment set:html={documentToHtmlString(fullRecipe.directions.json, options)} />
+        )}
+      </div>
+    </div>
+    
+    {fullRecipe.notes && (
+      <div class="row mt-4">
+        <div class="col">
+          <h2>Notes</h2>
+          <Fragment set:html={documentToHtmlString(fullRecipe.notes.json, options)} />
+        </div>
+      </div>
+    )}
+    
+    {fullRecipe.personalNote && (
+      <div class="row mt-4">
+        <div class="col">
+          <h2>Personal Note</h2>
+          <p>{fullRecipe.personalNote}</p>
+        </div>
+      </div>
+    )}
+    
+    {fullRecipe.review && (
+      <div class="row mt-4">
+        <div class="col">
+          <h2>Review</h2>
+          <Fragment set:html={documentToHtmlString(fullRecipe.review.json, options)} />
+        </div>
+      </div>
+    )}
+  </div>
+</BaseLayout>

@@ -1,0 +1,65 @@
+@use "./_variables" as *;
+
+// Accessibility wrapper
+[data-theme="loading"] {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+[data-theme="loaded"] {
+  opacity: 1;
+}
+
+// Prevent selection
+* {
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+
+// Box sizing
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+// HTML & Body
+html {
+  line-height: var(--lineHeight-normal);
+  font-size: var(--fontSize-root);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--fontSize-1);
+  color: var(--color-text);
+  background-color: var(--color-background);
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  overflow-y: auto;
+}
+
+hr {
+  background: var(--color-accent);
+  height: 1px;
+  border: 0;
+}
+
+.gray-emoji-fill {
+  color: transparent;
+  text-shadow: 0 0 0 #ccc;
+}
+
+@media (min-width: 1800px) {
+  .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+    max-width: 1780px;
+  }
+}

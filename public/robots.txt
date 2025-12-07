@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sparklane.dev/sitemap-index.xml

@@ -1,108 +1,104 @@
-# Spark Lane Dev
+# Spark Lane - Astro Site
 
-Personal blog & portfolio of Emma Lane – a full-stack developer based in Somerset.
-Built with **Gatsby 5**, Contentful, and modern tooling.
+This is the Astro version of the Spark Lane blog and portfolio site, migrated from Gatsby.
 
----
+## 🚀 Quick Start
 
-## 📊 Page Speed
+### Prerequisites
 
-https://pagespeed.web.dev/analysis/https-sparklane-dev/bdvg7izmx9?form_factor=desktop
+- Node.js 18+ 
+- npm or yarn
 
----
+### Installation
 
-## ✨ Features
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-| Area | What we use |
-|------|-------------|
-| Styling | (S)CSS Custom Properties, Bootstrap 5 utility classes |
-| CMS | [Contentful](https://www.contentful.com/) (blog posts & recipes) |
-| Images | `gatsby-plugin-image` & `gatsby-remark-images` |
-| SEO | Sitemap, robots.txt, canonical URLs, Open-Graph/Twitter meta, social share image |
-| Analytics | [PostHog](https://posthog.com/) + [Tinylytics](https://tinylytics.app/) |
-| UX | Word-cloud landing page, dark-mode toggle, responsive navbar |
+3. Copy `.env.example` to `.env` and fill in your Contentful credentials:
+   ```bash
+   cp .env.example .env
+   ```
 
----
+4. Add your Contentful Space ID and Delivery Token to `.env`:
+   ```
+   CONTENTFUL_SPACE_ID=your_space_id
+   CONTENTFUL_DELIVERY_TOKEN=your_delivery_token
+   ```
 
-## 🛠 Getting Started
+### Development
 
-### 1. Clone & install
-
-```bash
-# SSH   
-git clone git@github.com:emmalouiselane/emmalouiselane.github.io.git
-cd emmalouiselane.github.io
-npm install
-```
-
-### 2. Environment variables
-
-Create a `.env` file at project root with your own credentials:
-
-```env
-GATSBY_CONTENTFUL_SPACE_ID=xxxxxxxxxxxxxxxx
-GATSBY_CONTENTFUL_DELIVERY_TOKEN=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-```
-
-### 3. Run locally
+Start the development server:
 
 ```bash
-npm start            # alias for `gatsby develop` on http://localhost:8000
+npm run dev
 ```
 
-### 4. Production build
+The site will be available at `http://localhost:4321`
+
+### Build
+
+Build the site for production:
 
 ```bash
-npm run build        # generate static files in /public
-npm run serve        # optional: serve the build locally
+npm run build
 ```
 
----
+Preview the production build:
 
-## 📂 Project Structure (major only)
-
-```
-.
-├── src
-│   ├── api             # API clients (Contentful)
-│   ├── components      # Reusable UI (Navbar, SEO, Word Cloud…)
-│   ├── hooks           # Custom React hooks (PostHog tracking)
-│   ├── pages           # Static & CMS-sourced pages
-│   ├── templates       # Gatsby page templates (blog, recipe, portfolio)
-│   └── styles          # Global & component CSS
-├── gatsby-config.js    # Plugin & metadata configuration
-├── gatsby-node.js      # Dynamic page creation from Contentful
-├── gatsby-ssr.js       # SSR hooks (analytics inject, lang attr)
-└── README.md
+```bash
+npm run preview
 ```
 
----
+## 📁 Project Structure
 
-## 🔍 SEO & Analytics
+```
+/
+├── public/              # Static assets
+│   ├── robots.txt
+│   └── images/
+├── src/
+│   ├── components/      # React and Astro components
+│   ├── layouts/         # Page layouts
+│   ├── pages/           # File-based routing
+│   │   ├── blog-posts/
+│   │   ├── portfolio/
+│   │   └── workshop/
+│   ├── lib/             # Utilities (Contentful client)
+│   ├── hooks/           # React hooks
+│   └── styles/          # SCSS styles
+├── astro.config.mjs     # Astro configuration
+└── package.json
+```
 
-* `gatsby-plugin-sitemap` – auto-generated sitemap at `/sitemap.xml`.
-* `gatsby-plugin-robots-txt` – allows all crawlers.
-* `gatsby-plugin-canonical-urls` – canonical `<link>` per page.
-* `Seo` component outputs title/description, Open-Graph & Twitter meta.
-* PostHog events (`useTracking` hook) for navigation, post views, etc.
+## 🧩 Key Features
 
----
+- **Static Site Generation** with Astro
+- **React Components** for interactive elements
+- **TypeScript** support
+- **Contentful CMS** integration
+- **SCSS** styling
+- **Bootstrap** UI framework
+- **SEO optimized** with meta tags and sitemap
+- **Responsive design**
 
-## 🚀 Deployment
+## 📝 Content Management
 
-Site is deployed automatically via **GitHub Actions** to Netlify (or manually run `npm run build` and push the `/public` folder to any static host e.g. GitHub Pages, Cloudflare Pages, Vercel).  
-Update environment variables in your hosting dashboard.
+Content is managed through Contentful CMS:
+- Blog posts
+- Portfolio items
+- Recipes
 
----
+## 🚢 Deployment
 
-## 🙏 Credits & Licenses
+The site is configured for GitHub Pages deployment. Push to the main branch to trigger automatic deployment via GitHub Actions.
 
-* Gatsby Starter Blog (MIT) as a foundation.
-* Bootstrap © The Bootstrap Authors (MIT).
-* Font assets from [Google Fonts](https://fonts.google.com/).
+## 📄 License
 
-Code is licensed under the **MIT** license (see `LICENSE`).
+MIT
 
----
+## 👤 Author
 
-> Made with ☕ + 🌱 by [Emma Lane](https://sparklane.dev)
+Emma Lane - [emma@sparklane.dev](mailto:emma@sparklane.dev)

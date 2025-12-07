@@ -1,0 +1,61 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import QuickNavComponent from '../../../components/quick-nav';
+---
+
+<BaseLayout title="Stardew Valley" description="My Stardew Valley guides and resources">
+  <QuickNavComponent client:load />
+
+  <div class="container gaming-item-content">
+    <article>
+      <header>
+        <h2>Stardew Valley</h2>
+      </header>
+      
+      <section>
+        <div class="row">
+          <div class="col">
+            <p>
+              I love Stardew Valley! It's my ultimate cosy game. I can happily spend hours tending my farm, fishing by the river, exploring the mines, or just wandering through Pelican Town. 
+              With all the mods I use, there's always something new to discover, which makes it even easier to lose track of time in its charm.
+            </p>
+            <p>The resources below are for my own reference and have been added for ease of access - I've either created them, or sourced them elsewhere. Where they've been sourced elsewhere, I've added a note as to the creator/owner.</p>
+          </div>
+        </div>
+
+        <div class="mt-4">
+          <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="museum-tab" data-bs-toggle="tab" data-bs-target="#museum" type="button" role="tab">Museum Layout Reference</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="fish-tab" data-bs-toggle="tab" data-bs-target="#fish" type="button" role="tab">Fish Guide</button>
+            </li>
+          </ul>
+          <div class="tab-content mt-3">
+            <div class="tab-pane fade show active" id="museum" role="tabpanel">
+              <div class="image-layout">
+                <p>Source: <a href="https://www.reddit.com/r/StardewValleyExpanded/comments/1hfag51/my_museum_layout/" target="_blank">u/FoxgloveAndFireflies</a></p>
+                <img 
+                  src="/images/gaming/museum-layout.png" 
+                  alt="Museum Layout Reference"
+                  style="max-width: 100%; height: auto;"
+                />
+              </div>
+            </div>
+            <div class="tab-pane fade" id="fish" role="tabpanel">
+              <div class="image-layout">
+                <p>Source: <a href="https://www.reddit.com/r/StardewValley/comments/7rekkf/updated_visual_fish_by_season/" target="_blank">u/Fynzou</a></p>
+                <img 
+                  src="/images/gaming/fish-guide.png" 
+                  alt="Fish Guide"
+                  style="max-width: 100%; height: auto;"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </article>
+  </div>
+</BaseLayout>
