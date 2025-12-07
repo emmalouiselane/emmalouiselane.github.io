@@ -15,13 +15,13 @@ const siteUrl = 'https://sparklane.dev'
 
 module.exports = {
   siteMetadata: {
-    title: `Emerald Spark | Emma Lane | Full-Stack Developer`,
+    title: `Spark Lane | Emma Lane | Full-Stack Developer`,
     author: {
       name: `Emma Lane`,
       summary: `a full stack developer based in Somerset; dabbling with different tech stacks and building (hopefully useful) things.`,
     },
     description: `Emma Lane's (Full-stack developer) blog and portfolio showcasing projects.`,
-    footerTagline: `Emerald Spark fuels ideas — SparkLane.dev brings them to life.`,
+    footerTagline: `Sparks fuel ideas — SparkLane.dev brings those ideas  to life.`,
     siteUrl: siteUrl,
     social: {
       linkedIn: `https://linkedin.com/in/emmalouiselane`,
@@ -98,8 +98,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Emerald Spark`,
-        short_name: `Emerald Spark`,
+        name: `Spark Lane`,
+        short_name: `Spark Lane`,
         start_url: `/`,
         background_color: `#1a1a1a`,
         theme_color: `#1a1a1a`,

@@ -1,4 +1,4 @@
-# Emerald Spark / Spark Lane Dev
+# Spark Lane Dev
 
 Personal blog & portfolio of Emma Lane – a full-stack developer based in Somerset.
 Built with **Gatsby 5**, Contentful, and modern tooling.

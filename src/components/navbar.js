@@ -48,33 +48,33 @@ const NavbarComponent = () => {
   }, []);
 
   return (
-      <Navbar expand="md" fixed="top">
-        <Container className="custom-navbar-container">
-          <Link className="main-heading" to="/">
-            <h1>
-              Emerald Spark
-            </h1>
-          </Link>
-          
-          <Navbar.Toggle aria-controls="navbar-nav" />
-          <Navbar.Collapse id="navbar-nav">
-            <Nav className="custom-nav-links">
-              {navLinks.map((link) => (
-                  <Link className="navbar-link"
-                            key={link.path} to={link.path} 
-                            onClick={() => handleNavigation(link.text)}>
-                    {link.text}
-                  </Link>
-              ))}
+    <Navbar expand="md" fixed="top">
+      <Container className="custom-navbar-container">
+        <Link className="main-heading" to="/">
+          <h1>
+            Spark Lane
+          </h1>
+        </Link>
 
-              
-              <Button className="navbar-link dark-mode-toggle" style={isMobile ? { width: '100px' } : {}} onClick={toggleDarkMode}>
-                {isDarkMode ? "☀️" : "🌙"}
-              </Button>
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
+        <Navbar.Toggle aria-controls="navbar-nav" />
+        <Navbar.Collapse id="navbar-nav">
+          <Nav className="custom-nav-links">
+            {navLinks.map((link) => (
+              <Link className="navbar-link"
+                key={link.path} to={link.path}
+                onClick={() => handleNavigation(link.text)}>
+                {link.text}
+              </Link>
+            ))}
+
+
+            <Button className="navbar-link dark-mode-toggle" style={isMobile ? { width: '100px' } : {}} onClick={toggleDarkMode}>
+              {isDarkMode ? "☀️" : "🌙"}
+            </Button>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 };
 

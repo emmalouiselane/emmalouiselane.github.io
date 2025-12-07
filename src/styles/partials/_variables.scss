@@ -1,29 +1,40 @@
 // CSS Custom Properties
 :root {
   /* ---------- PRIMARY BRAND COLORS ---------- */
-  --color-primary: #2E8552;         /* Emerald Green for buttons, links, highlights */
-  --color-secondary: #003366;       /* Navy Blue for headings, nav, secondary buttons */
-  --color-accent: #c1f3b7;          /* Light Mint for subtle highlights, badges, cards */
+  --color-primary: #2E8552;
+  /* Emerald Green for buttons, links, highlights */
+  --color-secondary: #003366;
+  /* Navy Blue for headings, nav, secondary buttons */
+  --color-accent: #c1f3b7;
+  /* Light Mint for subtle highlights, badges, cards */
 
   /* ---------- BACKGROUND & SURFACE ---------- */
-  --color-background: #F2F2F2;      /* Pale Grey main background */
-  --color-surface: #FFFFFF;         /* White for cards, panels, content blocks */
-  --color-accent-light: #d6f4d0;    /* Very light mint for section backgrounds / hover */
+  --color-background: #F2F2F2;
+  /* Pale Grey main background */
+  --color-surface: #FFFFFF;
+  /* White for cards, panels, content blocks */
+  --color-accent-light: #d6f4d0;
+  /* Very light mint for section backgrounds / hover */
 
   /* ---------- TEXT ---------- */
-  --color-text: #1A202C;            /* Dark grey/blue for body text */
-  --color-heading: #003366;         /* Navy headings for hierarchy */
-  --color-text-light: #4F5969;      /* For secondary or meta text */
+  --color-text: #1A202C;
+  /* Dark grey/blue for body text */
+  --color-heading: #003366;
+  /* Navy headings for hierarchy */
+  --color-text-light: #4F5969;
+  /* For secondary or meta text */
 
   /* ---------- HIGHLIGHT / INTERACTIVE ---------- */
-  --color-highlight: #2E8552;       /* Emerald for hover states, active buttons */
-  --color-accent-highlight: #B2F2BB; /* Mint for badges, small accents */
+  --color-highlight: #2E8552;
+  /* Emerald for hover states, active buttons */
+  --color-accent-highlight: #B2F2BB;
+  /* Mint for badges, small accents */
 
- /* Overwrite Bootstrap variables */
- --bs-primary-bg-subtle: #d9f0dc;
- --bs-accordion-btn-focus-box-shadow: 0 0 0 0.25rem rgba(13, 225, 253, 0.25) !important;
- --bs-primary-text-emphasis: #003366;
- --bs-link-color: #2E8552;
+  /* Overwrite Bootstrap variables */
+  --bs-primary-bg-subtle: #d9f0dc;
+  --bs-accordion-btn-focus-box-shadow: 0 0 0 0.25rem rgba(13, 225, 253, 0.25) !important;
+  --bs-primary-text-emphasis: #003366;
+  --bs-link-color: #2E8552;
 
 
   /* Max widths */
@@ -56,7 +67,7 @@
   --spacing-32: 8rem;
 
   /* Typography */
-  --fontFamily: "Poiret One", sans-serif;
+  --fontFamily: "Nunito", sans-serif;
   --font-body: var(--fontFamily);
   --font-heading: var(--fontFamily);
   --fontWeight-normal: 400;
@@ -83,22 +94,32 @@
 /* ---------- DARK MODE ---------- */
 .dark-mode {
   /* ---------- PRIMARY BRAND COLORS ---------- */
-  --color-primary: #50C878;         /* Emerald Green for buttons, links, highlights */
-  --color-secondary: #003366;       /* Navy Blue for headings, nav, secondary buttons */
-  --color-accent: #B2F2BB;          /* Light Mint for subtle highlights, badges, cards */
+  --color-primary: #50C878;
+  /* Emerald Green for buttons, links, highlights */
+  --color-secondary: #003366;
+  /* Navy Blue for headings, nav, secondary buttons */
+  --color-accent: #B2F2BB;
+  /* Light Mint for subtle highlights, badges, cards */
 
   /* ---------- BACKGROUND & SURFACE ---------- */
-  --color-background: #1C1C1C;      /* Dark charcoal background */
-  --color-surface: #2A2A2A;         /* Slightly lighter panels / content blocks */
-  --color-accent-light: #004D4D;    /* Dark teal for section backgrounds or hover areas */
+  --color-background: #1C1C1C;
+  /* Dark charcoal background */
+  --color-surface: #2A2A2A;
+  /* Slightly lighter panels / content blocks */
+  --color-accent-light: #004D4D;
+  /* Dark teal for section backgrounds or hover areas */
 
   /* ---------- TEXT ---------- */
-  --color-text: #E0E0E0;            /* Light grey for body text */
-  --color-heading: #B2F2BB;         /* Light Mint headings for hierarchy */
-  --color-text-light: #B0B0B0;      /* Secondary / meta text */
+  --color-text: #E0E0E0;
+  /* Light grey for body text */
+  --color-heading: #B2F2BB;
+  /* Light Mint headings for hierarchy */
+  --color-text-light: #B0B0B0;
+  /* Secondary / meta text */
 
   /* ---------- HIGHLIGHT / INTERACTIVE ---------- */
-  --color-highlight: #50C878;       /* Emerald for hover states, active buttons */
-  --color-accent-highlight: #FFD700; /* Gold for spark / attention highlights */
+  --color-highlight: #50C878;
+  /* Emerald for hover states, active buttons */
+  --color-accent-highlight: #FFD700;
+  /* Gold for spark / attention highlights */
 }
-
