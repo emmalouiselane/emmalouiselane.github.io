@@ -4,27 +4,28 @@
 .workshop-list {
   text-align: center;
 
-  > .row > .col {
+  >.row>.col {
     list-style-type: none;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
   }
 
-  > .row > .col > a {
+  >.row>.col>a {
     border-radius: var(--spacing-2);
     margin: var(--spacing-4);
     padding: var(--spacing-1);
-    background-color: #cae0c7a8;
-    border: 2px dashed #b9cfc3;
+    background-color: var(--color-accent-light-faded);
+    border: 2px dashed var(--color-accent-light);
 
-    > div > p {
+    >div>p {
       width: -webkit-fill-available;
       text-align: center;
     }
   }
 
-  .workshop-link, .workshop-link-disabled {
+  .workshop-link,
+  .workshop-link-disabled {
     width: -webkit-fill-available;
     height: -webkit-fill-available;
     max-height: 100px;
@@ -42,7 +43,7 @@
       margin: 0;
       display: block;
       background-color: var(--color-background);
-      border: 2px dashed #b9cfc3;
+      border: 2px dashed var(--color-accent-light);
       border-radius: 2px;
       height: 100%;
       align-content: center;
@@ -61,8 +62,11 @@
     }
 
     &.workshop-link div:hover {
-      color: var(--color-accent-light);
       background-color: var(--color-accent-light);
+
+      p {
+        color: var(--primary) !important;
+      }
     }
 
     &.workshop-link-disabled div p {

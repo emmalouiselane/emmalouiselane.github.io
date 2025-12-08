@@ -15,12 +15,12 @@ const Index = ({ data, location }) => {
 
   return (
     <Layout location={location}>
-      <Container> 
+      <Container>
         <Row>
           <Col>
-            <SignComponent content="Under Construction" 
-            containerStyle={{ justifyContent: 'center' }}
-            signStyle={{ width: '450px', fontSize: '36px' }} />
+            <SignComponent content="Under Construction"
+              containerStyle={{ justifyContent: 'center' }}
+              signStyle={{ width: '450px', fontSize: '36px' }} />
           </Col>
         </Row>
 

@@ -1,40 +1,72 @@
 ---
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';
-import { Container, Row, Col } from 'react-bootstrap';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLinkedin, faGithub } from "@fortawesome/free-brands-svg-icons";
 
-const footerTagline = "Sparks fuel ideas — SparkLane.dev brings those ideas to life.";
+const footerTagline =
+  "Sparks fuel ideas — SparkLane.dev brings those ideas to life.";
 const social = {
   linkedIn: "https://linkedin.com/in/emmalouiselane",
-  gitHub: "https://github.com/emmalouiselane"
+  gitHub: "https://github.com/emmalouiselane",
 };
 ---
 
-<Container>
-  <Row>
-    <Col md={2}>
+<div class="container footer-content mx-auto px-4">
+  <div class="grid grid-cols-2 md:grid-cols-12 gap-4 items-center">
+    <div
+      class="col-span-1 md:col-span-2 order-2 md:order-1 flex justify-left md:justify-start items-center"
+    >
       <a class="navbar-link" href="/accessibility-statement">Accessibility</a>
-    </Col>
+    </div>
 
-    <Col md={8}>
+    <div class="col-span-2 md:col-span-8 order-1 md:order-2">
       <div class="footer-content-center">
         <p>{footerTagline}</p>
+        <p>Built with Astro and shadcn/ui</p>
       </div>
-    </Col>
+    </div>
 
-    <Col md={2}>
-      <div class="footer-content-right">
-        {social?.gitHub && (
-          <a class="link social-link" href={social.gitHub} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-            <FontAwesomeIcon icon={faGithub} size="2x" aria-hidden="true" client:load />
-          </a>
-        )}
-        {social?.linkedIn && (
-          <a class="link social-link" href={social.linkedIn} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-            <FontAwesomeIcon icon={faLinkedin} size="2x" alt="LinkedIn" aria-hidden="true" client:load />
-          </a>
-        )}    
-      </div>    
-    </Col>  
-  </Row>      
-</Container>
+    <div class="col-span-1 md:col-span-2 order-3 md:order-3">
+      <div
+        class="footer-content-right flex justify-center md:justify-end items-center"
+      >
+        {
+          social?.gitHub && (
+            <a
+              class="link social-link"
+              href={social.gitHub}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub"
+            >
+              <FontAwesomeIcon
+                icon={faGithub}
+                size="2x"
+                aria-hidden="true"
+                client:load
+              />
+            </a>
+          )
+        }
+        {
+          social?.linkedIn && (
+            <a
+              class="link social-link"
+              href={social.linkedIn}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+            >
+              <FontAwesomeIcon
+                icon={faLinkedin}
+                size="2x"
+                alt="LinkedIn"
+                aria-hidden="true"
+                client:load
+              />
+            </a>
+          )
+        }
+      </div>
+    </div>
+  </div>
+</div>

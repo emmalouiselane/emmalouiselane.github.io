@@ -1,5 +1,6 @@
 // Import variables first
 @use "./partials/_variables" as *;
+@use "./global.css" as *;
 
 // Import component styles
 @use "./partials/_base" as *;

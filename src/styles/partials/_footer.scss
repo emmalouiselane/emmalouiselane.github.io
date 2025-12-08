@@ -28,15 +28,19 @@ footer {
     // Center section (Tagline)
     &-center {
       text-align: center;
-      display: flex;
       align-items: center;
-      justify-content: center;
       font-size: var(--fontSize-1);
       font-weight: var(--fontWeight-boldish);
       color: var(--color-text);
 
       p {
         margin: 0;
+      }
+
+      p:nth-child(2) {
+        margin-top: var(--spacing-1);
+        font-size: var(--fontSize-0);
+        font-weight: var(--fontWeight-normal);
       }
     }
 
@@ -76,8 +80,16 @@ footer {
     color: var(--color-heading);
     transition: color 0.2s ease;
 
-    &:hover {
-      color: var(--color-primary);
+    &:nth-child(1) {
+      &:hover {
+        color: var(--color-highlight);
+      }
+    }
+
+    &:nth-child(2) {
+      &:hover {
+        color: var(--color-primary);
+      }
     }
 
     >.svg-inline--fa {

@@ -1,18 +1,20 @@
 import { useEffect, useState } from "react";
-import { Nav, Navbar, Button, Container } from "react-bootstrap";
-import { useIsMobile } from "../hooks/useIsMobile";
+import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Menu, Moon, Sun } from "lucide-react";
 import { useTracking } from "../hooks/useTracking";
 
 const NavbarComponent = () => {
     const { trackEvent } = useTracking();
-    const { isMobile } = useIsMobile();
     const [isDarkMode, setIsDarkMode] = useState(true);
+    const [isOpen, setIsOpen] = useState(false);
 
     const handleNavigation = (section: string) => {
         trackEvent('navigation_clicked', {
             section,
             location: window.location.pathname
         });
+        setIsOpen(false);
     };
 
     const navLinks = [
@@ -21,56 +23,70 @@ const NavbarComponent = () => {
     ];
 
     const toggleDarkMode = () => {
-        const currentSavedTheme = localStorage.getItem('theme');
-        if (currentSavedTheme === 'dark') {
-            document.body.classList.remove('dark-mode');
-            localStorage.setItem('theme', 'light');
-            setIsDarkMode(false);
-        } else {
-            document.body.classList.add('dark-mode');
-            localStorage.setItem('theme', 'dark');
-            setIsDarkMode(true);
-        }
+        const isDark = document.documentElement.classList.toggle('dark');
+        setIsDarkMode(isDark);
+        // localStorage is handled by the MutationObserver in BaseLayout
     };
 
     useEffect(() => {
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark') {
-            document.body.classList.add('dark-mode');
-            setIsDarkMode(true);
-        } else {
-            document.body.classList.remove('dark-mode');
-            setIsDarkMode(false);
-        }
+        setIsDarkMode(document.documentElement.classList.contains('dark'));
     }, []);
 
     return (
-        <Navbar expand="md">
-            <Container className="custom-navbar-container">
-                <a className="main-heading" href="/">
-                    <h1>
-                        Spark Lane
-                    </h1>
+        <nav className="border-b bg-background sticky top-0 z-50 w-full backdrop-blur supports-[backdrop-filter]:bg-background/60">
+            <div className="container mx-auto flex h-16 items-center justify-between px-4">
+                <a className="font-bold text-2xl no-underline text-foreground hover:text-primary transition-colors font-montserrat" href="/">
+                    Spark Lane
                 </a>
 
-                <Navbar.Toggle aria-controls="navbar-nav" />
-                <Navbar.Collapse id="navbar-nav">
-                    <Nav className="custom-nav-links">
-                        {navLinks.map((link) => (
-                            <a className="navbar-link"
-                                key={link.path} href={link.path}
-                                onClick={() => handleNavigation(link.text)}>
-                                {link.text}
-                            </a>
-                        ))}
+                {/* Desktop Navigation */}
+                <div className="hidden md:flex items-center gap-6">
+                    {navLinks.map((link) => (
+                        <a
+                            key={link.path}
+                            href={link.path}
+                            className="text-sm font-medium transition-colors hover:text-primary text-muted-foreground no-underline"
+                            onClick={() => handleNavigation(link.text)}
+                        >
+                            {link.text}
+                        </a>
+                    ))}
 
-                        <Button className="navbar-link dark-mode-toggle" style={isMobile ? { width: '100px' } : {}} onClick={toggleDarkMode}>
-                            {isDarkMode ? "☀️" : "🌙"}
-                        </Button>
-                    </Nav>
-                </Navbar.Collapse>
-            </Container>
-        </Navbar>
+                    <Button variant="ghost" size="icon" onClick={toggleDarkMode} aria-label="Toggle theme">
+                        {isDarkMode ? <Sun className="h-[1.2rem] w-[1.2rem]" /> : <Moon className="h-[1.2rem] w-[1.2rem]" />}
+                    </Button>
+                </div>
+
+                {/* Mobile Navigation */}
+                <div className="md:hidden flex items-center gap-4">
+                    <Button variant="ghost" size="icon" onClick={toggleDarkMode} aria-label="Toggle theme" className="mr-2">
+                        {isDarkMode ? <Sun className="h-[1.2rem] w-[1.2rem]" /> : <Moon className="h-[1.2rem] w-[1.2rem]" />}
+                    </Button>
+
+                    <Sheet open={isOpen} onOpenChange={setIsOpen}>
+                        <SheetTrigger asChild>
+                            <Button variant="ghost" size="icon" aria-label="Menu">
+                                <Menu className="h-6 w-6" />
+                            </Button>
+                        </SheetTrigger>
+                        <SheetContent side="right">
+                            <div className="flex flex-col gap-6 mt-10">
+                                {navLinks.map((link) => (
+                                    <a
+                                        key={link.path}
+                                        href={link.path}
+                                        className="text-lg font-medium hover:text-primary transition-colors no-underline"
+                                        onClick={() => handleNavigation(link.text)}
+                                    >
+                                        {link.text}
+                                    </a>
+                                ))}
+                            </div>
+                        </SheetContent>
+                    </Sheet>
+                </div>
+            </div>
+        </nav>
     );
 };
 
