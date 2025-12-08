@@ -18,8 +18,16 @@ const NavbarComponent = () => {
     };
 
     const navLinks = [
-        { text: "Blog", path: "/blog-posts/" },
-        { text: "Workshop", path: "/workshop/" }
+        {
+            text: "Blog", path: "/blog-posts/"
+        },
+        {
+            text: "Workshop", path: "/workshop/", children: [
+                { text: "Portfolio", path: "/portfolio/" },
+                { text: "Recipes", path: "/workshop/recipes/" },
+                { text: "Gaming", path: "/workshop/gaming/" },
+            ]
+        }
     ];
 
     const toggleDarkMode = () => {
@@ -70,16 +78,32 @@ const NavbarComponent = () => {
                             </Button>
                         </SheetTrigger>
                         <SheetContent side="right">
-                            <div className="flex flex-col gap-6 mt-10">
+                            <div className="flex flex-col gap-6 mt-10 mobile-nav-container">
                                 {navLinks.map((link) => (
-                                    <a
-                                        key={link.path}
-                                        href={link.path}
-                                        className="text-lg font-medium hover:text-primary transition-colors no-underline"
-                                        onClick={() => handleNavigation(link.text)}
-                                    >
-                                        {link.text}
-                                    </a>
+                                    <div key={link.path} className="flex flex-col gap-6">
+                                        <a
+                                            href={link.path}
+                                            className="text-lg font-medium hover:text-primary transition-colors no-underline"
+                                            onClick={() => handleNavigation(link.text)}
+                                        >
+                                            {link.text}
+                                        </a>
+
+                                        {link.children && link.children.length > 0 && (
+                                            <div className="ml-4 flex flex-col gap-6">
+                                                {link.children.map((child) => (
+                                                    <a
+                                                        key={child.path}
+                                                        href={child.path}
+                                                        className="text-base font-normal hover:text-primary transition-colors no-underline"
+                                                        onClick={() => handleNavigation(child.text)}
+                                                    >
+                                                        {child.text}
+                                                    </a>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
                                 ))}
                             </div>
                         </SheetContent>

@@ -30,6 +30,10 @@
 .post-list-item {
   margin-bottom: var(--spacing-8);
   margin-top: var(--spacing-4);
+  border-radius: var(--spacing-2);
+  border: 2px dashed #ccc;
+  padding: var(--spacing-2);
+  text-align: center;
 }
 
 .post-list-item p {
@@ -57,15 +61,15 @@
   margin: 10px 5% 0;
   width: fit-content;
   padding: 2px;
-  background-color: #e0e0e0a8;
-  border: 2px dashed #ccc;
+  background-color: var(--color-background);
+  border: 2px dashed var(--color-secondary);
 }
 
 .bio-content {
   display: flex;
   text-align: center;
   background-color: var(--color-background);
-  border: 2px dashed #ccc;
+  border: 2px dashed var(--color-secondary);
   border-radius: 2px;
   height: 100%;
   margin: auto;

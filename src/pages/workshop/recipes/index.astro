@@ -1,6 +1,6 @@
 ---
-import BaseLayout from '../../../layouts/BaseLayout.astro';
-import { getAllRecipes } from '../../../lib/contentful';
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { getAllRecipes } from "../../../lib/contentful";
 
 const recipes = await getAllRecipes();
 ---
@@ -12,24 +12,30 @@ const recipes = await getAllRecipes();
         <h1>Recipes</h1>
       </div>
     </div>
-    
-    <div class="row mt-4">
-      {recipes.map((recipe: any) => (
-        <div class="col-md-6 col-lg-4 mb-4" key={recipe.slug}>
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">
-                <a href={"/workshop/recipes/" + recipe.slug}>{recipe.name}</a>
-              </h5>
-              {recipe.rating && (
-                <p class="card-text">
-                  Rating: {'⭐'.repeat(recipe.rating)}
-                </p>
-              )}
+
+    <div class="row mt-4 recipe-list">
+      {
+        recipes
+          .sort((a: any, b: any) => a.name.localeCompare(b.name))
+          .map((recipe: any) => (
+            <div class="recipe-list-item" key={recipe.slug}>
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">
+                    <a href={"/workshop/recipes/" + recipe.slug}>
+                      {recipe.name}
+                    </a>
+                  </h5>
+                  {recipe.rating ? (
+                    <p class="card-text">{"⭐".repeat(recipe.rating)}</p>
+                  ) : (
+                    <p class="card-text">Not rated (yet!)</p>
+                  )}
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      ))}
+          ))
+      }
     </div>
   </div>
 </BaseLayout>

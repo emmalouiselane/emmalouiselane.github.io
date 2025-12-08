@@ -8,7 +8,7 @@
     display: flex;
 
     .recipe-rating {
-       padding: 10px
+      padding: 10px
     }
 
     h1 {
@@ -17,24 +17,35 @@
     }
   }
 
-  .row > ul {
+  .row>ul {
     margin-left: var(--spacing-3);
     margin-bottom: var(--spacing-2);
   }
 
-  .row > ol {
+  .row>ol {
     margin-left: var(--spacing-3);
   }
 }
 
 .recipe-list {
-    margin-top: var(--spacing-12);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 // Recipe list item
 .recipe-list-item {
-  margin-bottom: var(--spacing-8);
-  margin-top: var(--spacing-4);
+  margin: var(--spacing-4);
+  border-radius: var(--spacing-2);
+  border: 2px dashed #ccc;
+  padding: var(--spacing-4);
+  text-align: center;
+  width: fit-content;
+
+  .card-title {
+    margin: var(--spacing-2);
+  }
 }
 
 .recipe-list-item p {
