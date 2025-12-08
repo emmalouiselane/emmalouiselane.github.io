@@ -1,9 +1,16 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import SignComponent from '../components/sign';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SignComponent from "../components/sign";
 ---
 
 <BaseLayout title="Home">
-  <div class="container">
+  <SignComponent
+    content="Content Incoming!"
+    containerStyle={{ justifyContent: "center", alignItems: "center" }}
+    signStyle={{ fontSize: "2rem" }}
+  />
+  <div style={{ textAlign: "center" }}>
+    <p> ✨ Hello and welcome to my site! ✨ </p>
+    <p>I'm still working on the content for my homepage, but in the meantime, you can check out my blog and workshop!</p>
   </div>
 </BaseLayout>
