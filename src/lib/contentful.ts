@@ -142,6 +142,7 @@ export async function getAllRecipes() {
           name
           rating
           slug
+          personalNote
         }
       }
     }
