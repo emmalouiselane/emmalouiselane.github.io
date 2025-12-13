@@ -1,0 +1,143 @@
+@use "./_variables" as *;
+
+// Skip link styles
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: var(--color-highlight);
+  color: var(--color-background);
+  padding: 8px;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: bold;
+  z-index: 100;
+  transition: top 0.3s ease;
+  
+  &:focus {
+    top: 6px;
+    color: var(--color-text)
+  }
+}
+
+// Reduced motion support
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+// Accessibility page styles
+.accessibility-wrapper {
+  // Light mode styles
+  .prose {
+    max-width: none;
+    
+    h1, h2, h3, h4, h5, h6 {
+      color: var(--color-heading);
+    }
+    
+    p, li {
+      color: var(--color-text);
+    }
+    
+    a {
+      color: var(--color-highlight);
+      text-decoration: underline;
+      
+      &:hover {
+        color: var(--color-accent-highlight);
+      }
+    }
+    
+    strong, b {
+      color: var(--color-heading);
+    }
+  }
+  
+  // Gray background box
+  .bg-gray-50 {
+    background-color: #f9fafb;
+    border: 1px solid #e5e7eb;
+    
+    h3, h4 {
+      color: var(--color-heading);
+    }
+    
+    p, li {
+      color: var(--color-text);
+    }
+  }
+  
+  // Yellow warning box
+  .bg-yellow-50 {
+    background-color: #fefce8;
+    border-left-color: #fbbf24;
+    
+    .text-yellow-800 {
+      color: #92400e;
+    }
+    
+    li {
+      color: #78350f;
+    }
+  }
+}
+
+// Dark mode styles
+.dark-html.dark .accessibility-wrapper {
+  .prose {
+    h1, h2, h3, h4, h5, h6 {
+      color: var(--color-heading);
+    }
+    
+    p, li {
+      color: var(--color-text);
+    }
+    
+    a {
+      color: var(--color-highlight);
+      
+      &:hover {
+        color: var(--color-accent-highlight);
+      }
+    }
+    
+    strong, b {
+      color: var(--color-heading);
+    }
+  }
+  
+  // Dark gray background box
+  .bg-gray-50 {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-accent-light);
+    
+    h3, h4 {
+      color: var(--color-heading);
+    }
+    
+    p, li {
+      color: var(--color-text);
+    }
+  }
+  
+  // Dark yellow warning box
+  .bg-yellow-50 {
+    background-color: rgba(251, 191, 36, 0.1);
+    border-left-color: #fbbf24;
+    
+    .text-yellow-800 {
+      color: #fbbf24;
+    }
+    
+    li {
+      color: var(--color-text-light);
+    }
+  }
+}

@@ -3,27 +3,34 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
 <BaseLayout title="About Me" description="Learn more about Emma Lane - Senior Software Engineer & Team Lead">
-  <div class="container">
+  <div class="container">    
     <div class="row">
-      <div class="col">
-        <h1 class="text-2xl font-bold text-center">About Me</h1>
+      <div class="flex flex-row">  
+        <img src="https://media.licdn.com/dms/image/v2/D4D03AQEBqft-HYSifg/profile-displayphoto-shrink_200_200/B4DZYQxIdHHwAY-/0/1744038038074?e=1767225600&v=beta&t=JysMaIIkhwRwf9ImQU4TlwVBdgz00POW15zN3q4Avr0" 
+            alt="Emma Lane" 
+            class="w-30 h-30 my-auto mx-auto rounded-full" />
+      
+        <div>
+           <h1 class="text-2xl font-bold text-center">About Me</h1>
+            <div class="col text-center mx-2">
+              <p>Hello! I'm Emma Lane, a Senior Software Engineer and Team Lead with over 12 years of experience in software engineering across multiple technologies, projects, and domains. </p>
+              <p>I thrive in start-up and scale-up environments, bringing strong technical expertise and leadership to every project.</p>
+            </div>
+        </div>
       </div>
     </div>
-    
-    <div class="row mt-4">
-      <div class="col text-center">
-        <p>Hello! I'm Emma Lane, a Senior Software Engineer and Team Lead with over 12 years of experience in software engineering across multiple technologies, projects, and domains. I thrive in start-up and scale-up environments, bringing strong technical expertise and leadership to every project.</p>
-        <p class="font-bold">Welcome to Spark Lane, my digital garden where I share my journey through code, leadership, and continuous learning.</p>
-      </div>
+
+    <div class="row">
+      <p class="font-bold text-center">Welcome to Spark Lane, my digital garden where I share my journey through code, leadership, and continuous learning.</p>
     </div>
     
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
       <div class="md:col-span-1">
-        <div class="row mt-4">
+        <div class="row">
           <div class="border border-gray-200 p-4 rounded-lg">
-            <h2>Beyond Code</h2>
-            <p>When I'm not coding, you'll find me exploring creative pursuits, experimenting in the kitchen, or diving into gaming worlds. I believe that diverse interests fuel creativity and bring fresh perspectives to technical problem-solving.</p>
-            <p>Whether it's debugging a complex issue, perfecting a recipe, or strategizing in a game, I approach everything with curiosity, persistence, and a desire to learn and improve.</p>
+            <h2 class="text-xl">Beyond Code</h2>
+            <p class="text-sm">When I'm not coding, you'll find me working on my masters degree, exploring creative pursuits, experimenting in the kitchen, or diving into gaming worlds. I feel that diverse interests fuel creativity and bring fresh perspectives to technical problem-solving.</p>
+            <p class="text-sm">Whether it's debugging a complex issue, perfecting a recipe, or strategizing in a game, I approach everything with curiosity, persistence, and a desire to learn and improve.</p>
           </div>
         </div>
       </div>
@@ -37,7 +44,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                 onclick="showTab('philosophy')" 
                 id="philosophy-btn"
                 class="tab-btn active border-b-2 py-2 px-1 text-sm font-medium transition-all duration-200 ease-in-out hover:opacity-80 cursor-pointer"
-
               >
                 Approach & Philosophy
               </button>
@@ -45,7 +51,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                 onclick="showTab('space')" 
                 id="space-btn"
                 class="tab-btn border-b-2 border-transparent py-2 px-1 text-sm font-medium transition-all duration-200 ease-in-out hover:opacity-80 cursor-pointer"
-             >
+              >
                 This Space
               </button>
               <button 
@@ -69,7 +75,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <!-- Tab Content -->
         <div class="mt-8">
           <!-- Approach & Philosophy Tab -->
-          <div id="philosophy-content" class="tab-content">
+          <div id="philosophy-content" class="tab-content text-sm">
             <p>
               I believe in writing clean, maintainable code and creating user experiences that are both functional and delightful. I approach development with an emphasis on accessibility first, continuous learning, community engagement, and user-centred design. By prioritising these principles, I aim to build inclusive experiences that work for everyone, foster a culture of continuous improvement, and contribute to the advancement of the tech industry as a whole.
             </p> 
@@ -82,7 +88,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           </div>
           
           <!-- This Space Tab -->
-          <div id="space-content" class="tab-content hidden">
+          <div id="space-content" class="tab-content text-sm hidden">
             <p>Spark Lane is where I document my professional journey, share technical insights, and explore creative pursuits. Here you'll find:</p>
             <ul>
               <li><strong>Blog Posts</strong>: Technical tutorials, development insights, and industry thoughts; as well as more personal and ethical musings</li>
@@ -93,7 +99,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           </div>
           
           <!-- Technical Expertise Tab -->
-          <div id="technical-content" class="tab-content hidden">
+          <div id="technical-content" class="tab-content text-sm hidden">
             <p>I work with a diverse and modern tech stack, CI/CD and with a deep expertise in a multitude of technologies:</p>
             <ul>
               <li><strong>Backend</strong>: C#, .NET & .NET Core, ASP.NET, NodeJS, NestJS, Python, Java</li>
@@ -106,7 +112,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           </div>
           
           <!-- Professional Experience Tab -->
-          <div id="experience-content" class="tab-content hidden">
+          <div id="experience-content" class="tab-content text-sm hidden">
             <p>With extensive experience across the entire software lifecycle, I've successfully designed, developed and deployed numerous desktop and web-based applications while working with and managing mixed-discipline teams. </p>
             <p>My career spans from junior development to team leadership, with key roles including: Team Lead, Senior Software Engineer and Lead Back-end Developer.</p>
             <p>Throughout my career, I have worked across multiple industries, from fintech to digital agencies to defense, and have delivered projects of varying sizes and complexity while developing strong leadership and technical expertise.</p>
@@ -144,9 +150,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       }
     </script>
 
-      <div class="row mt-4">
+      <div class="row">
         <div class="text-center">
-          <h2>Let's Connect!</h2>
+          <h2 class="text-xl">Let's Connect!</h2>
           <p>I'm always excited to connect with my peers. Whether you're interested in collaboration, have a project in mind, or want to discuss leadership and technical challenges, I'd love to hear from you!</p>
           <p>Feel free to reach out through <a href="https://www.linkedin.com/in/emmalouiselane/" target="_blank" rel="noopener noreferrer">LinkedIn</a> or email me at <a href="mailto:emma@sparklane.dev">emma@sparklane.dev</a>!</p>
         </div>

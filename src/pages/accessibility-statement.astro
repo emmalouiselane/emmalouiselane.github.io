@@ -4,54 +4,103 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <BaseLayout title="Accessibility Statement" description="Accessibility statement for Spark Lane Dev">
   <div class="container accessibility-wrapper">   
-    <h2>Accessibility Statement for <span class="basic-information website-name">Spark Lane Dev</span></h2>
+    <h1 class="text-3xl font-bold mb-8 text-center">Accessibility Statement</h1>
+    
+    <div class="prose prose-lg max-w-none">
+      <p class="lead text-lg mb-8">
+        This website (sparklane.dev) is frequently updated and is consistently built with care and intention. The web should be a friendly and accessible place for everyone. I aim to develop inclusively, aiming to provide good usability across a range of abilities, devices, and situations.
+      </p>
+      
+      <h2 class="text-2xl font-semibold mb-4 mt-8">My accessibility standards</h2>
+      <p class="mb-6">
+        I aim to meet <strong>WCAG 2.2 to Level AA standard</strong> as a minimum throughout the site.
+      </p>
+      
+      <div class="bg-gray-800/5 p-6 rounded-lg mb-8 dark:bg-gray-200/5">
+        <h3 class="text-lg font-semibold mb-3">Core practices</h3>
+        <div class="grid md:grid-cols-2 gap-4">
+          <div>
+            <h4 class="font-medium mb-2">Level AA</h4>
+            <ul class="list-disc list-inside space-y-1 text-sm">
+              <li>semantic HTML5 with clear heading structure</li>
+              <li>skip link to main content</li>
+              <li>responsive, zoom-friendly layout (up to 200%)</li>
+              <li>keyboard-accessible navigation and links</li>
+              <li>custom focus styles for visibility</li>
+              <li>alt text for meaningful images, decorative images hidden</li>
+              <li>readable font sizes and color contrast of at least 4.5:1</li>
+              <li>support for prefers-reduced-motion</li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="font-medium mb-2">Level AAA</h4>
+            <ul class="list-disc list-inside space-y-1 text-sm">
+              <li>most body text meets or exceeds 7:1 contrast</li>
+              <!-- <li>pronunciation hints or language markers for non-English phrases</li> -->
+              <li>focus styles are consistent across browsers and high contrast</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <h2 class="text-2xl font-semibold mb-4 mt-8">Your experience, your way</h2>
+      <p class="mb-6">
+        You should be able to:
+      </p>
+      <ul class="list-disc list-inside space-y-2 mb-8">
+        <li>use your browser defaults for settings, sizes and styling</li>
+        <li>zoom in (or out) without breaking your experience</li>
+        <li>navigate the site with just your keyboard</li>
+        <li>listen to the site using a screen reader</li>
+      </ul>
     <p>
-      This is an accessibility statement from <span class="basic-information organization-name">Spark Lane Dev</span>.
+      I also make the website text as simple as possible to understand.
+      AbilityNet has advice on <a href="https://mcmw.abilitynet.org.uk/">making your device easier to use</a> if you have a disability.
     </p>
-    <h3>Measures to support accessibility</h3>
+    <h2 class="text-2xl font-semibold mb-4 mt-8">How accessible this website is</h2>
+      <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6">
+        <p class="font-medium text-yellow-800 mb-2">
+          Parts of this website are not fully accessible. For example:
+        </p>
+        <ul class="list-disc list-inside space-y-1 text-sm">
+          <li>some pages may not be written in plain English</li>
+          <li>some images may not have adequate image descriptions</li>
+          <li>some heading elements may not be consistent</li>
+        </ul>
+      </div>
+    <h2>Feedback and contact information</h2>
     <p>
-      <span class="basic-information organization-name">Spark Lane Dev </span>
-      takes the following measures to ensure accessibility of 
-      <span class="basic-information website-name">Spark Lane Dev</span>:
+      If you need information in a different format, please contact me:
     </p>
-    <ul class="organizational-effort accessibility-measures">
-      <li>Include accessibility as part of our mission statement.</li>
-      <li>Include accessibility throughout our internal policies.</li>
-      <li>Provide continual accessibility training for our staff.</li>
-      <li>Assign clear accessibility goals and responsibilities.</li>
+    <ul>
+      <li>Email: <a href="mailto:emma@sparklane.dev">emma@sparklane.dev</a></li>
+      <li>LinkedIn: <a href="https://www.linkedin.com/in/emmalouiselane/" target="_blank" rel="noopener noreferrer">Connect with Emma on LinkedIn</a></li>
     </ul>
-    <h3>Conformance status</h3>
     <p>
-      The <a href="https://www.w3.org/WAI/standards-guidelines/wcag/">Web Content Accessibility Guidelines (WCAG)</a> defines requirements for designers and developers to improve accessibility for people with disabilities. It defines three levels of conformance: Level A, Level AA, and Level AAA.
-      <span class="basic-information website-name"> Spark Lane Dev </span>
-      is 
-      <span class="basic-information conformance-status" data-printfilter="lowercase">partially conformant </span>
-      with 
-      <span class="basic-information conformance-standard"><span data-negate="">WCAG 2.2 level AA</span>.</span> 
-      <span>
-        <span class="basic-information conformance-status">Partially conformant</span> 
-        means that 
-        <span class="basic-information conformance-meaning">some parts of the content do not fully conform to the accessibility standard</span>.
-      </span>
+      In your message, include:
     </p>
-    <h3>Feedback</h3>
-    <p>
-      We welcome your feedback on the accessibility of 
-      <span class="basic-information website-name">Spark Lane Dev</span>.
-      Please let us know if you encounter accessibility barriers on 
-      <span class="basic-information website-name">Spark Lane Dev</span>:
-    </p>
-    <ul class="basic-information feedback h-card">
-      <li>
-        E-mail: 
-        <a class="email u-email" href="mailto:emma@sparklane.dev">emma@sparklane.dev</a>
-      </li>
+    <ul>
+      <li>the web address (URL) of the content</li>
+      <li>your email address and name</li>
+      <li>the format you need - for example, plain text, large print or audio</li>
     </ul>
+    <h2>Reporting accessibility problems with this website</h2>
+    <p>
+      If you find any problems that are not listed on this page or you think I'm not meeting accessibility requirements, <a href="mailto:emma@sparklane.dev">contact me</a>.
+    </p>
+    <h2>Technical information about this website's accessibility</h2>
+    <p>
+      I am committed to making this website accessible, in accordance with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018.
+    </p>
+    <h2>Compliance status</h2>
+    <p>
+      This website is partially compliant with the <a href="https://www.w3.org/TR/WCAG22/">Web Content Accessibility Guidelines version 2.2</a> AA standard, due to the non-compliances listed below.
+    </p>
     <hr />
     <h3>Date</h3>
     <p>
       This statement was created on
-      <span class="basic-information statement-created-date">31 May 2025</span>
+      <span class="basic-information statement-created-date">13 December 2025</span>
        using the <a href="https://www.w3.org/WAI/planning/statements/">W3C Accessibility Statement Generator Tool</a>.
     </p>
   </div>

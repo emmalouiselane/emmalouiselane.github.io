@@ -9,8 +9,8 @@ h4,
 h5,
 h6 {
   font-family: var(--font-heading);
-  margin-top: var(--spacing-6);
-  margin-bottom: var(--spacing-6);
+  margin-top: var(--spacing-3);
+  margin-bottom: var(--spacing-3);
   line-height: var(--lineHeight-tight);
   letter-spacing: -0.025em;
   font-weight: var(--fontWeight-bold);
@@ -41,7 +41,7 @@ p {
   line-height: var(--lineHeight-relaxed);
   --baseline-multiplier: 0.179;
   --x-height-multiplier: 0.35;
-  margin: var(--spacing-0) var(--spacing-0) var(--spacing-6) var(--spacing-0);
+  margin: var(--spacing-0) var(--spacing-0) var(--spacing-2) var(--spacing-0);
   padding: var(--spacing-0);
 }
 
@@ -50,7 +50,7 @@ ol {
   margin-left: var(--spacing-0);
   margin-right: var(--spacing-0);
   padding: var(--spacing-0);
-  margin-bottom: var(--spacing-6);
+  margin-bottom: var(--spacing-2);
   list-style-position: outside;
   list-style-image: none;
 }
@@ -58,11 +58,11 @@ ol {
 ul li,
 ol li {
   padding-left: var(--spacing-0);
-  margin-bottom: calc(var(--spacing-8) / 2);
+  margin-bottom: calc(var(--spacing-4) / 2);
 }
 
 li>p {
-  margin-bottom: calc(var(--spacing-8) / 2);
+  margin-bottom: calc(var(--spacing-4) / 2);
 }
 
 li *:last-child {
@@ -70,27 +70,8 @@ li *:last-child {
 }
 
 li>ul {
-  margin-left: var(--spacing-8);
-  margin-top: calc(var(--spacing-8) / 2);
-}
-
-blockquote {
-  color: var(--color-text-light);
-  margin-left: calc(-1 * var(--spacing-6));
-  margin-right: var(--spacing-8);
-  padding: var(--spacing-0) var(--spacing-0) var(--spacing-0) var(--spacing-6);
-  border-left: var(--spacing-1) solid var(--color-primary);
-  font-style: italic;
-  margin-bottom: var(--spacing-8);
-}
-
-blockquote> :last-child {
-  margin-bottom: var(--spacing-0);
-}
-
-blockquote>ul,
-blockquote>ol {
-  list-style-position: inside;
+  margin-left: var(--spacing-4);
+  margin-top: calc(var(--spacing-4) / 2);
 }
 
 table {
@@ -117,11 +98,6 @@ a:focus {
 
 // Media queries
 @media (max-width: 42rem) {
-  blockquote {
-    padding: var(--spacing-0) var(--spacing-0) var(--spacing-0) var(--spacing-4);
-    margin-left: var(--spacing-0);
-  }
-
   ul,
   ol {
     list-style-position: inside;
