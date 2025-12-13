@@ -1,0 +1,41 @@
+---
+interface Props {
+  showFullBio?: boolean;
+}
+
+const { showFullBio = false } = Astro.props;
+---
+
+<div class="author-note bg-gray-50/30 dark:bg-gray-800/10 p-4 rounded-lg mt-8 border border-gray-200/50 dark:border-gray-700/50">
+  <div class="flex items-start space-x-3">
+    <img 
+      src="https://media.licdn.com/dms/image/v2/D4D03AQEBqft-HYSifg/profile-displayphoto-shrink_200_200/B4DZYQxIdHHwAY-/0/1744038038074?e=1767225600&v=beta&t=JysMaIIkhwRwf9ImQU4TlwVBdgz00POW15zN3q4Avr0" 
+      alt="Emma Lane" 
+      class="w-12 h-12 rounded-full flex-shrink-0 my-auto"
+    />
+    
+    <div class="flex-1">
+        <h3 class="text-base font-medium mb-2 text-gray-700 dark:text-gray-300">About the Author</h3>
+        
+        <div class="text-xs text-gray-600 dark:text-gray-400 space-y-1">
+            <p>Hey there! I'm <strong>Emma</strong>, a Senior Software Engineer and Team Lead who's been building cool stuff for over 12 years.</p>
+                        
+            <p class="pt-1 flex flex-row">
+            <strong>Let's connect on </strong>
+            
+            <a href="https://www.linkedin.com/in/emmalouiselane/" target="_blank" rel="noopener noreferrer" 
+               class="text-blue-600 dark:text-blue-400 hover:underline mx-1">
+                LinkedIn
+            </a>
+
+            <strong> or </strong>
+            
+            <a href="mailto:emma@sparklane.dev" 
+               class="text-blue-600 dark:text-blue-400 hover:underline mx-1">
+                Email
+            </a>
+          
+            </p>
+        </div>
+    </div>
+</div>

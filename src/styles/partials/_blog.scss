@@ -20,6 +20,39 @@
   .row>ol {
     margin-left: var(--spacing-3);
   }
+
+  // Content styling
+  blockquote {
+    border-left: 4px solid var(--color-highlight);
+    padding-left: 1rem;
+    margin: 1.5rem 0;
+    font-style: italic;
+    color: var(--color-text-light);
+    background-color: var(--color-surface);
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    
+    // Dark mode
+    .dark & {
+      background-color: var(--color-surface);
+      color: var(--color-text-light);
+      border-left-color: var(--color-highlight);
+    }
+  }
+  
+  code {
+    background-color: var(--color-surface);
+    color: var(--color-text);
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-family: monospace;
+    font-size: 0.875rem;
+    
+    .dark & {
+      background-color: var(--color-accent-light);
+      color: var(--color-text);
+    }
+  }
 }
 
 .blog-post-nav ul {
