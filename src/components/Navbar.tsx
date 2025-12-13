@@ -43,7 +43,7 @@ const NavbarComponent = () => {
     return (
         <nav className="border-b bg-background sticky top-0 z-50 w-full backdrop-blur supports-[backdrop-filter]:bg-background/60">
             <div className="container mx-auto flex h-16 items-center justify-between px-4">
-                <a className="font-bold text-2xl no-underline text-foreground hover:text-primary transition-colors font-montserrat" href="/">
+                <a className="font-bold text-4xl no-underline text-foreground hover:text-primary transition-colors font-montserrat" href="/">
                     Spark Lane
                 </a>
 

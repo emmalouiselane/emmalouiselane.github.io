@@ -18,7 +18,7 @@ export const getStaticPaths = (async () => {
 }) satisfies GetStaticPaths;
 
 const { post } = Astro.props;
-const fullPost = await getBlogPostBySlug(post.slug);
+const fullPost = await getBlogPostBySlug((post as any).slug);
 
 // Define custom render options for rich text
 const options = {
@@ -38,7 +38,7 @@ const blogContentHtml = documentToHtmlString(fullPost.blogContent.json, options)
   <div class="blog-post">
     <article>
       <header>
-        <h1>{fullPost.title}</h1>
+        <h1 class="text-2xl font-bold">{fullPost.title}</h1>
         <p>{moment(fullPost.date).format("MMMM DD, YYYY")}</p>
       </header>
       

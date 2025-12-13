@@ -52,7 +52,7 @@
       p {
         color: var(--color-text);
         width: 135px;
-        font-size: 14px;
+        @apply text-sm;
         letter-spacing: 0.25em;
         text-align: center;
         margin: 0;

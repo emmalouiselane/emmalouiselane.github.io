@@ -13,7 +13,7 @@ footer {
 
     // Mobile text style
     &-mobile {
-      font-size: var(--fontSize-0);
+      @apply text-xs;
       text-align: center;
     }
 
@@ -29,7 +29,7 @@ footer {
     &-center {
       text-align: center;
       align-items: center;
-      font-size: var(--fontSize-1);
+      @apply text-base;
       font-weight: var(--fontWeight-boldish);
       color: var(--color-text);
 
@@ -39,7 +39,7 @@ footer {
 
       p:nth-child(2) {
         margin-top: var(--spacing-1);
-        font-size: var(--fontSize-0);
+        @apply text-xs;
         font-weight: var(--fontWeight-normal);
       }
     }

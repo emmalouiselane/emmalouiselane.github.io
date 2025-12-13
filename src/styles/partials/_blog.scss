@@ -8,7 +8,7 @@
   }
 
   header p {
-    font-size: var(--fontSize-2);
+    @apply text-lg;
     font-family: var(--font-heading);
   }
 
@@ -41,7 +41,7 @@
 }
 
 .post-list-item h2 {
-  font-size: var(--fontSize-4);
+  @apply text-2xl;
   color: var(--color-primary);
   margin-bottom: var(--spacing-2);
   margin-top: var(--spacing-0);
