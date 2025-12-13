@@ -4,7 +4,6 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getAllBlogs, getBlogPostBySlug } from '../../lib/contentful';
 import moment from 'moment';
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
-import QuickNavComponent from '../../components/quick-nav';
 import AuthorNote from '../../components/AuthorNote.astro';
 
 export const getStaticPaths = (async () => {
@@ -24,8 +23,6 @@ const blogContentHtml = documentToHtmlString(fullPost.blogContent.json);
 ---
 
 <BaseLayout title={fullPost.title} description={fullPost.description}>
-  <QuickNavComponent client:load />
-  
   <div class="blog-post">
     <article>
       <header>

@@ -1,7 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getAllPortfolioItems } from "../../lib/contentful";
-import QuickNavComponent from "../../components/quick-nav";
 import WordCloudComponent from "../../components/word-cloud";
 
 const portfolioItems = await getAllPortfolioItems();
@@ -11,8 +10,6 @@ const portfolioItems = await getAllPortfolioItems();
   title="Portfolio"
   description="Take a peek at what I've been working on!"
 >
-  <QuickNavComponent client:load />
-
   <div class="container portfolio-list" style="width: 100%;">
     <div class="row">
       <div class="col">
