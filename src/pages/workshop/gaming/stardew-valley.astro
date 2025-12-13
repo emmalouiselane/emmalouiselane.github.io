@@ -8,9 +8,7 @@ import QuickNavComponent from '../../../components/quick-nav';
 
   <div class="container gaming-item-content">
     <article>
-      <header>
-        <h2>Stardew Valley</h2>
-      </header>
+        <h2 class="text-2xl">Stardew Valley</h2>
       
       <section>
         <div class="row">
@@ -26,10 +24,10 @@ import QuickNavComponent from '../../../components/quick-nav';
         <div class="mt-4">
           <ul class="nav nav-tabs" role="tablist">
             <li class="nav-item" role="presentation">
-              <button class="nav-link active" id="museum-tab" data-bs-toggle="tab" data-bs-target="#museum" type="button" role="tab">Museum Layout Reference</button>
+              <button class="nav-link active" id="museum-tab" type="button" role="tab" onclick="showTab('museum')">Museum Layout Reference</button>
             </li>
             <li class="nav-item" role="presentation">
-              <button class="nav-link" id="fish-tab" data-bs-toggle="tab" data-bs-target="#fish" type="button" role="tab">Fish Guide</button>
+              <button class="nav-link" id="fish-tab" type="button" role="tab" onclick="showTab('fish')">Fish Guide</button>
             </li>
           </ul>
           <div class="tab-content mt-3">
@@ -58,4 +56,51 @@ import QuickNavComponent from '../../../components/quick-nav';
       </section>
     </article>
   </div>
+
+  <script client:load>
+    function showTab(tabId) {
+      console.log('showTab called with:', tabId);
+      
+      // Hide all tab panes
+      const tabPanes = document.querySelectorAll('.tab-pane');
+      console.log('Found tab panes:', tabPanes.length);
+      tabPanes.forEach(pane => {
+        pane.classList.remove('show', 'active');
+        pane.style.display = 'none';
+      });
+      
+      // Remove active class from all tab buttons
+      const tabButtons = document.querySelectorAll('.nav-link');
+      console.log('Found tab buttons:', tabButtons.length);
+      tabButtons.forEach(button => {
+        button.classList.remove('active');
+      });
+      
+      // Show selected tab pane
+      const selectedPane = document.getElementById(tabId);
+      console.log('Selected pane:', selectedPane);
+      if (selectedPane) {
+        selectedPane.style.display = 'block';
+        selectedPane.classList.add('show', 'active');
+      }
+      
+      // Add active class to clicked button
+      const selectedButton = document.getElementById(tabId + '-tab');
+      console.log('Selected button:', selectedButton);
+      if (selectedButton) {
+        selectedButton.classList.add('active');
+      }
+    }
+    
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('Page loaded, initializing tabs');
+      // Ensure first tab is visible
+      const firstPane = document.getElementById('museum');
+      if (firstPane) {
+        firstPane.style.display = 'block';
+        firstPane.classList.add('show', 'active');
+      }
+    });
+  </script>
 </BaseLayout>
