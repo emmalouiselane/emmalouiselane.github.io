@@ -17,9 +17,31 @@ const years = [...new Set(sortedPosts.map((post: any) => new Date(post.date).get
 
 <BaseLayout title="Blog Posts" description="Read my latest blog posts!">
   <div class="container max-w-4xl mx-auto">
-    <!-- Search and Filter Section -->
-    <div class="mb-4 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
-      <div class="grid md:grid-cols-3 gap-2">
+    <div class="flex flex-row justify-between">
+      <h1 class="text-2xl font-bold">Blog Posts</h1>
+
+      <div class="flex flex-row">
+        <div class="text-center mt-4 text-sm text-gray-600 dark:text-gray-400">
+          <span id="resultsCount">{POSTS_PER_PAGE}</span> of {sortedPosts.length} posts found
+        </div>
+        <button
+          id="toggleFilters"
+          class="my-auto ml-5 px-3 py-2 bg-sky-500 text-white rounded-lg hover:bg-sky-600 focus:outline-none dark:bg-sky-600 dark:hover:bg-sky-700"
+          aria-label="Toggle filters"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+    
+    
+    <!-- Filter Wrapper -->
+    <div class="mb-4 relative">
+      <!-- Search and Filter Section (Hidden by default) -->
+      <div id="filterSection" class="hidden absolute top-full right-0 z-50 w-full max-w-2xl bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 mt-2">
+        <div class="grid md:grid-cols-3 gap-2">
         <!-- Search Input -->
         <div class="flex flex-row col-span-2">
           <div class="w-full">
@@ -31,13 +53,13 @@ const years = [...new Set(sortedPosts.map((post: any) => new Date(post.date).get
                 type="text"
                 id="search"
                 placeholder="Search by title or description..."
-                class="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+                class="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:border-blue-500 dark:bg-gray-700 dark:text-white"
               />
               </div>
           </div>
           <button
               id="searchBtn"
-              class="ml-2 mt-auto px-4 py-2 bg-sky-500 text-white rounded-lg hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 dark:bg-sky-600 dark:hover:bg-sky-700"
+              class="ml-2 mt-auto px-4 py-2 bg-sky-500 text-white rounded-lg hover:bg-sky-600 focus:outline-none dark:bg-sky-600 dark:hover:bg-sky-700"
             >
               Search
             </button>
@@ -69,7 +91,9 @@ const years = [...new Set(sortedPosts.map((post: any) => new Date(post.date).get
           </button>
         </div>
       </div>
+      </div>
     </div>
+    
 
     <div class="blog-list" id="blogList">
       {sortedPosts.map((post: any, index: number) => {        
@@ -81,12 +105,18 @@ const years = [...new Set(sortedPosts.map((post: any) => new Date(post.date).get
               itemscope
               itemtype="http://schema.org/Article"
             >
-              <div class="grid grid-cols-2">
-                <h2 class="text-lg justify-self-start">{post.title}</h2>
-                <small class="text-xs text-gray-600 justify-self-end">{moment(post.date).format("MMMM DD, YYYY")}</small>
-                <section class="col-span-2 flex flex-row justify-between">
+              <div>
+                <div class="flex flex-row justify-between">
+                  <h2 class="text-lg">{post.title}</h2>
+                  <small class="text-xs text-gray-600">{moment(post.date).format("DD/MM/YY")}</small>
+                </div>
+                
+                <section class="flex flex-row justify-between">
                   <p>{post.description}</p>
-                  <a href={"/blog-posts/" + post.slug}> Read more...</a>
+                  <a class="text-xs mt-auto min-w-fit whitespace-nowrap" href={"/blog-posts/" + post.slug}>
+                    <span>Read More</span>
+                    <span class="sr-only">Read more about {post.title}</span>
+                  </a>
                 </section>
               </div>
             </article>
@@ -100,7 +130,7 @@ const years = [...new Set(sortedPosts.map((post: any) => new Date(post.date).get
         <!-- Previous Button -->
         <button
           id="prevBtn"
-          class="px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+          class="px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700"
         >
           Previous
         </button>
@@ -113,21 +143,39 @@ const years = [...new Set(sortedPosts.map((post: any) => new Date(post.date).get
         <!-- Next Button -->
         <button
           id="nextBtn"
-          class="px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+          class="px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700"
         >
           Next
         </button>
       </nav>
-
-      <div class="text-center mt-4 text-sm text-gray-600 dark:text-gray-400">
-        <span id="resultsCount">{POSTS_PER_PAGE}</span> of {sortedPosts.length} posts found
-      </div>
     </div>
   </div>
+</div>
 
   <script>
     let currentPage = 1;
     const POSTS_PER_PAGE_JS = 5;
+    
+    function toggleFilters() {
+      const filterSection = document.getElementById('filterSection');
+      const toggleBtn = document.getElementById('toggleFilters');
+      
+      if (filterSection.classList.contains('hidden')) {
+        filterSection.classList.remove('hidden');
+        toggleBtn.innerHTML = `
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        `;
+      } else {
+        filterSection.classList.add('hidden');
+        toggleBtn.innerHTML = `
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
+          </svg>
+        `;
+      }
+    }
     
     function updatePagination() {
       const posts = document.querySelectorAll('.post-item');
@@ -190,7 +238,7 @@ const years = [...new Set(sortedPosts.map((post: any) => new Date(post.date).get
       pageNumbers.innerHTML = pages.map(pageNum => 
         pageNum === current 
           ? `<span class="px-3 py-2 text-sm font-medium text-white bg-gray-900 dark:bg-gray-100 border border-gray-900 dark:border-gray-100 rounded-md">${pageNum}</span>`
-          : `<a href="#" data-page="${pageNum}" class="page-link px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">${pageNum}</a>`
+          : `<a href="#" data-page="${pageNum}" class="page-link px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700">${pageNum}</a>`
       ).join('');
       
       // Add event listeners to page links
@@ -358,6 +406,7 @@ const years = [...new Set(sortedPosts.map((post: any) => new Date(post.date).get
       updatePagination();
       
       // Add event listeners
+      document.getElementById('toggleFilters').addEventListener('click', toggleFilters);
       document.getElementById('searchBtn').addEventListener('click', filterPosts);
       document.getElementById('search').addEventListener('keypress', function(event) {
         if (event.key === 'Enter') {

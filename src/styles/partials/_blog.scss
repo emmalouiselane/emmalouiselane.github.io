@@ -66,7 +66,6 @@
   border-radius: var(--spacing-2);
   border: 2px dashed #ccccccae;
   padding: var(--spacing-4);
-  text-align: center;
 }
 
 .post-list-item p {
@@ -82,46 +81,4 @@
 
 .post-list-item header {
   margin-bottom: var(--spacing-4);
-}
-
-// Bio
-.bio {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  padding: var(--spacing-2);
-  border-radius: var(--spacing-2);
-  margin: 10px 5% 0;
-  width: fit-content;
-  padding: 2px;
-  background-color: var(--color-background);
-  border: 2px dashed var(--color-secondary);
-}
-
-.bio-content {
-  display: flex;
-  text-align: center;
-  background-color: var(--color-background);
-  border: 2px dashed var(--color-secondary);
-  border-radius: 2px;
-  height: 100%;
-  margin: auto;
-}
-
-.bio-content-text {
-  margin: auto;
-  height: fit-content;
-  width: -webkit-fill-available;
-  display: flex;
-
-  .badge,
-  p {
-    margin: auto;
-  }
-}
-
-.bio-avatar {
-  margin: auto auto auto var(--spacing-1);
-  min-width: 50px;
-  border-radius: 100%;
 }
