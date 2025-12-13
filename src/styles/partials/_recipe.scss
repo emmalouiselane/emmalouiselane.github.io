@@ -5,8 +5,6 @@
   margin-top: var(--spacing-12);
 
   header {
-    display: flex;
-
     .recipe-rating {
       padding: 10px
     }
@@ -61,7 +59,6 @@
 }
 
 .recipe-list {
-  display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
@@ -69,31 +66,29 @@
 
 // Recipe list item
 .recipe-list-item {
-  margin: var(--spacing-4);
+  margin: var(--spacing-1);
   border-radius: var(--spacing-2);
   border: 2px dashed #ccc;
-  padding: var(--spacing-4);
+  padding: var(--spacing-1);
   text-align: center;
-  width: fit-content;
+  background-color: var(--color-surface);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 120px;
+  transition: background-color 0.2s ease;
+  
+  &:hover {
+    background-color: var(--color-accent-light);
 
-  .card-title {
-    margin: var(--spacing-2);
+    h5 {
+      color: var(--color-primary);
+    }
   }
-}
 
-.recipe-list-item p {
-  margin-bottom: var(--spacing-0);
-}
-
-.recipe-list-item h2 {
-  @apply text-2xl;
-  color: var(--color-primary);
-  margin-bottom: var(--spacing-2);
-  margin-top: var(--spacing-0);
-}
-
-.recipe-list-item header {
-  margin-bottom: var(--spacing-4);
+  p {
+    bottom: 0;
+  }
 }
 
 .recipe-post-paragraph {

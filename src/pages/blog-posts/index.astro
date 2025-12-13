@@ -16,7 +16,7 @@ const years = [...new Set(sortedPosts.map((post: any) => new Date(post.date).get
 ---
 
 <BaseLayout title="Blog Posts" description="Read my latest blog posts!">
-  <div class="container max-w-4xl mx-auto">
+  <div class="container">
     <div class="flex flex-row justify-between">
       <h1 class="text-2xl font-bold">Blog Posts</h1>
 
@@ -26,24 +26,33 @@ const years = [...new Set(sortedPosts.map((post: any) => new Date(post.date).get
         </div>
         <button
           id="toggleFilters"
-          class="my-auto ml-5 px-3 py-2 bg-sky-500 text-white rounded-lg hover:bg-sky-600 focus:outline-none dark:bg-sky-600 dark:hover:bg-sky-700"
+          class="my-auto ml-2 px-3 py-2 bg-sky-500 text-white rounded-lg hover:bg-sky-600 focus:outline-none dark:bg-sky-600 dark:hover:bg-sky-700"
           aria-label="Toggle filters"
         >
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
           </svg>
         </button>
+        <button
+          id="clearFilter"
+          class="my-auto ml-2 px-3 py-2 bg-slate-600 text-white rounded-lg hover:bg-slate-700 focus:outline-none dark:bg-slate-500 dark:hover:bg-slate-600 disabled:opacity-50 disabled:cursor-not-allowed"
+          aria-label="Clear Filters"
+          title="Clear Filters"
+          disabled
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path>
+          </svg>
+        </button>
       </div>
     </div>
-    
     
     <!-- Filter Wrapper -->
     <div class="mb-4 relative">
       <!-- Search and Filter Section (Hidden by default) -->
-      <div id="filterSection" class="hidden absolute top-full right-0 z-50 w-full max-w-2xl bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 mt-2">
-        <div class="grid md:grid-cols-3 gap-2">
+      <div id="filterSection" class="hidden absolute top-full right-0 z-50 w-96 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 mt-2">
         <!-- Search Input -->
-        <div class="flex flex-row col-span-2">
+        <div class="flex flex-row">
           <div class="w-full">
             <label for="search" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Search Posts
@@ -55,42 +64,15 @@ const years = [...new Set(sortedPosts.map((post: any) => new Date(post.date).get
                 placeholder="Search by title or description..."
                 class="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:border-blue-500 dark:bg-gray-700 dark:text-white"
               />
-              </div>
+              <button
+                  id="searchBtn"
+                  class="px-4 py-2 bg-sky-500 text-white rounded-lg hover:bg-sky-600 focus:outline-none dark:bg-sky-600 dark:hover:bg-sky-700"
+                >
+                  Search
+                </button>
+            </div>
           </div>
-          <button
-              id="searchBtn"
-              class="ml-2 mt-auto px-4 py-2 bg-sky-500 text-white rounded-lg hover:bg-sky-600 focus:outline-none dark:bg-sky-600 dark:hover:bg-sky-700"
-            >
-              Search
-            </button>
         </div>
-        
-        <!-- Year Filter -->
-        <div class="flex flex-row">
-          <div class="w-full">
-            <label for="yearFilter" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Filter by Year
-            </label>
-            <select
-              id="yearFilter"
-              class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:border-blue-500 dark:bg-gray-700 dark:text-white"
-            >
-              <option value="">All Years</option>
-              {years.map((year: any) => (
-                <option value={year}>{year}</option>
-              ))}
-            </select>
-          </div>
-          
-          <button
-            id="resetBtn"
-            aria-label="Reset Filters"
-            class="ml-2 mt-auto px-4 py-2 bg-slate-600 text-white rounded-lg hover:bg-slate-700 focus:outline-none dark:bg-slate-500 dark:hover:bg-slate-600"
-          >
-            Reset
-          </button>
-        </div>
-      </div>
       </div>
     </div>
     
@@ -177,6 +159,43 @@ const years = [...new Set(sortedPosts.map((post: any) => new Date(post.date).get
       }
     }
     
+    function updateClearButtonState() {
+      const searchInput = document.getElementById('search');
+      const clearBtn = document.getElementById('clearFilter');
+      const hasSearch = searchInput ? searchInput.value !== '' : false;
+      
+      if (clearBtn) {
+        clearBtn.disabled = !hasSearch;
+      }
+    }
+    
+    function clearFilter() {
+      // Clear search input
+      const searchInput = document.getElementById('search');
+      if (searchInput) searchInput.value = '';
+      
+      // Reset to first page
+      currentPage = 1;
+      
+      // Hide filter section
+      const filterSection = document.getElementById('filterSection');
+      const toggleBtn = document.getElementById('toggleFilters');
+      if (filterSection && !filterSection.classList.contains('hidden')) {
+        filterSection.classList.add('hidden');
+        toggleBtn.innerHTML = `
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
+          </svg>
+        `;
+      }
+      
+      // Apply filters to show all posts
+      filterPosts();
+      
+      // Update clear button state
+      updateClearButtonState();
+    }
+    
     function updatePagination() {
       const posts = document.querySelectorAll('.post-item');
       if (posts.length === 0) return;
@@ -250,11 +269,9 @@ const years = [...new Set(sortedPosts.map((post: any) => new Date(post.date).get
           
           // Check if we're in filtered mode
           const searchEl = document.getElementById('search');
-          const yearEl = document.getElementById('yearFilter');
           const hasSearch = searchEl ? searchEl.value !== '' : false;
-          const hasYearFilter = yearEl ? yearEl.value !== '' : false;
           
-          if (hasSearch || hasYearFilter) {
+          if (hasSearch) {
             // Re-run filter to update pagination for filtered results
             filterPosts();
           } else {
@@ -281,9 +298,8 @@ const years = [...new Set(sortedPosts.map((post: any) => new Date(post.date).get
         
         // Check if we're in filtered mode
         const hasSearch = document.getElementById('search').value !== '';
-        const hasYearFilter = document.getElementById('yearFilter').value !== '';
         
-        if (hasSearch || hasYearFilter) {
+        if (hasSearch) {
           // Re-run filter to update pagination for filtered results
           filterPosts();
         } else {
@@ -297,9 +313,6 @@ const years = [...new Set(sortedPosts.map((post: any) => new Date(post.date).get
       // Clear search input
       document.getElementById('search').value = '';
       
-      // Reset year filter
-      document.getElementById('yearFilter').value = '';
-      
       // Reset to page 1
       currentPage = 1;
       
@@ -309,7 +322,6 @@ const years = [...new Set(sortedPosts.map((post: any) => new Date(post.date).get
     
     function filterPosts() {
       const searchTerm = document.getElementById('search').value.toLowerCase();
-      const selectedYear = document.getElementById('yearFilter').value;
       const allPosts = document.querySelectorAll('.post-item');
       let filteredPosts = [];
 
@@ -321,13 +333,10 @@ const years = [...new Set(sortedPosts.map((post: any) => new Date(post.date).get
       // Apply filters
       allPosts.forEach((post, index) => {
         const title = post.dataset.title || '';
-        const postYear = post.dataset.year || '';
-        const description = post.querySelector('p')?.textContent.toLowerCase() || '';
-
-        const matchesSearch = title.includes(searchTerm) || description.includes(searchTerm);
-        const matchesYear = !selectedYear || postYear === selectedYear;
-
-        if (matchesSearch && matchesYear) {
+        const date = post.dataset.date || '';
+        const matchesSearch = title.includes(searchTerm) || date.includes(searchTerm);
+        
+        if (matchesSearch) {
           filteredPosts.push(index);
         } else {
           post.style.display = 'none';
@@ -342,6 +351,9 @@ const years = [...new Set(sortedPosts.map((post: any) => new Date(post.date).get
       
       // Update pagination for filtered posts
       updatePaginationForFiltered(filteredPosts);
+      
+      // Update clear button state
+      updateClearButtonState();
       
       // Show "no results" message if needed
       const blogList = document.getElementById('blogList');
@@ -407,16 +419,19 @@ const years = [...new Set(sortedPosts.map((post: any) => new Date(post.date).get
       
       // Add event listeners
       document.getElementById('toggleFilters').addEventListener('click', toggleFilters);
+      document.getElementById('clearFilter').addEventListener('click', clearFilter);
       document.getElementById('searchBtn').addEventListener('click', filterPosts);
+      document.getElementById('search').addEventListener('input', updateClearButtonState);
       document.getElementById('search').addEventListener('keypress', function(event) {
         if (event.key === 'Enter') {
           filterPosts();
         }
       });
-      document.getElementById('yearFilter').addEventListener('change', filterPosts);
-      document.getElementById('resetBtn').addEventListener('click', resetFilters);
       document.getElementById('prevBtn').addEventListener('click', () => changePage(-1));
       document.getElementById('nextBtn').addEventListener('click', () => changePage(1));
+      
+      // Initialize clear button state
+      updateClearButtonState();
     });
   </script>
 </BaseLayout>

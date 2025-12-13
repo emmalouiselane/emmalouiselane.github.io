@@ -3,35 +3,243 @@ import BaseLayout from "../../../layouts/BaseLayout.astro";
 import { getAllRecipes } from "../../../lib/contentful";
 
 const recipes = await getAllRecipes();
+const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 ---
 
 <BaseLayout title="Recipes" description="Browse my collection of recipes.">
   <div class="container">
-    <h1 class="text-2xl font-bold">Recipes</h1>
+    <div class="flex flex-row justify-between">
+      <h1 class="text-2xl font-bold">Recipes</h1>
 
-    <div class="row mt-4 recipe-list">
+      <div class="flex flex-row">
+        <div class="text-center mt-4 text-sm text-gray-600 dark:text-gray-400">
+          <span id="resultsCount">{recipes.length}</span> recipes found
+        </div>
+        <button
+          id="toggleSearch"
+          class="my-auto ml-2 px-3 py-2 bg-sky-500 text-white rounded-lg hover:bg-sky-600 focus:outline-none dark:bg-sky-600 dark:hover:bg-sky-700"
+          aria-label="Toggle search"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+        </button>
+        <button
+          id="clearSearch"
+          class="my-auto ml-2 px-3 py-2 bg-slate-600 text-white rounded-lg hover:bg-slate-700 focus:outline-none dark:bg-slate-500 dark:hover:bg-slate-600 disabled:opacity-50 disabled:cursor-not-allowed"
+          aria-label="Clear search"
+          title="Clear Filters"
+          disabled
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Search Wrapper -->
+    <div class="relative">
+      <!-- Search Section (Hidden by default) -->
+      <div id="searchSection" class="hidden absolute top-full right-0 z-50 w-full max-w-2xl bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 mt-2">
+        <div class="mb-4">
+          <label for="search" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            Search Recipes
+          </label>
+          <div class="flex space-x-2">
+            <input
+              type="text"
+              id="search"
+              placeholder="Search by recipe name..."
+              class="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+            />
+            <button
+              id="searchBtn"
+              class="px-4 py-2 bg-sky-500 text-white rounded-lg hover:bg-sky-600 focus:outline-none dark:bg-sky-600 dark:hover:bg-sky-700"
+            >
+              Search
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Letter Filter Section (Always Visible) -->
+    <div class="mb-2">
+      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+        Filter by First Letter
+      </label>
+      <div class="w-fit flex flex-wrap gap-2 mx-auto" id="letterButtons">
+        <button
+          data-letter="all"
+          class="px-3 py-1 text-sm bg-slate-600 text-white rounded hover:bg-slate-700 focus:outline-none dark:bg-slate-500 dark:hover:bg-slate-600"
+        >
+          All
+        </button>
+        {letters.map((letter: string) => (
+          <button
+            data-letter={letter}
+            class="px-3 py-1 text-sm bg-slate-600 text-white rounded hover:bg-slate-700 focus:outline-none dark:bg-slate-500 dark:hover:bg-slate-600"
+          >
+            {letter}
+          </button>
+        ))}
+      </div>
+    </div>
+
+    <!-- No Results Message -->
+    <div id="noResults" class="hidden text-center py-8 text-gray-600 dark:text-gray-400">
+      <p class="text-lg">No recipes found</p>
+      <p class="text-sm">Try adjusting your search or letter filter</p>
+    </div>
+
+    <div class="row recipe-list grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2" id="recipeList">
       {
         recipes
           .sort((a: any, b: any) => a.name.localeCompare(b.name))
           .map((recipe: any) => (
-            <div class="recipe-list-item" key={recipe.slug}>
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">
-                    <a href={"/workshop/recipes/" + recipe.slug}>
-                      {recipe.name}
-                    </a>
-                  </h5>
-                  {recipe.rating ? (
-                    <p class="card-text">{"⭐".repeat(recipe.rating)}</p>
-                  ) : (
-                    <p class="card-text">Not rated (yet!)</p>
-                  )}
-                </div>
-              </div>
-            </div>
+            <a class="recipe-list-item" data-name={recipe.name.toLowerCase()} href={"/workshop/recipes/" + recipe.slug}>
+              <h5 class="m-2">{recipe.name}</h5>
+
+              {recipe.rating ? (
+                <p class="mb-2">{"⭐".repeat(recipe.rating)}</p>
+              ) : (
+                <p class="mb-2">Not rated (yet!)</p>
+                )}
+            </a>
           ))
       }
     </div>
   </div>
+
+  <script>
+    let currentLetter = 'all';
+    
+    function updateClearButtonState() {
+      const searchInput = document.getElementById('search');
+      const clearBtn = document.getElementById('clearSearch');
+      const hasSearch = searchInput ? searchInput.value !== '' : false;
+      const hasLetterFilter = currentLetter !== 'all';
+      
+      if (clearBtn) {
+        clearBtn.disabled = !hasSearch && !hasLetterFilter;
+      }
+    }
+    
+    function clearSearch() {
+      // Clear search input
+      const searchInput = document.getElementById('search');
+      if (searchInput) searchInput.value = '';
+      
+      // Reset to "All" letter filter
+      setLetter('all');
+      
+      // Hide search section
+      const searchSection = document.getElementById('searchSection');
+      const toggleBtn = document.getElementById('toggleSearch');
+      if (searchSection && !searchSection.classList.contains('hidden')) {
+        searchSection.classList.add('hidden');
+        toggleBtn.innerHTML = `
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+        `;
+      }
+    }
+    
+    function toggleSearch() {
+      const searchSection = document.getElementById('searchSection');
+      const toggleBtn = document.getElementById('toggleSearch');
+      
+      if (searchSection.classList.contains('hidden')) {
+        searchSection.classList.remove('hidden');
+        toggleBtn.innerHTML = `
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        `;
+      } else {
+        searchSection.classList.add('hidden');
+        toggleBtn.innerHTML = `
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+        `;
+      }
+    }
+    
+    function filterRecipes() {
+      const searchTerm = document.getElementById('search').value.toLowerCase();
+      const recipeItems = document.querySelectorAll('.recipe-list-item');
+      const noResults = document.getElementById('noResults');
+      const resultsCount = document.getElementById('resultsCount');
+      let visibleCount = 0;
+      
+      recipeItems.forEach((item: any) => {
+        const recipeName = item.dataset.name;
+        const matchesSearch = recipeName.includes(searchTerm);
+        const matchesLetter = currentLetter === 'all' || recipeName.startsWith(currentLetter.toLowerCase());
+        
+        if (matchesSearch && matchesLetter) {
+          item.style.display = 'flex';
+          visibleCount++;
+        } else {
+          item.style.display = 'none';
+        }
+      });
+      
+      // Update results count
+      if (resultsCount) resultsCount.textContent = visibleCount;
+      
+      // Update clear button state
+      updateClearButtonState();
+      
+      // Show/hide no results message
+      if (visibleCount === 0) {
+        noResults.classList.remove('hidden');
+      } else {
+        noResults.classList.add('hidden');
+      }
+    }
+    
+    function setLetter(letter: string) {
+      currentLetter = letter;
+      
+      // Update button styles
+      document.querySelectorAll('#letterButtons button').forEach((btn: any) => {
+        if (btn.dataset.letter === letter) {
+          btn.style.backgroundColor = 'var(--color-primary)';
+          btn.classList.remove('bg-slate-600', 'dark:bg-slate-500');
+        } else {
+          btn.classList.add('bg-slate-600', 'dark:bg-slate-500');
+          btn.style.backgroundColor = '';
+        }
+      });
+      
+      filterRecipes();
+    }
+    
+    // Initialize event listeners
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('toggleSearch').addEventListener('click', toggleSearch);
+      document.getElementById('clearSearch').addEventListener('click', clearSearch);
+      document.getElementById('searchBtn').addEventListener('click', filterRecipes);
+      document.getElementById('search').addEventListener('input', updateClearButtonState);
+      document.getElementById('search').addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+          filterRecipes();
+        }
+      });
+      
+      // Letter button event listeners
+      document.querySelectorAll('#letterButtons button').forEach((btn: any) => {
+        btn.addEventListener('click', function() {
+          setLetter(this.dataset.letter);
+        });
+      });
+      
+      // Set initial state
+      setLetter('all');
+    });
+  </script>
 </BaseLayout>
