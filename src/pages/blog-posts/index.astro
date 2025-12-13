@@ -19,9 +19,9 @@ const years = [...new Set(sortedPosts.map((post: any) => new Date(post.date).get
   <div class="container max-w-4xl mx-auto">
     <!-- Search and Filter Section -->
     <div class="mb-4 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
-      <div class="grid md:grid-cols-2 gap-2">
+      <div class="grid md:grid-cols-3 gap-2">
         <!-- Search Input -->
-        <div class="flex flex-row">
+        <div class="flex flex-row col-span-2">
           <div class="w-full">
             <label for="search" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Search Posts
