@@ -3,39 +3,371 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getAllBlogs } from '../../lib/contentful';
 import moment from 'moment';
 
-const blogPosts = await getAllBlogs();
+const allBlogPosts = await getAllBlogs();
+const POSTS_PER_PAGE = 5;
+
+// Sort posts by date (newest first)
+const sortedPosts = allBlogPosts.sort((a: any, b: any) => 
+  new Date(b.date).getTime() - new Date(a.date).getTime()
+);
+
+// Get unique years for filter dropdown
+const years = [...new Set(sortedPosts.map((post: any) => new Date(post.date).getFullYear()))].sort((a, b) => b - a);
 ---
 
 <BaseLayout title="Blog Posts" description="Read my latest blog posts!">
-  {blogPosts.length === 0 ? (
-    <p>No blog posts found.</p>
-  ) : (
-    <div class="container blog-list">
-      {blogPosts.map((post: any) => {
-        const title = post.title;
+  <div class="container max-w-4xl mx-auto">
+    <!-- Search and Filter Section -->
+    <div class="mb-4 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+      <div class="grid md:grid-cols-2 gap-2">
+        <!-- Search Input -->
+        <div class="flex flex-row">
+          <div class="w-full">
+            <label for="search" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              Search Posts
+            </label>
+            <div class="flex space-x-2">
+              <input
+                type="text"
+                id="search"
+                placeholder="Search by title or description..."
+                class="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+              />
+              </div>
+          </div>
+          <button
+              id="searchBtn"
+              class="ml-2 mt-auto px-4 py-2 bg-sky-500 text-white rounded-lg hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 dark:bg-sky-600 dark:hover:bg-sky-700"
+            >
+              Search
+            </button>
+        </div>
         
+        <!-- Year Filter -->
+        <div class="flex flex-row">
+          <div class="w-full">
+            <label for="yearFilter" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              Filter by Year
+            </label>
+            <select
+              id="yearFilter"
+              class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+            >
+              <option value="">All Years</option>
+              {years.map((year: any) => (
+                <option value={year}>{year}</option>
+              ))}
+            </select>
+          </div>
+          
+          <button
+            id="resetBtn"
+            aria-label="Reset Filters"
+            class="ml-2 mt-auto px-4 py-2 bg-slate-600 text-white rounded-lg hover:bg-slate-700 focus:outline-none dark:bg-slate-500 dark:hover:bg-slate-600"
+          >
+            Reset
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="blog-list" id="blogList">
+      {sortedPosts.map((post: any, index: number) => {        
         return (
-          <div class="row" key={post.slug}>
+          <div class="row mb-2 post-item" key={post.slug} data-title={post.title.toLowerCase()} data-date={post.date} data-year={new Date(post.date).getFullYear()} 
+               data-index={index} style={index >= POSTS_PER_PAGE ? 'display: none' : 'display: block'}>
             <article
               class="post-list-item"
               itemscope
               itemtype="http://schema.org/Article"
             >
-              <header>
-                <h2>
-                  <a href={"/blog-posts/" + post.slug} itemprop="url">
-                    <span itemprop="headline">{title}</span>
-                  </a>
-                </h2>
-                <small>{moment(post.date).format("MMMM DD, YYYY")}</small>
-              </header>
-              <section>
-                <p>{post.description}</p>
-              </section>
+              <div class="grid grid-cols-2">
+                <h2 class="text-lg justify-self-start">{post.title}</h2>
+                <small class="text-xs text-gray-600 justify-self-end">{moment(post.date).format("MMMM DD, YYYY")}</small>
+                <section class="col-span-2 flex flex-row justify-between">
+                  <p>{post.description}</p>
+                  <a href={"/blog-posts/" + post.slug}> Read more...</a>
+                </section>
+              </div>
             </article>
           </div>
         );
       })}
     </div>
-  )}
+    
+    <div class="mt-4">
+      <nav class="justify-center flex items-center space-x-2" aria-label="Pagination">
+        <!-- Previous Button -->
+        <button
+          id="prevBtn"
+          class="px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+        >
+          Previous
+        </button>
+        
+        <!-- Page Numbers -->
+        <div id="pageNumbers" class="flex space-x-2">
+          <!-- Page numbers will be generated by JavaScript -->
+        </div>
+        
+        <!-- Next Button -->
+        <button
+          id="nextBtn"
+          class="px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+        >
+          Next
+        </button>
+      </nav>
+
+      <div class="text-center mt-4 text-sm text-gray-600 dark:text-gray-400">
+        <span id="resultsCount">{POSTS_PER_PAGE}</span> of {sortedPosts.length} posts found
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentPage = 1;
+    const POSTS_PER_PAGE_JS = 5;
+    
+    function updatePagination() {
+      const posts = document.querySelectorAll('.post-item');
+      if (posts.length === 0) return;
+      
+      const totalPages = Math.ceil(posts.length / POSTS_PER_PAGE_JS);
+      const startIndex = (currentPage - 1) * POSTS_PER_PAGE_JS;
+      const endIndex = startIndex + POSTS_PER_PAGE_JS;
+      
+      // Update results count
+      const resultsCount = document.getElementById('resultsCount');
+      if (resultsCount) resultsCount.textContent = Math.min(endIndex, posts.length);
+      
+      const currentPageEl = document.getElementById('currentPage');
+      if (currentPageEl) currentPageEl.textContent = currentPage;
+      
+      const totalPagesEl = document.getElementById('totalPages');
+      if (totalPagesEl) totalPagesEl.textContent = totalPages;
+      
+      // Show/hide posts
+      posts.forEach((post, index) => {
+        if (index >= startIndex && index < endIndex) {
+          post.style.display = 'block';
+        } else {
+          post.style.display = 'none';
+        }
+      });
+      
+      // Update page numbers
+      updatePageNumbers(currentPage, totalPages);
+    }
+    
+    function updatePageNumbers(current, total) {
+      const pageNumbers = document.getElementById('pageNumbers');
+      if (!pageNumbers) return;
+      
+      const pages = [];
+      const maxVisible = 5;
+      
+      if (total <= maxVisible) {
+        for (let i = 1; i <= total; i++) {
+          pages.push(i);
+        }
+      } else {
+        if (current <= 3) {
+          for (let i = 1; i <= 5; i++) {
+            pages.push(i);
+          }
+        } else if (current >= total - 2) {
+          for (let i = total - 4; i <= total; i++) {
+            pages.push(i);
+          }
+        } else {
+          for (let i = current - 2; i <= current + 2; i++) {
+            pages.push(i);
+          }
+        }
+      }
+      
+      pageNumbers.innerHTML = pages.map(pageNum => 
+        pageNum === current 
+          ? `<span class="px-3 py-2 text-sm font-medium text-white bg-gray-900 dark:bg-gray-100 border border-gray-900 dark:border-gray-100 rounded-md">${pageNum}</span>`
+          : `<a href="#" data-page="${pageNum}" class="page-link px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">${pageNum}</a>`
+      ).join('');
+      
+      // Add event listeners to page links
+      document.querySelectorAll('.page-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          const pageNum = parseInt(this.dataset.page);
+          currentPage = pageNum;
+          
+          // Check if we're in filtered mode
+          const searchEl = document.getElementById('search');
+          const yearEl = document.getElementById('yearFilter');
+          const hasSearch = searchEl ? searchEl.value !== '' : false;
+          const hasYearFilter = yearEl ? yearEl.value !== '' : false;
+          
+          if (hasSearch || hasYearFilter) {
+            // Re-run filter to update pagination for filtered results
+            filterPosts();
+          } else {
+            // Normal pagination
+            updatePagination();
+          }
+        });
+      });
+      
+      // Update button states
+      const prevBtn = document.getElementById('prevBtn');
+      if (prevBtn) prevBtn.disabled = current === 1;
+      
+      const nextBtn = document.getElementById('nextBtn');
+      if (nextBtn) nextBtn.disabled = current === total;
+    }
+    
+    function changePage(direction) {
+      const totalPages = Math.ceil(document.querySelectorAll('.post-item').length / POSTS_PER_PAGE_JS);
+      const newPage = currentPage + direction;
+      
+      if (newPage >= 1 && newPage <= totalPages) {
+        currentPage = newPage;
+        
+        // Check if we're in filtered mode
+        const hasSearch = document.getElementById('search').value !== '';
+        const hasYearFilter = document.getElementById('yearFilter').value !== '';
+        
+        if (hasSearch || hasYearFilter) {
+          // Re-run filter to update pagination for filtered results
+          filterPosts();
+        } else {
+          // Normal pagination
+          updatePagination();
+        }
+      }
+    }
+    
+    function resetFilters() {
+      // Clear search input
+      document.getElementById('search').value = '';
+      
+      // Reset year filter
+      document.getElementById('yearFilter').value = '';
+      
+      // Reset to page 1
+      currentPage = 1;
+      
+      // Update pagination to show all posts
+      updatePagination();
+    }
+    
+    function filterPosts() {
+      const searchTerm = document.getElementById('search').value.toLowerCase();
+      const selectedYear = document.getElementById('yearFilter').value;
+      const allPosts = document.querySelectorAll('.post-item');
+      let filteredPosts = [];
+
+      // First, reset all posts to visible
+      allPosts.forEach(post => {
+        post.style.display = 'block';
+      });
+
+      // Apply filters
+      allPosts.forEach((post, index) => {
+        const title = post.dataset.title || '';
+        const postYear = post.dataset.year || '';
+        const description = post.querySelector('p')?.textContent.toLowerCase() || '';
+
+        const matchesSearch = title.includes(searchTerm) || description.includes(searchTerm);
+        const matchesYear = !selectedYear || postYear === selectedYear;
+
+        if (matchesSearch && matchesYear) {
+          filteredPosts.push(index);
+        } else {
+          post.style.display = 'none';
+        }
+      });
+
+      // Reset to page 1 and update pagination for filtered results
+      currentPage = 1;
+      
+      // Update results count
+      document.getElementById('resultsCount').textContent = filteredPosts.length;
+      
+      // Update pagination for filtered posts
+      updatePaginationForFiltered(filteredPosts);
+      
+      // Show "no results" message if needed
+      const blogList = document.getElementById('blogList');
+      if (filteredPosts.length === 0) {
+        if (!document.getElementById('noResults')) {
+          const noResults = document.createElement('div');
+          noResults.id = 'noResults';
+          noResults.className = 'text-center py-8 text-gray-600 dark:text-gray-400';
+          noResults.innerHTML = '<p>No posts found matching your criteria.</p>';
+          blogList.appendChild(noResults);
+        }
+      } else {
+        const noResults = document.getElementById('noResults');
+        if (noResults) {
+          noResults.remove();
+        }
+      }
+    }
+    
+    function updatePaginationForFiltered(filteredIndices) {
+      const totalPages = Math.ceil(filteredIndices.length / POSTS_PER_PAGE_JS);
+      const startIndex = (currentPage - 1) * POSTS_PER_PAGE_JS;
+      const endIndex = startIndex + POSTS_PER_PAGE_JS;
+      
+      // Hide all posts first
+      document.querySelectorAll('.post-item').forEach(post => {
+        post.style.display = 'none';
+      });
+      
+      // Show only filtered posts for current page
+      const pageIndices = filteredIndices.slice(startIndex, endIndex);
+      pageIndices.forEach(index => {
+        const post = document.querySelector(`.post-item[data-index="${index}"]`);
+        if (post) {
+          post.style.display = 'block';
+        }
+      });
+      
+      // Update results count
+      const resultsCount = document.getElementById('resultsCount');
+      if (resultsCount) resultsCount.textContent = pageIndices.length;
+      
+      const currentPageEl = document.getElementById('currentPage');
+      if (currentPageEl) currentPageEl.textContent = currentPage;
+      
+      const totalPagesEl = document.getElementById('totalPages');
+      if (totalPagesEl) totalPagesEl.textContent = totalPages;
+      
+      // Update page numbers
+      updatePageNumbers(currentPage, totalPages);
+      
+      // Update button states
+      const prevBtn = document.getElementById('prevBtn');
+      if (prevBtn) prevBtn.disabled = currentPage === 1;
+      
+      const nextBtn = document.getElementById('nextBtn');
+      if (nextBtn) nextBtn.disabled = currentPage === totalPages || totalPages === 0;
+    }
+
+    // Initialize pagination on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      updatePagination();
+      
+      // Add event listeners
+      document.getElementById('searchBtn').addEventListener('click', filterPosts);
+      document.getElementById('search').addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+          filterPosts();
+        }
+      });
+      document.getElementById('yearFilter').addEventListener('change', filterPosts);
+      document.getElementById('resetBtn').addEventListener('click', resetFilters);
+      document.getElementById('prevBtn').addEventListener('click', () => changePage(-1));
+      document.getElementById('nextBtn').addEventListener('click', () => changePage(1));
+    });
+  </script>
 </BaseLayout>
