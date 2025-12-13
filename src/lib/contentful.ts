@@ -174,9 +174,6 @@ export async function getRecipeBySlug(slug: string) {
           ingredients {
             json
           }
-          ingredients2 {
-            json
-          }
           directions {
             json
           }

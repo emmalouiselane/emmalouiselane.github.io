@@ -57,9 +57,6 @@ const options = {
           {fullRecipe.ingredients && (
             <Fragment set:html={documentToHtmlString(fullRecipe.ingredients.json, options)} />
           )}
-          {fullRecipe.ingredients2 && (
-            <Fragment set:html={documentToHtmlString(fullRecipe.ingredients2.json, options)} />
-          )}
         </div>
       </div>
       
