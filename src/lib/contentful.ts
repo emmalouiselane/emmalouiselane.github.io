@@ -10,6 +10,7 @@ const client = createClient({
 
 async function entriesApiCall(query: string, variables?: Record<string, any>) {
     const fetchUrl = `https://graphql.contentful.com/content/v1/spaces/${SPACE}/environments/master`;
+    
     const options = {
         method: 'POST',
         headers: {
@@ -18,7 +19,16 @@ async function entriesApiCall(query: string, variables?: Record<string, any>) {
         },
         body: JSON.stringify({ query, variables }),
     };
-    return await fetch(fetchUrl, options);
+    
+    const response = await fetch(fetchUrl, options);
+    
+    if (!response.ok) {
+        const errorText = await response.text();
+        console.error('Contentful API Error:', errorText);
+        throw new Error(`Contentful API error: ${response.status} - ${errorText}`);
+    }
+    
+    return response;
 }
 
 export async function getAllPortfolioItems() {
@@ -152,6 +162,15 @@ export async function getRecipeBySlug(slug: string) {
           name
           rating
           slug
+          imagesCollection {
+            items {
+              url
+              title
+              description
+              fileName
+              contentType
+            }
+          }
           ingredients {
             json
           }
@@ -176,5 +195,16 @@ export async function getRecipeBySlug(slug: string) {
     const variables = { slug };
     const response = await entriesApiCall(query, variables);
     const json = await response.json();
+    
+    if (!json.data || !json.data.recipeCollection) {
+      console.error('Invalid Contentful response structure:', json);
+      throw new Error('Recipe not found or invalid Contentful response');
+    }
+    
+    if (!json.data.recipeCollection.items || json.data.recipeCollection.items.length === 0) {
+      console.error('No recipe found for slug:', slug);
+      throw new Error('Recipe not found');
+    }
+    
     return json.data.recipeCollection.items[0];
 }

@@ -1,4 +1,5 @@
 ---
+import QuickNavComponent from "@/components/quick-nav";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import { getAllRecipes } from "../../../lib/contentful";
 
@@ -12,9 +13,6 @@ const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
       <h1 class="text-2xl font-bold">Recipes</h1>
 
       <div class="flex flex-row">
-        <div class="text-center mt-4 text-sm text-gray-600 dark:text-gray-400">
-          <span id="resultsCount">{recipes.length}</span> recipes found
-        </div>
         <button
           id="toggleSearch"
           class="my-auto ml-2 px-3 py-2 bg-sky-500 text-white rounded-lg hover:bg-sky-600 focus:outline-none dark:bg-sky-600 dark:hover:bg-sky-700"

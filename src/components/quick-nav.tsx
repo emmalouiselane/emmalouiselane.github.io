@@ -18,12 +18,6 @@ const QuickNavComponent = () => {
 
   return (
     <div className="quick-nav">
-      {pathname !== "/workshop/" && (pathname.startsWith('/workshop/') || pathname.startsWith('/portfolio/')) && (
-        <a className="navbar-link" onClick={() => handleNavigation("workshop")} href="/workshop/">
-          &larr; Workshop
-        </a>
-      )}
-
       {pathname !== "/workshop/recipes/" && pathname.startsWith('/workshop/recipes/') && (
         <a className="navbar-link" onClick={() => handleNavigation("recipe_list")} href="/workshop/recipes">
           &larr; Recipe List

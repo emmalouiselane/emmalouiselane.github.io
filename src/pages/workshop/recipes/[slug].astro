@@ -4,6 +4,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { getAllRecipes, getRecipeBySlug } from '../../../lib/contentful';
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import { BLOCKS } from '@contentful/rich-text-types';
+import QuickNavComponent from '@/components/quick-nav';
 
 export const getStaticPaths = (async () => {
   const recipes = await getAllRecipes();
@@ -19,68 +20,89 @@ const fullRecipe = await getRecipeBySlug(recipe.slug);
 
 const options = {
   renderNode: {
-    [BLOCKS.PARAGRAPH]: (node: any) => `<p>${node.content.map((c: any) => c.value || '').join('')}</p>`,
+    [BLOCKS.PARAGRAPH]: (node: any, next: any) => `<p>${next(node.content)}</p>`,
     [BLOCKS.UL_LIST]: (node: any, next: any) => `<ul>${next(node.content)}</ul>`,
     [BLOCKS.OL_LIST]: (node: any, next: any) => `<ol>${next(node.content)}</ol>`,
     [BLOCKS.LIST_ITEM]: (node: any, next: any) => `<li>${next(node.content)}</li>`,
+    [BLOCKS.HEADING_1]: (node: any, next: any) => `<h1>${next(node.content)}</h1>`,
+    [BLOCKS.HEADING_2]: (node: any, next: any) => `<h2>${next(node.content)}</h2>`,
+    [BLOCKS.HEADING_3]: (node: any, next: any) => `<h3>${next(node.content)}</h3>`,
+    [BLOCKS.HEADING_4]: (node: any, next: any) => `<h4>${next(node.content)}</h4>`,
+    [BLOCKS.HEADING_5]: (node: any, next: any) => `<h5>${next(node.content)}</h5>`,
+    [BLOCKS.HEADING_6]: (node: any, next: any) => `<h6>${next(node.content)}</h6>`,
   },
 };
+
 ---
 
 <BaseLayout title={fullRecipe.name} description={"Recipe for " + fullRecipe.name}>
-  <div class="container">
+  <QuickNavComponent client:load />
+
+  <div class="container mt-10 recipe">    
     <div class="row">
-      <div class="col">
-        <h1 class="text-2xl font-bold">{fullRecipe.name}</h1>
-        {fullRecipe.rating && (
-          <p>Rating: {'⭐'.repeat(fullRecipe.rating)}</p>
+      <div class="flex flex-row justify-between">
+        <h1 class="text-2xl font-bold mb-2 ml-5">{fullRecipe.name}</h1>
+        {fullRecipe.rating ? (
+          <p class="!mt-2">Rating: {'⭐'.repeat(fullRecipe.rating)}</p>
+        ) : (
+          <p class="!mt-2 text-gray-500">Not rated (yet!)</p>
         )}
       </div>
     </div>
     
-    <div class="row mt-4">
-      <div class="col-md-6">
-        <h2>Ingredients</h2>
-        {fullRecipe.ingredients && (
-          <Fragment set:html={documentToHtmlString(fullRecipe.ingredients.json, options)} />
-        )}
-        {fullRecipe.ingredients2 && (
-          <Fragment set:html={documentToHtmlString(fullRecipe.ingredients2.json, options)} />
-        )}
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+      <div class="lg:col-span-1">
+        <div class="bg-gray-50 p-6 rounded-lg">
+          <h2 class="text-xl font-semibold mb-4">Ingredients</h2>
+          {fullRecipe.ingredients && (
+            <Fragment set:html={documentToHtmlString(fullRecipe.ingredients.json, options)} />
+          )}
+          {fullRecipe.ingredients2 && (
+            <Fragment set:html={documentToHtmlString(fullRecipe.ingredients2.json, options)} />
+          )}
+        </div>
       </div>
       
-      <div class="col-md-6">
-        <h2>Directions</h2>
-        {fullRecipe.directions && (
-          <Fragment set:html={documentToHtmlString(fullRecipe.directions.json, options)} />
+      <div class="lg:col-span-1">
+        {fullRecipe.imagesCollection && fullRecipe.imagesCollection.items.length > 0 && (
+          <div class="mb-8">
+            <img 
+              src={fullRecipe.imagesCollection.items[0].url} 
+              alt={fullRecipe.imagesCollection.items[0].title || fullRecipe.name}
+              class="w-full h-96 object-cover rounded-lg"
+            />
+            {fullRecipe.imagesCollection.items[0].description && (
+              <p class="text-sm text-gray-600 mt-2 italic">{fullRecipe.imagesCollection.items[0].description}</p>
+            )}
+          </div>
         )}
+
+        {fullRecipe.personalNote && (
+          <blockquote class="mt-2">
+            <h2 class="text-lg font-semibold mb-2">Personal Note</h2>
+            <p>{fullRecipe.personalNote}</p>
+          </blockquote>
+        )}
+
+        {fullRecipe.notes && (
+          <blockquote class="mt-2 pink">
+            <h2 class="text-lg font-semibold mb-2">Notes</h2>
+            <Fragment set:html={documentToHtmlString(fullRecipe.notes.json, options)} />
+          </blockquote>
+        )}
+        
       </div>
     </div>
-    
-    {fullRecipe.notes && (
-      <div class="row mt-4">
-        <div class="col">
-          <h2>Notes</h2>
-          <Fragment set:html={documentToHtmlString(fullRecipe.notes.json, options)} />
-        </div>
-      </div>
+        
+    <h2 class="text-2xl font-semibold mb-4">Method</h2>
+    {fullRecipe.directions && (
+      <Fragment set:html={documentToHtmlString(fullRecipe.directions.json, options)} />
     )}
-    
-    {fullRecipe.personalNote && (
-      <div class="row mt-4">
-        <div class="col">
-          <h2>Personal Note</h2>
-          <p>{fullRecipe.personalNote}</p>
-        </div>
-      </div>
-    )}
-    
+       
     {fullRecipe.review && (
-      <div class="row mt-4">
-        <div class="col">
-          <h2>Review</h2>
-          <Fragment set:html={documentToHtmlString(fullRecipe.review.json, options)} />
-        </div>
+      <div class="mt-8">
+        <h2 class="text-2xl font-semibold mb-4">Review</h2>
+        <Fragment set:html={documentToHtmlString(fullRecipe.review.json, options)} />
       </div>
     )}
   </div>
