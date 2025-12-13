@@ -73,6 +73,10 @@ hr {
       h2 {
         color: var(--color-secondary);
         margin-top: 0;
+
+        .dark & {
+          color: var(--color-text);
+        }
       }
-    }
+    }   
 }

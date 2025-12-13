@@ -19,45 +19,57 @@ const fullItem = await getPortfolioItemBySlug(item.slug);
 
 const options = {
   renderNode: {
-    [BLOCKS.PARAGRAPH]: (node: any) => `<p>${node.content.map((c: any) => c.value || '').join('')}</p>`,
+    [BLOCKS.PARAGRAPH]: (node: any, next: any) => `<p>${next(node.content)}</p>`,
     [BLOCKS.UL_LIST]: (node: any, next: any) => `<ul>${next(node.content)}</ul>`,
+    [BLOCKS.OL_LIST]: (node: any, next: any) => `<ol>${next(node.content)}</ol>`,
     [BLOCKS.LIST_ITEM]: (node: any, next: any) => `<li>${next(node.content)}</li>`,
+    [BLOCKS.HEADING_1]: (node: any, next: any) => `<h1>${next(node.content)}</h1>`,
+    [BLOCKS.HEADING_2]: (node: any, next: any) => `<h2>${next(node.content)}</h2>`,
+    [BLOCKS.HEADING_3]: (node: any, next: any) => `<h3>${next(node.content)}</h3>`,
+    [BLOCKS.HEADING_4]: (node: any, next: any) => `<h4>${next(node.content)}</h4>`,
+    [BLOCKS.HEADING_5]: (node: any, next: any) => `<h5>${next(node.content)}</h5>`,
+    [BLOCKS.HEADING_6]: (node: any, next: any) => `<h6>${next(node.content)}</h6>`,
   },
 };
 ---
 
 <BaseLayout title={fullItem.title} description={fullItem.description}>
-  <div class="container">
+  <div class="container portfolio">    
     <div class="row">
-      <div class="col">
-        <h1 class="text-2xl font-bold">{fullItem.title}</h1>
+      <div class="flex flex-row justify-between">
+        <h1 class="text-2xl font-bold mb-2">{fullItem.title}</h1>
         {fullItem.isInDevelopment && (
           <span class="badge bg-warning">In Development</span>
         )}
       </div>
     </div>
     
-    <div class="row mt-4">
-      <div class="col">
-        <p>{fullItem.detailedDescription || fullItem.description}</p>
-        
-        {fullItem.features && (
-          <div>
-            <h2>Features</h2>
-            <Fragment set:html={documentToHtmlString(fullItem.features.json, options)} />
-          </div>
-        )}
-        
-        <div class="mt-4">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+      <div class="lg:col-span-1">
+        <div class="pt-6">
+          <h2 class="text-xl font-semibold mb-4">Project Details</h2>
+          <p>{fullItem.detailedDescription || fullItem.description}</p>
+        </div>
+
+        <div class="mt-8 grid grid-cols-2 gap-2">
           {fullItem.externalUrl && (
-            <a href={fullItem.externalUrl} target="_blank" rel="noopener noreferrer" class="btn btn-primary me-2">
+            <a href={fullItem.externalUrl} target="_blank" rel="noopener noreferrer" class="text-center border border-primary rounded-md">
               View Live Site
             </a>
           )}
           {fullItem.githubUrl && (
-            <a href={fullItem.githubUrl} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+            <a href={fullItem.githubUrl} target="_blank" rel="noopener noreferrer" class="text-center border border-secondary rounded-md">
               View on GitHub
             </a>
+          )}
+        </div>
+      </div>
+      
+      <div class="lg:col-span-2">
+        <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
+          <h2 class="text-xl font-semibold mb-4">Features</h2>
+          {fullItem.features && (
+            <Fragment set:html={documentToHtmlString(fullItem.features.json, options)} />
           )}
         </div>
       </div>
