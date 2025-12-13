@@ -27,6 +27,9 @@ const NavbarComponent = () => {
                 { text: "Recipes", path: "/workshop/recipes/" },
                 { text: "Gaming", path: "/workshop/gaming/" },
             ]
+        },
+        {
+            text: "About Me", path: "/about/"
         }
     ];
 

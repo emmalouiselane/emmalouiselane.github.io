@@ -1,0 +1,54 @@
+@use "./_variables" as *;
+
+.about-me-container {
+  nav > .tab-btn {
+    // Default inactive state
+    border-color: transparent;
+    color: var(--color-text);
+    transition: all 0.2s ease-in-out;
+    
+    // Hover state for inactive tabs
+    &:hover:not(.active) {
+      opacity: 0.7;
+      border-color: var(--primary);
+      color: var(--primary);
+      cursor: pointer;
+    }
+
+    // Active state
+    &.active {
+      border-color: var(--color-highlight);
+      color: var(--color-highlight);
+      transform: scale(1.05);
+      transition: all 0.2s ease-in-out;
+      
+      // Hover state for active tab (only opacity change)
+      &:hover {
+        opacity: 0.8;
+        cursor: pointer;
+        transform: scale(1.05);
+      }
+    }
+  }
+}
+
+// Tab content animations
+.tab-content {
+  &.hidden {
+    display: none;
+  }
+  
+  // Fade in animation for showing content
+  &.tab-fade-in {
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeInUp 0.3s ease-in-out forwards;
+  }
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
