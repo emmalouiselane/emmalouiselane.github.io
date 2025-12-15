@@ -34,7 +34,7 @@
     align-content: center;
     text-decoration: none;
     color: var(--color-text) !important;
-    font-weight: var(--fontWeight-bold);
+    font-weight: var(--fontWeight-medium);
     transition: color 0.2s ease, background-color 0.2s ease;
 
     div {
@@ -55,7 +55,7 @@
         @apply text-sm;
         letter-spacing: 0.25em;
         text-align: center;
-        margin: 0;
+        margin: auto;
         display: block;
         text-align: center;
       }
@@ -69,8 +69,14 @@
       }
     }
 
-    &.workshop-link-disabled div p {
-      cursor: default;
+    &.workshop-link-disabled div {
+      border: 2px dashed grey;
+      opacity: 0.8;
+
+      p {
+        cursor: default;
+        color: grey;
+      }
     }
   }
 }

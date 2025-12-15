@@ -66,19 +66,26 @@
   border-radius: var(--spacing-2);
   border: 2px dashed #ccccccae;
   padding: var(--spacing-4);
+
+  p {
+    margin-bottom: var(--spacing-0);
+  }
+
+  h2 {
+    @apply text-2xl;
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-2);
+    margin-top: var(--spacing-0);
+  }
+
+  header {
+    margin-bottom: var(--spacing-4);
+  }
+
+  a {
+    border: 2px dashed var(--color-accent-light);
+    padding: var(--spacing-2);
+    border-radius: var(--spacing-2);
+  }
 }
 
-.post-list-item p {
-  margin-bottom: var(--spacing-0);
-}
-
-.post-list-item h2 {
-  @apply text-2xl;
-  color: var(--color-primary);
-  margin-bottom: var(--spacing-2);
-  margin-top: var(--spacing-0);
-}
-
-.post-list-item header {
-  margin-bottom: var(--spacing-4);
-}

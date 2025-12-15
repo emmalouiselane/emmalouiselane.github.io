@@ -31,7 +31,7 @@ const recentPortfolioItem = portfolioItems.length > 0 ? portfolioItems[0] : null
     {recentRecipe && (
       <div class="container mt-4 latest-block blue">
         <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
-          <h2 class="text-lg font-semibold mb-3">Latest Recipe...</h2>
+          <h2 class="text-xl font-semibold mb-3">Latest Recipe...</h2>
           <h3 class="text-lg font-bold text-center">
             <a href={`/workshop/recipes/${recentRecipe.slug}`}>
               {recentRecipe.name} →
@@ -52,7 +52,7 @@ const recentPortfolioItem = portfolioItems.length > 0 ? portfolioItems[0] : null
     {recentBlog && (
       <div class="container mt-4 latest-block pink">
         <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
-          <h2 class="text-lg font-semibold mb-3">Latest Blog...</h2>
+          <h2 class="text-xl font-semibold mb-3">Latest Blog...</h2>
           <h3  class="text-lg font-bold text-center">
             <a href={`/blog-posts/${recentBlog.slug}`}>
               {recentBlog.title} →
@@ -67,7 +67,7 @@ const recentPortfolioItem = portfolioItems.length > 0 ? portfolioItems[0] : null
     {recentPortfolioItem && (
       <div class="container mt-4 latest-block blue">
         <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
-          <h2 class="text-lg font-semibold mb-3">Latest Project...</h2>
+          <h2 class="text-xl font-semibold mb-3">Latest Project...</h2>
           <h3 class="text-lg font-bold text-center">
             <a href={`/portfolio/${recentPortfolioItem.slug}`}>
               {recentPortfolioItem.title} →
