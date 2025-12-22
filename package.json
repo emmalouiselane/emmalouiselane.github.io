@@ -34,7 +34,7 @@
     "moment": "^2.30.1",
     "react": "^19.2.1",
     "react-dom": "^19.2.3",
-    "sass": "^1.96.0",
+    "sass": "^1.97.1",
     "tailwind-merge": "^3.4.0",
     "tailwindcss": "^4.1.17"
   },
