@@ -1,7 +1,7 @@
-// Workshop styles
+// Digital Garden styles
 @use "./_variables" as *;
 
-.workshop-list {
+.digital-garden-list {
   text-align: center;
 
   >.row>.col {
@@ -24,8 +24,8 @@
     }
   }
 
-  .workshop-link,
-  .workshop-link-disabled {
+  .digital-garden-link,
+  .digital-garden-link-disabled {
     width: -webkit-fill-available;
     height: -webkit-fill-available;
     max-height: 100px;
@@ -61,7 +61,7 @@
       }
     }
 
-    &.workshop-link div:hover {
+    &.digital-garden-link div:hover {
       background-color: var(--color-accent-light);
 
       p {
@@ -69,7 +69,7 @@
       }
     }
 
-    &.workshop-link-disabled div {
+    &.digital-garden-link-disabled div {
       border: 2px dashed grey;
       opacity: 0.8;
 

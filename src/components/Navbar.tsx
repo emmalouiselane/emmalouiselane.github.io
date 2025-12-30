@@ -22,10 +22,10 @@ const NavbarComponent = () => {
             text: "Blog", path: "/blog-posts/"
         },
         {
-            text: "Workshop", path: "/workshop/", children: [
+            text: "Digital Garden", path: "/digital-garden/", children: [
                 { text: "Portfolio", path: "/portfolio/" },
-                { text: "Recipes", path: "/workshop/recipes/" },
-                { text: "Gaming", path: "/workshop/gaming/" },
+                { text: "Recipes", path: "/digital-garden/recipes/" },
+                { text: "Gaming", path: "/digital-garden/gaming/" },
             ]
         },
         {
