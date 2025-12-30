@@ -95,7 +95,7 @@ const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
         recipes
           .sort((a: any, b: any) => a.name.localeCompare(b.name))
           .map((recipe: any) => (
-            <a class="recipe-list-item" data-name={recipe.name.toLowerCase()} href={"/workshop/recipes/" + recipe.slug}>
+            <a class="recipe-list-item" data-name={recipe.name.toLowerCase()} href={"/digital-garden/recipes/" + recipe.slug}>
               <h5 class="m-2">{recipe.name}</h5>
 
               {recipe.rating ? (

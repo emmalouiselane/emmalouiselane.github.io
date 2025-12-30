@@ -65,7 +65,7 @@ npm run preview
 │   ├── pages/           # File-based routing
 │   │   ├── blog-posts/
 │   │   ├── portfolio/
-│   │   └── workshop/
+│   │   └── digital-garden/
 │   ├── lib/             # Utilities (Contentful client)
 │   ├── hooks/           # React hooks
 │   └── styles/          # SCSS styles

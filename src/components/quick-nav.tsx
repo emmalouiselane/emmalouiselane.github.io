@@ -18,14 +18,14 @@ const QuickNavComponent = () => {
 
   return (
     <div className="quick-nav">
-      {pathname !== "/workshop/recipes/" && pathname.startsWith('/workshop/recipes/') && (
-        <a className="navbar-link" onClick={() => handleNavigation("recipe_list")} href="/workshop/recipes">
+      {pathname !== "/digital-garden/recipes/" && pathname.startsWith('/digital-garden/recipes/') && (
+        <a className="navbar-link" onClick={() => handleNavigation("recipe_list")} href="/digital-garden/recipes">
           &larr; Recipe List
         </a>
       )}
 
-      {pathname !== "/workshop/gaming/" && pathname.startsWith('/workshop/gaming/') && (
-        <a className="navbar-link" onClick={() => handleNavigation("gaming_list")} href="/workshop/gaming">
+      {pathname !== "/digital-garden/gaming/" && pathname.startsWith('/digital-garden/gaming/') && (
+        <a className="navbar-link" onClick={() => handleNavigation("gaming_list")} href="/digital-garden/gaming">
           &larr; Gaming List
         </a>
       )}
