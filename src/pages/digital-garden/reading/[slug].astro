@@ -1,9 +1,9 @@
 ---
 import type { GetStaticPaths } from 'astro';
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getAllBookReviews, getBookReviewBySlug } from '../../lib/contentful';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getAllBookReviews, getBookReviewBySlug } from '../../../lib/contentful';
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
-import AuthorNote from '../../components/AuthorNote.astro';
+import AuthorNote from '../../../components/AuthorNote.astro';
 
 export const getStaticPaths = (async () => {
   const bookReviews = await getAllBookReviews();
