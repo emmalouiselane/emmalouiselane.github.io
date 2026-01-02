@@ -36,18 +36,33 @@
     color: var(--color-text) !important;
     font-weight: var(--fontWeight-medium);
     transition: color 0.2s ease, background-color 0.2s ease;
+    margin-bottom: 25px;;
 
     div {
+      position: relative;
       text-align: center;
-      padding: var(--spacing-8);
+      padding: var(--spacing-4);
       margin: 0;
       display: block;
       background-color: var(--color-background);
-      border: 2px dashed var(--color-accent-light);
+      border-top: 3px dashed rgb(133, 98, 74);
+      border-left: 2px dashed var(--color-accent-light);
+      border-right: 2px dashed var(--color-accent-light);
+      border-bottom: 2px dashed var(--color-accent-light);
       border-radius: 2px;
       height: 100%;
       align-content: center;
       text-align: center;
+
+      .flower-icon {
+        position: absolute;
+        top: -22px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 200px;
+        height: 25px;
+        z-index: 1;
+      }
 
       p {
         color: var(--color-text);
@@ -63,6 +78,7 @@
 
     &.digital-garden-link div:hover {
       background-color: var(--color-accent-light);
+      border-top: 3px solid rgb(133, 98, 74);
 
       p {
         color: var(--primary) !important;

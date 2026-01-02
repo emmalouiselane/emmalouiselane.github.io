@@ -27,10 +27,10 @@ const commits = gitLog.trim().split('\n').map(line => {
 
 <dialog id="commits-modal" class="p-4 rounded-lg shadow-lg m-auto bg-white dark:bg-gray-800">
   <div class="flex justify-between items-center">
-    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">✨ Site Changelog ✨</h3>
+    <h1 class="text-xl font-semibold text-gray-900 dark:text-white">✨ Site Changelog ✨</h1>
     <button id="close-modal" class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 mx-2">&times;</button>
   </div>
-  <h4 class="text-lg font-semibold text-gray-900 dark:text-white">What have I updated recently?</h4>
+  <h2 class="text-lg font-semibold text-gray-900 dark:text-white">What have I updated recently?</h2>
 
   <ul class="space-y-2">
     {commits.map(commit => (
