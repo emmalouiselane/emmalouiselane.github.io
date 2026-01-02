@@ -1,0 +1,79 @@
+---
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGithubAlt, faGitter } from "@fortawesome/free-brands-svg-icons";
+
+const { execSync } = await import('child_process');
+
+// Get the last 3 commits
+const gitLog = execSync('git log --oneline -5', { encoding: 'utf-8' });
+const commits = gitLog.trim().split('\n').map(line => {
+  const [hash, ...messageParts] = line.split(' ');
+  return {
+    hash: hash,
+    message: messageParts.join(' ')
+  };
+});
+---
+
+<button id="open-modal" class="link social-link" aria-label="View Commits">
+  <FontAwesomeIcon 
+    icon={faGithubAlt} 
+    size="2x"
+    aria-label="GitHub"
+    aria-hidden="true"
+    client:load
+    beat />
+</button>
+
+<dialog id="commits-modal" class="p-4 rounded-lg shadow-lg m-auto bg-white dark:bg-gray-800">
+  <div class="flex justify-between items-center">
+    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">✨ Site Changelog ✨</h3>
+    <button id="close-modal" class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 mx-2">&times;</button>
+  </div>
+  <h4 class="text-lg font-semibold text-gray-900 dark:text-white">What have I updated recently?</h4>
+
+  <ul class="space-y-2">
+    {commits.map(commit => (
+      <li class="flex items-start space-x-2">
+        <a
+          href={`https://github.com/emmalouiselane/emmalouiselane.github.io/commit/${commit.hash}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="bg-gray-100 dark:bg-gray-700 px-2 pt-2 pb-1 rounded text-sm font-mono hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+        >
+          {commit.hash}
+        </a>
+        <span class="text-sm text-gray-700 dark:text-gray-300 !my-auto">{commit.message}</span>
+      </li>
+    ))}
+  </ul>
+</dialog>
+
+<script>
+  const openBtn = document.getElementById('open-modal');
+  const closeBtn = document.getElementById('close-modal');
+  const modal = document.getElementById('commits-modal') as HTMLDialogElement;
+
+  openBtn?.addEventListener('click', () => {
+    modal?.showModal();
+  });
+
+  closeBtn?.addEventListener('click', () => {
+    modal?.close();
+  });
+
+  modal?.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.close();
+    }
+  });
+</script>
+
+<style>
+  dialog {
+    border: none;
+  }
+  dialog::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+  }
+</style>

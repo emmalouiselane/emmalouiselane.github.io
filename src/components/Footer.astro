@@ -1,6 +1,7 @@
 ---
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLinkedin, faGithub } from "@fortawesome/free-brands-svg-icons";
+import GitCommitsModal from "./GitCommitsModal.astro";
 
 const footerTagline =
   "Sparks fuel ideas — SparkLane.dev brings those ideas to life.";
@@ -29,6 +30,8 @@ const social = {
       <div
         class="footer-content-right flex justify-center md:justify-end items-center"
       >
+        <GitCommitsModal />
+
         {
           social?.gitHub && (
             <a
