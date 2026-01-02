@@ -1,0 +1,88 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getAllBookReviews, getBookReviewBySlug } from '../../lib/contentful';
+import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
+import AuthorNote from '../../components/AuthorNote.astro';
+
+export const getStaticPaths = (async () => {
+  const bookReviews = await getAllBookReviews();
+
+  return bookReviews.map((review: any) => ({
+    params: { slug: review.slug },
+    props: { review },
+  }));
+}) satisfies GetStaticPaths;
+
+const { review } = Astro.props;
+const fullReview = await getBookReviewBySlug((review as any).slug);
+const pathname = Astro.url.pathname;
+
+// Render rich text
+const synopsisHtml = documentToHtmlString(fullReview.bookSynopsis.json);
+const thoughtsHtml = documentToHtmlString(fullReview.thoughts.json);
+
+// Render stars
+const renderStars = (rating: number) => {
+  let stars = '';
+  for (let i = 1; i <= 5; i++) {
+    stars += i <= rating ? '★' : '☆';
+  }
+  return stars;
+};
+---
+
+<BaseLayout title={`${fullReview.title} - Book Review`} description={`Review of ${fullReview.title} by ${fullReview.author.name}`}>
+  <div class="book-review">
+    <article>
+      <header>
+        <h1 class="text-2xl font-bold !mb-1">{fullReview.title}</h1>
+
+        <div class="flex flex-col gap-2 mt-4">
+          <p class="text-lg">by <span class="font-semibold">{fullReview.author.name}</span></p>
+
+          <div class="flex items-center gap-4">
+            <div class="flex items-center">
+              <span class="text-yellow-400 text-lg mr-1">{renderStars(fullReview.starRating)}</span>
+              <span class="text-sm text-gray-600 dark:text-gray-400">({fullReview.starRating}/5)</span>
+            </div>
+
+            {fullReview.amazonLink && (
+              <a href={fullReview.amazonLink} target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:underline text-sm">
+                View on Amazon
+              </a>
+            )}
+          </div>
+
+          {fullReview.genres && fullReview.genres.length > 0 && (
+            <div class="flex flex-wrap gap-2 mt-2">
+              {fullReview.genres.map(genre => (
+                <span class="inline-block px-3 py-1 text-sm bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full">
+                  {genre}
+                </span>
+              ))}
+            </div>
+          )}
+
+          {fullReview.status.includes('Complete') && fullReview.completionDate && (
+            <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">
+              Completed on {new Date(fullReview.completionDate).toLocaleDateString()}
+            </p>
+          )}
+        </div>
+
+        <button class="tinylytics_kudos mt-4" data-path={pathname}></button>
+      </header>
+
+      <div class="row prose prose-lg max-w-none mt-8">
+        <h2>Book Synopsis</h2>
+        <Fragment set:html={synopsisHtml} />
+
+        <h2 class="mt-8">My Thoughts</h2>
+        <Fragment set:html={thoughtsHtml} />
+      </div>
+
+      <AuthorNote />
+    </article>
+  </div>
+</BaseLayout>

@@ -111,99 +111,103 @@ const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 
   <script>
     let currentLetter = 'all';
-    
+
     function updateClearButtonState() {
-      const searchInput = document.getElementById('search');
-      const clearBtn = document.getElementById('clearSearch');
+      const searchInput = document.getElementById('search') as HTMLInputElement | null;
+      const clearBtn = document.getElementById('clearSearch') as HTMLButtonElement | null;
       const hasSearch = searchInput ? searchInput.value !== '' : false;
       const hasLetterFilter = currentLetter !== 'all';
-      
+
       if (clearBtn) {
         clearBtn.disabled = !hasSearch && !hasLetterFilter;
       }
     }
-    
+
     function clearSearch() {
       // Clear search input
-      const searchInput = document.getElementById('search');
+      const searchInput = document.getElementById('search') as HTMLInputElement | null;
       if (searchInput) searchInput.value = '';
-      
+
       // Reset to "All" letter filter
       setLetter('all');
-      
+
       // Hide search section
       const searchSection = document.getElementById('searchSection');
       const toggleBtn = document.getElementById('toggleSearch');
       if (searchSection && !searchSection.classList.contains('hidden')) {
         searchSection.classList.add('hidden');
-        toggleBtn.innerHTML = `
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-          </svg>
-        `;
+        if (toggleBtn) {
+          toggleBtn.innerHTML = `
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+          `;
+        }
       }
     }
-    
+
     function toggleSearch() {
       const searchSection = document.getElementById('searchSection');
       const toggleBtn = document.getElementById('toggleSearch');
-      
-      if (searchSection.classList.contains('hidden')) {
-        searchSection.classList.remove('hidden');
-        toggleBtn.innerHTML = `
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-          </svg>
-        `;
-      } else {
-        searchSection.classList.add('hidden');
-        toggleBtn.innerHTML = `
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-          </svg>
-        `;
+
+      if (searchSection && toggleBtn) {
+        if (searchSection.classList.contains('hidden')) {
+          searchSection.classList.remove('hidden');
+          toggleBtn.innerHTML = `
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          `;
+        } else {
+          searchSection.classList.add('hidden');
+          toggleBtn.innerHTML = `
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+          `;
+        }
       }
     }
-    
+
     function filterRecipes() {
-      const searchTerm = document.getElementById('search').value.toLowerCase();
+      const searchInput = document.getElementById('search') as HTMLInputElement;
+      const searchTerm = searchInput.value.toLowerCase();
       const recipeItems = document.querySelectorAll('.recipe-list-item');
       const noResults = document.getElementById('noResults');
-      const resultsCount = document.getElementById('resultsCount');
       let visibleCount = 0;
-      
-      recipeItems.forEach((item: any) => {
-        const recipeName = item.dataset.name;
+
+      recipeItems.forEach((item) => {
+        const htmlItem = item as HTMLElement;
+        const recipeName = htmlItem.dataset.name || '';
         const matchesSearch = recipeName.includes(searchTerm);
         const matchesLetter = currentLetter === 'all' || recipeName.startsWith(currentLetter.toLowerCase());
-        
+
         if (matchesSearch && matchesLetter) {
-          item.style.display = 'flex';
+          htmlItem.style.display = 'flex';
           visibleCount++;
         } else {
-          item.style.display = 'none';
+          htmlItem.style.display = 'none';
         }
       });
-      
-      // Update results count
-      if (resultsCount) resultsCount.textContent = visibleCount;
-      
+
       // Update clear button state
       updateClearButtonState();
-      
+
       // Show/hide no results message
-      if (visibleCount === 0) {
-        noResults.classList.remove('hidden');
-      } else {
-        noResults.classList.add('hidden');
+      if (noResults) {
+        if (visibleCount === 0) {
+          noResults.classList.remove('hidden');
+        } else {
+          noResults.classList.add('hidden');
+        }
       }
     }
-    
+
     function setLetter(letter: string) {
       currentLetter = letter;
-      
+
       // Update button styles
-      document.querySelectorAll('#letterButtons button').forEach((btn: any) => {
+      document.querySelectorAll('#letterButtons button').forEach((btn: HTMLButtonElement) => {
         if (btn.dataset.letter === letter) {
           btn.style.backgroundColor = 'var(--color-primary)';
           btn.classList.remove('bg-slate-600', 'dark:bg-slate-500');
@@ -212,29 +216,36 @@ const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
           btn.style.backgroundColor = '';
         }
       });
-      
+
       filterRecipes();
     }
-    
+
     // Initialize event listeners
     document.addEventListener('DOMContentLoaded', function() {
-      document.getElementById('toggleSearch').addEventListener('click', toggleSearch);
-      document.getElementById('clearSearch').addEventListener('click', clearSearch);
-      document.getElementById('searchBtn').addEventListener('click', filterRecipes);
-      document.getElementById('search').addEventListener('input', updateClearButtonState);
-      document.getElementById('search').addEventListener('keypress', function(event) {
-        if (event.key === 'Enter') {
-          filterRecipes();
-        }
-      });
-      
+      const toggleSearchBtn = document.getElementById('toggleSearch');
+      const clearSearchBtn = document.getElementById('clearSearch');
+      const searchBtn = document.getElementById('searchBtn');
+      const searchInput = document.getElementById('search') as HTMLInputElement | null;
+
+      if (toggleSearchBtn) toggleSearchBtn.addEventListener('click', toggleSearch);
+      if (clearSearchBtn) clearSearchBtn.addEventListener('click', clearSearch);
+      if (searchBtn) searchBtn.addEventListener('click', filterRecipes);
+      if (searchInput) {
+        searchInput.addEventListener('input', updateClearButtonState);
+        searchInput.addEventListener('keypress', function(event) {
+          if (event.key === 'Enter') {
+            filterRecipes();
+          }
+        });
+      }
+
       // Letter button event listeners
-      document.querySelectorAll('#letterButtons button').forEach((btn: any) => {
-        btn.addEventListener('click', function() {
-          setLetter(this.dataset.letter);
+      document.querySelectorAll('#letterButtons button').forEach((btn: HTMLButtonElement) => {
+        btn.addEventListener('click', function(this: HTMLButtonElement) {
+          setLetter(this.dataset.letter || '');
         });
       });
-      
+
       // Set initial state
       setLetter('all');
     });

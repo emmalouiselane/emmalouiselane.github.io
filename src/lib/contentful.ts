@@ -195,16 +195,78 @@ export async function getRecipeBySlug(slug: string) {
     const variables = { slug };
     const response = await entriesApiCall(query, variables);
     const json = await response.json();
-    
+
     if (!json.data || !json.data.recipeCollection) {
       console.error('Invalid Contentful response structure:', json);
       throw new Error('Recipe not found or invalid Contentful response');
     }
-    
+
     if (!json.data.recipeCollection.items || json.data.recipeCollection.items.length === 0) {
       console.error('No recipe found for slug:', slug);
       throw new Error('Recipe not found');
     }
-    
+
     return json.data.recipeCollection.items[0];
+}
+
+export async function getAllBookReviews() {
+    const query = `
+    {
+      bookReviewCollection {
+        items {
+          sys {
+            id
+          }
+          title
+          slug
+          author {
+            name
+          }
+          amazonLink
+          starRating
+          genres
+          status
+          completionDate
+        }
+      }
+    }
+  `;
+    const response = await entriesApiCall(query);
+    const json = await response.json();
+    return json.data.bookReviewCollection.items;
+}
+
+export async function getBookReviewBySlug(slug: string) {
+    const query = `
+    query ($slug: String!) {
+      bookReviewCollection(where: { slug: $slug }) {
+        items {
+          sys {
+            id
+          }
+          title
+          slug
+          author {
+            name
+          }
+          amazonLink
+          starRating
+          bookSynopsis {
+            json
+          }
+          thoughts {
+            json
+          }
+          genres
+          status
+          completionDate
+        }
+      }
+    }
+  `;
+
+    const variables = { slug };
+    const response = await entriesApiCall(query, variables);
+    const json = await response.json();
+    return json.data.bookReviewCollection.items[0];
 }

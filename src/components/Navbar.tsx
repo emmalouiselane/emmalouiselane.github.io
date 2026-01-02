@@ -27,6 +27,7 @@ const NavbarComponent = () => {
                 { text: "Portfolio", path: "/portfolio/" },
                 { text: "Recipes", path: "/digital-garden/recipes/" },
                 { text: "Gaming", path: "/digital-garden/gaming/" },
+                { text: "Reading", path: "/digital-garden/reading/" }
             ]
         },
         {
