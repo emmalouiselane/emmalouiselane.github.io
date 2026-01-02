@@ -4,7 +4,7 @@
   /* --color-background handled by global.css */
   --color-surface: #FFFFFF;
   /* White for cards, panels, content blocks */
-  --color-accent-light: #E0F7FA;
+  --color-accent-light: #ffb2cf;
   /* Pastel Ice Blue for section backgrounds / hover */
 
   /* ---------- TEXT ---------- */
@@ -15,10 +15,10 @@
   /* For secondary or meta text */
 
   /* ---------- HIGHLIGHT / INTERACTIVE ---------- */
-  --color-highlight: #81D4FA;
-  /* Light Sky Blue for hover states, active buttons */
-  --color-accent-highlight: #B3E5FC;
-  /* Pale Blue for badges, small accents */
+  --color-highlight: #be5175;
+  /* Purple for hover states, active buttons */
+  --color-accent-highlight: #c86895;
+  /* Light Purple for badges, small accents */
 
 
   /* Max widths */
@@ -89,8 +89,29 @@
   /* Secondary / meta text */
 
   /* ---------- HIGHLIGHT / INTERACTIVE ---------- */
-  --color-highlight: #38BDF8;
-  /* Sky Blue for hover states */
-  --color-accent-highlight: #7DD3FC;
-  /* Lighter Blue for accents */
+  --color-highlight: #AB47BC;
+  /* Lighter Purple for hover states */
+  --color-accent-highlight: #CE93D8;
+  /* Very Light Purple for accents */
+}
+
+/* ---------- PINK THEME OVERRIDES ---------- */
+[data-color-theme="pink"] {
+ /* ---------- HIGHLIGHT / INTERACTIVE ---------- */
+ --color-highlight: #81D4FA;
+ /* Light Sky Blue for hover states, active buttons */
+ --color-accent-highlight: #B3E5FC;
+ /* Pale Blue for badges, small accents */
+
+  --color-accent-light: #E0F7FA;
+}
+
+[data-color-theme="pink"].dark-html.dark {
+ /* ---------- HIGHLIGHT / INTERACTIVE ---------- */
+ --color-highlight: #38BDF8;
+ /* Sky Blue for hover states */
+ --color-accent-highlight: #7DD3FC;
+ /* Lighter Blue for accents */
+
+  --color-accent-light: #E0F7FA;
 }

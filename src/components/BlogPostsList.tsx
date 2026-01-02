@@ -109,9 +109,9 @@ const BlogPostsList = () => {
       <button
         key={pageNum}
         onClick={() => handlePageChange(pageNum)}
-        className={`px-3 py-2 text-sm font-medium rounded-md ${
+        className={`px-3 py-2 text-sm font-medium rounded-md cursor-pointer ${
           pageNum === currentPage
-            ? 'text-white bg-gray-900 dark:bg-gray-100 border border-gray-900 dark:border-gray-100'
+            ? 'text-white bg-gray-900 dark:bg-white dark:text-gray-900 border border-gray-900 dark:border-white'
             : 'text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700'
         }`}
       >
@@ -135,7 +135,7 @@ const BlogPostsList = () => {
           </div>
           <button
             onClick={toggleFilters}
-            className="my-auto ml-2 px-3 py-2 bg-[var(--color-primary)] text-white rounded-lg hover:opacity-90 focus:outline-none"
+            className="my-auto ml-2 px-3 py-2 bg-[var(--color-primary)] text-white rounded-lg hover:bg-[var(--color-highlight)] focus:outline-none"
             aria-label="Toggle filters"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -176,7 +176,7 @@ const BlogPostsList = () => {
                 />
                 <button
                   onClick={() => setSearchTerm(searchTerm)} // Trigger filter
-                  className="px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg hover:opacity-90 focus:outline-none"
+                  className="px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg hover:bg-[var(--color-highlight)] focus:outline-none"
                 >
                   Search
                 </button>
@@ -255,7 +255,7 @@ const BlogPostsList = () => {
             <button
               onClick={() => handlePageChange(currentPage - 1)}
               disabled={currentPage === 1}
-              className="px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
             >
               Previous
             </button>
@@ -269,7 +269,7 @@ const BlogPostsList = () => {
             <button
               onClick={() => handlePageChange(currentPage + 1)}
               disabled={currentPage === totalPages}
-              className="px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
             >
               Next
             </button>

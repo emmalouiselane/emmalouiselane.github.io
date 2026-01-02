@@ -33,7 +33,17 @@ const isRootPath = pathname === '/';
       };
       const isDark = getThemePreference() === 'dark';
       document.documentElement.classList[isDark ? 'add' : 'remove']('dark');
-    
+
+      const getColorThemePreference = () => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('colorTheme')) {
+          return localStorage.getItem('colorTheme');
+        }
+        // Default to green theme
+        return 'green';
+      };
+      const colorTheme = getColorThemePreference();
+      document.documentElement.setAttribute('data-color-theme', colorTheme);
+
       if (typeof localStorage !== 'undefined') {
         const observer = new MutationObserver(() => {
           const isDark = document.documentElement.classList.contains('dark');
