@@ -1,7 +1,7 @@
 import { createClient } from 'contentful';
 
-const SPACE = import.meta.env.CONTENTFUL_SPACE_ID;
-const TOKEN = import.meta.env.CONTENTFUL_DELIVERY_TOKEN;
+const SPACE = import.meta.env.PUBLIC_CONTENTFUL_SPACE_ID;
+const TOKEN = import.meta.env.PUBLIC_CONTENTFUL_DELIVERY_TOKEN;
 
 const client = createClient({
     space: SPACE,
@@ -96,6 +96,7 @@ export async function getAllBlogs() {
           date
           slug
           description
+          blogType
         }
       }
     }
@@ -117,6 +118,7 @@ export async function getBlogPostBySlug(slug: string) {
           date
           slug
           description
+          blogType
           blogContent {
             json
           }

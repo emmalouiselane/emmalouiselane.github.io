@@ -24,8 +24,8 @@ This is the Astro version of the Spark Lane blog and portfolio site, migrated fr
 
 4. Add your Contentful Space ID and Delivery Token to `.env`:
    ```
-   CONTENTFUL_SPACE_ID=your_space_id
-   CONTENTFUL_DELIVERY_TOKEN=your_delivery_token
+   PUBLIC_CONTENTFUL_SPACE_ID=your_space_id
+   PUBLIC_CONTENTFUL_DELIVERY_TOKEN=your_delivery_token
    ```
 
 ### Development
@@ -76,20 +76,31 @@ npm run preview
 ## 🧩 Key Features
 
 - **Static Site Generation** with Astro
-- **React Components** for interactive elements
+- **React Components** with hooks for dynamic, interactive elements
+- **Real-time filtering and pagination** without page refreshes
 - **TypeScript** support
-- **Contentful CMS** integration
-- **SCSS** styling
-- **Bootstrap** UI framework
+- **Contentful CMS** integration with blog type categorization
+- **SCSS** styling with Tailwind CSS
 - **SEO optimized** with meta tags and sitemap
 - **Responsive design**
+- **Dark mode** support
 
 ## 📝 Content Management
 
 Content is managed through Contentful CMS:
-- Blog posts
-- Portfolio items
-- Recipes
+- **Blog posts** with type categorization and rich text content
+- **Portfolio items** with external links and descriptions
+- **Recipes** with ratings, ingredients, and directions
+
+## ⚡ Dynamic Features
+
+The site includes several client-side React components for enhanced user experience:
+
+- **Blog Posts Page**: Real-time search and filtering by blog type, with pagination
+- **Home Page**: Dynamic loading of latest content from Contentful
+- **Navigation**: Responsive mobile menu with smooth animations
+
+All interactive elements use React hooks for state management, providing instant updates without page refreshes.
 
 ## 🚢 Deployment
 
