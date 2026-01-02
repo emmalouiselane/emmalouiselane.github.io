@@ -39,13 +39,20 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          # Mapping existing Gatsby secrets to new Astro env vars
-          CONTENTFUL_SPACE_ID: ${{ secrets.GATSBY_CONTENTFUL_SPACE_ID }}
-          CONTENTFUL_DELIVERY_TOKEN: ${{ secrets.GATSBY_CONTENTFUL_DELIVERY_TOKEN }}
+          # Mapping existing Gatsby secrets to the PUBLIC_* env names the site expects
+          PUBLIC_CONTENTFUL_SPACE_ID: ${{ secrets.GATSBY_CONTENTFUL_SPACE_ID }}
+          PUBLIC_CONTENTFUL_DELIVERY_TOKEN: ${{ secrets.GATSBY_CONTENTFUL_DELIVERY_TOKEN }}
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
-        
+      - name: Include CNAME for custom domain
+        if: ${{ always() }}
+        run: |
+          if [ -f CNAME ]; then
+            cp CNAME dist/CNAME
+          fi
+        shell: bash
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

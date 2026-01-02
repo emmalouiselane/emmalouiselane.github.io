@@ -48,7 +48,14 @@ jobs:
           
       - name: Setup Pages
         uses: actions/configure-pages@v4
-        
+      - name: Include CNAME for custom domain
+        if: ${{ always() }}
+        run: |
+          if [ -f CNAME ]; then
+            cp CNAME dist/CNAME
+          fi
+        shell: bash
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
