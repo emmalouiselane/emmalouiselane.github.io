@@ -17,6 +17,7 @@ export const getStaticPaths = (async () => {
 
 const { post } = Astro.props;
 const fullPost = await getBlogPostBySlug((post as any).slug);
+const pathname = Astro.url.pathname;
 
 // Simple HTML rendering without complex options
 const blogContentHtml = documentToHtmlString(fullPost.blogContent.json);
@@ -26,8 +27,15 @@ const blogContentHtml = documentToHtmlString(fullPost.blogContent.json);
   <div class="blog-post">
     <article>
       <header>
-        <h1 class="text-2xl font-bold">{fullPost.title}</h1>
-        <p class="text-sm text-gray-600 dark:text-gray-400">{moment(fullPost.date).format("MMMM DD, YYYY")}</p>
+        <h1 class="text-2xl font-bold !mb-1">{fullPost.title}</h1>
+
+        <div class="flex gap-2">
+          <div class="mt-2">
+            <p class="text-sm text-gray-600 dark:text-gray-400">{moment(fullPost.date).format("MMMM DD, YYYY")}</p>
+          </div>
+          
+          <button class="tinylytics_kudos" data-path={pathname}>❤️</button>
+        </div>
       </header>
       
       <div class="row prose prose-lg max-w-none">
