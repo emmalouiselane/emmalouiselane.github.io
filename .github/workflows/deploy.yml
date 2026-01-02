@@ -43,8 +43,8 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          CONTENTFUL_SPACE_ID: ${{ secrets.GATSBY_CONTENTFUL_SPACE_ID }}
-          CONTENTFUL_DELIVERY_TOKEN: ${{ secrets.GATSBY_CONTENTFUL_DELIVERY_TOKEN }}
+          PUBLIC_CONTENTFUL_SPACE_ID: ${{ secrets.GATSBY_CONTENTFUL_SPACE_ID }}
+          PUBLIC_CONTENTFUL_DELIVERY_TOKEN: ${{ secrets.GATSBY_CONTENTFUL_DELIVERY_TOKEN }}
           
       - name: Setup Pages
         uses: actions/configure-pages@v4
