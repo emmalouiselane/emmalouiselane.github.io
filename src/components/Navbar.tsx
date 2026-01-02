@@ -78,7 +78,7 @@ const NavbarComponent = () => {
                         <Button variant="ghost" size="icon" onClick={toggleColorTheme} aria-label="Toggle color theme" className={colorTheme === 'green' ? 'hover:text-pink-500' : 'hover:text-green-500'}>
                             {colorTheme === 'green' ? <Flower className="h-[1.2rem] w-[1.2rem]" /> : <Leaf className="h-[1.2rem] w-[1.2rem]" />}
                         </Button>
-                        <Button variant="ghost" size="icon" onClick={toggleDarkMode} aria-label="Toggle theme">
+                        <Button variant="ghost" size="icon" onClick={toggleDarkMode} aria-label="Toggle theme" className={isDarkMode ? 'hover:text-yellow-500' : 'hover:text-gray-400'}>
                             {isDarkMode ? <Sun className="h-[1.2rem] w-[1.2rem]" /> : <Moon className="h-[1.2rem] w-[1.2rem]" />}
                         </Button>
                     </div>
@@ -89,7 +89,7 @@ const NavbarComponent = () => {
                     <Button variant="ghost" size="icon" onClick={toggleColorTheme} aria-label="Toggle color theme" className={colorTheme === 'green' ? 'hover:text-pink-500' : 'hover:text-green-500'}>
                         {colorTheme === 'green' ? <Flower className="h-[1.2rem] w-[1.2rem]" /> : <Leaf className="h-[1.2rem] w-[1.2rem]" />}
                     </Button>
-                    <Button variant="ghost" size="icon" onClick={toggleDarkMode} aria-label="Toggle theme" className="mr-2">
+                    <Button variant="ghost" size="icon" onClick={toggleDarkMode} aria-label="Toggle theme" className={`mr-2 ${isDarkMode ? 'hover:text-yellow-500' : 'hover:text-gray-400'}`}>
                         {isDarkMode ? <Sun className="h-[1.2rem] w-[1.2rem]" /> : <Moon className="h-[1.2rem] w-[1.2rem]" />}
                     </Button>
 
