@@ -9,7 +9,7 @@ export const getStaticPaths = (async () => {
   const bookReviews = await getAllBookReviews();
 
   return bookReviews.map((review: any) => ({
-    params: { slug: review.slug },
+    params: { slug: review.sys.id },
     props: { review },
   }));
 }) satisfies GetStaticPaths;

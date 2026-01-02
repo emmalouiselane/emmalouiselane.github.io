@@ -4,7 +4,6 @@ import { getAllBookReviews } from '../lib/contentful';
 interface BookReview {
   sys: { id: string };
   title: string;
-  slug: string;
   author: { name: string };
   amazonLink: string;
   starRating: number;
@@ -290,7 +289,7 @@ const BookReviewsList = () => {
                         </a>
                       )}
                     </div>
-                    <a className="text-xs mt-auto min-w-fit whitespace-nowrap" href={`/reading/${review.slug}`}>
+                    <a className="text-xs mt-auto min-w-fit whitespace-nowrap" href={`/reading/${review.sys.id}`}>
                       <span>Read Review</span>
                       <span className="sr-only">Read review for {review.title}</span>
                     </a>

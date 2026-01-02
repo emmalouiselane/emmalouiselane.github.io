@@ -218,7 +218,6 @@ export async function getAllBookReviews() {
             id
           }
           title
-          slug
           author {
             name
           }
@@ -238,14 +237,13 @@ export async function getAllBookReviews() {
 
 export async function getBookReviewBySlug(slug: string) {
     const query = `
-    query ($slug: String!) {
-      bookReviewCollection(where: { slug: $slug }) {
+    query ($id: String!) {
+      bookReviewCollection(where: { sys: { id: $id } }) {
         items {
           sys {
             id
           }
           title
-          slug
           author {
             name
           }
@@ -265,7 +263,7 @@ export async function getBookReviewBySlug(slug: string) {
     }
   `;
 
-    const variables = { slug };
+    const variables = { id: slug };
     const response = await entriesApiCall(query, variables);
     const json = await response.json();
     return json.data.bookReviewCollection.items[0];
