@@ -151,7 +151,10 @@ export async function getAllRecipes() {
   `;
     const response = await entriesApiCall(query);
     const json = await response.json();
-    return json.data.recipeCollection.items;
+    return json.data.recipeCollection.items.map((item: any) => ({
+      ...item,
+      slug: item.slug.trim(),
+    }));
 }
 
 export async function getRecipeBySlug(slug: string) {
@@ -192,7 +195,7 @@ export async function getRecipeBySlug(slug: string) {
     }
   `;
 
-    const variables = { slug };
+    const variables = { slug: slug.trim() };
     const response = await entriesApiCall(query, variables);
     const json = await response.json();
 

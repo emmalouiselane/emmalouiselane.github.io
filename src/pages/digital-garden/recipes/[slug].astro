@@ -7,7 +7,7 @@ import { BLOCKS } from '@contentful/rich-text-types';
 
 export const getStaticPaths = (async () => {
   const recipes = await getAllRecipes();
-  
+
   return recipes.map((recipe: any) => ({
     params: { slug: recipe.slug },
     props: { recipe },
