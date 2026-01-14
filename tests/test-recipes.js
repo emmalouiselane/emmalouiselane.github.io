@@ -1,5 +1,5 @@
-const SPACE = 'bvwl1p95nm2v';
-const TOKEN = 'cq9k1NW8IAUNEed2_VdN-guuSD6YKUnO0zCjd3oNiUo';
+const SPACE = '<SPACE_ID>';
+const TOKEN = '<DELIVERY_TOKEN>';
 
 async function entriesApiCall(query, variables) {
     const fetchUrl = `https://graphql.contentful.com/content/v1/spaces/${SPACE}/environments/master`;
