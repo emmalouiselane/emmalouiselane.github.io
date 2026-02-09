@@ -1,15 +1,7 @@
 import { useState, useEffect } from 'react';
 import { getAllBlogs } from '../lib/contentful';
+import type { BlogPost } from '../lib/types/blogPost';
 import moment from 'moment';
-
-interface BlogPost {
-  sys: { id: string };
-  title: string;
-  date: string;
-  slug: string;
-  description: string;
-  blogType?: string[];
-}
 
 const POSTS_PER_PAGE = 5;
 

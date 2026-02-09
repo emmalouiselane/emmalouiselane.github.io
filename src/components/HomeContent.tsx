@@ -1,26 +1,11 @@
-import { useState, useEffect } from 'react';
-import { getAllRecipes, getAllBlogs, getAllPortfolioItems } from '../lib/contentful';
+import type { Recipe } from '../interface/Recipe';
+import type { Blog } from '../interface/Blog';
+import type { PortfolioItem } from '../interface/PortfolioItem';
+
 import moment from 'moment';
 
-interface Recipe {
-  slug: string;
-  name: string;
-  rating?: number;
-  personalNote?: string;
-}
-
-interface Blog {
-  slug: string;
-  title: string;
-  date: string;
-  description: string;
-}
-
-interface PortfolioItem {
-  slug: string;
-  title: string;
-  description: string;
-}
+import { useState, useEffect } from 'react';
+import { getAllRecipes, getAllBlogs, getAllPortfolioItems } from '../lib/contentful';
 
 const HomeContent = () => {
   const [recentRecipe, setRecentRecipe] = useState<Recipe | null>(null);

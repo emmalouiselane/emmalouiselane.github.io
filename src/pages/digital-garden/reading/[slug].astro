@@ -25,10 +25,6 @@ if (!review?.sys?.id) {
 }
 const fullReview = await getBookReviewById(review.sys.id);
 
-// Render rich text
-const synopsisHtml = fullReview.bookSynopsis ? displayRichText(fullReview.bookSynopsis) : '';
-const thoughtsHtml = fullReview.thoughts ? displayRichText(fullReview.thoughts) : '';
-
 // Render stars
 const renderStars = (rating: number) => {
   let stars = '';
@@ -45,13 +41,13 @@ const renderStars = (rating: number) => {
       <header>
         <h1 class="text-2xl font-bold !mb-1">{fullReview.title}</h1>
 
-        <div class="flex flex-col gap-2 mt-4">
+        <div class="flex flex-col gap-2 mt-2 text-gray-600 dark:text-gray-400">
           <p class="text-lg">by <span class="font-semibold">{fullReview.author.name}</span></p>
 
           <div class="flex items-center gap-4">
             <div class="flex items-center">
               <span class="text-yellow-400 text-lg mr-1">{renderStars(fullReview.starRating)}</span>
-              <span class="text-sm text-gray-600 dark:text-gray-400">({fullReview.starRating}/5)</span>
+              <span class="text-sm text-gray-600 dark:text-gray-400">({fullReview.starRating ?? 0}/5)</span>
             </div>
 
             {fullReview.amazonLink && (
@@ -81,12 +77,16 @@ const renderStars = (rating: number) => {
         <button class="tinylytics_kudos mt-4" data-path={pathname}></button>
       </header>
 
-      <div class="row prose prose-lg max-w-none mt-8">
-        <h2>Book Synopsis</h2>
-        <Fragment set:html={synopsisHtml} />
-
+      
+      <div class="row prose prose-lg max-w-none mt-1">
         <h2 class="mt-8">My Thoughts</h2>
-        <Fragment set:html={thoughtsHtml} />
+        {
+          fullReview.thoughts ? (
+            <Fragment set:html={displayRichText(fullReview.thoughts)} />
+          ) : (
+            <p class="text-gray-500 dark:text-gray-400">No thoughts have been recorded for this book yet.</p>
+          )
+        }
       </div>
 
       <AuthorNote />

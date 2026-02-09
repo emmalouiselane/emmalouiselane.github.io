@@ -1,16 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getAllBookReviews } from '../lib/contentful';
-
-interface BookReview {
-  sys: { id: string };
-  title: string;
-  author: { name: string };
-  amazonLink: string;
-  starRating: number;
-  genres: string[];
-  status: string[];
-  completionDate?: string;
-}
+import type { BookReview } from '../lib/types/bookReview';
 
 const REVIEWS_PER_PAGE = 5;
 
@@ -54,7 +44,7 @@ const BookReviewsList = () => {
     }
 
     if (selectedStatus !== '') {
-      filtered = filtered.filter(review => review.status?.includes(selectedStatus));
+      filtered = filtered.filter(review => review.status === selectedStatus);
     }
 
     setFilteredReviews(filtered);
@@ -246,7 +236,7 @@ const BookReviewsList = () => {
             <p>No books found matching your criteria.</p>
           </div>
         ) : (
-          currentReviews.map((review, index) => (
+          currentReviews.map((review) => (
             <div className="row mb-2 review-item" key={review.sys.id}>
               <article
                 className="review-list-item"
@@ -260,10 +250,12 @@ const BookReviewsList = () => {
                       <p className="text-sm text-gray-600 dark:text-gray-400">by {review.author.name}</p>
                     </div>
                     <div className="flex flex-col items-end ml-4">
-                      <div className="flex items-center mb-1">
-                        {renderStars(review.starRating)}
-                        <span className="ml-2 text-sm text-gray-600 dark:text-gray-400">({review.starRating}/5)</span>
-                      </div>
+                      {review.starRating !== null && (
+                        <div className="flex items-center mb-1">
+                          {renderStars(review.starRating)}
+                          <span className="ml-2 text-sm text-gray-600 dark:text-gray-400">({review.starRating}/5)</span>
+                        </div>
+                      )}
                       {review.genres && review.genres.length > 0 && (
                         <div className="flex flex-wrap gap-1 mb-2">
                           {review.genres.map(genre => (
@@ -273,7 +265,7 @@ const BookReviewsList = () => {
                           ))}
                         </div>
                       )}
-                      {review.status.includes('Complete') && review.completionDate && (
+                      {review.completionDate && (
                         <div className="text-xs text-gray-500 dark:text-gray-400">
                           Completed: {new Date(review.completionDate).toLocaleDateString()}
                         </div>
@@ -281,18 +273,19 @@ const BookReviewsList = () => {
                     </div>
                   </div>
 
-                  <section className="flex flex-row justify-between">
-                    <div>
-                      {review.amazonLink && (
-                        <a href={review.amazonLink} target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline text-sm">
-                          View on Amazon
-                        </a>
-                      )}
-                    </div>
-                    <a className="text-xs mt-auto min-w-fit whitespace-nowrap" href={`/reading/${review.sys.id}`}>
-                      <span>Read Review</span>
-                      <span className="sr-only">Read review for {review.title}</span>
-                    </a>
+                  <section className="flex flex-row justify-between mt-1">
+                    {review.amazonLink && (
+                      <a href={review.amazonLink} target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline text-sm">
+                        View on Amazon
+                      </a>
+                    )}
+
+                    {review.status === "Complete" ? (
+                      <a className="text-sm min-w-fit whitespace-nowrap" href={`/digital-garden/reading/${review.sys.id}`}>
+                        <span>Read Review</span>
+                        <span className="sr-only">Read review for {review.title}</span>
+                      </a>
+                    ) : <span className="text-sm mt-2 mr-4 text-gray-500 dark:text-gray-400">Currently reading...</span>}
                   </section>
                 </div>
               </article>

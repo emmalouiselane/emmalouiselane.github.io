@@ -4,6 +4,6 @@ export interface BlogPost {
   date: string;
   slug: string;
   description: string;
-  blogType: string;
+  blogType: string[];
   blogContent?: { json: any };
 }

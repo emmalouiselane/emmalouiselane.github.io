@@ -322,9 +322,6 @@ export async function getBookReviewById(id: string) {
           }
           amazonLink
           starRating
-          bookSynopsis {
-            json
-          }
           thoughts {
             json
           }
