@@ -21,21 +21,27 @@
         border-top-left-radius: 0.375rem;
         border-top-right-radius: 0.375rem;
         padding: 0.5rem 1rem;
-        color: #6c757d;
+        color: var(--color-text);
         cursor: pointer;
         transition: all 0.2s;
         display: block;
         
         &:hover {
-          color: #495057;
-          background-color: #f8f9fa;
-          border-color: #e9ecef #e9ecef #dee2e6;
+          color: var(--color-text);
+          background-color: var(--color-accent-light);
+          border-color: var(--color-accent-light) var(--color-accent-light) var(--color-surface);
         }
         
         &.active {
-          color: #495057;
-          background-color: #fff;
-          border-color: #dee2e6 #dee2e6 #fff;
+          color: var(--color-text);
+          background-color: var(--color-surface);
+          border-color: var(--color-accent-light) var(--color-accent-light) var(--color-surface);
+          
+          .dark & {
+            color: var(--color-text-light);
+            background-color: var(--color-surface);
+            border-color: var(--color-accent-light) var(--color-accent-light) var(--color-surface);
+          }
         }
       }
     }
