@@ -1,36 +1,28 @@
 ---
 import type { GetStaticPaths } from 'astro';
-import BaseLayout from '../../layouts/BaseLayout.astro';
+
+import type { PortfolioItem } from '../../lib/types/portfolioItem';
 import { getAllPortfolioItems, getPortfolioItemBySlug } from '../../lib/contentful';
-import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
-import { BLOCKS } from '@contentful/rich-text-types';
+import { displayRichText } from '../../lib/richTextOptions';
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
 
 export const getStaticPaths = (async () => {
   const portfolioItems = await getAllPortfolioItems();
   
-  return portfolioItems.map((item: any) => ({
+  return portfolioItems.map((item: PortfolioItem) => ({
     params: { slug: item.slug },
     props: { item },
   }));
 }) satisfies GetStaticPaths;
 
 const { item } = Astro.props;
+
+if (!item?.slug) {
+  throw new Error('Portfolio item slug is required but not found');
+}
 const fullItem = await getPortfolioItemBySlug(item.slug);
 
-const options = {
-  renderNode: {
-    [BLOCKS.PARAGRAPH]: (node: any, next: any) => `<p>${next(node.content)}</p>`,
-    [BLOCKS.UL_LIST]: (node: any, next: any) => `<ul>${next(node.content)}</ul>`,
-    [BLOCKS.OL_LIST]: (node: any, next: any) => `<ol>${next(node.content)}</ol>`,
-    [BLOCKS.LIST_ITEM]: (node: any, next: any) => `<li>${next(node.content)}</li>`,
-    [BLOCKS.HEADING_1]: (node: any, next: any) => `<h1>${next(node.content)}</h1>`,
-    [BLOCKS.HEADING_2]: (node: any, next: any) => `<h2>${next(node.content)}</h2>`,
-    [BLOCKS.HEADING_3]: (node: any, next: any) => `<h3>${next(node.content)}</h3>`,
-    [BLOCKS.HEADING_4]: (node: any, next: any) => `<h4>${next(node.content)}</h4>`,
-    [BLOCKS.HEADING_5]: (node: any, next: any) => `<h5>${next(node.content)}</h5>`,
-    [BLOCKS.HEADING_6]: (node: any, next: any) => `<h6>${next(node.content)}</h6>`,
-  },
-};
 ---
 
 <BaseLayout title={fullItem.title} description={fullItem.description}>
@@ -69,7 +61,7 @@ const options = {
         <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
           <h2 class="text-xl font-semibold mb-4">Features</h2>
           {fullItem.features && (
-            <Fragment set:html={documentToHtmlString(fullItem.features.json, options)} />
+            <Fragment set:html={displayRichText(fullItem.features)} />
           )}
         </div>
       </div>

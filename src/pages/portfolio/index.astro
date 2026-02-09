@@ -2,6 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getAllPortfolioItems } from "../../lib/contentful";
 import WordCloudComponent from "../../components/word-cloud";
+import type { PortfolioItem } from "../../lib/types/portfolioItem";
 
 const portfolioItems = await getAllPortfolioItems();
 ---
@@ -14,8 +15,8 @@ const portfolioItems = await getAllPortfolioItems();
     <div class="row">
       <div class="col">
         {
-          portfolioItems.map((item: any) => (
-            <div class="row" key={item.slug}>
+          portfolioItems.map((item: PortfolioItem) => (
+            <div class="row">
               <article
                 class="portfolio-list-item"
                 itemscope

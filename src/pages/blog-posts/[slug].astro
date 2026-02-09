@@ -1,26 +1,32 @@
 ---
-import type { GetStaticPaths } from 'astro';
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getAllBlogs, getBlogPostBySlug } from '../../lib/contentful';
 import moment from 'moment';
-import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
+import type { GetStaticPaths } from 'astro';
+
+import type { BlogPost } from '../../lib/types/blogPost';
+import { getAllBlogs, getBlogPostBySlug } from '../../lib/contentful';
+import { displayRichText } from '../../lib/richTextOptions';
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
 import AuthorNote from '../../components/AuthorNote.astro';
 
 export const getStaticPaths = (async () => {
   const blogPosts = await getAllBlogs();
   
-  return blogPosts.map((post: any) => ({
+  return blogPosts.map((post: BlogPost) => ({
     params: { slug: post.slug },
     props: { post },
   }));
 }) satisfies GetStaticPaths;
 
 const { post } = Astro.props;
-const fullPost = await getBlogPostBySlug((post as any).slug);
 const pathname = Astro.url.pathname;
 
-// Simple HTML rendering without complex options
-const blogContentHtml = documentToHtmlString(fullPost.blogContent.json);
+if (!post?.slug) {
+  throw new Error('Blog post slug is required but not found');
+}
+const fullPost = await getBlogPostBySlug(post.slug);
+
+const blogContentHtml = fullPost.blogContent ? displayRichText(fullPost.blogContent) : '';
 ---
 
 <BaseLayout title={fullPost.title} description={fullPost.description}>
