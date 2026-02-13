@@ -4,12 +4,13 @@ import { faGithubAlt, faGitter } from "@fortawesome/free-brands-svg-icons";
 
 const { execSync } = await import('child_process');
 
-// Get the last 3 commits
-const gitLog = execSync('git log --oneline -5', { encoding: 'utf-8' });
+// Get the last 5 commits with dates
+const gitLog = execSync('git log --pretty=format:"%h %ad %s" --date=short -5', { encoding: 'utf-8' });
 const commits = gitLog.trim().split('\n').map(line => {
-  const [hash, ...messageParts] = line.split(' ');
+  const [hash, date, ...messageParts] = line.split(' ');
   return {
     hash: hash,
+    date: date,
     message: messageParts.join(' ')
   };
 });
@@ -26,11 +27,7 @@ const commits = gitLog.trim().split('\n').map(line => {
 </button>
 
 <dialog id="commits-modal" class="p-4 rounded-lg shadow-lg m-auto bg-white dark:bg-gray-800">
-  <div class="flex justify-between items-center">
-    <h1 class="text-xl font-semibold text-gray-900 dark:text-white">✨ Site Changelog ✨</h1>
-    <button id="close-modal" class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 mx-2">&times;</button>
-  </div>
-  <h2 class="text-lg font-semibold text-gray-900 dark:text-white">What have I updated recently?</h2>
+  <h1 class="text-lg font-semibold text-gray-900 dark:text-white text-center">✨ Changelog ✨ What have I changed recently?</h1>
 
   <ul class="space-y-2">
     {commits.map(commit => (
@@ -43,10 +40,16 @@ const commits = gitLog.trim().split('\n').map(line => {
         >
           {commit.hash}
         </a>
+        <i class="text-xs text-gray-500 dark:text-gray-400 !my-auto">{commit.date}</i>
         <span class="text-sm text-gray-700 dark:text-gray-300 !my-auto">{commit.message}</span>
       </li>
     ))}
   </ul>
+  <button id="close-modal" class="flex m-auto bg-gray-100 dark:bg-gray-700 p-2 rounded text-sm text-gray-900 dark:text-white
+                                  hover:bg-gray-200 dark:hover:bg-gray-600 cursor-pointer transition-transform transform hover:scale-105"
+  >
+    Close
+  </button>
 </dialog>
 
 <script>
