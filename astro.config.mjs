@@ -6,15 +6,12 @@ import sitemap from '@astrojs/sitemap';
 
 import tailwindcss from '@tailwindcss/vite';
 
-// https://astro.build/config
 export default defineConfig({
   site: 'https://sparklane.dev',
 
   integrations: [
     react(),
-    sitemap({
-      canonicalURL: 'https://sparklane.dev',
-    })
+    sitemap()
   ],
 
   build: {
