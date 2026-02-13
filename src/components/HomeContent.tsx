@@ -42,10 +42,10 @@ const HomeContent = () => {
     <>
       <div className="text-center">
         <h2 className='text-xl'> ✨ Hello and welcome to my site! ✨ </h2>
-        <p>This site is a true labour of love - I'm still working on the content but in the meantime, you can check out my blog, digital garden or some of my latest additions below!</p>
+        <p>This site is a true labour of love - I'm still working on the content and may <i>never</i> finish it, but in the meantime, you can check out my blog, digital garden or some of my latest additions below!</p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mx-10">
         {recentRecipe && (
           <div className="container mt-4 latest-block blue">
             <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
@@ -78,20 +78,6 @@ const HomeContent = () => {
               </h3>
               <p className="text-xs text-gray-500 dark:text-gray-400 mb-3 text-center">Posted {moment(recentBlog.date).format("DD MMM, YYYY")}</p>
               <p className="text-sm text-gray-600 dark:text-gray-400 mb-3 text-center">{recentBlog.description}</p>
-            </div>
-          </div>
-        )}
-
-        {recentPortfolioItem && (
-          <div className="container mt-4 latest-block blue">
-            <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
-              <h2 className="text-xl font-semibold mb-3">Latest Project...</h2>
-              <h3 className="text-lg font-bold text-center">
-                <a href={`/portfolio/${recentPortfolioItem.slug}`}>
-                  {recentPortfolioItem.title} →
-                </a>
-              </h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400 mb-3 text-center">{recentPortfolioItem.description}</p>
             </div>
           </div>
         )}
