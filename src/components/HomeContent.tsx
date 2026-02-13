@@ -40,7 +40,7 @@ const HomeContent = () => {
 
   return (
     <>
-      <div className="text-center">
+      <div className="text-center my-10">
         <h2 className='text-xl'> ✨ Hello and welcome to my site! ✨ </h2>
         <p>This site is a true labour of love - I'm still working on the content and may <i>never</i> finish it, but in the meantime, you can check out my blog, digital garden or some of my latest additions below!</p>
       </div>
