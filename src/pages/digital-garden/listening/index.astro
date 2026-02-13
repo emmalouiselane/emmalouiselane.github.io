@@ -4,14 +4,15 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 
 <BaseLayout title="Listening" description="What I've been listening to">
   <div class="container">
-    <div class="row">
-      <div class="col">
-        <h1 class="text-2xl font-bold text-center">What am I listening to?</h1>
-      </div>
+    <div class="row mb-8">
+      <h1 class="text-2xl font-bold text-center">What am I listening to? 🎵🎶</h1>
+      <p class="text-sm text-center">Music holds a very special place in my heart. </p>
+      <p class="text-sm text-center">It helps me focus, it helps me unwind, it helps me feel, it amps me up; it's my constant companion.</p>
+      <p class="text-xs text-center">I'm forever looking for new music or podcasts, so if you have any recommendations, please let me know!</p>
     </div>
     
     <div class="row mt-4">
-      <div class="grid md:grid-cols-2 mb-5">
+      <div class="grid md:grid-cols-2 mb-3 border rounded-lg">
         <div class="flex justify-end">
           <iframe data-testid="embed-iframe-song" style="border-radius:12px" 
                 src="https://open.spotify.com/embed/track/6gqTgtJ3aBDrWE9wrCe7L6?utm_source=generator&theme=0" 
@@ -28,7 +29,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
         </div>
       </div>
 
-      <div class="grid md:grid-cols-2 mt-5 border rounded-lg">
+      <div class="grid md:grid-cols-2 mt-3">
         <div class="p-3 text-xs text-right my-auto">
           <h2 class="font-semibold">If you need a laugh...</h2>
           <p>Check out <em>Toni and Ryan</em>. I've been an avid listener for years, and they never cease to make me laugh, a fantastic podcast especially when you need an uplift.</p>
