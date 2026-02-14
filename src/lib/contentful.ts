@@ -360,7 +360,9 @@ export async function getAllWatchList() {
             id
           }
           title
-          thoughts
+          thoughts {
+            json
+          }
           status
           type
           platform
@@ -394,7 +396,9 @@ export async function getWatchListById(id: string) {
             id
           }
           title
-          thoughts
+          thoughts {
+            json
+          }
           status
           type
           platform
