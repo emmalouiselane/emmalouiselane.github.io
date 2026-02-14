@@ -144,3 +144,35 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Toastify theme styles */
+@media (prefers-color-scheme: dark) {
+  .Toastify__toast-container {
+    --toastify-color-light: var(--foreground);
+    --toastify-color-dark: var(--background);
+    --toastify-color-info: var(--primary);
+    --toastify-color-success: var(--primary);
+    --toastify-color-warning: #f1c40f;
+    --toastify-color-error: var(--destructive);
+  }
+  
+  .Toastify__toast {
+    background: var(--background) !important;
+    color: var(--foreground) !important;
+    border: 1px solid var(--border) !important;
+  }
+  
+  .Toastify__progress-bar {
+    background: var(--primary) !important;
+  }
+}
+
+.dark .Toastify__toast {
+  background: var(--background) !important;
+  color: var(--foreground) !important;
+  border: 1px solid var(--border) !important;
+}
+
+.dark .Toastify__progress-bar {
+  background: var(--primary) !important;
+}
