@@ -37,9 +37,11 @@ const WatchListComponent = () => {
         review.title.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
-
     if (selectedStatus !== '') {
       filtered = filtered.filter(review => review.status === selectedStatus);
+    }
+    if (selectedType !== '') {
+      filtered = filtered.filter(review => review.type === selectedType);
     }
 
     setFilteredWatchList(filtered);
@@ -51,7 +53,7 @@ const WatchListComponent = () => {
   const totalPages = Math.ceil(filteredWatchList.length / REVIEWS_PER_PAGE);
   const startIndex = (currentPage - 1) * REVIEWS_PER_PAGE;
   const endIndex = startIndex + REVIEWS_PER_PAGE;
-  const currentReviews = filteredWatchList.slice(startIndex, endIndex);
+  const currentWatchList = filteredWatchList.slice(startIndex, endIndex);
 
   const handlePageChange = (page: number) => {
     if (page >= 1 && page <= totalPages) {
@@ -66,6 +68,7 @@ const WatchListComponent = () => {
   const clearFilters = () => {
     setSearchTerm('');
     setSelectedStatus('');
+    setSelectedType('');
     setIsFilterOpen(false);
   };
 
@@ -135,7 +138,7 @@ const WatchListComponent = () => {
             onClick={clearFilters}
             className="my-auto ml-2 px-3 py-2 bg-slate-600 text-white rounded-lg hover:bg-slate-700 focus:outline-none dark:bg-slate-500 dark:hover:bg-slate-600 disabled:opacity-50 disabled:cursor-not-allowed"
             aria-label="Clear Filters"
-            disabled={searchTerm === '' && selectedStatus === ''}
+            disabled={searchTerm === '' && selectedStatus === '' && selectedType === ''}
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path>
@@ -152,7 +155,7 @@ const WatchListComponent = () => {
             {/* Search Input */}
             <div className="mb-4">
               <label htmlFor="search" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Search Watches
+                Search Watch List
               </label>
               <div className="flex space-x-2">
                 <input
@@ -189,18 +192,38 @@ const WatchListComponent = () => {
                 <option value="Complete">Complete</option>
               </select>
             </div>
+
+            {/* Type Filter */}
+            {types && types.length > 0 && (
+              <div className="mt-2">
+                <label htmlFor="type" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Filter by Type
+                </label>
+                <select
+                  id="type"
+                  value={selectedType}
+                  onChange={(e) => setSelectedType(e.target.value)}
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+                >
+                  <option value="">All Types</option>
+                  {types.map(type => (
+                    <option key={type} value={type}>{type}</option>
+                  ))}
+                </select>
+              </div>
+            )}
           </div>
         )}
       </div>
 
       <div className="watch-list">
-        {currentReviews.length === 0 ? (
+        {currentWatchList.length === 0 ? (
           <div className="text-center py-8 text-gray-600 dark:text-gray-400">
             <p>No watches found matching your criteria.</p>
           </div>
         ) : (
-          currentReviews.map((review) => (
-            <div className="row mb-2 watch-item" key={review.sys.id}>
+          currentWatchList.map((watch) => (
+            <div className="row mb-2 watch-item" key={watch.sys.id}>
               <article
                 className="watch-list-item"
                 itemScope
@@ -209,11 +232,11 @@ const WatchListComponent = () => {
                 <div>
                   <div className="flex flex-row justify-between items-start">
                     <div className="flex-1">
-                      <h2 className="text-xl">{review.title}</h2>
+                      <h2 className="text-xl">{watch.title}</h2>
                     </div>
                     <div className="flex flex-col items-end ml-4">
                     
-                      {/* {review.completionDate && (
+                      {/* {watch.completionDate && (
                         <div className="text-xs text-gray-500 dark:text-gray-400">
                           Completed: {new Date(review.completionDate).toLocaleDateString()}
                         </div>
@@ -222,12 +245,12 @@ const WatchListComponent = () => {
                   </div>
 
                   <section className="flex flex-row justify-between mt-1">
-                    {review.status === "Complete" ? (
-                      <a className="text-sm min-w-fit whitespace-nowrap" href={`/digital-garden/reading/${review.sys.id}`}>
+                    {watch.status === "Complete" ? (
+                      <a className="text-sm min-w-fit whitespace-nowrap" href={`/digital-garden/watching/${watch.sys.id}`}>
                         <span>Read Review</span>
-                        <span className="sr-only">Read review for {review.title}</span>
+                        <span className="sr-only">Read thoughts on {watch.title}</span>
                       </a>
-                    ) : <span className="text-sm mt-2 mr-4 text-gray-500 dark:text-gray-400">Currently reading...</span>}
+                    ) : <span className="text-sm mt-2 mr-4 text-gray-500 dark:text-gray-400">Currently watching on {watch.platform}</span>}
                   </section>
                 </div>
               </article>

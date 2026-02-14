@@ -3,4 +3,5 @@ export interface WatchList {
   thoughts: string;
   status: string;
   type: string;
+  platform: string;
 }

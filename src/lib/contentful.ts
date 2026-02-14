@@ -363,6 +363,7 @@ export async function getAllWatchList() {
           thoughts
           status
           type
+          platform
         }
       }
     }
@@ -396,6 +397,7 @@ export async function getWatchListById(id: string) {
           thoughts
           status
           type
+          platform
         }
       }
     }
