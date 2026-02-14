@@ -1,8 +1,8 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
-import BookReviewsList from '../../../components/BookReviewsList';
+import BookReviewsListComponent from '../../../components/BookReviewsListComponent';
 ---
 
 <BaseLayout title="Book Reviews" description="Check out what I've been reading and my recommendations!">
-  <BookReviewsList client:load />
+  <BookReviewsListComponent client:load />
 </BaseLayout>

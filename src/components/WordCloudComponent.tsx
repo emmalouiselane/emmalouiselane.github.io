@@ -53,7 +53,7 @@ const WordCloudComponent = () => {
     const width = window.innerWidth; // 100% of viewport width
 
     return (
-        <div className="word-cloud" >
+        <div className="WordCloudComponent" >
             <div className="outer-border">
                 <div className="mid-border">
                     <div className="inner-border">

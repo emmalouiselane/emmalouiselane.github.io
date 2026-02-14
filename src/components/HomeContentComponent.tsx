@@ -7,7 +7,7 @@ import moment from 'moment';
 import { useState, useEffect } from 'react';
 import { getAllRecipes, getAllBlogs, getAllPortfolioItems } from '../lib/contentful';
 
-const HomeContent = () => {
+const HomeContentComponent = () => {
   const [recentRecipe, setRecentRecipe] = useState<Recipe | null>(null);
   const [recentBlog, setRecentBlog] = useState<Blog | null>(null);
   const [recentPortfolioItem, setRecentPortfolioItem] = useState<PortfolioItem | null>(null);
@@ -86,4 +86,4 @@ const HomeContent = () => {
   );
 };
 
-export default HomeContent;
+export default HomeContentComponent;

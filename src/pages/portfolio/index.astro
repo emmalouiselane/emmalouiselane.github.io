@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getAllPortfolioItems } from "../../lib/contentful";
-import WordCloudComponent from "../../components/word-cloud";
+import WordCloudComponent from "../../components/WordCloudComponent";
 import type { PortfolioItem } from "../../lib/types/portfolioItem";
 
 const portfolioItems = await getAllPortfolioItems();
@@ -35,7 +35,7 @@ const portfolioItems = await getAllPortfolioItems();
           ))
         }
 
-        <div class="row word-cloud-container">
+        <div class="row WordCloudComponent-container">
           <WordCloudComponent client:load />
         </div>
       </div>

@@ -1,8 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import BlogPostsList from '../../components/BlogPostsList';
+import BlogPostsListComponent from '../../components/BlogPostsListComponent';
 ---
 
 <BaseLayout title="Blog Posts" description="Read my latest blog posts!">
-  <BlogPostsList client:load />
+  <BlogPostsListComponent client:load />
 </BaseLayout>

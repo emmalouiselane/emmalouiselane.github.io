@@ -44,7 +44,8 @@ const BookReviewsList = () => {
     }
 
     if (selectedStatus !== '') {
-      filtered = filtered.filter(review => review.status === selectedStatus);
+      console.log(filtered);
+      filtered = filtered.filter(review => review.status.includes(selectedStatus));
     }
 
     setFilteredReviews(filtered);

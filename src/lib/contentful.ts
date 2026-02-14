@@ -2,6 +2,7 @@ import type { BlogPost } from "./types/blogPost";
 import type { BookReview } from "./types/bookReview";
 import type { PortfolioItem } from "./types/portfolioItem";
 import type { Recipe } from "./types/recipe";
+import type { WatchList } from "./types/watchList";
 import { mapEntries, mapEntry } from "./utils";
 
 const SPACE = import.meta.env.PUBLIC_CONTENTFUL_SPACE_ID;
@@ -349,3 +350,71 @@ export async function getBookReviewById(id: string) {
   
   return mapEntry(json.data.bookReviewCollection.items[0]) as BookReview;
 }
+
+export async function getAllWatchList() {
+  const query = `
+    {
+      watchListCollection {
+        items {
+          sys {
+            id
+          }
+          title
+          thoughts
+          status
+          type
+        }
+      }
+    }
+  `;
+
+  const response = await entriesApiCall(query);
+  const json = await response.json();
+  
+  if (!json.data || !json.data.watchListCollection) {
+    console.error('Invalid Contentful response structure:', json);
+    throw new Error('Watch list not found or invalid Contentful response');
+  }
+  
+  return mapEntries(json.data.watchListCollection.items) as WatchList[];
+}
+
+export async function getWatchListById(id: string) {
+  if (!id?.trim()) {
+    console.error('No id provided');
+    throw new Error('No id provided');
+  }
+
+  const query = `
+    query ($id: String!) {
+      watchListCollection(where: { sys: { id: $id } }) {
+        items {
+          sys {
+            id
+          }
+          title
+          thoughts
+          status
+          type
+        }
+      }
+    }
+  `;
+
+  const variables = { id: id.trim() };
+  const response = await entriesApiCall(query, variables);
+  const json = await response.json();
+  
+  if (!json.data || !json.data.watchListCollection) {
+    console.error('Invalid Contentful response structure:', json);
+    throw new Error('Watch list not found or invalid Contentful response');
+  }
+  
+  if (!json.data.watchListCollection.items || json.data.watchListCollection.items.length === 0) {
+    console.error('No watch list item found for id:', id);
+    throw new Error('Watch list item not found');
+  }
+  
+  return mapEntry(json.data.watchListCollection.items[0]) as WatchList;
+}
+

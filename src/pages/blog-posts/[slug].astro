@@ -7,7 +7,7 @@ import { getAllBlogs, getBlogPostBySlug } from '../../lib/contentful';
 import { displayRichText } from '../../lib/richTextOptions';
 
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import AuthorNote from '../../components/AuthorNote.astro';
+import AuthorNoteComponent from '../../components/AuthorNoteComponent.astro';
 
 export const getStaticPaths = (async () => {
   const blogPosts = await getAllBlogs();
@@ -48,7 +48,7 @@ const blogContentHtml = fullPost.blogContent ? displayRichText(fullPost.blogCont
         <Fragment set:html={blogContentHtml} />
       </div>
       
-      <AuthorNote />
+      <AuthorNoteComponent />
     </article>
   </div>
 </BaseLayout>

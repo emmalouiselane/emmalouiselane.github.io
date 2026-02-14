@@ -64,15 +64,15 @@ const fullItem = await getPortfolioItemBySlug(item.slug);
           )}
         </div>
       </div>
-      
+
+      {fullItem.features && (
       <div class="lg:col-span-2">
         <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
           <h2 class="text-xl font-semibold mb-4">Features</h2>
-          {fullItem.features && (
             <Fragment set:html={displayRichText(fullItem.features)} />
-          )}
         </div>
       </div>
+      )}
     </div>
   </div>
 </BaseLayout>

@@ -1,15 +1,15 @@
 @use "./_variables" as *;
 
-.word-cloud {
+.WordCloudComponent {
   width: 100%;
 }
 
-.word-cloud svg {
+.WordCloudComponent svg {
   border-radius: var(--border-radius);
   box-shadow: var(--shadow);
 }
 
-.word-cloud text {
+.WordCloudComponent text {
   font-family: var(--font-family) !important;
   font-weight: var(--font-weight-normal) !important;
   fill: var(--color-primary) !important;
@@ -17,7 +17,7 @@
   cursor: pointer !important;
 }
 
-.word-cloud text:hover {
+.WordCloudComponent text:hover {
   fill: var(--color-primary) !important;
   text-shadow: 0 0 5px var(--color-primary);
   cursor: pointer !important;

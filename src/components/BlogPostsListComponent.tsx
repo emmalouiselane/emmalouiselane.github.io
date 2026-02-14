@@ -5,7 +5,7 @@ import moment from 'moment';
 
 const POSTS_PER_PAGE = 5;
 
-const BlogPostsList = () => {
+const BlogPostsListComponent = () => {
   const [allPosts, setAllPosts] = useState<BlogPost[]>([]);
   const [filteredPosts, setFilteredPosts] = useState<BlogPost[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -272,4 +272,4 @@ const BlogPostsList = () => {
   );
 };
 
-export default BlogPostsList;
+export default BlogPostsListComponent;
