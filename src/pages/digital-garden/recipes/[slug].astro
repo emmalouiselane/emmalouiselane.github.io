@@ -28,16 +28,47 @@ const firstImage = hasImages && fullRecipe.imagesCollection?.items[0] ? fullReci
 
 ---
 
+<script>
+  let wakeLock: WakeLockSentinel | null = null;
+  
+  async function enableWakeLock() {
+    try {
+      wakeLock = await navigator.wakeLock.request('screen');
+      console.log('Screen will stay awake!');
+
+      wakeLock.addEventListener('release', () => {
+        console.log('Screen can sleep');
+      });
+    } catch (err: any) {
+      console.error(`${err.name}, ${err.message}`);
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const keepAwakeButton = document.getElementById("keepAwakeButton");
+
+    keepAwakeButton?.addEventListener("click", function () {
+      enableWakeLock();
+    });
+
+  });  
+</script>
+
 <BaseLayout title={fullRecipe.name} description={"Recipe for " + fullRecipe.name}>
   <div class="container recipe">    
     <div class="row">
       <div class="flex flex-row justify-between">
         <h1 class="text-2xl font-bold mb-2 ml-5">{fullRecipe.name}</h1>
-        {fullRecipe.rating ? (
-          <p class="!mt-2">Rating: {'⭐'.repeat(fullRecipe.rating)}</p>
-        ) : (
-          <p class="!mt-2 text-gray-500">Not rated (yet!)</p>
-        )}
+
+          {fullRecipe.rating ? (
+            <p class="!mt-3">Rating: {'⭐'.repeat(fullRecipe.rating)}</p>
+          ) : (
+            <p class="!mt-3 text-gray-500">Not rated (yet!)</p>
+          )}
+
+          <button id="keepAwakeButton" class="text-xs my-auto min-w-fit whitespace-nowrap cursor-pointer border border-gray-300 rounded px-2 py-1">
+            Keep Screen Awake?
+          </button>
       </div>
     </div>
     
