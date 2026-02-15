@@ -22,10 +22,18 @@ const portfolioItems = await getAllPortfolioItems();
                 itemscope
                 itemtype="http://schema.org/Article"
               >
-                <header>
+                <header class="flex items-center gap-2">
                   <h2 class="text-xl">
                     <a href={"/portfolio/" + item.slug}>{item.title}</a>
                   </h2>
+
+                  {item.isInDevelopment && (
+                    <div class="flex flex-wrap gap-1 mb-2 ml-3">
+                      <span class="inline-block px-2 py-1 text-xs bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded">
+                        In Development
+                      </span>
+                    </div>
+                  )}
                 </header>
                 <section>
                   <p>{item.description}</p>
