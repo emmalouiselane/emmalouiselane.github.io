@@ -3,6 +3,21 @@ import * as React from "react"
 import { WordCloud, AnimatedWordRenderer } from "@isoterik/react-word-cloud";
 
 const WordCloudComponent = () => {
+    const [dimensions, setDimensions] = React.useState({ width: 800, height: 400 });
+
+    React.useEffect(() => {
+        const updateDimensions = () => {
+            setDimensions({
+                width: window.innerWidth,
+                height: window.innerHeight * 0.3
+            });
+        };
+
+        updateDimensions();
+        window.addEventListener('resize', updateDimensions);
+        return () => window.removeEventListener('resize', updateDimensions);
+    }, []);
+
     const words = [
         { text: "JavaScript", value: 1200 },
         { text: "NodeJS", value: 1100 },
@@ -30,6 +45,7 @@ const WordCloudComponent = () => {
         { text: "Agile", value: 700 },
         { text: "Web Accessibility", value: 850 },
         { text: "UI Design", value: 500 },
+        { text: "Frontend", value: 500 },
         { text: "Security", value: 700 },
         { text: "Cybersecurity", value: 700 },
         { text: "Collaboration", value: 850 },
@@ -45,20 +61,13 @@ const WordCloudComponent = () => {
         return Math.sqrt(word.value) * 1.5;
     };
 
-    if (typeof window === 'undefined') {
-        return <></>;
-    }
-
-    const height = window.innerHeight * 0.3; // 30% of viewport height
-    const width = window.innerWidth; // 100% of viewport width
-
     return (
         <div className="WordCloudComponent" >
             <div className="outer-border">
                 <div className="mid-border">
                     <div className="inner-border">
                         <WordCloud words={words}
-                            width={width} height={height}
+                            width={dimensions.width} height={dimensions.height}
                             fontSize={resolveFont}
                             renderWord={animatedWordRenderer}
                             spiral="archimedean" />
