@@ -15,7 +15,7 @@ const portfolioItems = await getAllPortfolioItems();
     <div class="row">
       <div class="col">
         {
-          portfolioItems.map((item: PortfolioItem) => (
+          portfolioItems.sort((a, b) => new Date(b.sys.publishedAt).getTime() - new Date(a.sys.publishedAt).getTime()).map((item: PortfolioItem) => (
             <div class="row">
               <article
                 class="portfolio-list-item"

@@ -1,5 +1,5 @@
 export interface PortfolioItem {
-  sys: { id: string };
+  sys: { id: string; publishedAt: string };
   title: string;
   slug: string;
   description: string;

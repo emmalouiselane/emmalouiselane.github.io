@@ -42,6 +42,7 @@ export async function getAllPortfolioItems() {
         items {
           sys {
             id
+            publishedAt
           }
           title
           slug
