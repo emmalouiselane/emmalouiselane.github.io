@@ -20,5 +20,8 @@ export default defineConfig({
 
   vite: {
     plugins: [tailwindcss()],
+    ssr: {
+      noExternal: ['@sparklane.dev/sparklane-recipecard-react'],
+    },
   },
 });

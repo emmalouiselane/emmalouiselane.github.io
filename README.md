@@ -100,6 +100,7 @@ npm run preview
 - **Digital Garden** sections for gaming, listening, reading, and recipes
 - **Accessibility** statement and WCAG compliance
 - **Component library** with reusable UI components using Radix UI
+- **Custom RecipeCard Component** using @sparklane.dev/sparklane-recipecard-react package
 
 ## 📝 Content Management
 
@@ -114,7 +115,25 @@ The site includes a digital garden with personal collections:
 - **Gaming**: Game reviews and recommendations
 - **Listening**: Music and podcast favorites
 - **Reading**: Book reviews and reading lists
-- **Recipes**: Personal recipe collection with ratings
+- **Recipes**: Personal recipe collection with ratings and custom RecipeCard components
+
+### RecipeCard Implementation
+
+The recipes page uses my custom RecipeCard component built with `@sparklane.dev/sparklane-recipecard-react` package: https://www.npmjs.com/package/@sparklane.dev/sparklane-recipecard-react
+
+#### Package Features:
+- **Customizable styling** with override classes
+- **Image handling** with fallback support
+- **Star ratings** with configurable display
+- **Interactive buttons** with click handlers
+- **Responsive design** with proper image scaling
+- **Hover animations** with bounce effects
+
+#### Custom Implementation:
+- **RecipeImageComponent**: Handles image display with proper React element types
+- **Event delegation**: Client-side click handling for recipe navigation
+- **Custom styling**: SCSS overrides for card appearance and animations
+- **Filtering integration**: Works with search and letter-based filtering
 
 ## ⚡ Dynamic Features
 

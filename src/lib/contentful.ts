@@ -195,6 +195,15 @@ export async function getAllRecipes() {
           rating
           slug
           personalNote
+          imagesCollection {
+            items {
+              url
+              title
+              description
+              fileName
+              contentType
+            }
+          }
         }
       }
     }

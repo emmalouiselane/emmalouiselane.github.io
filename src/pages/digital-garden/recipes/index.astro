@@ -1,4 +1,7 @@
 ---
+import RecipeCard from '@sparklane.dev/sparklane-recipecard-react';
+import { createRecipeImage } from '../../../components/RecipeImageComponent';
+
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import { getAllRecipes } from "../../../lib/contentful";
 
@@ -62,21 +65,21 @@ const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
     </div>
     
     <!-- Letter Filter Section (Always Visible) -->
-    <div class="mb-2">
-      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+    <div class="mb-4">
+      <span class="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-2">
         Filter by First Letter
-      </label>
+      </span>
       <div class="w-fit flex flex-wrap gap-2 mx-auto" id="letterButtons">
         <button
           data-letter="all"
-          class="px-3 py-1 text-sm bg-slate-600 text-white rounded hover:bg-slate-700 focus:outline-none dark:bg-slate-500 dark:hover:bg-slate-600"
+          class="px-2 py-1 text-sm bg-slate-600 text-white rounded hover:bg-slate-700 focus:outline-none dark:bg-slate-500 dark:hover:bg-slate-600 cursor-pointer"
         >
           All
         </button>
         {letters.map((letter: string) => (
           <button
             data-letter={letter}
-            class="px-3 py-1 text-sm bg-slate-600 text-white rounded hover:bg-slate-700 focus:outline-none dark:bg-slate-500 dark:hover:bg-slate-600"
+            class="px-2 py-1 text-sm bg-slate-600 text-white rounded hover:bg-slate-700 focus:outline-none dark:bg-slate-500 dark:hover:bg-slate-600 cursor-pointer"
           >
             {letter}
           </button>
@@ -90,20 +93,23 @@ const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
       <p class="text-sm">Try adjusting your search or letter filter</p>
     </div>
 
-    <div class="row recipe-list grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2" id="recipeList">
+    <div class="row recipe-list grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2" id="recipeList">
       {
         recipes
           .sort((a: any, b: any) => a.name.localeCompare(b.name))
           .map((recipe: any) => (
-            <a class="recipe-list-item" data-name={recipe.name.toLowerCase()} href={"/digital-garden/recipes/" + recipe.slug}>
-              <h5 class="m-2">{recipe.name}</h5>
-
-              {recipe.rating ? (
-                <p class="mb-2">{"⭐".repeat(recipe.rating)}</p>
-              ) : (
-                <p class="mb-2">Not rated (yet!)</p>
-                )}
-            </a>
+            <div data-recipe-name={recipe.name.toLowerCase()} data-recipe-slug={recipe.slug}>
+              <RecipeCard 
+                name={recipe.name} 
+                image={createRecipeImage({ imageUrl: recipe.imagesCollection?.items?.[0]?.url, recipeName: recipe.name })}
+                rating={recipe.rating} 
+                recipeCardOverrideClassName="recipe-card-custom"
+                emptyRatingClassName="text-gray-600 dark:text-gray-400 text-xs"
+                showRatingNumber={false}
+                showRecipeButton={true}
+                recipeButtonClassName="py-1 px-2 cursor-pointer rounded-md text-xs bg-slate-600 text-white hover:bg-slate-700 dark:bg-slate-500 dark:hover:bg-slate-600"
+              />
+            </div>
           ))
       }
     </div>
@@ -172,18 +178,18 @@ const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
     function filterRecipes() {
       const searchInput = document.getElementById('search') as HTMLInputElement;
       const searchTerm = searchInput.value.toLowerCase();
-      const recipeItems = document.querySelectorAll('.recipe-list-item');
+      const recipeCards = document.querySelectorAll('[data-recipe-name]');
       const noResults = document.getElementById('noResults');
       let visibleCount = 0;
 
-      recipeItems.forEach((item) => {
+      recipeCards.forEach((item) => {
         const htmlItem = item as HTMLElement;
-        const recipeName = htmlItem.dataset.name || '';
+        const recipeName = htmlItem.dataset.recipeName || '';
         const matchesSearch = recipeName.includes(searchTerm);
         const matchesLetter = currentLetter === 'all' || recipeName.startsWith(currentLetter.toLowerCase());
 
         if (matchesSearch && matchesLetter) {
-          htmlItem.style.display = 'flex';
+          htmlItem.style.display = 'block';
           visibleCount++;
         } else {
           htmlItem.style.display = 'none';
@@ -244,6 +250,21 @@ const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
         btn.addEventListener('click', function(this: HTMLButtonElement) {
           setLetter(this.dataset.letter || '');
         });
+      });
+
+      // Recipe button event delegation
+      document.addEventListener('click', function(event) {
+        const target = event.target as HTMLElement;
+        const recipeButton = target.closest('.recipe-button');
+        if (recipeButton) {
+          const recipeCard = recipeButton.closest('[data-recipe-slug]');
+          if (recipeCard) {
+            const slug = recipeCard.getAttribute('data-recipe-slug');
+            if (slug) {
+              window.location.href = `/digital-garden/recipes/${slug}`;
+            }
+          }
+        }
       });
 
       // Set initial state

@@ -28,7 +28,6 @@ const fullRecipe = await getRecipeBySlug(recipe.slug);
 const hasImages = fullRecipe.imagesCollection && fullRecipe.imagesCollection.items && fullRecipe.imagesCollection.items.length > 0;
 const firstImage = hasImages && fullRecipe.imagesCollection?.items[0] ? fullRecipe.imagesCollection?.items[0] : null;
 
-
 ---
 
 <script>
@@ -70,7 +69,7 @@ const firstImage = hasImages && fullRecipe.imagesCollection?.items[0] ? fullReci
         <h1 class="text-2xl font-bold mb-2 ml-2">{fullRecipe.name}</h1>
 
         {fullRecipe.rating ? (
-            <p class="!mt-3 hidden md:block">Rating: {'⭐'.repeat(fullRecipe.rating)}</p>
+            <p class="!mt-3 hidden md:block">Rating: {'★'.repeat(fullRecipe.rating)}</p>
           ) : (
             <p class="!mt-3 hidden md:block text-gray-500">Not rated (yet!)</p>
           )}
@@ -78,7 +77,7 @@ const firstImage = hasImages && fullRecipe.imagesCollection?.items[0] ? fullReci
 
       <div class="flex flex-row justify-between md:hidden">
           {fullRecipe.rating ? (
-            <p class="!mt-2">Rating: {'⭐'.repeat(fullRecipe.rating)}</p>
+            <p class="!mt-2">Rating: {'★'.repeat(fullRecipe.rating)}</p>
           ) : (
             <p class="!mt-2 text-gray-500">Not rated (yet!)</p>
           )}
