@@ -36,21 +36,17 @@
 
 // Portfolio list item
 .portfolio-list-item {
-    margin-bottom: var(--spacing-8);
-    margin-top: var(--spacing-8);
-  }
-  
-  .portfolio-list-item p {
-    margin-bottom: var(--spacing-0);
-  }
-  
-  .portfolio-list-item h2 {
-    @apply text-2xl;
-    color: var(--color-primary);
-    margin-bottom: var(--spacing-2);
-    margin-top: var(--spacing-0);
-  }
-  
-  .portfolio-list-item header {
-    margin-bottom: var(--spacing-4);
-  }
+  margin-bottom: var(--spacing-8);
+  margin-top: var(--spacing-8);
+}
+
+.portfolio-list-item p {
+  margin-bottom: var(--spacing-0);
+}
+
+.portfolio-list-item h2 {
+  @apply text-2xl;
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-2);
+  margin-top: var(--spacing-0);
+}

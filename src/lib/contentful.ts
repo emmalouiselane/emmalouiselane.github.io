@@ -50,6 +50,7 @@ export async function getAllPortfolioItems() {
           externalUrl
           githubUrl
           isInDevelopment
+          isIframe
         }
       }
     }
