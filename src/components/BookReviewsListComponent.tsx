@@ -276,7 +276,7 @@ const BookReviewsList = () => {
 
                   <section className="flex flex-row justify-between mt-1">
                     {review.amazonLink && (
-                      <a href={review.amazonLink} target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline text-sm">
+                      <a href={review.amazonLink} target="_blank" rel="noopener noreferrer" className="mt-2 text-blue-600 dark:text-blue-400 hover:underline text-sm">
                         View on Amazon
                       </a>
                     )}

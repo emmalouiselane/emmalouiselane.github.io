@@ -63,8 +63,8 @@
 .review-list-item {
   margin-bottom: var(--spacing-2);
   margin-top: var(--spacing-2);
-  border-radius: var(--spacing-2);
-  border: 2px dashed #ccccccae;
+  border-top: 2px dashed #ccccccae;
+  border-bottom: 2px dashed #ccccccae;
   padding: var(--spacing-4);
 
   p {
