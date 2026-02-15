@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, Moon, Sun, Flower, Leaf } from "lucide-react";
+import { Menu, Moon, Sun, Flower, Leaf, Citrus } from "lucide-react";
 import { useTracking } from "../hooks/useTracking";
 
 const NavbarComponent = () => {
@@ -42,7 +42,9 @@ const NavbarComponent = () => {
     };
 
     const toggleColorTheme = () => {
-        const newTheme = colorTheme === 'green' ? 'pink' : 'green';
+        const themes = ['green', 'pink', 'peach'];
+        const currentIndex = themes.indexOf(colorTheme);
+        const newTheme = themes[(currentIndex + 1) % themes.length];
         setColorTheme(newTheme);
         document.documentElement.setAttribute('data-color-theme', newTheme);
         localStorage.setItem('colorTheme', newTheme);
@@ -76,8 +78,10 @@ const NavbarComponent = () => {
                     ))}
 
                     <div className="flex items-center gap-2">
-                        <Button variant="ghost" size="icon" onClick={toggleColorTheme} aria-label="Toggle color theme" className={colorTheme === 'green' ? 'hover:text-pink-500' : 'hover:text-green-500'}>
-                            {colorTheme === 'green' ? <Flower className="h-[1.2rem] w-[1.2rem]" /> : <Leaf className="h-[1.2rem] w-[1.2rem]" />}
+                        <Button variant="ghost" size="icon" onClick={toggleColorTheme} aria-label="Toggle color theme" className={colorTheme === 'green' ? 'hover:text-pink-500' : colorTheme === 'pink' ? 'hover:text-orange-400' : 'hover:text-green-500'}>
+                            {colorTheme === 'green' && <Flower className="h-[1.2rem] w-[1.2rem]" />}
+                            {colorTheme === 'pink' && <Citrus className="h-[1.2rem] w-[1.2rem]" />}
+                            {colorTheme === 'peach' && <Leaf className="h-[1.2rem] w-[1.2rem]" />}
                         </Button>
                         <Button variant="ghost" size="icon" onClick={toggleDarkMode} aria-label="Toggle theme" className={isDarkMode ? 'hover:text-yellow-500' : 'hover:text-gray-400'}>
                             {isDarkMode ? <Sun className="h-[1.2rem] w-[1.2rem]" /> : <Moon className="h-[1.2rem] w-[1.2rem]" />}
@@ -87,8 +91,10 @@ const NavbarComponent = () => {
 
                 {/* Mobile Navigation */}
                 <div className="md:hidden flex items-center gap-2">
-                    <Button variant="ghost" size="icon" onClick={toggleColorTheme} aria-label="Toggle color theme" className={colorTheme === 'green' ? 'hover:text-pink-500' : 'hover:text-green-500'}>
-                        {colorTheme === 'green' ? <Flower className="h-[1.2rem] w-[1.2rem]" /> : <Leaf className="h-[1.2rem] w-[1.2rem]" />}
+                    <Button variant="ghost" size="icon" onClick={toggleColorTheme} aria-label="Toggle color theme" className={colorTheme === 'green' ? 'hover:text-pink-500' : colorTheme === 'pink' ? 'hover:text-orange-400' : 'hover:text-green-500'}>
+                        {colorTheme === 'green' && <Flower className="h-[1.2rem] w-[1.2rem]" />}
+                        {colorTheme === 'pink' && <Citrus className="h-[1.2rem] w-[1.2rem]" />}
+                        {colorTheme === 'peach' && <Leaf className="h-[1.2rem] w-[1.2rem]" />}
                     </Button>
                     <Button variant="ghost" size="icon" onClick={toggleDarkMode} aria-label="Toggle theme" className={`mr-2 ${isDarkMode ? 'hover:text-yellow-500' : 'hover:text-gray-400'}`}>
                         {isDarkMode ? <Sun className="h-[1.2rem] w-[1.2rem]" /> : <Moon className="h-[1.2rem] w-[1.2rem]" />}

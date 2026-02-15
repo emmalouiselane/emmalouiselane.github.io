@@ -169,12 +169,14 @@
   }
 
   .recipe-content {
-    padding: 10px 10px 5px 10px;
+    padding: 5px;
 
     .recipe-name {
       color: unset;
       font-size: 1rem;
-      height: 42px;      
+      height: 60px;   
+      align-content: center;
+      margin: 0 5px;
     }
   }
 }

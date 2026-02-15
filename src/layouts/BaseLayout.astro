@@ -50,6 +50,14 @@ const isRootPath = pathname === '/';
           localStorage.setItem('theme', isDark ? 'dark' : 'light');
         });
         observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+        
+        const colorThemeObserver = new MutationObserver(() => {
+          const colorTheme = document.documentElement.getAttribute('data-color-theme');
+          if (colorTheme) {
+            localStorage.setItem('colorTheme', colorTheme);
+          }
+        });
+        colorThemeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-color-theme'] });
       }
     </script>
   </head>

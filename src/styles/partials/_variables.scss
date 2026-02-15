@@ -115,3 +115,24 @@
 
   --color-accent-light: #E0F7FA;
 }
+
+/* ---------- PEACH THEME OVERRIDES ---------- */
+[data-color-theme="peach"] {
+ /* ---------- HIGHLIGHT / INTERACTIVE ---------- */
+ --color-highlight: #fea778;
+ /* Peach for hover states, active buttons */
+ --color-accent-highlight: #ffb999;
+ /* Light Peach for badges, small accents */
+
+  --color-accent-light: #ffe0d4;
+}
+
+[data-color-theme="peach"].dark-html.dark {
+ /* ---------- HIGHLIGHT / INTERACTIVE ---------- */
+ --color-highlight: #fea778;
+ /* Darker Peach for hover states */
+ --color-accent-highlight: #ffb999;
+ /* Medium Peach for accents */
+
+  --color-accent-light: #ffe0d4;
+}
