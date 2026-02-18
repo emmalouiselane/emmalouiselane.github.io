@@ -30,7 +30,7 @@ const watchItem = await getWatchListById(item.sys.id);
 
 <BaseLayout title={`${watchItem.title} - Watch List`} description={`Watch list item: ${watchItem.title}`}>
   <div class="book-review">
-    <article>
+    <article itemscope itemtype="http://schema.org/Article">
       <header>
         <h1 class="text-2xl font-bold !mb-1">{watchItem.title}</h1>
       </header>

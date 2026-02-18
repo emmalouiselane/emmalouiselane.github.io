@@ -37,7 +37,7 @@ const renderStars = (rating: number) => {
 
 <BaseLayout title={`${fullReview.title} - Book Review`} description={`Review of ${fullReview.title} by ${fullReview.author.name}`}>
   <div class="book-review">
-    <article>
+    <article itemscope itemtype="http://schema.org/Review">
       <header>
         <h1 class="text-2xl font-bold !mb-1">{fullReview.title}</h1>
 

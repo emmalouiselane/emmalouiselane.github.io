@@ -26,7 +26,7 @@ const fullItem = await getPortfolioItemBySlug(item.slug);
 ---
 
 <BaseLayout title={fullItem.title} description={fullItem.description}>
-  <div class="container portfolio">    
+  <div class="container portfolio" itemscope itemtype="http://schema.org/CreativeWork">    
     <div class="row">
       <div class="flex flex-row justify-between">
         <h1 class="text-2xl font-bold mb-2">{fullItem.title}</h1>
