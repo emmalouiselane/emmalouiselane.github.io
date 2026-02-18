@@ -117,10 +117,9 @@ const WatchListComponent = () => {
 
   return (
     <div className="container">
-      <div className='flex flex-col'>
+      <div className="flex flex-row justify-between">
         <h1 className="text-2xl font-bold">What have I been watching?</h1>
-      </div>
-      <div className="flex flex-row justify-end">
+
         <div className="flex flex-row">
           <div className="text-center mt-4 mb-4 text-sm text-gray-600 dark:text-gray-400">
             <span>{Math.min(endIndex, filteredWatchList.length)}</span> of {filteredWatchList.length} watches found
@@ -219,7 +218,7 @@ const WatchListComponent = () => {
       <div className="watch-list">
         {currentWatchList.length === 0 ? (
           <div className="text-center py-8 text-gray-600 dark:text-gray-400">
-            <p>No watches found matching your criteria.</p>
+            <p>No watch records found matching your criteria.</p>
           </div>
         ) : (
           currentWatchList.map((watch) => (
@@ -233,24 +232,29 @@ const WatchListComponent = () => {
                   <div className="flex flex-row justify-between items-start">
                     <div className="flex-1">
                       <h2 className="text-xl">{watch.title}</h2>
-                    </div>
-                    <div className="flex flex-col items-end ml-4">
-                    
-                      {/* {watch.completionDate && (
-                        <div className="text-xs text-gray-500 dark:text-gray-400">
-                          Completed: {new Date(review.completionDate).toLocaleDateString()}
+                    </div> 
+                    {watch.type && watch.type.length > 0 && (
+                        <div className="flex flex-wrap gap-1 mb-2 ml-3">
+                            <span key={watch.type} className="inline-block px-2 py-1 text-xs bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded">
+                              {watch.type}
+                            </span>
                         </div>
-                      )} */}
-                    </div>
+                      )}
                   </div>
 
                   <section className="flex flex-row justify-between mt-1">
-                    {watch.status === "Complete" ? (
+                    {watch.platform ? (watch.status === 'Watching' ? (
+                      <span className="text-sm mr-4 text-gray-500 dark:text-gray-400">Currently watching on {watch.platform}</span>
+                    ) : (
+                      <span className="text-sm mr-4 text-gray-500 dark:text-gray-400">Watched on {watch.platform}</span>
+                    )) : <></>}
+
+                    {watch.thoughts && (
                       <a className="text-sm min-w-fit whitespace-nowrap" href={`/digital-garden/watching/${watch.sys.id}`}>
-                        <span>Read Review</span>
+                        <span>Read my thoughts</span>
                         <span className="sr-only">Read thoughts on {watch.title}</span>
                       </a>
-                    ) : <span className="text-sm mt-2 mr-4 text-gray-500 dark:text-gray-400">Currently watching on {watch.platform}</span>}
+                    )} 
                   </section>
                 </div>
               </article>
