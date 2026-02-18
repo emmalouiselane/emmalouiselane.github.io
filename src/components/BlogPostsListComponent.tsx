@@ -213,17 +213,22 @@ const BlogPostsListComponent = () => {
                   <div className="flex flex-row justify-between items-start">
                     <div className="flex-1">
                       <h2 className="text-xl">{post.title}</h2>
-                    </div>
-                    <small className="text-xs text-gray-600 mt-1 ml-4">{moment(post.date).format("DD/MM/YY")}</small>
-                    {post.blogType && post.blogType.length > 0 && (
-                        <div className="flex flex-wrap gap-1 mb-2 ml-3">
-                          {post.blogType.map(type => (
-                            <span key={type} className="inline-block px-2 py-1 text-xs bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded">
-                              {type}
-                            </span>
-                          ))}
-                        </div>
-                      )}
+                  </div>
+                  <small className="text-xs text-gray-600 mt-1 ml-4">{moment(post.date).format("DD/MM/YY")}</small>
+                  {post.blogType && post.blogType.length > 0 && (
+                      <div className="flex flex-wrap gap-1 mb-2 ml-3">
+                        {post.blogType.map(type => (
+                          <span 
+                            key={type} 
+                            className="inline-block px-2 py-1 text-xs bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+                            onClick={() => setSelectedBlogType(type)}
+                            title={`Filter by ${type}`}
+                          >
+                            {type}
+                          </span>
+                        ))}
+                      </div>
+                    )}
                   </div>
 
                   <section className="flex flex-row justify-between">

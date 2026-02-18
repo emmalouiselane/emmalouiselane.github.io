@@ -44,7 +44,6 @@ const BookReviewsList = () => {
     }
 
     if (selectedStatus !== '') {
-      console.log(filtered);
       filtered = filtered.filter(review => review.status.includes(selectedStatus));
     }
 
@@ -260,7 +259,12 @@ const BookReviewsList = () => {
                       {review.genres && review.genres.length > 0 && (
                         <div className="flex flex-wrap gap-1 mb-2">
                           {review.genres.map(genre => (
-                            <span key={genre} className="inline-block px-2 py-1 text-xs bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded">
+                            <span 
+                              key={genre} 
+                              className="inline-block px-2 py-1 text-xs bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+                              onClick={() => setSelectedGenre(genre)}
+                              title={`Filter by ${genre}`}
+                            >
                               {genre}
                             </span>
                           ))}

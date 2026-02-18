@@ -235,9 +235,14 @@ const WatchListComponent = () => {
                     </div> 
                     {watch.type && watch.type.length > 0 && (
                         <div className="flex flex-wrap gap-1 mb-2 ml-3">
-                            <span key={watch.type} className="inline-block px-2 py-1 text-xs bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded">
-                              {watch.type}
-                            </span>
+                           <span 
+                            key={watch.type} 
+                            className="inline-block px-2 py-1 text-xs bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+                            onClick={() => setSelectedType(watch.type)}
+                            title={`Filter by ${watch.type}`}
+                          >
+                            {watch.type}
+                          </span>
                         </div>
                       )}
                   </div>
