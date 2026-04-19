@@ -52,7 +52,7 @@ const HomeContentComponent = () => {
               <h2 className="text-xl font-semibold mb-3">Latest Recipe...</h2>
               <h3 className="text-lg font-bold text-center">
                 <a href={`/digital-garden/recipes/${recentRecipe.slug}/`}>
-                  {recentRecipe.name} →
+                  {recentRecipe.name} 
                 </a>
               </h3>
               {recentRecipe.rating && (
@@ -68,18 +68,19 @@ const HomeContentComponent = () => {
         )}
 
         {recentBlog && (
-          <div className="container mt-4 latest-block pink">
-            <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
+          <a href={`/blog-posts/${recentBlog.slug}/`} className="container mt-4 latest-block pink block group">
+            <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg border border-transparent transition-colors group-hover:border-[var(--color-primary)]">
               <h2 className="text-xl font-semibold mb-3">Latest Blog...</h2>
-              <h3 className="text-lg font-bold text-center">
-                <a href={`/blog-posts/${recentBlog.slug}/`}>
-                  {recentBlog.title} →
-                </a>
-              </h3>
-              <p className="text-xs text-gray-500 dark:text-gray-400 mb-3 text-center">Posted {moment(recentBlog.date).format("DD MMM, YYYY")}</p>
+              <h3 className="text-lg font-bold text-center">{recentBlog.title}</h3>
+              <p className="text-xs text-gray-500 dark:text-gray-400 mb-3 text-center">Posted {moment(recentBlog.date).format('DD MMM, YYYY')}</p>
               <p className="text-sm text-gray-600 dark:text-gray-400 mb-3 text-center">{recentBlog.description}</p>
+              <div className="text-center">
+                <span className="inline-block px-4 py-2 rounded-md text-sm font-medium bg-slate-100 text-slate-900 dark:bg-slate-800 dark:text-white">
+                  Read Full Post
+                </span>
+              </div>
             </div>
-          </div>
+          </a>
         )}
       </div>
     </>

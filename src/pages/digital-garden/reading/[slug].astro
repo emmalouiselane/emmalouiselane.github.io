@@ -55,6 +55,8 @@ const renderStars = (rating: number) => {
                 View on Amazon
               </a>
             )}
+
+            <button class="tinylytics_kudos mt-4" data-path={pathname}></button>
           </div>
 
           {fullReview.genres && fullReview.genres.length > 0 && (
@@ -72,9 +74,7 @@ const renderStars = (rating: number) => {
               Completed on {new Date(fullReview.completionDate).toLocaleDateString()}
             </p>
           )}
-        </div>
-
-        <button class="tinylytics_kudos mt-4" data-path={pathname}></button>
+        </div>        
       </header>
 
       
