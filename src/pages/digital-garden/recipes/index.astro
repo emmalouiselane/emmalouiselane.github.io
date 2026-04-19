@@ -99,7 +99,7 @@ const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
           .sort((a: any, b: any) => a.name.localeCompare(b.name))
           .map((recipe: any) => (
             <div data-recipe-name={recipe.name.toLowerCase()} data-recipe-slug={recipe.slug}>
-              <RecipeCard 
+              <RecipeCard client:only="react"
                 name={recipe.name} 
                 image={createRecipeImage({ imageUrl: recipe.imagesCollection?.items?.[0]?.url, recipeName: recipe.name })}
                 rating={recipe.rating} 
