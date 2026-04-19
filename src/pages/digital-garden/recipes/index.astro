@@ -1,5 +1,6 @@
 ---
 import RecipeCard from '@sparklane.dev/sparklane-recipecard-react';
+import '@sparklane.dev/sparklane-recipecard-react/dist/RecipeCard.css';
 import { createRecipeImage } from '../../../components/RecipeImageComponent';
 
 import BaseLayout from "../../../layouts/BaseLayout.astro";
@@ -99,7 +100,7 @@ const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
           .sort((a: any, b: any) => a.name.localeCompare(b.name))
           .map((recipe: any) => (
             <div data-recipe-name={recipe.name.toLowerCase()} data-recipe-slug={recipe.slug}>
-              <RecipeCard client:only="react"
+              <RecipeCard
                 name={recipe.name} 
                 image={createRecipeImage({ imageUrl: recipe.imagesCollection?.items?.[0]?.url, recipeName: recipe.name })}
                 rating={recipe.rating} 
