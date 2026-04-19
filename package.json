@@ -9,7 +9,7 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/react": "^4.4.2",
+    "@astrojs/react": "^5.0.0",
     "@astrojs/sitemap": "^3.7.1",
     "@contentful/rich-text-html-renderer": "^17.1.6",
     "@contentful/rich-text-react-renderer": "^16.1.6",
