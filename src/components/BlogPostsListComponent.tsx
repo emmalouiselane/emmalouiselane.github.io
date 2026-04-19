@@ -233,7 +233,7 @@ const BlogPostsListComponent = () => {
 
                   <section className="flex flex-row justify-between">
                     <p>{post.description}</p>
-                    <a className="text-xs mt-auto min-w-fit whitespace-nowrap" href={`/blog-posts/${post.slug}`}>
+                    <a className="text-xs mt-auto min-w-fit whitespace-nowrap" href={`/blog-posts/${post.slug}/`}>
                       <span>Read More</span>
                       <span className="sr-only">Read more about {post.title}</span>
                     </a>

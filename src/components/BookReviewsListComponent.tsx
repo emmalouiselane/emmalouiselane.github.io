@@ -286,7 +286,7 @@ const BookReviewsList = () => {
                     )}
 
                     {review.status === "Complete" ? (
-                      <a className="text-sm min-w-fit whitespace-nowrap" href={`/digital-garden/reading/${review.sys.id}`}>
+                      <a className="text-sm min-w-fit whitespace-nowrap" href={`/digital-garden/reading/${review.sys.id}/`}>
                         <span>Read Review</span>
                         <span className="sr-only">Read review for {review.title}</span>
                       </a>
