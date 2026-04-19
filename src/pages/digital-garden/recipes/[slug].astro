@@ -20,6 +20,7 @@ export const getStaticPaths = (async () => {
 }) satisfies GetStaticPaths;
 
 const { recipe } = Astro.props;
+const pathname = Astro.url.pathname;
 
 if (!recipe?.slug) {
   throw new Error('Recipe slug is required but not found');
@@ -73,6 +74,7 @@ const firstImage = hasImages && fullRecipe.imagesCollection?.items[0] ? fullReci
           ) : (
             <p class="!mt-3 hidden md:block text-gray-500">Not rated (yet!)</p>
           )}
+          <button class="tinylytics_kudos" data-path={pathname}></button>
       </div>
 
       <div class="flex flex-row justify-between md:hidden">

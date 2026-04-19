@@ -17,6 +17,7 @@ export const getStaticPaths = (async () => {
 }) satisfies GetStaticPaths;
 
 const { item } = Astro.props;
+const pathname = Astro.url.pathname;
 
 if (!item?.slug) {
   throw new Error('Portfolio item slug is required but not found');
@@ -42,6 +43,7 @@ const fullItem = await getPortfolioItemBySlug(item.slug);
                 Live Demo
               </span>
           )}
+          <button class="tinylytics_kudos ml-3" data-path={pathname}></button>
         </div>
       </div>
     </div>
