@@ -51,7 +51,7 @@ const HomeContentComponent = () => {
             <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
               <h2 className="text-xl font-semibold mb-3">Latest Recipe...</h2>
               <h3 className="text-lg font-bold text-center">
-                <a href={`/digital-garden/recipes/${recentRecipe.slug}`}>
+                <a href={`/digital-garden/recipes/${recentRecipe.slug}/`}>
                   {recentRecipe.name} →
                 </a>
               </h3>
@@ -72,7 +72,7 @@ const HomeContentComponent = () => {
             <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
               <h2 className="text-xl font-semibold mb-3">Latest Blog...</h2>
               <h3 className="text-lg font-bold text-center">
-                <a href={`/blog-posts/${recentBlog.slug}`}>
+                <a href={`/blog-posts/${recentBlog.slug}/`}>
                   {recentBlog.title} →
                 </a>
               </h3>

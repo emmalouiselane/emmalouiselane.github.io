@@ -255,7 +255,7 @@ const WatchListComponent = () => {
                     )) : <></>}
 
                     {watch.thoughts && (
-                      <a className="text-sm min-w-fit whitespace-nowrap" href={`/digital-garden/watching/${watch.sys.id}`}>
+                      <a className="text-sm min-w-fit whitespace-nowrap" href={`/digital-garden/watching/${watch.sys.id}/`}>
                         <span>Read my thoughts</span>
                         <span className="sr-only">Read thoughts on {watch.title}</span>
                       </a>
