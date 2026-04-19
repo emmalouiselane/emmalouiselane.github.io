@@ -30,7 +30,7 @@ const dissertationItem = portfolioItems.find(
 
     {dissertationItem && (
       <div class="row mb-4">
-        <article class="portfolio-list-item p-4" itemscope itemtype="http://schema.org/CreativeWork">
+        <article class="portfolio-list-item" itemscope itemtype="http://schema.org/CreativeWork">
           <header class="flex items-start justify-between gap-3">
             <h2 class="text-xl">{dissertationItem.title}</h2>
             {dissertationItem.sys?.publishedAt && (
