@@ -23,8 +23,12 @@ const NavbarComponent = () => {
             text: "Blog", path: "/blog-posts/"
         },
         {
+            text: "Dissertation", path: "/dissertation/"
+        },
+        {
             text: "Digital Garden", path: "/digital-garden/", children: [
                 { text: "Portfolio", path: "/portfolio/" },
+                { text: "Dissertation", path: "/dissertation/" },
                 { text: "Recipes", path: "/digital-garden/recipes/" },
                 { text: "Gaming", path: "/digital-garden/gaming/" },
                 { text: "Reading", path: "/digital-garden/reading/" },

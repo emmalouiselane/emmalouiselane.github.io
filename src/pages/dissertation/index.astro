@@ -1,0 +1,86 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getAllBlogs, getAllPortfolioItems } from "../../lib/contentful";
+import type { BlogPost } from "../../lib/types/blogPost";
+import type { PortfolioItem } from "../../lib/types/portfolioItem";
+import moment from "moment";
+
+const blogPosts = await getAllBlogs();
+const portfolioItems = await getAllPortfolioItems();
+
+const dissertationPosts = blogPosts
+  .filter((post: BlogPost) =>
+    (post.blogType || []).some((type) => type.toLowerCase().includes("dissertation"))
+  )
+  .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+const dissertationItem = portfolioItems.find(
+  (item: PortfolioItem) => item.slug.toLowerCase() === "msc-deepfake-defence"
+);
+---
+
+<BaseLayout title="Dissertation" description="Everything related to my MSc dissertation in one place.">
+  <div class="container" style="width: 100%;">
+    <div class="row mb-6">
+      <h1 class="text-2xl font-bold">Dissertation Hub</h1>
+      <p class="text-sm text-gray-600 dark:text-gray-400">
+        A dedicated space for my dissertation project, including the core portfolio item and related blog posts.
+      </p>
+    </div>
+
+    {dissertationItem && (
+      <div class="row mb-4">
+        <article class="portfolio-list-item p-4" itemscope itemtype="http://schema.org/CreativeWork">
+          <header class="flex items-start justify-between gap-3">
+            <h2 class="text-xl">{dissertationItem.title}</h2>
+            {dissertationItem.sys?.publishedAt && (
+              <small class="text-xs text-gray-600 dark:text-gray-400 whitespace-nowrap">
+                {moment(dissertationItem.sys.publishedAt).format("DD MMM YYYY")}
+              </small>
+            )}
+          </header>
+          <section class="flex flex-row justify-between items-end gap-4">
+            <p>{dissertationItem.description}</p>
+            <a
+              class="text-xs mt-auto min-w-fit whitespace-nowrap border px-2 py-2 rounded"
+              href={`/portfolio/${dissertationItem.slug}/`}
+            >
+              View Project
+            </a>
+          </section>
+        </article>
+      </div>
+    )}
+
+    <div class="row">
+      <h2 class="text-xl font-semibold mb-2">Dissertation Blog Posts</h2>
+    </div>
+
+    {dissertationPosts.length === 0 ? (
+      <div class="row">
+        <div class="post-list-item">
+          <p class="text-sm text-gray-600 dark:text-gray-400">No dissertation-tagged posts found yet.</p>
+        </div>
+      </div>
+    ) : (
+      dissertationPosts.map((post: BlogPost) => (
+        <div class="row mb-2">
+          <article class="post-list-item" itemscope itemtype="http://schema.org/Article">
+            <header class="flex items-start justify-between gap-3">
+              <h3 class="text-lg">{post.title}</h3>
+              <small class="text-xs text-gray-600 dark:text-gray-400 whitespace-nowrap">
+                {moment(post.date).format("DD MMM YYYY")}
+              </small>
+            </header>
+            <section class="flex flex-row justify-between gap-4 items-end">
+              <p>{post.description}</p>
+              <a class="text-xs mt-auto min-w-fit whitespace-nowrap" href={`/blog-posts/${post.slug}/`}>
+                Read More
+              </a>
+            </section>
+          </article>
+        </div>
+      ))
+    )}
+  </div>
+</BaseLayout>
