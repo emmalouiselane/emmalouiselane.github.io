@@ -20,6 +20,14 @@
   --color-accent-highlight: #c86895;
   /* Light Purple for badges, small accents */
 
+  /* ---------- DEPTH / ATMOSPHERE ---------- */
+  --color-surface-elevated: #ffffff;
+  --color-border-soft: rgba(25, 36, 54, 0.12);
+  --color-bg-glow-1: rgba(190, 81, 117, 0.14);
+  --color-bg-glow-2: rgba(13, 135, 17, 0.12);
+  --shadow-soft: 0 8px 30px rgba(16, 24, 40, 0.08);
+  --shadow-lift: 0 12px 36px rgba(16, 24, 40, 0.14);
+
 
   /* Max widths */
   --maxWidth-none: "none";
@@ -65,7 +73,8 @@
 }
 
 /* ---------- DARK MODE ---------- */
-.dark-html.dark {
+.dark-html.dark,
+.dark {
   /* Colors handled by global.css:
      --color-primary
      --color-secondary
@@ -93,6 +102,14 @@
   /* Lighter Purple for hover states */
   --color-accent-highlight: #CE93D8;
   /* Very Light Purple for accents */
+
+  /* ---------- DEPTH / ATMOSPHERE ---------- */
+  --color-surface-elevated: #0f172a;
+  --color-border-soft: rgba(148, 163, 184, 0.22);
+  --color-bg-glow-1: rgba(171, 71, 188, 0.2);
+  --color-bg-glow-2: rgba(33, 150, 243, 0.16);
+  --shadow-soft: 0 14px 34px rgba(2, 6, 23, 0.45);
+  --shadow-lift: 0 18px 42px rgba(2, 6, 23, 0.6);
 }
 
 /* ---------- PINK THEME OVERRIDES ---------- */
@@ -104,9 +121,12 @@
  /* Pale Blue for badges, small accents */
 
   --color-accent-light: #E0F7FA;
+  --color-bg-glow-1: rgba(56, 189, 248, 0.18);
+  --color-bg-glow-2: rgba(244, 114, 182, 0.14);
 }
 
-[data-color-theme="pink"].dark-html.dark {
+[data-color-theme="pink"].dark-html.dark,
+[data-color-theme="pink"].dark {
  /* ---------- HIGHLIGHT / INTERACTIVE ---------- */
  --color-highlight: #38BDF8;
  /* Sky Blue for hover states */
@@ -114,6 +134,8 @@
  /* Lighter Blue for accents */
 
   --color-accent-light: #E0F7FA;
+  --color-bg-glow-1: rgba(56, 189, 248, 0.2);
+  --color-bg-glow-2: rgba(236, 72, 153, 0.16);
 }
 
 /* ---------- PEACH THEME OVERRIDES ---------- */
@@ -125,9 +147,12 @@
  /* Light Peach for badges, small accents */
 
   --color-accent-light: #ffe0d4;
+  --color-bg-glow-1: rgba(254, 167, 120, 0.2);
+  --color-bg-glow-2: rgba(189, 85, 0, 0.14);
 }
 
-[data-color-theme="peach"].dark-html.dark {
+[data-color-theme="peach"].dark-html.dark,
+[data-color-theme="peach"].dark {
  /* ---------- HIGHLIGHT / INTERACTIVE ---------- */
  --color-highlight: #fea778;
  /* Darker Peach for hover states */
@@ -135,4 +160,6 @@
  /* Medium Peach for accents */
 
   --color-accent-light: #ffe0d4;
+  --color-bg-glow-1: rgba(254, 167, 120, 0.22);
+  --color-bg-glow-2: rgba(249, 115, 22, 0.16);
 }
