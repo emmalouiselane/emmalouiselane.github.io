@@ -36,9 +36,11 @@
 
 // Portfolio list item
 .portfolio-list-item {
-  margin-bottom: var(--spacing-8);
-  margin-top: var(--spacing-8);
-  padding: var(--spacing-4)
+  margin-bottom: var(--spacing-2);
+  margin-top: var(--spacing-2);
+  padding: var(--spacing-4);
+  border-top: 2px dashed #ccccccae;
+  border-bottom: 2px dashed #ccccccae;
 }
 
 .portfolio-list-item p {
@@ -50,4 +52,161 @@
   color: var(--color-primary);
   margin-bottom: var(--spacing-2);
   margin-top: var(--spacing-0);
+}
+
+.portfolio-list-item header {
+  margin-bottom: var(--spacing-4);
+}
+
+.portfolio-page-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-6);
+}
+
+.portfolio-right-col {
+  min-width: 0;
+}
+
+.portfolio-contribution-panel {
+  padding: var(--spacing-4);
+  margin-top: var(--spacing-2);
+  border: 1px solid var(--color-border-soft);
+  border-radius: 0;
+  background-color: var(--color-surface-elevated);
+  box-shadow: var(--shadow-soft);
+}
+
+.contribution-month-row {
+  display: grid;
+  grid-template-columns: repeat(var(--weeks, 28), minmax(0, 1fr));
+  margin-left: 1.3rem;
+  margin-bottom: 0.35rem;
+  gap: 0.2rem;
+}
+
+.month-label {
+  font-size: 0.65rem;
+  color: var(--color-text-light);
+  min-height: 0.8rem;
+}
+
+.contribution-grid {
+  display: flex;
+  gap: 0.2rem;
+  overflow-x: auto;
+  padding-bottom: 0.2rem;
+}
+
+.contribution-week {
+  display: grid;
+  grid-template-rows: repeat(7, 0.68rem);
+  gap: 0.2rem;
+}
+
+.contribution-cell {
+  width: 0.68rem;
+  height: 0.68rem;
+  border-radius: 2px;
+  display: inline-block;
+  background: #ebedf0;
+  position: relative;
+}
+
+.dark .contribution-cell.level-0 {
+  background: #1f2937;
+}
+
+.contribution-cell.level-0 {
+  background: #ebedf0;
+}
+
+.contribution-cell.level-1 {
+  background: #c6e48b;
+}
+
+.contribution-cell.level-2 {
+  background: #7bc96f;
+}
+
+.contribution-cell.level-3 {
+  background: #239a3b;
+}
+
+.contribution-cell.level-4 {
+  background: #196127;
+}
+
+.dark .contribution-cell.level-1 {
+  background: #2f6b2f;
+}
+
+.dark .contribution-cell.level-2 {
+  background: #2f8b44;
+}
+
+.dark .contribution-cell.level-3 {
+  background: #38a169;
+}
+
+.dark .contribution-cell.level-4 {
+  background: #48bb78;
+}
+
+.contribution-cell-empty {
+  background: transparent;
+}
+
+.contribution-cell[data-tooltip]:hover::after,
+.contribution-cell[data-tooltip]:focus-visible::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 0.4rem);
+  transform: translateX(-50%);
+  background: var(--color-surface-elevated);
+  color: var(--color-text);
+  border: 1px solid var(--color-border-soft);
+  border-radius: 4px;
+  padding: 0.25rem 0.45rem;
+  font-size: 0.72rem;
+  line-height: 1.2;
+  white-space: nowrap;
+  z-index: 20;
+  box-shadow: var(--shadow-soft);
+  pointer-events: none;
+}
+
+.contribution-legend {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.35rem;
+  margin-top: 0.6rem;
+  font-size: 0.75rem;
+  color: var(--color-text-light);
+}
+
+.github-chart-image {
+  max-width: 100%;
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.github-chart-error {
+  margin: 0;
+  padding: var(--spacing-3);
+  border: 1px solid var(--color-border-soft);
+  border-radius: 0;
+  color: var(--color-text-light);
+  background-color: var(--color-surface);
+}
+
+@media (min-width: 1024px) {
+  .portfolio-page-grid {
+    grid-template-columns: minmax(0, 2fr) minmax(320px, 1fr);
+    align-items: start;
+    gap: var(--spacing-8);
+  }
 }

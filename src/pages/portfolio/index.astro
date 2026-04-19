@@ -5,23 +5,122 @@ import WordCloudComponent from "../../components/WordCloudComponent";
 import type { PortfolioItem } from "../../lib/types/portfolioItem";
 
 const portfolioItems = await getAllPortfolioItems();
+const githubUsername = "emmalouiselane";
+
+const today = new Date();
+
+const sixMonthsAgo = new Date(today);
+sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
+
+
+const toDateKey = (date: Date) => {
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, "0");
+  const d = String(date.getDate()).padStart(2, "0");
+  return `${y}-${m}-${d}`;
+};
+
+const contributionByDate = new Map<string, { count: number; level: number; tooltip: string }>();
+let contributionLoadError = "";
+
+try {
+  const response = await fetch(`https://github.com/users/${githubUsername}/contributions`, {
+    headers: {
+      "User-Agent": "portfolio-site",
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(`GitHub contributions request failed: ${response.status}`);
+  }
+
+  const html = await response.text();
+
+  const tooltipById = new Map<string, string>();
+  const tooltipRegex = /<tool-tip[^>]*for="([^"]+)"[^>]*>([\s\S]*?)<\/tool-tip>/g;
+  let tooltipMatch: RegExpExecArray | null;
+  while ((tooltipMatch = tooltipRegex.exec(html)) !== null) {
+    const id = tooltipMatch[1];
+    const text = tooltipMatch[2].replace(/<[^>]+>/g, "").trim();
+    tooltipById.set(id, text);
+  }
+
+  const tdRegex = /<td[^>]*class="ContributionCalendar-day"[^>]*>/g;
+  const attr = (tag: string, name: string) => {
+    const match = tag.match(new RegExp(`${name}="([^"]+)"`));
+    return match ? match[1] : "";
+  };
+
+  let tdMatch: RegExpExecArray | null;
+  while ((tdMatch = tdRegex.exec(html)) !== null) {
+    const tag = tdMatch[0];
+    const id = attr(tag, "id");
+    const date = attr(tag, "data-date");
+    const levelRaw = attr(tag, "data-level");
+
+    if (!date) continue;
+
+    const tooltip = tooltipById.get(id) || `No contributions on ${date}.`;
+    const countMatch = tooltip.match(/(\d+)\s+contributions?/i);
+    const count = countMatch ? Number.parseInt(countMatch[1], 10) : 0;
+    const level = levelRaw ? Number.parseInt(levelRaw, 10) : 0;
+
+    contributionByDate.set(date, { count, level, tooltip });
+  }
+
+  if (contributionByDate.size === 0) {
+    throw new Error("No contribution days retrieved from GitHub response");
+  }
+} catch (error) {
+  console.error("Unable to load GitHub contributions:", error);
+  contributionLoadError = "I couldn't load the GitHub contribution data right now. Please try refreshing the page.";
+}
+
+const weeks: Array<Array<{ key: string; count: number; level: number; tooltip: string } | null>> = [];
+
+let currentWeek: Array<{ key: string; count: number; level: number; tooltip: string } | null> = new Array(sixMonthsAgo.getDay()).fill(null);
+
+for (let cursor = new Date(sixMonthsAgo); cursor <= today; cursor.setDate(cursor.getDate() + 1)) {
+  const date = new Date(cursor);
+  const key = toDateKey(date);
+  const day = contributionByDate.get(key) || { count: 0, level: 0, tooltip: `No contributions on ${key}.` };
+
+  currentWeek.push({ key, count: day.count, level: day.level, tooltip: day.tooltip });
+
+  if (currentWeek.length === 7) {
+    weeks.push(currentWeek);
+    currentWeek = [];
+  }
+}
+
+if (currentWeek.length > 0) {
+  while (currentWeek.length < 7) {
+    currentWeek.push(null);
+  }
+  weeks.push(currentWeek);
+}
+
+const totalContributions = weeks
+  .flat()
+  .filter((day): day is { key: string; count: number; level: number; tooltip: string } => day !== null)
+  .reduce((sum, day) => sum + day.count, 0);
 ---
 
-<BaseLayout
-  title="Portfolio"
-  description="Take a peek at what I've been working on!"
->
+<BaseLayout title="Portfolio" description="Take a peek at what I've been working on!">
   <div class="container portfolio-list" style="width: 100%;">
-    <div class="row">
-      <div class="col">
-        {
-          portfolioItems.sort((a, b) => new Date(b.sys.publishedAt).getTime() - new Date(a.sys.publishedAt).getTime()).map((item: PortfolioItem) => (
+    <div class="mb-4">
+      <h1 class="text-2xl font-bold mb-2">Portfolio Projects</h1>
+      <p class="text-sm text-gray-600 dark:text-gray-400">A list of what I have been building.</p>
+    </div>
+
+    <div class="portfolio-page-grid">
+      <section class="portfolio-left-col">
+      {portfolioItems &&
+        portfolioItems
+          .sort((a, b) => new Date(b.sys.publishedAt).getTime() - new Date(a.sys.publishedAt).getTime())
+          .map((item: PortfolioItem) => (
             <div class="row">
-              <article
-                class="portfolio-list-item"
-                itemscope
-                itemtype="http://schema.org/CreativeWork"
-              >
+              <article class="portfolio-list-item" itemscope itemtype="http://schema.org/CreativeWork">
                 <header class="flex items-center gap-2">
                   <h2 class="text-xl">
                     <a href={"/portfolio/" + item.slug + "/"}>{item.title}</a>
@@ -29,16 +128,15 @@ const portfolioItems = await getAllPortfolioItems();
 
                   <div class="flex flex-wrap gap-1 mb-2 ml-3">
                     {item.isInDevelopment && (
-                      
-                        <span class="inline-block px-2 py-1 text-xs bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded">
-                          In Development
-                        </span>
+                      <span class="inline-block px-2 py-1 text-xs bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded">
+                        In Development
+                      </span>
                     )}
-                            
+
                     {item.isIframe && (
-                        <span class="inline-block px-2 py-1 my-auto text-xs bg-green-200 dark:bg-green-700 text-gray-700 dark:text-gray-300 rounded">
-                          Live Demo
-                        </span>
+                      <span class="inline-block px-2 py-1 my-auto text-xs bg-green-200 dark:bg-green-700 text-gray-700 dark:text-gray-300 rounded">
+                        Live Demo
+                      </span>
                     )}
                   </div>
                 </header>
@@ -48,12 +146,47 @@ const portfolioItems = await getAllPortfolioItems();
               </article>
             </div>
           ))
-        }
+      }
+      </section>
 
-        <div class="row WordCloudComponent-container">
+      <aside class="portfolio-right-col">
+        <article class="portfolio-contribution-panel">
+          <header class="mb-3">
+            <h2 class="text-xl font-semibold">GitHub Contribution Activity</h2>
+            <p class="text-sm text-gray-600 dark:text-gray-400">{totalContributions} contributions across public repositories over the past 6 months.</p>
+          </header>
+
+          {contributionLoadError ? (
+            <p class="github-chart-error">{contributionLoadError}</p>
+          ) : (
+            <>
+              <div class="contribution-grid" role="img" aria-label={`GitHub contribution chart for ${githubUsername} (last 6 months)`}>
+                {weeks.map((week) => (
+                  <div class="contribution-week">
+                    {week.map((day) =>
+                      day ? (
+                        <span
+                          class={`contribution-cell level-${day.level}`}
+                          data-tooltip={day.tooltip}
+                          tabindex="0"
+                          role="img"
+                          aria-label={day.tooltip}
+                        />
+                      ) : (
+                        <span class="contribution-cell contribution-cell-empty" aria-hidden="true" />
+                      )
+                    )}
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
+        </article>
+
+        <div class="WordCloudComponent-container mt-4">
           <WordCloudComponent client:load />
         </div>
-      </div>
+      </aside>
     </div>
   </div>
 </BaseLayout>
