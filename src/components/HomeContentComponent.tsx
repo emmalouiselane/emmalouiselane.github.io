@@ -92,7 +92,7 @@ const HomeContentComponent = () => {
             <a href={`/blog-posts/${recentBlog.slug}/`} className="latest-block pink block group">
               <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg border border-transparent transition-colors group-hover:border-[var(--color-primary)] h-full flex flex-col justify-start">
                 <div className="flex items-start justify-between gap-3 mb-3">
-                  <h2 className="text-xl font-semibold">Latest Blog...</h2>
+                  <h2 className="text-xl font-semibold">Latest (non dissertation) Blog...</h2>
                   <span className="inline-block px-2 py-1 text-xs rounded-md bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 whitespace-nowrap">
                     {moment(recentBlog.date).format('DD MMM, YYYY')}
                   </span>
