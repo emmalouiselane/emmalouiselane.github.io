@@ -23,6 +23,8 @@ if (!item?.slug) {
   throw new Error('Portfolio item slug is required but not found');
 }
 const fullItem = await getPortfolioItemBySlug(item.slug);
+const imageItems = fullItem.images?.items?.filter((image) => image?.url) ?? [];
+const hasImages = imageItems.length > 0;
 
 ---
 
@@ -49,57 +51,189 @@ const fullItem = await getPortfolioItemBySlug(item.slug);
       </div>
     </div>
     
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-      <div class="lg:col-span-1">
-        <div>
+    <div class="portfolio-detail-grid" data-portfolio-detail-grid>
+      <section class="portfolio-detail-main" data-portfolio-detail-main>
+        <div class="portfolio-detail-panel">
           <h2 class="text-xl font-semibold mb-4">Project Details</h2>
           <p>{fullItem.detailedDescription || fullItem.description}</p>
-        </div>
 
-        <div class="mt-8 grid grid-cols-2 gap-2">
-          {fullItem.externalUrl ? (
-            <a href={fullItem.externalUrl} target="_blank" rel="noopener noreferrer" class="text-center border border-primary rounded-md">
-              View Live Site
-            </a>
-          ) : (
-            <span class="text-center border border-gray-300 rounded-md text-gray-400 cursor-not-allowed">
-              View Live Site
-            </span>
-          )}
-          {fullItem.githubUrl ? (
-            <a href={fullItem.githubUrl} target="_blank" rel="noopener noreferrer" class="text-center border border-secondary rounded-md">
-              View on GitHub
-            </a>
-          ) : (
-            <span class="text-center border border-gray-300 rounded-md text-gray-400 cursor-not-allowed">
-              View on GitHub
-            </span>
-          )}
-        </div>
-      </div>
-
-      {fullItem.features && (
-        <div class="lg:col-span-2">
-          <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
-            <h2 class="text-xl font-semibold mb-4">Features</h2>
-              <Fragment set:html={displayRichText(fullItem.features)} />
+          <div class="portfolio-detail-links">
+            {fullItem.externalUrl ? (
+              <a href={fullItem.externalUrl} target="_blank" rel="noopener noreferrer" class="link text-center">
+                View Live Site
+              </a>
+            ) : (
+              <span class="link link-disabled text-center" aria-disabled="true">
+                View Live Site
+              </span>
+            )}
+            {fullItem.githubUrl ? (
+              <a href={fullItem.githubUrl} target="_blank" rel="noopener noreferrer" class="link text-center">
+                View on GitHub
+              </a>
+            ) : (
+              <span class="link link-disabled text-center" aria-disabled="true">
+                View on GitHub
+              </span>
+            )}
           </div>
         </div>
+
+        {hasImages && (
+          <section class="portfolio-detail-media" aria-label={`${fullItem.title} media gallery`}>
+            <div class="portfolio-carousel" data-carousel>
+              <div class="portfolio-carousel-track" data-carousel-track>
+                {imageItems.map((image, index) => (
+                  <figure
+                    class={`portfolio-carousel-slide${index === 0 ? ' is-active' : ''}`}
+                    data-carousel-slide
+                    aria-hidden={index === 0 ? 'false' : 'true'}
+                  >
+                    <img
+                      src={image.url}
+                      alt={image.description || image.title || `${fullItem.title} screenshot ${index + 1}`}
+                      loading={index === 0 ? 'eager' : 'lazy'}
+                    />
+                    {(image.title || image.description) && (
+                      <figcaption>
+                        {image.title && <strong>{image.title}</strong>}
+                        {image.description && <span>{image.description}</span>}
+                      </figcaption>
+                    )}
+                  </figure>
+                ))}
+              </div>
+
+              {imageItems.length > 1 && (
+                <div class="portfolio-carousel-controls">
+                  <button type="button" class="portfolio-carousel-button" data-carousel-prev aria-label="Show previous image">
+                    Previous
+                  </button>
+                  <div class="portfolio-carousel-dots" aria-label="Choose image">
+                    {imageItems.map((image, index) => (
+                      <button
+                        type="button"
+                        class={`portfolio-carousel-dot${index === 0 ? ' is-active' : ''}`}
+                        data-carousel-dot
+                        data-slide-index={index}
+                        aria-label={`Show image ${index + 1}${image.title ? `: ${image.title}` : ''}`}
+                        aria-pressed={index === 0 ? 'true' : 'false'}
+                      />
+                    ))}
+                  </div>
+                  <button type="button" class="portfolio-carousel-button" data-carousel-next aria-label="Show next image">
+                    Next
+                  </button>
+                </div>
+              )}
+            </div>
+          </section>
+        )}
+      </section>
+
+      {fullItem.features && (
+        <section class="portfolio-detail-side" data-portfolio-detail-side>
+          <div class="portfolio-detail-panel portfolio-detail-richtext" data-portfolio-detail-panel>
+            <h2 class="text-xl font-semibold mb-4">Features</h2>
+            <div class="portfolio-detail-richtext-content">
+              <Fragment set:html={displayRichText(fullItem.features)} />
+            </div>
+          </div>
+        </section>
       )}
 
       {fullItem.isIframe && fullItem.externalUrl && (
-        <div class="lg:col-span-2">
-          <div class="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
+        <section class="portfolio-detail-full">
+          <div class="portfolio-detail-panel">
             <span class="text-lg font-semibold">Live Demo</span>
             <iframe 
               src={fullItem.externalUrl} 
-              class="w-full h-[600px] mt-1 border border-gray-300 dark:border-gray-600 rounded-lg"
+              class="portfolio-detail-iframe"
               title={`${fullItem.title} live demo`}
               loading="lazy"
             ></iframe>
           </div>
-        </div>
+        </section>
       )}
     </div>
   </div>
 </BaseLayout>
+
+<script>
+  const carousels = document.querySelectorAll('[data-carousel]');
+
+  carousels.forEach((carousel) => {
+    const slides = Array.from(carousel.querySelectorAll('[data-carousel-slide]'));
+    const dots = Array.from(carousel.querySelectorAll('[data-carousel-dot]'));
+    const previousButton = carousel.querySelector('[data-carousel-prev]');
+    const nextButton = carousel.querySelector('[data-carousel-next]');
+
+    if (slides.length <= 1) {
+      return;
+    }
+
+    let activeIndex = 0;
+
+    const renderSlides = () => {
+      slides.forEach((slide, index) => {
+        const isActive = index === activeIndex;
+        slide.classList.toggle('is-active', isActive);
+        slide.setAttribute('aria-hidden', String(!isActive));
+      });
+
+      dots.forEach((dot, index) => {
+        const isActive = index === activeIndex;
+        dot.classList.toggle('is-active', isActive);
+        dot.setAttribute('aria-pressed', String(isActive));
+      });
+    };
+
+    const showSlide = (index) => {
+      activeIndex = (index + slides.length) % slides.length;
+      renderSlides();
+    };
+
+    previousButton?.addEventListener('click', () => showSlide(activeIndex - 1));
+    nextButton?.addEventListener('click', () => showSlide(activeIndex + 1));
+
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => showSlide(index));
+    });
+  });
+
+  const syncPortfolioFeatureHeights = () => {
+    const detailGrids = document.querySelectorAll('[data-portfolio-detail-grid]');
+
+    detailGrids.forEach((grid) => {
+      const mainColumn = grid.querySelector('[data-portfolio-detail-main]');
+      const sideColumn = grid.querySelector('[data-portfolio-detail-side]');
+      const sidePanel = grid.querySelector('[data-portfolio-detail-panel]');
+
+      if (!(mainColumn instanceof HTMLElement) || !(sideColumn instanceof HTMLElement) || !(sidePanel instanceof HTMLElement)) {
+        return;
+      }
+
+      if (window.innerWidth < 1024) {
+        sideColumn.style.height = '';
+        sidePanel.style.height = '';
+        return;
+      }
+
+      const mainHeight = mainColumn.offsetHeight;
+      sideColumn.style.height = `${mainHeight}px`;
+      sidePanel.style.height = `${mainHeight}px`;
+    });
+  };
+
+  syncPortfolioFeatureHeights();
+  window.addEventListener('resize', syncPortfolioFeatureHeights);
+
+  const observedMainColumns = document.querySelectorAll('[data-portfolio-detail-main]');
+  const resizeObserver = new ResizeObserver(() => {
+    syncPortfolioFeatureHeights();
+  });
+
+  observedMainColumns.forEach((column) => {
+    resizeObserver.observe(column);
+  });
+</script>
