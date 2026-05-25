@@ -1,4 +1,5 @@
 import React from 'react';
+import { normalizeAssetUrl } from '../lib/utils';
 
 interface RecipeImageProps {
   imageUrl?: string;
@@ -6,8 +7,10 @@ interface RecipeImageProps {
 }
 
 export function createRecipeImage({ imageUrl, recipeName }: RecipeImageProps): React.ReactElement<HTMLImageElement> {
-  if (imageUrl) {
-    return <img className="recipe-image" src={imageUrl} alt={recipeName} />;
+  const normalizedImageUrl = normalizeAssetUrl(imageUrl);
+
+  if (normalizedImageUrl) {
+    return <img className="recipe-image" src={normalizedImageUrl} alt={recipeName} />;
   }
   return <img className="recipe-image" src="/images/no-image.jpg" alt="No image available" />;
 }

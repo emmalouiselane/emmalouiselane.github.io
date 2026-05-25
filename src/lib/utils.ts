@@ -5,6 +5,18 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
+export function normalizeAssetUrl(url?: string): string | undefined {
+  if (!url) {
+    return undefined;
+  }
+
+  if (url.startsWith('//')) {
+    return `https:${url}`;
+  }
+
+  return url;
+}
+
 export function mapEntry<T>(item: T): T {
   if (item && typeof item === 'object' && 'slug' in item && typeof item.slug === 'string') {
     return {

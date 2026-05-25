@@ -1,0 +1,60 @@
+---
+import { displayRichText } from '../lib/richTextOptions';
+import type { Recipe } from '../lib/types/recipe';
+
+interface Props {
+  recipe: Recipe;
+  imageUrl?: string;
+}
+
+const { recipe, imageUrl } = Astro.props;
+
+const stripHtml = (html: string) =>
+  html
+    .replace(/<br\s*\/?>/gi, '\n')
+    .replace(/<\/(p|li|h[1-6]|blockquote)>/gi, '\n')
+    .replace(/<[^>]+>/g, '')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/\r/g, '');
+
+const richTextToLines = (richText?: { json?: unknown } | null) => {
+  const html = displayRichText(richText);
+
+  if (!html) {
+    return [];
+  }
+
+  return stripHtml(html)
+    .split('\n')
+    .map((line) => line.trim())
+    .filter(Boolean);
+};
+
+const recipeIngredients = richTextToLines(recipe.ingredients);
+const recipeInstructions = richTextToLines(recipe.directions);
+
+const recipeStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'Recipe',
+  name: recipe.name,
+  description: `Recipe for ${recipe.name}`,
+  url: new URL(Astro.url.pathname, Astro.site).toString(),
+  ...(imageUrl ? { image: [imageUrl] } : {}),
+  ...(recipeIngredients.length > 0 ? { recipeIngredient: recipeIngredients } : {}),
+  ...(recipeInstructions.length > 0
+    ? {
+        recipeInstructions: recipeInstructions.map((step) => ({
+          '@type': 'HowToStep',
+          text: step,
+        })),
+      }
+    : {}),
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(recipeStructuredData)} />

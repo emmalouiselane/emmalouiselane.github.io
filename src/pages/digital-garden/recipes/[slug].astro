@@ -6,7 +6,9 @@ import { ToastContainer } from 'react-toastify';
 import type { Recipe } from '../../../lib/types/recipe';
 import { getAllRecipes, getRecipeBySlug } from '../../../lib/contentful';
 import { displayRichText } from '../../../lib/richTextOptions';
+import { normalizeAssetUrl } from '../../../lib/utils';
 
+import RecipeStructuredData from '../../../components/RecipeStructuredData.astro';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 
 export const getStaticPaths = (async () => {
@@ -28,6 +30,8 @@ if (!recipe?.slug) {
 const fullRecipe = await getRecipeBySlug(recipe.slug);
 const hasImages = fullRecipe.imagesCollection && fullRecipe.imagesCollection.items && fullRecipe.imagesCollection.items.length > 0;
 const firstImage = hasImages && fullRecipe.imagesCollection?.items[0] ? fullRecipe.imagesCollection?.items[0] : null;
+
+const recipeImageUrl = normalizeAssetUrl(firstImage?.url);
 
 ---
 
@@ -60,11 +64,14 @@ const firstImage = hasImages && fullRecipe.imagesCollection?.items[0] ? fullReci
   });  
 </script>
 
-<BaseLayout title={fullRecipe.name} description={"Recipe for " + fullRecipe.name}>
+<BaseLayout title={fullRecipe.name} description={"Recipe for " + fullRecipe.name} image={recipeImageUrl}>
+  
+  <RecipeStructuredData recipe={fullRecipe} imageUrl={recipeImageUrl} />
+  
   <ToastContainer client:load theme="light" position="top-right" 
                   closeOnClick={false} autoClose={2500} pauseOnFocusLoss={false}
                   draggable={false} pauseOnHover={false}/>
-  <div class="container recipe" itemscope itemtype="http://schema.org/Recipe">    
+  <div class="container recipe">    
     <div class="row">
       <div class="flex flex-row justify-between">
         <h1 class="text-2xl font-bold mb-2 ml-2">{fullRecipe.name}</h1>
@@ -108,7 +115,7 @@ const firstImage = hasImages && fullRecipe.imagesCollection?.items[0] ? fullReci
       {hasImages && firstImage && (
         <div class="size-fit my-auto mx-auto">
           <img 
-            src={firstImage.url} 
+            src={recipeImageUrl} 
             alt={firstImage.title || fullRecipe.name}
             class="w-full h-96 object-cover rounded-lg"
           />

@@ -8,9 +8,10 @@ import '../styles/global.scss'; // Custom SCSS
 interface Props {
   title?: string;
   description?: string;
+  image?: string;
 }
 
-const { title, description } = Astro.props;
+const { title, description, image } = Astro.props;
 const pathname = Astro.url.pathname;
 const isRootPath = pathname === '/';
 ---
@@ -19,7 +20,7 @@ const isRootPath = pathname === '/';
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <SEOComponent title={title} description={description} />
+    <SEOComponent title={title} description={description} image={image} />
     
     <!-- Tinylytics -->
     <script src="https://tinylytics.app/embed/XpJY1f7mwvZcsmaUenvF.js?kudos=❤️" defer></script>
