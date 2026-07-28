@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, Moon, Sun, Flower, Leaf, Citrus } from "lucide-react";
+import { Menu, Moon, Sun } from "lucide-react";
 import { useTracking } from "../hooks/useTracking";
 
 const NavbarComponent = () => {
     const { trackEvent } = useTracking();
-    const [isDarkMode, setIsDarkMode] = useState(true);
-    const [colorTheme, setColorTheme] = useState('green');
+    const [isDarkMode, setIsDarkMode] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
 
     const handleNavigation = (section: string) => {
@@ -20,15 +19,14 @@ const NavbarComponent = () => {
 
     const navLinks = [
         {
-            text: "Blog", path: "/blog-posts/"
+            text: "Journal", path: "/blog-posts/"
         },
         {
-            text: "Dissertation", path: "/dissertation/"
+            text: "Research", path: "/dissertation/"
         },
         {
-            text: "Digital Garden", path: "/digital-garden/", children: [
+            text: "Garden", path: "/digital-garden/", children: [
                 { text: "Portfolio", path: "/portfolio/" },
-                { text: "Dissertation", path: "/dissertation/" },
                 { text: "Recipes", path: "/digital-garden/recipes/" },
                 { text: "Gaming", path: "/digital-garden/gaming/" },
                 { text: "Reading", path: "/digital-garden/reading/" },
@@ -44,81 +42,57 @@ const NavbarComponent = () => {
     const toggleDarkMode = () => {
         const isDark = document.documentElement.classList.toggle('dark');
         setIsDarkMode(isDark);
-        // localStorage is handled by the MutationObserver in BaseLayout
-    };
-
-    const toggleColorTheme = () => {
-        const themes = ['green', 'pink', 'peach'];
-        const currentIndex = themes.indexOf(colorTheme);
-        const newTheme = themes[(currentIndex + 1) % themes.length];
-        setColorTheme(newTheme);
-        document.documentElement.setAttribute('data-color-theme', newTheme);
-        localStorage.setItem('colorTheme', newTheme);
     };
 
     useEffect(() => {
         setIsDarkMode(document.documentElement.classList.contains('dark'));
-        const savedTheme = localStorage.getItem('colorTheme') || 'green';
-        setColorTheme(savedTheme);
-        document.documentElement.setAttribute('data-color-theme', savedTheme);
     }, []);
 
     return (
-        <nav className="border-b bg-background sticky top-0 z-50 w-full backdrop-blur supports-[backdrop-filter]:bg-background/60">
-            <div className="container mx-auto flex h-16 items-center justify-between px-4">
-                <a className="font-bold text-4xl no-underline text-foreground hover:text-[var(--color-highlight)] transition-colors font-montserrat" href="/">
-                    Spark Lane
+        <nav className="site-nav sticky top-0 z-50 w-full">
+            <div className="site-nav__inner container mx-auto flex min-h-20 items-center justify-between gap-4 px-4 py-3">
+                <a className="site-nav__brand no-underline" href="/">
+                    <span className="site-nav__brand-mark">Spark Lane</span>
+                    <span className="site-nav__brand-tag">code, notes and curiosities</span>
                 </a>
 
-                {/* Desktop Navigation */}
-                <div className="hidden md:flex items-center gap-6">
+                {/* Desktop navigation */}
+                <div className="hidden md:flex items-center gap-3">
                     {navLinks.map((link) => (
                         <a
                             key={link.path}
                             href={link.path}
-                            className="text-sm font-medium transition-colors hover:text-[var(--color-highlight)] text-muted-foreground no-underline"
+                            className="site-nav__link no-underline"
                             onClick={() => handleNavigation(link.text)}
                         >
                             {link.text}
                         </a>
                     ))}
 
-                    <div className="flex items-center gap-2">
-                        <Button variant="ghost" size="icon" onClick={toggleColorTheme} aria-label="Toggle color theme" className={colorTheme === 'green' ? 'hover:text-pink-500' : colorTheme === 'pink' ? 'hover:text-orange-400' : 'hover:text-green-500'}>
-                            {colorTheme === 'green' && <Flower className="h-[1.2rem] w-[1.2rem]" />}
-                            {colorTheme === 'pink' && <Citrus className="h-[1.2rem] w-[1.2rem]" />}
-                            {colorTheme === 'peach' && <Leaf className="h-[1.2rem] w-[1.2rem]" />}
-                        </Button>
-                        <Button variant="ghost" size="icon" onClick={toggleDarkMode} aria-label="Toggle theme" className={isDarkMode ? 'hover:text-yellow-500' : 'hover:text-gray-400'}>
-                            {isDarkMode ? <Sun className="h-[1.2rem] w-[1.2rem]" /> : <Moon className="h-[1.2rem] w-[1.2rem]" />}
-                        </Button>
-                    </div>
+                    <Button variant="ghost" size="icon" onClick={toggleDarkMode} aria-label="Toggle theme" className="site-nav__icon-button ml-2">
+                        {isDarkMode ? <Sun className="h-[1.2rem] w-[1.2rem]" /> : <Moon className="h-[1.2rem] w-[1.2rem]" />}
+                    </Button>
                 </div>
 
-                {/* Mobile Navigation */}
+                {/* Mobile navigation */}
                 <div className="md:hidden flex items-center gap-2">
-                    <Button variant="ghost" size="icon" onClick={toggleColorTheme} aria-label="Toggle color theme" className={colorTheme === 'green' ? 'hover:text-pink-500' : colorTheme === 'pink' ? 'hover:text-orange-400' : 'hover:text-green-500'}>
-                        {colorTheme === 'green' && <Flower className="h-[1.2rem] w-[1.2rem]" />}
-                        {colorTheme === 'pink' && <Citrus className="h-[1.2rem] w-[1.2rem]" />}
-                        {colorTheme === 'peach' && <Leaf className="h-[1.2rem] w-[1.2rem]" />}
-                    </Button>
-                    <Button variant="ghost" size="icon" onClick={toggleDarkMode} aria-label="Toggle theme" className={`mr-2 ${isDarkMode ? 'hover:text-yellow-500' : 'hover:text-gray-400'}`}>
+                    <Button variant="ghost" size="icon" onClick={toggleDarkMode} aria-label="Toggle theme" className="site-nav__icon-button mr-2">
                         {isDarkMode ? <Sun className="h-[1.2rem] w-[1.2rem]" /> : <Moon className="h-[1.2rem] w-[1.2rem]" />}
                     </Button>
 
                     <Sheet open={isOpen} onOpenChange={setIsOpen}>
                         <SheetTrigger asChild>
-                            <Button variant="ghost" size="icon" aria-label="Menu">
+                            <Button variant="ghost" size="icon" aria-label="Menu" className="site-nav__icon-button">
                                 <Menu className="h-6 w-6" />
                             </Button>
                         </SheetTrigger>
-                        <SheetContent side="right">
+                        <SheetContent side="right" className="site-nav__sheet">
                             <div className="flex flex-col gap-6 mt-10 mobile-nav-container">
                                 {navLinks.map((link) => (
                                     <div key={link.path} className="flex flex-col gap-6">
                                         <a
                                             href={link.path}
-                                            className="text-lg font-medium hover:text-[var(--color-highlight)] transition-colors no-underline"
+                                            className="text-lg font-medium transition-colors no-underline"
                                             onClick={() => handleNavigation(link.text)}
                                         >
                                             {link.text}
@@ -130,7 +104,7 @@ const NavbarComponent = () => {
                                                     <a
                                                         key={child.path}
                                                         href={child.path}
-                                                        className="text-base font-normal hover:text-[var(--color-highlight)] transition-colors no-underline"
+                                                        className="text-base font-normal transition-colors no-underline"
                                                         onClick={() => handleNavigation(child.text)}
                                                     >
                                                         {child.text}
@@ -150,3 +124,6 @@ const NavbarComponent = () => {
 };
 
 export default NavbarComponent;
+
+
+

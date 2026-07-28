@@ -2,32 +2,26 @@
 :root {
   /* ---------- BACKGROUND & SURFACE ---------- */
   /* --color-background handled by global.css */
-  --color-surface: #FFFFFF;
-  /* White for cards, panels, content blocks */
-  --color-accent-light: #ffb2cf;
-  /* Pastel Ice Blue for section backgrounds / hover */
+  --color-surface: #fff6eb;
+  --color-accent-light: #f0d2bd;
+  --color-accent-light-faded: rgba(240, 210, 189, 0.76);
 
   /* ---------- TEXT ---------- */
   /* --color-text handled by global.css (foreground) */
-  --color-heading: #003366;
-  /* Navy headings for hierarchy */
-  --color-text-light: #4F5969;
-  /* For secondary or meta text */
+  --color-heading: #38251c;
+  --color-text-light: #7a5b49;
 
   /* ---------- HIGHLIGHT / INTERACTIVE ---------- */
-  --color-highlight: #be5175;
-  /* Purple for hover states, active buttons */
-  --color-accent-highlight: #c86895;
-  /* Light Purple for badges, small accents */
+  --color-highlight: #91462e;
+  --color-accent-highlight: #d18555;
 
-  /* ---------- DEPTH / ATMOSPHERE ---------- */
-  --color-surface-elevated: #ffffff;
-  --color-border-soft: rgba(25, 36, 54, 0.12);
-  --color-bg-glow-1: rgba(190, 81, 117, 0.14);
-  --color-bg-glow-2: rgba(13, 135, 17, 0.12);
-  --shadow-soft: 0 8px 30px rgba(16, 24, 40, 0.08);
-  --shadow-lift: 0 12px 36px rgba(16, 24, 40, 0.14);
-
+  /* ---------- DEPTH & ATMOSPHERE ---------- */
+  --color-surface-elevated: #fff9f2;
+  --color-border-soft: rgba(123, 71, 47, 0.18);
+  --color-bg-glow-1: rgba(184, 95, 60, 0.16);
+  --color-bg-glow-2: rgba(196, 109, 71, 0.07);
+  --shadow-soft: 0 18px 40px rgba(124, 72, 48, 0.1);
+  --shadow-lift: 0 24px 50px rgba(124, 72, 48, 0.16);
 
   /* Max widths */
   --maxWidth-none: "none";
@@ -59,9 +53,10 @@
   --spacing-32: 8rem;
 
   /* Typography */
-  --fontFamily: "Nunito", sans-serif;
-  --font-body: var(--fontFamily);
-  --font-heading: var(--fontFamily);
+  --font-body: "Merriweather", serif;
+  --font-heading: "Montserrat Variable", "Montserrat", sans-serif;
+  --font-ui: "Montserrat Variable", "Montserrat", sans-serif;
+  --font-code: "Montserrat Variable", "Montserrat", monospace;
   --fontWeight-normal: 400;
   --fontWeight-boldish: 500;
   --fontWeight-bold: 700;
@@ -72,94 +67,28 @@
   --lineHeight-relaxed: 1.625;
 }
 
-/* ---------- DARK MODE ---------- */
 .dark-html.dark,
 .dark {
-  /* Colors handled by global.css:
-     --color-primary
-     --color-secondary
-     --color-accent
-     --color-background
-     --color-text (foreground)
-  */
-
-  /* ---------- BACKGROUND & SURFACE ---------- */
-  --color-surface: #1e293b;
-  /* Dark Blue-Grey for panels */
-  --color-accent-light: #334155;
-  --color-accent-light-faded: #334155a8;
-  --color-accent-lighter: #667799;
-  /* Dark Slate for section backgrounds or hover areas */
-
-  /* ---------- TEXT ---------- */
-  --color-heading: #E0F7FA;
-  /* Pastel Blue headings for hierarchy */
-  --color-text-light: #94A3B8;
-  /* Secondary / meta text */
-
-  /* ---------- HIGHLIGHT / INTERACTIVE ---------- */
-  --color-highlight: #AB47BC;
-  /* Lighter Purple for hover states */
-  --color-accent-highlight: #CE93D8;
-  /* Very Light Purple for accents */
-
-  /* ---------- DEPTH / ATMOSPHERE ---------- */
-  --color-surface-elevated: #0f172a;
-  --color-border-soft: rgba(148, 163, 184, 0.22);
-  --color-bg-glow-1: rgba(171, 71, 188, 0.2);
-  --color-bg-glow-2: rgba(33, 150, 243, 0.16);
-  --shadow-soft: 0 14px 34px rgba(2, 6, 23, 0.45);
-  --shadow-lift: 0 18px 42px rgba(2, 6, 23, 0.6);
+  --color-surface: #242027;
+  --color-accent-light: #403443;
+  --color-accent-light-faded: rgba(64, 52, 67, 0.72);
+  --color-accent-lighter: #55485b;
+  --color-heading: #f3ebe4;
+  --color-text-light: #d6c9c0;
+  --color-highlight: #d99a6c;
+  --color-accent-highlight: #e6b181;
+  --color-surface-elevated: #2b2630;
+  --color-border-soft: rgba(220, 188, 178, 0.16);
+  --color-bg-glow-1: rgba(217, 154, 108, 0.1);
+  --color-bg-glow-2: rgba(196, 109, 71, 0.07);
+  --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.22);
+  --shadow-lift: 0 24px 52px rgba(0, 0, 0, 0.3);
 }
 
-/* ---------- PINK THEME OVERRIDES ---------- */
-[data-color-theme="pink"] {
- /* ---------- HIGHLIGHT / INTERACTIVE ---------- */
- --color-highlight: #81D4FA;
- /* Light Sky Blue for hover states, active buttons */
- --color-accent-highlight: #B3E5FC;
- /* Pale Blue for badges, small accents */
 
-  --color-accent-light: #E0F7FA;
-  --color-bg-glow-1: rgba(56, 189, 248, 0.18);
-  --color-bg-glow-2: rgba(244, 114, 182, 0.14);
-}
 
-[data-color-theme="pink"].dark-html.dark,
-[data-color-theme="pink"].dark {
- /* ---------- HIGHLIGHT / INTERACTIVE ---------- */
- --color-highlight: #38BDF8;
- /* Sky Blue for hover states */
- --color-accent-highlight: #7DD3FC;
- /* Lighter Blue for accents */
 
-  --color-accent-light: #E0F7FA;
-  --color-bg-glow-1: rgba(56, 189, 248, 0.2);
-  --color-bg-glow-2: rgba(236, 72, 153, 0.16);
-}
 
-/* ---------- PEACH THEME OVERRIDES ---------- */
-[data-color-theme="peach"] {
- /* ---------- HIGHLIGHT / INTERACTIVE ---------- */
- --color-highlight: #fea778;
- /* Peach for hover states, active buttons */
- --color-accent-highlight: #ffb999;
- /* Light Peach for badges, small accents */
 
-  --color-accent-light: #ffe0d4;
-  --color-bg-glow-1: rgba(254, 167, 120, 0.2);
-  --color-bg-glow-2: rgba(189, 85, 0, 0.14);
-}
 
-[data-color-theme="peach"].dark-html.dark,
-[data-color-theme="peach"].dark {
- /* ---------- HIGHLIGHT / INTERACTIVE ---------- */
- --color-highlight: #fea778;
- /* Darker Peach for hover states */
- --color-accent-highlight: #ffb999;
- /* Medium Peach for accents */
 
-  --color-accent-light: #ffe0d4;
-  --color-bg-glow-1: rgba(254, 167, 120, 0.22);
-  --color-bg-glow-2: rgba(249, 115, 22, 0.16);
-}

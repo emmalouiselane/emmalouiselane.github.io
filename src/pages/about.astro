@@ -1,81 +1,84 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const careerStart = new Date(2012, 8, 1);
+const now = new Date();
+
+const yearsExperience = now.getFullYear() - careerStart.getFullYear() - (now.getMonth() < careerStart.getMonth() ? 1 : 0);
 ---
 
 <BaseLayout title="About Me" description="Learn more about Emma Lane - Senior Software Engineer & Team Lead">
-  <div class="container">    
-    <div class="row">
-      <div class="flex flex-row">  
-        <img src="/images/real-profile-pic.jpg" 
-            alt="Emma Lane" 
-            class="w-30 h-30 my-auto mx-auto rounded-full" />
-      
-        <div>
-           <h1 class="text-2xl font-bold text-center">About Me</h1>
-            <div class="col text-center mx-2">
-              <p>Hello! I'm Emma Lane, a Senior Software Engineer and Team Lead with over 12 years of experience in software engineering across multiple technologies, projects, and domains. </p>
-              <p>I thrive in start-up and scale-up environments, bringing strong technical expertise and leadership to every project.</p>
-            </div>
-        </div>
-      </div>
-    </div>
+  <div class="about-page">
+    <section class="about-hero">
+      <img
+        src="/images/real-profile-pic.jpg"
+        alt="Emma Lane"
+        class="about-hero__image"
+      />
 
-    <div class="row">
-      <p class="font-bold text-center">Welcome to Spark Lane, my digital garden where I share my journey through code, leadership, and continuous learning.</p>
-    </div>
-    
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
-      <div class="md:col-span-1">
-        <div class="row">
-          <div class="border border-gray-200 p-4 rounded-lg">
-            <h2 class="text-xl">Beyond Code</h2>
-            <p class="text-sm">When I'm not coding, you'll find me working on my masters degree, exploring creative pursuits, experimenting in the kitchen, or diving into gaming worlds. I feel that diverse interests fuel creativity and bring fresh perspectives to technical problem-solving.</p>
-            <p class="text-sm">Whether it's debugging a complex issue, perfecting a recipe, or strategizing in a game, I approach everything with curiosity, persistence, and a desire to learn and improve.</p>
-          </div>
-        </div>
+      <div class="pressed-hero-flower pressed-hero-flower--bloom" aria-hidden="true">
+        <img src="/images/flowers/pressed-bloom.svg" alt="" />
       </div>
+
+      <div class="about-hero__copy">
+        <p class="home-kicker">About me</p>
+        <h1>Hello hello! I'm Emma.</h1>
+        <p>
+          I'm a Senior Software Engineer and Team Lead with over {yearsExperience} years of experience across different technologies, projects, and domains.
+          I thrive in start-up and scale-up environments, bringing strong technical expertise and leadership to every project.
+        </p>
+        <p>
+          Spark Lane is my digital garden, where I share my journey through code, leadership, creative pursuits and continuous learning.
+        </p>
+      </div>
+    </section>
+
+    <div class="about-content-grid">
+      <aside class="about-card about-card--side">
+        <p class="home-card__eyebrow">Beyond code</p>
+        <h2>Curiosity tends to spill over.</h2>
+        <p>When I'm not coding, you'll find me exploring creative pursuits, experimenting in the kitchen, working on my latest garden project or diving into gaming worlds. I feel that diverse interests fuel creativity and bring fresh perspectives to technical problem-solving.</p>
+      </aside>
       
-      <div class="md:col-span-2">
+      <section class="about-card about-card--main">
         <!-- Right Column - Tab Navigation and Content -->
         <div class="about-me-container">
-          <div class="border-b border-gray-200">
-            <nav class="flex space-x-8" aria-label="Tabs">
-              <button 
-                onclick="showTab('philosophy')" 
-                id="philosophy-btn"
-                class="tab-btn active border-b-2 py-2 px-1 text-sm font-medium transition-all duration-200 ease-in-out hover:opacity-80 cursor-pointer"
-              >
-                Approach & Philosophy
-              </button>
-              <button 
-                onclick="showTab('space')" 
-                id="space-btn"
-                class="tab-btn border-b-2 border-transparent py-2 px-1 text-sm font-medium transition-all duration-200 ease-in-out hover:opacity-80 cursor-pointer"
-              >
-                This Space
-              </button>
-              <button 
-                onclick="showTab('technical')" 
-                id="technical-btn"
-                class="tab-btn border-b-2 border-transparent py-2 px-1 text-sm font-medium transition-all duration-200 ease-in-out hover:opacity-80 cursor-pointer"
-              >
-                Technical Expertise
-              </button>
-              <button 
-                onclick="showTab('experience')" 
-                id="experience-btn"
-                class="tab-btn border-b-2 border-transparent py-2 px-1 text-sm font-medium transition-all duration-200 ease-in-out hover:opacity-80 cursor-pointer"
-              >
-                Professional Experience
-              </button>
-            </nav>
-          </div>
+          <nav class="about-tabs" aria-label="Tabs">
+            <button 
+              onclick="showTab('philosophy')" 
+              id="philosophy-btn"
+              class="tab-btn active"
+            >
+              Approach & Philosophy
+            </button>
+            <button 
+              onclick="showTab('space')" 
+              id="space-btn"
+              class="tab-btn"
+            >
+              This Space
+            </button>
+            <button 
+              onclick="showTab('technical')" 
+              id="technical-btn"
+              class="tab-btn"
+            >
+              Technical Expertise
+            </button>
+            <button 
+              onclick="showTab('experience')" 
+              id="experience-btn"
+              class="tab-btn"
+            >
+              Professional Experience
+            </button>
+          </nav>
         </div>
         
         <!-- Tab Content -->
-        <div class="mt-8">
+        <div class="about-tab-panel">
           <!-- Approach & Philosophy Tab -->
-          <div id="philosophy-content" class="tab-content text-sm">
+          <div id="philosophy-content" class="tab-content">
             <p>
               I believe in writing clean, maintainable code and creating user experiences that are both functional and delightful. I approach development with an emphasis on accessibility first, continuous learning, community engagement, and user-centred design. By prioritising these principles, I aim to build inclusive experiences that work for everyone, foster a culture of continuous improvement, and contribute to the advancement of the tech industry as a whole.
             </p> 
@@ -88,23 +91,23 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           </div>
           
           <!-- This Space Tab -->
-          <div id="space-content" class="tab-content text-sm hidden">
-            <p>Spark Lane is where I document my professional journey, share technical insights, and explore creative pursuits. Here you'll find:</p>
+          <div id="space-content" class="tab-content hidden">
+            <p>Spark Lane is where I keep the different parts of my work and interests in one place. It is part professional portfolio, part blog, and part digital garden for the things I am learning, making and enjoying. Here you'll find:</p>
             <ul>
-              <li><strong>Blog Posts</strong>: Technical tutorials, development insights, and industry thoughts; as well as more personal and ethical musings</li>
-              <li><strong>Portfolio</strong>: Projects showcasing my skills, problem-solving approach, and creative pursuits</li>
-              <li><strong>Recipes</strong>: A creative outlet sharing favorite dishes and any culinary experiments</li>
-              <li><strong>Gaming</strong>: Personal guides, resources and references for games, combining technical analysis with gaming passion</li>
+              <li><strong>Blog Posts</strong>: Technical posts, accessibility thoughts, development notes, dissertation updates and the odd personal musing</li>
+              <li><strong>Portfolio</strong>: Selected projects that show how I approach software engineering, problem-solving, accessibility and user-centred design</li>
+              <li><strong>Dissertation Hub</strong>: My MSc Deepfake Defence project and all related dissertation writing in one place</li>
+              <li><strong>Digital Garden</strong>: Recipes, reading notes, music recommendations, watch lists and cosy gaming references</li>
             </ul>
           </div>
           
           <!-- Technical Expertise Tab -->
-          <div id="technical-content" class="tab-content text-sm hidden">
+          <div id="technical-content" class="tab-content hidden">
             <p>I work with a diverse and modern tech stack, CI/CD and with a deep expertise in a multitude of technologies:</p>
             <ul>
               <li><strong>Backend</strong>: C#, .NET & .NET Core, ASP.NET, NodeJS, NestJS, Python, Java</li>
               <li><strong>Frontend</strong>: React, VueJS, NextJS, AngularJS, TypeScript as well as various CSS frameworks</li>
-              <li><strong>CMS</strong>: Umbraco, Wordpress, Contentful</li>
+              <li><strong>CMS</strong>: Umbraco, WordPress, Contentful</li>
               <li><strong>Databases</strong>: MS SQL, MySQL, PostgreSQL, NoSQL (12 years of SQL experience)</li>              
               <li><strong>Cloud & DevOps</strong>: Azure DevOps, Azure Web Apps, Azure Functions, Docker</li>
               <li><strong>Testing</strong>: Jest, Cypress, Selenium, Playwright</li>
@@ -112,13 +115,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           </div>
           
           <!-- Professional Experience Tab -->
-          <div id="experience-content" class="tab-content text-sm hidden">
+          <div id="experience-content" class="tab-content hidden">
             <p>With extensive experience across the entire software lifecycle, I've successfully designed, developed and deployed numerous desktop and web-based applications while working with and managing mixed-discipline teams. </p>
-            <p>My career spans from apprentice to junior development to team leadership, with key roles including: Team Lead, Senior Software Engineer and Lead Back-end Developer.</p>
+            <p>My career spans from apprentice to junior developer to team leadership, with key roles including: Team Lead, Senior Software Engineer and Lead Back-end Developer.</p>
             <p>Throughout my career, I have worked across multiple industries, from fintech to digital agencies to defense, and have delivered projects of varying sizes and complexity while developing strong leadership and technical expertise.</p>
           </div>
         </div>
-      </div>
+      </section>
     </div>
     
     <script is:inline>
@@ -150,12 +153,23 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       }
     </script>
 
-      <div class="row">
-        <div class="text-center">
-          <h2 class="text-xl">Let's Connect!</h2>
-          <p>I'm always excited to connect with my peers. Whether you're interested in collaboration, have a project in mind, or want to discuss leadership and technical challenges, I'd love to hear from you!</p>
-          <p>Feel free to reach out through <a href="https://www.linkedin.com/in/emmalouiselane/" target="_blank" rel="noopener noreferrer">LinkedIn</a> or email me at <a href="mailto:emma@sparklane.dev">emma@sparklane.dev</a>!</p>
-        </div>
-      </div>
+    <section class="about-card about-connect-card">
+      <p class="home-card__eyebrow">Let's connect</p>
+      <h2>Have a project in mind?</h2>
+      <p>I'm always excited to connect with my peers. Whether you're interested in collaboration, have a project in mind, or want to discuss leadership and technical challenges, I'd love to hear from you.</p>
+      <p>Feel free to reach out!</p>
+
+      <a href="https://www.linkedin.com/in/emmalouiselane/" target="_blank" rel="noopener noreferrer" class="about-contact-card">
+        <span class="about-card__cta">LinkedIn</span>
+      </a>
+      <a href="mailto:emma@sparklane.dev" class="about-contact-card">
+        <span class="about-card__cta">Email me</span>
+      </a>
+    </section>
   </div>
 </BaseLayout>
+
+
+
+
+

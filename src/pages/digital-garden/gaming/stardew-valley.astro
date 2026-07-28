@@ -3,101 +3,112 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 ---
 
 <BaseLayout title="Stardew Valley" description="My Stardew Valley guides and resources">
-  <div class="container gaming-item-content">
-    <article>
-        <h2 class="text-xl">Stardew Valley</h2>
-      
-      <section>
-        <div class="row">
-          <div class="col">
-            <p>
-              I love Stardew Valley! It's my ultimate cosy game. I can happily spend hours tending my farm, fishing by the river, exploring the mines, or just wandering through Pelican Town. 
-              With all the mods I use, there's always something new to discover, which makes it even easier to lose track of time in its charm.
-            </p>
-            <p>The resources below are for my own reference and have been added for ease of access - I've either created them, or sourced them elsewhere. Where they've been sourced elsewhere, I've added a note as to the creator/owner.</p>
-          </div>
+  <div class="gaming-detail-page">
+    <section class="gaming-hero gaming-hero--detail">
+      <p class="home-kicker">Cosy game notes</p>
+      <h1>Stardew Valley</h1>
+      <p>
+        My ultimate cosy game. I can happily spend hours tending my farm, fishing by the river, exploring the mines, or wandering through Pelican Town. With the mods I use, there is always something new to discover.
+      </p>
+          <div class="garden-hero-flower garden-hero-flower--herb" aria-hidden="true">
+        <img src="/images/flowers/pressed-herb.svg" alt="" />
+      </div>
+    </section>
+
+    <section class="gaming-note-panel">
+      <p>
+        The resources below are for my own reference and ease of access. I have either created them myself, or sourced them elsewhere and included a note for the creator or owner.
+      </p>
+    </section>
+
+    <section class="gaming-resource-panel" aria-labelledby="stardew-resources-heading">
+      <div class="gaming-resource-panel__header">
+        <p class="home-card__eyebrow">References</p>
+        <h2 id="stardew-resources-heading">Stardew resources</h2>
+      </div>
+
+      <div class="gaming-tabs">
+        <div class="gaming-tab-list" role="tablist" aria-label="Stardew Valley resources">
+          <button class="gaming-tab-button active" id="mods-tab" type="button" role="tab" aria-controls="mods" aria-selected="true" onclick="showTab('mods')">
+            Current Mods
+          </button>
+          <button class="gaming-tab-button" id="museum-tab" type="button" role="tab" aria-controls="museum" aria-selected="true" onclick="showTab('museum')">
+            Museum layout
+          </button>
+          <button class="gaming-tab-button" id="fish-tab" type="button" role="tab" aria-controls="fish" aria-selected="false" onclick="showTab('fish')">
+            Fish guide
+          </button>
         </div>
 
-        <div class="mt-4">
-          <ul class="nav nav-tabs" role="tablist">
-            <li class="nav-item" role="presentation">
-              <button class="nav-link active" id="museum-tab" type="button" role="tab" onclick="showTab('museum')">Museum Layout Reference</button>
-            </li>
-            <li class="nav-item" role="presentation">
-              <button class="nav-link" id="fish-tab" type="button" role="tab" onclick="showTab('fish')">Fish Guide</button>
-            </li>
-          </ul>
-          <div class="tab-content mt-3">
-            <div class="tab-pane fade show active" id="museum" role="tabpanel">
-              <div class="image-layout">
-                <p>Source: <a href="https://www.reddit.com/r/StardewValleyExpanded/comments/1hfag51/my_museum_layout/" target="_blank">u/FoxgloveAndFireflies</a></p>
-                <img 
-                  src="/images/gaming/museum-layout.png" 
-                  alt="Museum Layout Reference"
-                  style="max-width: 100%; height: auto;"
-                />
-              </div>
+        <div class="gaming-tab-content">
+          <div class="gaming-tab-pane show active" id="mods" role="tabpanel" aria-labelledby="mods-tab">
+            <p>The number of available mods for Stardew is insane and continues to keep growing. I usually pick a good number of design change mods that impact the way the buildings look, as well as any character avatar mods or updates to relationship mechanics.</p>
+            <p>However, because of how many mods there are, I've changed my tactic of choosing individual mods (which then becomes a huge maintenance task), I've started using modpacks, with the most recent I'm trying; </p>
+            <ul>
+              <li>
+                <a href="https://www.curseforge.com/stardewvalley/modpacks/dew-it-all" target="_blank">
+                  Dew It All
+                </a>
+                by
+                <a href="https://www.curseforge.com/members/kehaan/projects" target="_blank">
+                  Kehaan
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="gaming-tab-pane" id="museum" role="tabpanel" aria-labelledby="museum-tab">
+            <div class="image-layout">
+              <p>Source: <a href="https://www.reddit.com/r/StardewValleyExpanded/comments/1hfag51/my_museum_layout/" target="_blank" rel="noopener noreferrer">u/FoxgloveAndFireflies</a></p>
+              <img 
+                src="/images/gaming/museum-layout.png" 
+                alt="Museum layout reference for Stardew Valley"
+              />
             </div>
-            <div class="tab-pane fade" id="fish" role="tabpanel">
-              <div class="image-layout">
-                <p>Source: <a href="https://www.reddit.com/r/StardewValley/comments/7rekkf/updated_visual_fish_by_season/" target="_blank">u/Fynzou</a></p>
-                <img 
-                  src="/images/gaming/fish-guide.png" 
-                  alt="Fish Guide"
-                  style="max-width: 100%; height: auto;"
-                />
-              </div>
+          </div>
+
+          <div class="gaming-tab-pane" id="fish" role="tabpanel" aria-labelledby="fish-tab">
+            <div class="image-layout">
+              <p>Source: <a href="https://www.reddit.com/r/StardewValley/comments/7rekkf/updated_visual_fish_by_season/" target="_blank" rel="noopener noreferrer">u/Fynzou</a></p>
+              <img 
+                src="/images/gaming/fish-guide.png" 
+                alt="Visual fish guide for Stardew Valley"
+              />
             </div>
           </div>
         </div>
-      </section>
-    </article>
+      </div>
+    </section>
   </div>
 
   <script is:inline>
     function showTab(tabId) {
-      console.log('showTab called with:', tabId);
-      
-      // Hide all tab panes
-      const tabPanes = document.querySelectorAll('.tab-pane');
-      console.log('Found tab panes:', tabPanes.length);
-      tabPanes.forEach(pane => {
+      // Hide all tab panes before showing the selected resource.
+      const tabPanes = document.querySelectorAll('.gaming-tab-pane');
+      tabPanes.forEach((pane) => {
         pane.classList.remove('show', 'active');
-        pane.style.display = 'none';
       });
       
-      // Remove active class from all tab buttons
-      const tabButtons = document.querySelectorAll('.nav-link');
-      console.log('Found tab buttons:', tabButtons.length);
-      tabButtons.forEach(button => {
+      // Remove active states from all tab buttons.
+      const tabButtons = document.querySelectorAll('.gaming-tab-button');
+      tabButtons.forEach((button) => {
         button.classList.remove('active');
+        button.setAttribute('aria-selected', 'false');
       });
       
-      // Show selected tab pane
+      // Show selected tab pane.
       const selectedPane = document.getElementById(tabId);
-      console.log('Selected pane:', selectedPane);
       if (selectedPane) {
-        selectedPane.style.display = 'block';
         selectedPane.classList.add('show', 'active');
       }
       
-      // Add active class to clicked button
+      // Add active state to the selected tab button.
       const selectedButton = document.getElementById(tabId + '-tab');
-      console.log('Selected button:', selectedButton);
       if (selectedButton) {
         selectedButton.classList.add('active');
+        selectedButton.setAttribute('aria-selected', 'true');
       }
     }
-    
-    // Initialize on page load
-    document.addEventListener('DOMContentLoaded', function() {
-      console.log('Page loaded, initializing tabs');
-      // Ensure first tab is visible
-      const firstPane = document.getElementById('museum');
-      if (firstPane) {
-        firstPane.style.display = 'block';
-        firstPane.classList.add('show', 'active');
-      }
-    });
   </script>
 </BaseLayout>
+

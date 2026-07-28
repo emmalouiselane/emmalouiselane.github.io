@@ -1,7 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getAllPortfolioItems } from "../../lib/contentful";
-import WordCloudComponent from "../../components/WordCloudComponent";
 import type { PortfolioItem } from "../../lib/types/portfolioItem";
 
 const portfolioItems = await getAllPortfolioItems();
@@ -9,9 +8,8 @@ const githubUsername = "emmalouiselane";
 
 const today = new Date();
 
-const sixMonthsAgo = new Date(today);
-sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
-
+const twelveMonthsAgo = new Date(today);
+twelveMonthsAgo.setMonth(twelveMonthsAgo.getMonth() - 12);
 
 const toDateKey = (date: Date) => {
   const y = date.getFullYear();
@@ -78,9 +76,9 @@ try {
 
 const weeks: Array<Array<{ key: string; count: number; level: number; tooltip: string } | null>> = [];
 
-let currentWeek: Array<{ key: string; count: number; level: number; tooltip: string } | null> = new Array(sixMonthsAgo.getDay()).fill(null);
+let currentWeek: Array<{ key: string; count: number; level: number; tooltip: string } | null> = new Array(twelveMonthsAgo.getDay()).fill(null);
 
-for (let cursor = new Date(sixMonthsAgo); cursor <= today; cursor.setDate(cursor.getDate() + 1)) {
+for (let cursor = new Date(twelveMonthsAgo); cursor <= today; cursor.setDate(cursor.getDate() + 1)) {
   const date = new Date(cursor);
   const key = toDateKey(date);
   const day = contributionByDate.get(key) || { count: 0, level: 0, tooltip: `No contributions on ${key}.` };
@@ -107,86 +105,78 @@ const totalContributions = weeks
 ---
 
 <BaseLayout title="Portfolio" description="Take a peek at what I've been working on!">
-  <div class="container portfolio-list" style="width: 100%;">
-    <div class="mb-4">
-      <h1 class="text-2xl font-bold mb-2">Portfolio Projects</h1>
-      <p class="text-sm text-gray-600 dark:text-gray-400">A list of what I have been building.</p>
-    </div>
+  <div class="portfolio-index-page">
+    <section class="portfolio-index-hero">
+      <div>
+        <p class="home-kicker">Portfolio</p>
+        <h1>Projects, experiments and things I have been building.</h1>
+        <p>
+          A collection of selected work, practical builds and creative experiments that show how I approach software engineering, accessibility and user-centred problem solving.
+        </p>
+      </div>
+    </section>
 
-    <div class="portfolio-page-grid">
-      <section class="portfolio-left-col">
+    <article class="portfolio-contribution-panel">
+      <header>
+        <p class="home-card__eyebrow">GitHub activity</p>
+        <p>{totalContributions} contributions across public repositories over the past 12 months.</p>
+      </header>
+
+      {contributionLoadError ? (
+        <p class="github-chart-error">{contributionLoadError}</p>
+      ) : (
+        <div class="contribution-grid" role="img" aria-label={`GitHub contribution chart for ${githubUsername} (last 12 months)`}>
+          {weeks.map((week) => (
+            <div class="contribution-week">
+              {week.map((day) =>
+                day ? (
+                  <span
+                    class={`contribution-cell level-${day.level}`}
+                    data-tooltip={day.tooltip}
+                    tabindex="0"
+                    role="img"
+                    aria-label={day.tooltip}
+                  />
+                ) : (
+                  <span class="contribution-cell contribution-cell-empty" aria-hidden="true" />
+                )
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+    </article>
+
+    <section class="portfolio-project-list" aria-label="Portfolio projects">
       {portfolioItems &&
         portfolioItems
           .sort((a, b) => new Date(b.sys.publishedAt).getTime() - new Date(a.sys.publishedAt).getTime())
           .map((item: PortfolioItem) => (
-            <div class="row">
-              <article class="portfolio-list-item" itemscope itemtype="http://schema.org/CreativeWork">
-                <header class="flex items-center gap-2">
-                  <h2 class="text-xl">
-                    <a href={"/portfolio/" + item.slug + "/"}>{item.title}</a>
-                  </h2>
+            <article class="portfolio-list-item" itemscope itemtype="http://schema.org/CreativeWork">
+              <div class="portfolio-list-item__topline">
+                <h2>
+                  <a href={`/portfolio/${item.slug}/`}>{item.title}</a>
+                </h2>
 
-                  <div class="flex flex-wrap gap-1 mb-2 ml-3">
-                    {item.isInDevelopment && (
-                      <span class="inline-block px-2 py-1 text-xs bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded">
-                        In Development
-                      </span>
-                    )}
+                <div class="portfolio-list-item__badges">
+                  {item.isInDevelopment && (
+                    <span>In Development</span>
+                  )}
 
-                    {item.isIframe && (
-                      <span class="inline-block px-2 py-1 my-auto text-xs bg-green-200 dark:bg-green-700 text-gray-700 dark:text-gray-300 rounded">
-                        Live Demo
-                      </span>
-                    )}
-                  </div>
-                </header>
-                <section>
-                  <p>{item.description}</p>
-                </section>
-              </article>
-            </div>
+                  {item.isIframe && (
+                    <span>Live demo</span>
+                  )}
+                </div>
+              </div>
+
+              <p>{item.description}</p>
+
+              <a class="portfolio-list-item__link" href={`/portfolio/${item.slug}/`}>
+                View project
+              </a>
+            </article>
           ))
       }
-      </section>
-
-      <aside class="portfolio-right-col">
-        <article class="portfolio-contribution-panel">
-          <header class="mb-3">
-            <h2 class="text-xl font-semibold">GitHub Contribution Activity</h2>
-            <p class="text-sm text-gray-600 dark:text-gray-400">{totalContributions} contributions across public repositories over the past 6 months.</p>
-          </header>
-
-          {contributionLoadError ? (
-            <p class="github-chart-error">{contributionLoadError}</p>
-          ) : (
-            <>
-              <div class="contribution-grid" role="img" aria-label={`GitHub contribution chart for ${githubUsername} (last 6 months)`}>
-                {weeks.map((week) => (
-                  <div class="contribution-week">
-                    {week.map((day) =>
-                      day ? (
-                        <span
-                          class={`contribution-cell level-${day.level}`}
-                          data-tooltip={day.tooltip}
-                          tabindex="0"
-                          role="img"
-                          aria-label={day.tooltip}
-                        />
-                      ) : (
-                        <span class="contribution-cell contribution-cell-empty" aria-hidden="true" />
-                      )
-                    )}
-                  </div>
-                ))}
-              </div>
-            </>
-          )}
-        </article>
-
-        <div class="WordCloudComponent-container mt-4">
-          <WordCloudComponent client:load />
-        </div>
-      </aside>
-    </div>
+    </section>
   </div>
 </BaseLayout>

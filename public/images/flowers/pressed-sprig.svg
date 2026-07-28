@@ -1,0 +1,39 @@
+<svg width="220" height="220" viewBox="0 -32 220 252" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Anime pressed cosmos sprig</title>
+  <desc id="desc">A pressed botanical sprig with anime-style ink lines, terracotta cosmos flowers and sage leaves.</desc>
+  <defs>
+    <linearGradient id="petalWarm" x1="70" y1="20" x2="145" y2="132" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#f0b18f" stop-opacity="0.72"/>
+      <stop offset="1" stop-color="#91462e" stop-opacity="0.48"/>
+    </linearGradient>
+    <linearGradient id="leafSage" x1="46" y1="45" x2="166" y2="183" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#c1b783" stop-opacity="0.72"/>
+      <stop offset="1" stop-color="#687052" stop-opacity="0.5"/>
+    </linearGradient>
+  </defs>
+  <g opacity="0.95" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M107 200C109 164 112 122 119 82C123 60 128 43 136 22" stroke="#4f5b43" stroke-width="3.2"/>
+    <path d="M116 100C92 89 74 70 62 43C92 48 111 67 116 100Z" fill="url(#leafSage)" stroke="#4f5b43" stroke-width="1.7"/>
+    <path d="M112 137C84 135 60 121 43 99C74 93 101 109 112 137Z" fill="url(#leafSage)" stroke="#4f5b43" stroke-width="1.7"/>
+    <path d="M110 169C87 174 63 165 43 145C72 135 98 144 110 169Z" fill="url(#leafSage)" stroke="#4f5b43" stroke-width="1.7"/>
+    <path d="M123 77C147 66 166 47 178 22C151 25 130 47 123 77Z" fill="#b7aa78" fill-opacity="0.56" stroke="#4f5b43" stroke-width="1.7"/>
+    <path d="M117 150C147 142 168 126 186 101C157 99 130 118 117 150Z" fill="#a9a071" fill-opacity="0.5" stroke="#4f5b43" stroke-width="1.7"/>
+
+    <g transform="translate(136 25) rotate(-9)">
+      <path d="M0 -9C-14 -34 3 -49 10 -18C29 -37 45 -16 15 -7C42 9 26 31 6 12C-8 38 -31 24 -12 5C-40 -1 -29 -27 -4 -13Z" fill="url(#petalWarm)" stroke="#5e3f42" stroke-width="2"/>
+      <path d="M-3 -18C0 -11 1 -6 0 0M20 -16C13 -10 8 -5 3 1M18 14C12 9 8 5 3 2M-11 20C-7 12 -4 7 -1 2M-22 -4C-13 -4 -7 -3 -1 0" stroke="#fff6eb" stroke-opacity="0.45" stroke-width="1.2"/>
+      <circle cx="1" cy="0" r="6.5" fill="#75483f"/>
+      <circle cx="4" cy="-2" r="1.6" fill="#e8c27f"/>
+      <circle cx="-2" cy="3" r="1.4" fill="#e8c27f" opacity="0.85"/>
+    </g>
+
+    <g transform="translate(111 137) rotate(14) scale(0.78)">
+      <path d="M0 -9C-13 -31 3 -45 10 -17C28 -34 42 -14 14 -7C39 8 25 29 6 12C-7 35 -29 23 -12 5C-37 -1 -27 -25 -4 -13Z" fill="url(#petalWarm)" stroke="#5e3f42" stroke-width="2"/>
+      <path d="M-3 -17C0 -10 1 -5 0 0M18 -15C12 -9 7 -4 2 1M16 13C11 9 7 5 2 2M-10 18C-6 11 -4 7 -1 2" stroke="#fff6eb" stroke-opacity="0.42" stroke-width="1.2"/>
+      <circle cx="0" cy="0" r="6" fill="#75483f"/>
+    </g>
+
+    <path d="M178 55L181 61L187 63L181 65L178 72L175 65L169 63L175 60Z" fill="#d8b676" fill-opacity="0.68"/>
+    <path d="M55 72L57 76L62 78L57 80L55 85L52 80L48 78L52 76Z" fill="#fff6eb" fill-opacity="0.45"/>
+  </g>
+</svg>

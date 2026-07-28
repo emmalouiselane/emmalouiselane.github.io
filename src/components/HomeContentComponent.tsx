@@ -22,6 +22,8 @@ const HomeContentComponent = () => {
   const [recentRead, setRecentRead] = useState<BookReview | null>(null);
   const [recentWatch, setRecentWatch] = useState<WatchList | null>(null);
   const [loading, setLoading] = useState(true);
+  const [showLatestAdditions, setShowLatestAdditions] = useState(false);
+  const [showDigitalGarden, setShowDigitalGarden] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -66,98 +68,150 @@ const HomeContentComponent = () => {
   }
 
   return (
-    <>
-      <div className="text-center my-10">
-        <h2 className='text-xl'>Hello and welcome to my site!</h2>
-        <p>This site is a true labour of love - I'm still working on the content and may <i>never</i> finish it, but in the meantime, you can check out my blog, digital garden or some of my latest additions below!</p>
-      </div>
+    <div className="home-page">
+      <section className="home-hero">
+        <div className="home-hero__intro">
+          <p className="home-kicker">Hello hello!</p>
+          <h1>My digital garden for code, projects, recipes and notes.</h1>
+          <p className="home-hero__lede">
+            This is where I keep track of what I am building, learning and enjoying: technical posts, portfolio work, recipes, reading notes, cosy game references and the odd personal musing. It is a true labour of love, and I may never quite finish it.
+          </p>
 
-      <div className="mx-10 space-y-6">
-        <a href="/dissertation/" className="latest-block pink block group">
-          <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg border border-transparent transition-colors group-hover:border-[var(--color-primary)]">
-            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2">
-              <div>
-                <h2 className="text-lg font-semibold">Interested in my MSc dissertation?</h2>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Browse all dissertation-related posts and my MSc Deepfake Defence project in one place.</p>
-              </div>
-              <span className="inline-block px-3 py-1 text-sm rounded-md bg-slate-100 text-slate-900 dark:bg-slate-700 dark:text-white whitespace-nowrap">
-                Visit Dissertation Hub
-              </span>
-            </div>
+          <div className="home-hero__actions">
+            <a href="/blog-posts/" className="home-pill">Read the blog</a>
+            <a href="/digital-garden/" className="home-pill home-pill--secondary">Explore the garden</a>
+            <a href="mailto:emma@sparklane.dev" className="home-pill home-pill--secondary">Work with me</a>
           </div>
+
+          <div className="pressed-hero-flower pressed-hero-flower--sprig" aria-hidden="true">
+            <img src="/images/flowers/pressed-sprig.svg" alt="" />
+          </div>
+        </div>
+
+        <aside className="home-hero__note">
+          <span className="home-note__pin" aria-hidden="true"></span>
+          <p className="home-note__label">At the moment</p>
+          <ul>
+            <li>Accessibility-first websites, CMS builds and practical tools</li>
+            <li>Technical posts, personal musings and portfolio experiments</li>
+            <li>Recipes, reading notes, music recommendations and cosy game references</li>
+            <li>Dissertation work and MSc Deepfake Defence updates</li>
+          </ul>
+        </aside>
+      </section>
+
+      <section className="home-feature-strip">
+        <a href="mailto:emma@sparklane.dev" className="home-feature-card home-feature-card--work">
+          <p className="home-card__eyebrow">Freelance availability</p>
+          <h2>Open to work</h2>
+          <p>If you have a project in mind, I would love to hear from you. I am especially interested in thoughtful websites, accessible user experiences, and practical tools that make people&apos;s lives a bit easier.</p>
+          <span className="home-card__cta">Email me</span>
         </a>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {recentBlog && (
-            <a href={`/blog-posts/${recentBlog.slug}/`} className="latest-block pink block group">
-              <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg border border-transparent transition-colors group-hover:border-[var(--color-primary)] h-full flex flex-col justify-start">
-                <div className="flex items-start justify-between gap-3 mb-3">
-                  <h2 className="text-xl font-semibold">Latest (non dissertation) Blog...</h2>
-                  <span className="inline-block px-2 py-1 text-xs rounded-md bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 whitespace-nowrap">
-                    {moment(recentBlog.date).format('DD MMM, YYYY')}
-                  </span>
-                </div>
-                <h3 className="text-lg font-bold text-center">{recentBlog.title}</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400 mb-3 text-center">{recentBlog.description}</p>
-              </div>
-            </a>
-          )}
+        <a href="/dissertation/" className="home-feature-card home-feature-card--wide">
+          <p className="home-card__eyebrow">Featured collection</p>
+          <h2>Dissertation hub</h2>
+          <p>Browse all dissertation-related posts and my MSc Deepfake Defence project in one place.</p>
+          <span className="home-card__cta">Visit the dissertation hub</span>
+        </a>
+      </section>
 
-          {recentPortfolioItem && (
-            <a href={`/portfolio/${recentPortfolioItem.slug}/`} className="latest-block blue block group">
-              <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg border border-transparent transition-colors group-hover:border-[var(--color-secondary)] h-full flex flex-col justify-start">
-                <div className="flex items-start justify-between gap-3 mb-3">
-                  <h2 className="text-xl font-semibold">Latest Portfolio Update...</h2>
+      <section className="home-section">
+         {!showLatestAdditions && (
+            <button
+              type="button"
+              className="home-section__toggle"
+              onClick={() => setShowLatestAdditions((current) => !current)}
+              aria-expanded={showLatestAdditions}
+              aria-controls="digital-garden-content"
+            >
+              Want to see the latest additions?
+            </button>
+        )}
+
+        {showLatestAdditions && (
+          <div id="latest-additions-content" className="home-section__content">
+            <div className="home-section__heading">
+              <p className="home-kicker">Latest additions</p>
+              <h2>What I have been adding recently</h2>
+            </div>
+
+            <div className="home-grid home-grid--primary">
+              {recentBlog && (
+                <a href={`/blog-posts/${recentBlog.slug}/`} className="home-card home-card--journal">
+                  <p className="home-card__eyebrow">Blog</p>
+                  <div className="home-card__meta">{moment(recentBlog.date).format('DD MMM YYYY')}</div>
+                  <h3>{recentBlog.title}</h3>
+                  <p>{recentBlog.description}</p>
+                </a>
+              )}
+
+              {recentPortfolioItem && (
+                <a href={`/portfolio/${recentPortfolioItem.slug}/`} className="home-card home-card--project">
+                  <p className="home-card__eyebrow">Portfolio</p>
                   {recentPortfolioItem.sys?.publishedAt && (
-                    <span className="inline-block px-2 py-1 text-xs rounded-md bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 whitespace-nowrap">
-                      {moment(recentPortfolioItem.sys.publishedAt).format('DD MMM, YYYY')}
-                    </span>
+                    <div className="home-card__meta">{moment(recentPortfolioItem.sys.publishedAt).format('DD MMM YYYY')}</div>
                   )}
-                </div>
-                <h3 className="text-lg font-bold text-center">{recentPortfolioItem.title}</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400 mb-3 text-center">{recentPortfolioItem.description}</p>
-              </div>
-            </a>
-          )}
-        </div>
+                  <h3>{recentPortfolioItem.title}</h3>
+                  <p>{recentPortfolioItem.description}</p>
+                </a>
+              )}
+            </div>
+          </div>
+        )}
+      </section>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {recentRead && (
-            <a href={`/digital-garden/reading/${recentRead.sys.id}/`} className="latest-block pink block group">
-              <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg border border-transparent transition-colors group-hover:border-[var(--color-primary)] h-full flex flex-col justify-start">
-                <h2 className="text-lg font-semibold mb-2">Latest Read...</h2>
-                <h3 className="text-base font-bold text-center">{recentRead.title}</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400 text-center">by {recentRead.author?.name || 'Unknown Author'}</p>
-              </div>
-            </a>
-          )}
+    {showLatestAdditions && (
+      <section className="home-section">
+        {!showDigitalGarden && (
+          <button
+            type="button"
+            className="home-section__toggle"
+            onClick={() => setShowDigitalGarden((current) => !current)}
+            aria-expanded={showDigitalGarden}
+            aria-controls="digital-garden-content"
+          >
+            More from the digital garden?
+          </button>
+        )}
 
-          {recentRecipe && (
-            <a href={`/digital-garden/recipes/${recentRecipe.slug}/`} className="latest-block blue block group">
-              <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg border border-transparent transition-colors group-hover:border-[var(--color-secondary)] h-full flex flex-col justify-start">
-                <h2 className="text-lg font-semibold mb-2">Latest Recipe...</h2>
-                <h3 className="text-base font-bold text-center">{recentRecipe.name}</h3>
-                {recentRecipe.rating && (
-                  <p className="text-sm mb-2 text-center">
-                    {'⭐'.repeat(recentRecipe.rating)}
-                  </p>
-                )}
-              </div>
-            </a>
-          )}
+        {showDigitalGarden && (
+          <div id="digital-garden-content" className="home-section__content">
+            <div className="home-section__heading">
+              <p className="home-kicker">From the digital garden</p>
+              <h2>Small updates and recommendations</h2>
+            </div>
 
-          {recentWatch && (
-            <a href={`/digital-garden/watching/${recentWatch.sys.id}/`} className="latest-block blue block group">
-              <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg border border-transparent transition-colors group-hover:border-[var(--color-secondary)] h-full flex flex-col justify-start">
-                <h2 className="text-lg font-semibold mb-2">Latest Watch...</h2>
-                <h3 className="text-base font-bold text-center">{recentWatch.title}</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400 text-center">{recentWatch.type} ~ {recentWatch.status}</p>
-              </div>
-            </a>
-          )}
-        </div>
-      </div>
-    </>
+            <div className="home-grid home-grid--secondary">
+              {recentRead && (
+                <a href={`/digital-garden/reading/${recentRead.sys.id}/`} className="home-card home-card--garden">
+                  <p className="home-card__eyebrow">Reading</p>
+                  <h3>{recentRead.title}</h3>
+                  <p>by {recentRead.author?.name || 'Unknown Author'}</p>
+                </a>
+              )}
+
+              {recentRecipe && (
+                <a href={`/digital-garden/recipes/${recentRecipe.slug}/`} className="home-card home-card--garden">
+                  <p className="home-card__eyebrow">Recipe</p>
+                  <h3>{recentRecipe.name}</h3>
+                  <p>{recentRecipe.rating ? `${String.fromCharCode(9733).repeat(recentRecipe.rating)} personal rating` : 'New recipe! Not yet rated'}</p>
+                </a>
+              )}
+
+              {recentWatch && (
+                <a href={`/digital-garden/watching/${recentWatch.sys.id}/`} className="home-card home-card--garden">
+                  <p className="home-card__eyebrow">Watching</p>
+                  <h3>{recentWatch.title}</h3>
+                  <p>{recentWatch.type} ~ {recentWatch.status}</p>
+                </a>
+              )}
+            </div>
+          </div>
+        )}
+      </section>
+    )}
+    </div>
   );
 };
 

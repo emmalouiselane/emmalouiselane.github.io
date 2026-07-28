@@ -3,27 +3,35 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 ---
 
 <BaseLayout title="Gaming" description="Gaming guides and resources">
-  <div class="container">
-    <div class="row">
-      <div class="col">
-        <h1 class="text-2xl font-bold">Gaming</h1>
-        <p>Welcome to my gaming section! Here you'll find guides and resources for games I'm currently playing.</p>
+  <div class="gaming-index-page">
+    <section class="gaming-hero">
+      <p class="home-kicker">Digital garden</p>
+      <h1>Gaming notes and cosy references.</h1>
+      <p>
+        A small home for game guides, reminders and resources I want close by while I am playing. Currently mostly Stardew Valley, because of course it is.
+      </p>
+          <div class="garden-hero-flower garden-hero-flower--herb" aria-hidden="true">
+        <img src="/images/flowers/pressed-herb.svg" alt="" />
       </div>
-    </div>
-    
-    <div class="row mt-4">
-      <div class="col-md-6 mb-4">
-        <article class="post-list-item">
-          <header class="mt-3">
-            <h2 class="text-xl">
-              <a href="/digital-garden/gaming/stardew-valley">Stardew Valley</a>
-            </h2>
-          </header>
-          <section>
-            <p>My personal guide and notes for Stardew Valley.</p>
-          </section>
-        </article>
-      </div>
-    </div>
+    </section>
+
+    <section class="gaming-card-list" aria-label="Gaming guides">
+      <article class="gaming-card">
+        <div class="gaming-card__topline">
+          <p class="home-card__eyebrow">Cosy game notes</p>
+          <span>Guide</span>
+        </div>
+
+        <h2>
+          <a href="/digital-garden/gaming/stardew-valley/">Stardew Valley</a>
+        </h2>
+        <p>My personal guide and reference stash for Stardew Valley, including museum layout notes and fishing resources.</p>
+
+        <a class="gaming-card__link" href="/digital-garden/gaming/stardew-valley/">
+          Visit guide
+        </a>
+      </article>
+    </section>
   </div>
 </BaseLayout>
+

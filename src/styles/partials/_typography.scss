@@ -1,7 +1,6 @@
 // Typography styles - Tailwind handles font sizes
 @use "./_variables" as *;
 
-// Headings - Tailwind will handle font sizes via utility classes
 h1,
 h2,
 h3,
@@ -12,14 +11,13 @@ h6 {
   margin-top: var(--spacing-3);
   margin-bottom: var(--spacing-3);
   line-height: var(--lineHeight-tight);
-  letter-spacing: -0.025em;
+  letter-spacing: -0.04em;
   font-weight: var(--fontWeight-bold);
   color: var(--color-heading);
+}
 
-  h1 {
-    font-weight: var(--fontWeight-black);
-    color: var(--color-heading-black);
-  }
+h1 {
+  font-weight: var(--fontWeight-black);
 }
 
 h1>a {
@@ -36,13 +34,13 @@ h6>a {
   color: inherit;
 }
 
-// Prose
 p {
   line-height: var(--lineHeight-relaxed);
   --baseline-multiplier: 0.179;
   --x-height-multiplier: 0.35;
   margin: var(--spacing-0) var(--spacing-0) var(--spacing-2) var(--spacing-0);
   padding: var(--spacing-0);
+  font-size: 0.98rem;
 }
 
 ul,
@@ -85,9 +83,9 @@ table thead tr th {
   border-bottom: 1px solid var(--color-accent);
 }
 
-// Links
 a {
   color: var(--color-primary);
+  text-underline-offset: 0.14em;
 }
 
 a:hover,
@@ -96,7 +94,6 @@ a:focus {
   color: var(--color-highlight);
 }
 
-// Media queries
 @media (max-width: 42rem) {
   ul,
   ol {

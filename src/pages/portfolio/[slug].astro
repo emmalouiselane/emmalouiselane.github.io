@@ -29,32 +29,34 @@ const hasImages = imageItems.length > 0;
 ---
 
 <BaseLayout title={fullItem.title} description={fullItem.description}>
-  <div class="container portfolio" itemscope itemtype="http://schema.org/CreativeWork">    
-    <div class="row">
-      <div class="flex flex-row justify-between">
-        <h1 class="text-2xl font-bold mb-2">{fullItem.title}</h1>
-
-        <div>
-          <button class="tinylytics_kudos ml-3" data-path={pathname}></button>
-
-          {fullItem.isInDevelopment && (
-              <span class="inline-block px-2 py-1 my-auto text-xs bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded">
-                In Development
-              </span>
-          )}
-          {fullItem.isIframe && (
-              <span class="inline-block px-2 py-1 my-auto text-xs bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded">
-                Live Demo
-              </span>
-          )}
-        </div>
+  <div class="portfolio-detail-page" itemscope itemtype="http://schema.org/CreativeWork">    
+    <header class="portfolio-detail-hero">
+      <div>
+        <p class="home-kicker">Portfolio</p>
+        <h1>{fullItem.title}</h1>
+        <p>{fullItem.description}</p>
       </div>
-    </div>
+
+      <div class="portfolio-detail-meta">
+        <button class="tinylytics_kudos ml-3" data-path={pathname}></button>
+
+        {fullItem.isInDevelopment && (
+          <span>
+            In Development
+          </span>
+        )}
+        {fullItem.isIframe && (
+          <span>
+            Live Demo
+          </span>
+        )}
+      </div>
+    </header>
     
     <div class="portfolio-detail-grid" data-portfolio-detail-grid>
       <section class="portfolio-detail-main" data-portfolio-detail-main>
         <div class="portfolio-detail-panel">
-          <h2 class="text-xl font-semibold mb-4">Project Details</h2>
+          <h2>Project Details</h2>
           <p>{fullItem.detailedDescription || fullItem.description}</p>
 
           <div class="portfolio-detail-links">
@@ -134,7 +136,7 @@ const hasImages = imageItems.length > 0;
       {fullItem.features && (
         <section class="portfolio-detail-side" data-portfolio-detail-side>
           <div class="portfolio-detail-panel portfolio-detail-richtext" data-portfolio-detail-panel>
-            <h2 class="text-xl font-semibold mb-4">Features</h2>
+            <h2>Features</h2>
             <div class="portfolio-detail-richtext-content">
               <Fragment set:html={displayRichText(fullItem.features)} />
             </div>
@@ -145,7 +147,7 @@ const hasImages = imageItems.length > 0;
       {fullItem.isIframe && fullItem.externalUrl && (
         <section class="portfolio-detail-full">
           <div class="portfolio-detail-panel">
-            <span class="text-lg font-semibold">Live Demo</span>
+            <h2>Live Demo</h2>
             <iframe 
               src={fullItem.externalUrl} 
               class="portfolio-detail-iframe"
