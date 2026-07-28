@@ -35,6 +35,7 @@ h6>a {
 }
 
 p {
+  font-family: var(--font-ui);
   line-height: var(--lineHeight-relaxed);
   --baseline-multiplier: 0.179;
   --x-height-multiplier: 0.35;
@@ -55,6 +56,7 @@ ol {
 
 ul li,
 ol li {
+  font-family: var(--font-ui);
   padding-left: var(--spacing-0);
   margin-bottom: calc(var(--spacing-4) / 2);
 }
@@ -100,3 +102,5 @@ a:focus {
     list-style-position: inside;
   }
 }
+
+
