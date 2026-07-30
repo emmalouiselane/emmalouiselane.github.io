@@ -35,8 +35,8 @@
     "react": "^19.2.5",
     "react-dom": "^19.2.4",
     "react-toastify": "^11.0.5",
+    "sass": "^1.99.0",
     "sanitize-html": "^2.17.3",
-    "sass": "^1.97.3",
     "tailwind-merge": "^3.5.0",
     "tailwindcss": "^4.2.2"
   },
