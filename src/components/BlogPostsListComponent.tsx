@@ -3,7 +3,7 @@ import { getAllBlogs } from '../lib/contentful';
 import type { BlogPost } from '../lib/types/blogPost';
 import moment from 'moment';
 
-const POSTS_PER_PAGE = 5;
+const POSTS_PER_PAGE = 6;
 
 const BlogPostsListComponent = () => {
   const [allPosts, setAllPosts] = useState<BlogPost[]>([]);
@@ -73,6 +73,8 @@ const BlogPostsListComponent = () => {
     setIsFilterOpen(false);
   };
 
+  const hasActiveFilters = searchTerm !== '' || selectedBlogType !== '';
+
   const renderPageNumbers = () => {
     const pages = [];
     const maxVisible = 5;
@@ -101,11 +103,7 @@ const BlogPostsListComponent = () => {
       <button
         key={pageNum}
         onClick={() => handlePageChange(pageNum)}
-        className={`px-3 py-2 text-sm font-medium rounded-md cursor-pointer ${
-          pageNum === currentPage
-            ? 'text-white bg-gray-900 dark:bg-white dark:text-gray-900 border border-gray-900 dark:border-white'
-            : 'text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700'
-        }`}
+        className={`blog-page-button ${pageNum === currentPage ? 'is-active' : ''}`}
       >
         {pageNum}
       </button>
@@ -113,80 +111,76 @@ const BlogPostsListComponent = () => {
   };
 
   if (loading) {
-    return <div className="text-center py-8">Loading blog posts...</div>;
+    return <div className="blog-page-loading">Loading blog posts...</div>;
   }
 
   return (
-    <div className="container">
-      <div className="flex flex-row justify-between">
-        <h1 className="text-2xl font-bold">Blog Posts</h1>
-
-        <div className="flex flex-row">
-          <div className="text-center mt-4 text-sm text-gray-600 dark:text-gray-400">
-            <span>{Math.min(endIndex, filteredPosts.length)}</span> of {filteredPosts.length} posts found
-          </div>
-          <button
-            onClick={toggleFilters}
-            className="my-auto ml-2 px-3 py-2 bg-[var(--color-primary)] text-white rounded-lg hover:bg-[var(--color-highlight)] focus:outline-none"
-            aria-label="Toggle filters"
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
-            </svg>
-          </button>
-          <button
-            onClick={clearFilters}
-            className="my-auto ml-2 px-3 py-2 bg-slate-600 text-white rounded-lg hover:bg-slate-700 focus:outline-none dark:bg-slate-500 dark:hover:bg-slate-600 disabled:opacity-50 disabled:cursor-not-allowed"
-            aria-label="Clear Filters"
-            disabled={searchTerm === '' && selectedBlogType === ''}
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path>
-            </svg>
-          </button>
+    <div className="blog-index-page">
+      <section className="blog-index-hero">
+        <div>
+          <p className="home-kicker">Blog posts</p>
+          <h1>Technical posts, personal musings and things I wanted to write down.</h1>
+          <p>
+            A mix of development notes, accessibility thoughts, dissertation updates and whatever else has been taking up space in my brain recently.
+          </p>
         </div>
-      </div>
 
-      {/* Filter Wrapper */}
-      <div className="mb-4 relative">
-        {/* Search and Filter Section */}
+        <div className="pressed-hero-flower pressed-hero-flower--bloom" aria-hidden="true">
+          <img src="/images/flowers/pressed-bloom.svg" alt="" />
+        </div>
+
+        <div className="blog-index-toolbar">
+          <p><strong>{Math.min(endIndex, filteredPosts.length)}</strong> of {filteredPosts.length} posts found</p>
+          <div className="blog-index-actions">
+            <button
+              onClick={toggleFilters}
+              className="blog-icon-button"
+              aria-label="Toggle filters"
+              aria-expanded={isFilterOpen}
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
+              </svg>
+            </button>
+            <button
+              onClick={clearFilters}
+              className="blog-icon-button blog-icon-button--secondary"
+              aria-label="Clear filters"
+              disabled={!hasActiveFilters}
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <div className="blog-filter-wrapper">
         {isFilterOpen && (
-          <div className="absolute top-full right-0 z-50 w-96 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 mt-2">
-            {/* Search Input */}
-            <div className="mb-4">
-              <label htmlFor="search" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Search Posts
-              </label>
-              <div className="flex space-x-2">
+          <div className="blog-filter-panel">
+            <div className="blog-filter-field">
+              <label htmlFor="search">Search posts</label>
+              <div className="blog-search-row">
                 <input
                   type="text"
                   id="search"
                   placeholder="Search by title or description..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:border-blue-500 dark:bg-gray-700 dark:text-white"
                 />
-                <button
-                  onClick={() => setSearchTerm(searchTerm)} // Trigger filter
-                  className="px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg hover:bg-[var(--color-highlight)] focus:outline-none"
-                >
-                  Search
-                </button>
+                <button onClick={() => setSearchTerm(searchTerm)}>Search</button>
               </div>
             </div>
 
-            {/* Blog Type Filter */}
-            <div>
-              <label htmlFor="blogType" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Filter by Type
-              </label>
+            <div className="blog-filter-field">
+              <label htmlFor="blogType">Filter by type</label>
               <select
                 id="blogType"
                 value={selectedBlogType}
                 onChange={(e) => setSelectedBlogType(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:border-blue-500 dark:bg-gray-700 dark:text-white"
               >
-                <option value="">All Types</option>
+                <option value="">All types</option>
                 {blogTypes.map(type => (
                   <option key={type} value={type}>{type}</option>
                 ))}
@@ -198,83 +192,72 @@ const BlogPostsListComponent = () => {
 
       <div className="blog-list">
         {currentPosts.length === 0 ? (
-          <div className="text-center py-8 text-gray-600 dark:text-gray-400">
+          <div className="blog-empty-state">
             <p>No posts found matching your criteria.</p>
           </div>
         ) : (
-          currentPosts.map((post, index) => (
-            <div className="row mb-2 post-item" key={post.sys.id}>
-              <article
-                className="post-list-item"
-                itemScope
-                itemType="http://schema.org/Article"
-              >
-                <div>
-                  <div className="flex flex-row justify-between items-start">
-                    <div className="flex-1">
-                      <h2 className="text-xl">{post.title}</h2>
+          currentPosts.map((post) => (
+            <article
+              className="post-list-item"
+              key={post.sys.id}
+              itemScope
+              itemType="http://schema.org/Article"
+            >
+              <div className="post-list-item__topline">
+                <time dateTime={post.date}>{moment(post.date).format('DD MMM YYYY')}</time>
+                {post.blogType && post.blogType.length > 0 && (
+                  <div className="post-list-item__tags">
+                    {post.blogType.map(type => (
+                      <button
+                        key={type}
+                        onClick={() => setSelectedBlogType(type)}
+                        title={`Filter by ${type}`}
+                      >
+                        {type}
+                      </button>
+                    ))}
                   </div>
-                  <small className="text-xs text-gray-600 mt-1 ml-4">{moment(post.date).format("DD/MM/YY")}</small>
-                  {post.blogType && post.blogType.length > 0 && (
-                      <div className="flex flex-wrap gap-1 mb-2 ml-3">
-                        {post.blogType.map(type => (
-                          <span 
-                            key={type} 
-                            className="inline-block px-2 py-1 text-xs bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
-                            onClick={() => setSelectedBlogType(type)}
-                            title={`Filter by ${type}`}
-                          >
-                            {type}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-                  </div>
+                )}
+              </div>
 
-                  <section className="flex flex-row justify-between">
-                    <p>{post.description}</p>
-                    <a className="text-xs mt-auto min-w-fit whitespace-nowrap" href={`/blog-posts/${post.slug}/`}>
-                      <span>Read More</span>
-                      <span className="sr-only">Read more about {post.title}</span>
-                    </a>
-                  </section>
-                </div>
-              </article>
-            </div>
+              <h2>{post.title}</h2>
+              <p>{post.description}</p>
+
+              <a className="post-list-item__link" href={`/blog-posts/${post.slug}/`}>
+                <span>Read more</span>
+                <span className="sr-only"> about {post.title}</span>
+              </a>
+            </article>
           ))
         )}
       </div>
 
       {totalPages > 1 && (
-        <div className="mt-4">
-          <nav className="justify-center flex items-center space-x-2" aria-label="Pagination">
-            {/* Previous Button */}
-            <button
-              onClick={() => handlePageChange(currentPage - 1)}
-              disabled={currentPage === 1}
-              className="px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
-            >
-              Previous
-            </button>
+        <nav className="blog-pagination" aria-label="Pagination">
+          <button
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+            className="blog-page-button"
+          >
+            Previous
+          </button>
 
-            {/* Page Numbers */}
-            <div className="flex space-x-2">
-              {renderPageNumbers()}
-            </div>
+          <div className="blog-pagination__pages">
+            {renderPageNumbers()}
+          </div>
 
-            {/* Next Button */}
-            <button
-              onClick={() => handlePageChange(currentPage + 1)}
-              disabled={currentPage === totalPages}
-              className="px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
-            >
-              Next
-            </button>
-          </nav>
-        </div>
+          <button
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            className="blog-page-button"
+          >
+            Next
+          </button>
+        </nav>
       )}
     </div>
   );
 };
 
 export default BlogPostsListComponent;
+

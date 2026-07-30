@@ -1,0 +1,50 @@
+<svg width="220" height="220" viewBox="0 -18 220 238" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Anime pressed lavender herb stem</title>
+  <desc id="desc">A pressed lavender-like herb with anime-style ink lines, plum seed heads and translucent sage leaves.</desc>
+  <defs>
+    <linearGradient id="herbLeaf" x1="34" y1="52" x2="160" y2="180" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#d2c894" stop-opacity="0.7"/>
+      <stop offset="1" stop-color="#687052" stop-opacity="0.52"/>
+    </linearGradient>
+    <linearGradient id="budPlum" x1="74" y1="-10" x2="162" y2="105" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#c69ab0" stop-opacity="0.82"/>
+      <stop offset="0.52" stop-color="#8f6178" stop-opacity="0.68"/>
+      <stop offset="1" stop-color="#91462e" stop-opacity="0.5"/>
+    </linearGradient>
+    <linearGradient id="inkWarm" x1="32" y1="22" x2="160" y2="202" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#5b4250"/>
+      <stop offset="1" stop-color="#4f5b43"/>
+    </linearGradient>
+  </defs>
+  <g opacity="0.96" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M96 203C113 162 119 119 114 74C112 48 107 25 99 2" stroke="url(#inkWarm)" stroke-width="3"/>
+    <path d="M109 63C128 48 139 31 144 8" stroke="#5b4250" stroke-width="2"/>
+    <path d="M116 91C139 78 154 62 165 38" stroke="#5b4250" stroke-width="2"/>
+    <path d="M114 126C88 118 67 103 48 80" stroke="#4f5b43" stroke-width="2.1"/>
+    <path d="M106 162C80 157 58 145 37 126" stroke="#4f5b43" stroke-width="2.1"/>
+
+    <path d="M110 104C86 100 68 88 54 68C79 65 101 79 110 104Z" fill="url(#herbLeaf)" stroke="#4f5b43" stroke-width="1.6"/>
+    <path d="M108 146C132 140 149 128 164 108C139 107 118 122 108 146Z" fill="url(#herbLeaf)" stroke="#4f5b43" stroke-width="1.6"/>
+    <path d="M98 184C80 181 63 172 48 157C68 154 88 163 98 184Z" fill="#a8a071" fill-opacity="0.46" stroke="#4f5b43" stroke-width="1.5"/>
+    <path d="M75 95C83 97 90 101 96 108M135 124C127 128 120 134 114 142M68 165C77 167 85 172 93 180" stroke="#fff6eb" stroke-opacity="0.34" stroke-width="1"/>
+
+    <g fill="url(#budPlum)" stroke="#5b4250" stroke-width="1.45">
+      <path d="M98 -2C110 7 109 23 95 21C82 14 84 0 98 -2Z"/>
+      <path d="M113 12C126 20 124 38 109 35C96 27 99 13 113 12Z"/>
+      <path d="M91 22C103 30 101 47 86 44C74 36 77 23 91 22Z"/>
+      <path d="M126 34C139 42 136 60 121 57C108 48 111 35 126 34Z"/>
+      <path d="M102 48C115 57 112 74 97 70C85 62 88 49 102 48Z"/>
+      <path d="M143 6C154 16 149 33 135 27C124 17 130 4 143 6Z"/>
+      <path d="M164 36C176 46 171 64 156 57C145 47 151 33 164 36Z"/>
+      <path d="M47 78C59 88 54 105 39 99C28 89 34 75 47 78Z"/>
+      <path d="M37 123C49 134 43 151 28 143C17 132 23 119 37 123Z"/>
+    </g>
+
+    <path d="M98 6C101 10 102 14 99 19M111 19C115 24 116 29 112 34M125 41C128 46 129 51 125 55M42 86C45 90 45 94 42 98M160 44C164 49 165 53 161 57" stroke="#fff6eb" stroke-opacity="0.46" stroke-width="1.05"/>
+    <circle cx="112" cy="74" r="3.8" fill="#91462e" fill-opacity="0.62"/>
+    <circle cx="116" cy="84" r="2.9" fill="#c8866c" fill-opacity="0.62"/>
+    <circle cx="107" cy="82" r="2.6" fill="#7b586d" fill-opacity="0.58"/>
+    <path d="M70 38L72 43L77 45L72 47L70 52L67 47L62 45L67 43Z" fill="#fff6eb" fill-opacity="0.42"/>
+    <path d="M174 116L176 121L181 123L176 125L174 130L171 125L166 123L171 121Z" fill="#d8b676" fill-opacity="0.58"/>
+  </g>
+</svg>

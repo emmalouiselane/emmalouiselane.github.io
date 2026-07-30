@@ -29,7 +29,6 @@
 }
 
 :root {
-  /* Legacy Variable Mappings */
   --color-primary: var(--primary);
   --color-secondary: var(--secondary);
   --color-accent: var(--accent);
@@ -37,85 +36,47 @@
   --color-text: var(--foreground);
   --color-surface: var(--card);
   --color-heading: var(--foreground);
-  /* Approximate mapping */
-
 
   --radius: 0.65rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.141 0.005 285.823);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.141 0.005 285.823);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.141 0.005 285.823);
-  --primary: #0D8711;
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: #862070;
-  --secondary-foreground: oklch(0.205 0 0);
-}
-
-[data-color-theme="pink"] {
-  --primary: oklch(0.7 0.2 350);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(70.265% 0.10136 222.902);
-  --secondary-foreground: oklch(0.205 0 0);
-}
-
-[data-color-theme="pink"].dark {
-  --primary: oklch(0.75 0.18 350);
-  --primary-foreground: oklch(0.141 0.005 285.823);
-  --secondary: oklch(0.3 0.1 240);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.967 0.001 286.375);
-  --muted-foreground: oklch(0.552 0.016 285.938);
-  --accent: oklch(0.967 0.001 286.375);
-  --accent-foreground: oklch(0.21 0.006 285.885);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.92 0.004 286.32);
-  --input: oklch(0.92 0.004 286.32);
-  --ring: oklch(0.7 0.2 350);
-}
-
-[data-color-theme="peach"] {
-  --primary: #BD5500;
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(60.83% 0.12772 235.6);
-  --secondary-foreground: oklch(0.205 0 0);
-}
-
-[data-color-theme="peach"].dark {
-  --primary: oklch(0.78 0.13 39.03);
-  --primary-foreground: oklch(0.141 0.005 285.823);
-  --secondary: oklch(0.3 0.1 240);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.967 0.001 286.375);
-  --muted-foreground: oklch(0.552 0.016 285.938);
-  --accent: oklch(0.967 0.001 286.375);
-  --accent-foreground: oklch(0.21 0.006 285.885);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.92 0.004 286.32);
-  --input: oklch(0.92 0.004 286.32);
-  --ring: oklch(0.78 0.13 39.03);
+  --background: #f6eadc;
+  --foreground: #38251c;
+  --card: #fff7ed;
+  --card-foreground: #38251c;
+  --popover: #fff9f2;
+  --popover-foreground: #38251c;
+  --primary: #a45133;
+  --primary-foreground: #fff7ed;
+  --secondary: #91462e;
+  --secondary-foreground: #fff7ed;
+  --muted: #ead3bf;
+  --muted-foreground: #7a5b49;
+  --accent: #efd7c4;
+  --accent-foreground: #38251c;
+  --destructive: #b64532;
+  --border: rgba(123, 71, 47, 0.18);
+  --input: rgba(123, 71, 47, 0.18);
+  --ring: #91462e;
 }
 
 .dark {
-  --background: oklch(0.15 0.05 240);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.2 0.05 240);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.2 0.05 240);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: #157E1C;
-  --primary-foreground: oklch(0.141 0.005 285.823);
-  --secondary: #BA68C8;
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.274 0.006 286.033);
-  --muted-foreground: oklch(0.705 0.015 286.067);
-  --accent: oklch(0.274 0.006 286.033);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(0.274 0.006 286.033);
-  --input: oklch(0.274 0.006 286.033);
-  --ring: oklch(0.75 0.18 350);
+  --background: #161417;
+  --foreground: #f3ebe4;
+  --card: #242027;
+  --card-foreground: #f3ebe4;
+  --popover: #2b2630;
+  --popover-foreground: #f3ebe4;
+  --primary: #d28a5f;
+  --primary-foreground: #161417;
+  --secondary: #e6a176;
+  --secondary-foreground: #161417;
+  --muted: #342e3a;
+  --muted-foreground: #d6c9c0;
+  --accent: #403443;
+  --accent-foreground: #f3ebe4;
+  --destructive: #ef8a66;
+  --border: rgba(220, 188, 178, 0.16);
+  --input: rgba(220, 188, 178, 0.16);
+  --ring: #d99a6c;
 }
 
 @layer base {
@@ -128,7 +89,6 @@
   }
 }
 
-/* Toastify theme styles */
 @media (prefers-color-scheme: dark) {
   .Toastify__toast-container {
     --toastify-color-light: var(--foreground);
@@ -159,3 +119,8 @@
 .dark .Toastify__progress-bar {
   background: var(--primary) !important;
 }
+
+
+
+
+

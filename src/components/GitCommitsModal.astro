@@ -1,6 +1,6 @@
 ---
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGithubAlt, faGitter } from "@fortawesome/free-brands-svg-icons";
+import { faGithubAlt } from "@fortawesome/free-brands-svg-icons";
 
 const { execSync } = await import('child_process');
 
@@ -16,9 +16,9 @@ const commits = gitLog.trim().split('\n').map(line => {
 });
 ---
 
-<button id="open-modal" class="link social-link cursor-pointer" aria-label="View Commits">
-  <FontAwesomeIcon 
-    icon={faGithubAlt} 
+<button id="open-modal" class="link social-link commit-modal-trigger" aria-label="View recent commits">
+  <FontAwesomeIcon
+    icon={faGithubAlt}
     size="2x"
     aria-label="GitHub"
     aria-hidden="true"
@@ -26,28 +26,31 @@ const commits = gitLog.trim().split('\n').map(line => {
     beat />
 </button>
 
-<dialog id="commits-modal" class="p-4 rounded-lg shadow-lg m-auto bg-white dark:bg-gray-800">
-  <h1 class="text-lg font-semibold text-gray-900 dark:text-white text-center">✨ Changelog ✨ What have I changed recently?</h1>
+<dialog id="commits-modal" class="commit-modal" aria-labelledby="commits-modal-title">
+  <div class="commit-modal__header">
+    <p class="home-card__eyebrow">Changelog</p>
+    <h2 id="commits-modal-title">What changed recently?</h2>
+    <p>A quick look at the latest commits on this site.</p>
+  </div>
 
-  <ul class="space-y-2">
+  <ul class="commit-modal__list">
     {commits.map(commit => (
-      <li class="flex items-start space-x-2">
+      <li class="commit-modal__item">
         <a
           href={`https://github.com/emmalouiselane/emmalouiselane.github.io/commit/${commit.hash}`}
           target="_blank"
           rel="noopener noreferrer"
-          class="bg-gray-100 dark:bg-gray-700 px-2 pt-2 pb-1 rounded text-sm font-mono hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+          class="commit-hash"
         >
           {commit.hash}
         </a>
-        <i class="text-xs text-gray-500 dark:text-gray-400 !my-auto">{commit.date}</i>
-        <span class="text-sm text-gray-700 dark:text-gray-300 !my-auto">{commit.message}</span>
+        <time datetime={commit.date}>{commit.date}</time>
+        <span>{commit.message}</span>
       </li>
     ))}
   </ul>
-  <button id="close-modal" class="flex m-auto bg-gray-100 dark:bg-gray-700 p-2 rounded text-sm text-gray-900 dark:text-white
-                                  hover:bg-gray-200 dark:hover:bg-gray-600 cursor-pointer transition-transform transform hover:scale-105"
-  >
+
+  <button id="close-modal" class="commit-modal__close" type="button">
     Close
   </button>
 </dialog>
@@ -73,10 +76,128 @@ const commits = gitLog.trim().split('\n').map(line => {
 </script>
 
 <style>
-  dialog {
-    border: none;
+  .commit-modal-trigger {
+    border: 0;
+    background: transparent;
   }
-  dialog::backdrop {
-    background: rgba(0, 0, 0, 0.5);
+
+  .commit-modal {
+    width: min(calc(100vw - 2rem), 42rem);
+    max-height: min(80vh, 42rem);
+    margin: auto;
+    border: none;
+    border-radius: 1.75rem;
+    background:
+      linear-gradient(145deg, rgba(255, 246, 235, 0.42), rgba(184, 95, 60, 0.08) 62%, rgba(123, 71, 47, 0.1)),
+      var(--color-surface-elevated);
+    box-shadow: var(--shadow-lift);
+    color: var(--color-text);
+    padding: clamp(1.25rem, 3vw, 2rem);
+  }
+
+  .dark .commit-modal {
+    background:
+      linear-gradient(145deg, rgba(64, 52, 67, 0.82), rgba(43, 38, 48, 0.96) 58%, rgba(22, 20, 23, 0.94)),
+      var(--color-surface-elevated);
+  }
+
+  .commit-modal__header {
+    margin-bottom: var(--spacing-5);
+  }
+
+  .commit-modal__header h2 {
+    margin-top: var(--spacing-2);
+    margin-bottom: var(--spacing-2);
+    font-size: clamp(1.7rem, 3vw, 2.4rem);
+  }
+
+  .commit-modal__header p:not(.home-card__eyebrow) {
+    color: var(--color-text-light);
+    margin: 0;
+  }
+
+  .commit-modal__list {
+    display: grid;
+    gap: var(--spacing-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .commit-modal__item {
+    display: grid;
+    grid-template-columns: auto auto minmax(0, 1fr);
+    gap: var(--spacing-3);
+    align-items: center;
+    border: 1px solid var(--color-border-soft);
+    border-radius: 1rem;
+    background: var(--color-surface-elevated);
+    padding: 0.85rem 1rem;
+  }
+
+  .commit-modal__item time {
+    color: var(--color-text-light);
+    font-family: var(--font-ui);
+    font-size: 0.78rem;
+    font-weight: 700;
+  }
+
+  .commit-modal__item span {
+    min-width: 0;
+    color: var(--color-text);
+    font-size: 0.92rem;
+  }
+
+  .commit-hash {
+    border: 1px solid var(--color-border-soft);
+    border-radius: 999px;
+    background: var(--color-accent-light-faded);
+    color: var(--color-heading);
+    font-family: var(--font-code);
+    font-size: 0.82rem;
+    font-weight: 700;
+    padding: 0.35rem 0.65rem;
+    text-decoration: none;
+  }
+
+  .commit-hash:hover,
+  .commit-hash:focus {
+    border-color: var(--color-accent-highlight);
+    background: var(--color-accent-light);
+    color: var(--color-heading);
+  }
+
+  .commit-modal__close {
+    display: inline-flex;
+    justify-content: center;
+    margin: var(--spacing-5) auto 0;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    background: var(--color-primary);
+    color: var(--primary-foreground);
+    cursor: pointer;
+    font-family: var(--font-ui);
+    font-weight: 700;
+    padding: 0.75rem 1.2rem;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .commit-modal__close:hover,
+  .commit-modal__close:focus {
+    background: var(--color-highlight);
+    color: var(--primary-foreground);
+    transform: translateY(-1px);
+  }
+
+  .commit-modal::backdrop {
+    background: rgba(43, 31, 25, 0.56);
+    backdrop-filter: blur(5px);
+  }
+
+  @media (max-width: 640px) {
+    .commit-modal__item {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-2);
+    }
   }
 </style>

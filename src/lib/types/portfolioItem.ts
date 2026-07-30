@@ -3,6 +3,15 @@ export interface PortfolioItem {
   title: string;
   slug: string;
   description: string;
+  images?: {
+    items: Array<{
+      url: string;
+      title?: string;
+      description?: string;
+      fileName?: string;
+      contentType?: string;
+    }>;
+  };
   externalUrl?: string;
   githubUrl?: string;
   isInDevelopment?: boolean;

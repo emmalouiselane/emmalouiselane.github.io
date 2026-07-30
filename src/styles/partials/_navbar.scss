@@ -1,84 +1,75 @@
-// NavbarComponent styles
 @use "./_variables" as *;
 
-.navbar {
-  position: sticky;
-  top: 0;
-  padding: 0px;
-  z-index: 100;
-  background-color: var(--color-background);
-  flex-shrink: 0;
+.site-nav {
+  background: color-mix(in srgb, var(--color-background) 86%, transparent);
+  border-bottom: 1px solid var(--color-border-soft);
+  backdrop-filter: blur(16px);
+}
 
-  .custom-navbar-container {
-    max-width: none;
-    height: 80px;
-    padding-top: var(--spacing-2);
-    padding-bottom: var(--spacing-2);
-    z-index: 100;
+.site-nav__inner {
+  max-width: 1240px;
+}
 
-    .main-heading {
-      margin: 0;
-      text-decoration: none;
+.site-nav__brand {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  color: inherit;
+}
 
-      h1 {
-        @apply text-5xl;
-        padding-left: 15px;
-        margin-bottom: 0px;
-        font-weight: var(--fontWeight-bold);
-        color: var(--color-heading);
-      }
-    }
-  }
+.site-nav__brand-mark {
+  font-family: var(--font-heading);
+  font-size: clamp(1.75rem, 4vw, 2.6rem);
+  font-weight: 800;
+  letter-spacing: -0.06em;
+  color: var(--color-heading);
+}
 
-  .custom-nav-links {
-    text-align: center;
-    position: absolute;
-    right: 10px;
-    background-color: var(--color-background);
-    opacity: 0.8;
-    border-bottom-left-radius: var(--spacing-4);
-    padding: var(--spacing-2);
+.site-nav__brand-tag {
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-text-light);
+}
 
-    .dark-mode-toggle {
-      width: 38px;
-      padding: 4px 8px;
-    }
-  }
+.site-nav__link {
+  border-radius: 999px;
+  padding: 0.6rem 0.95rem;
+  font-family: var(--font-ui);
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--color-text-light);
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
 
-  .navbar-link,
-  .navbar-link-disabled {
-    transition: all 0.3s ease;
-    text-decoration: none;
-    font-weight: var(--fontWeight-bold);
-    padding: var(--spacing-2) var(--spacing-4);
-    margin: var(--spacing-2);
-    border-radius: var(--spacing-2);
-    border: none;
-    background-color: var(--color-accent-light);
+.site-nav__link:hover,
+.site-nav__link:focus {
+  color: var(--color-heading);
+  background: var(--color-accent-light);
+  transform: translateY(-1px);
+}
 
-    &:active {
-      transform: scale(0.95);
-      color: var(--color-primary) !important;
-    }
 
-    &.navbar-link {
-      color: var(--color-text) !important;
-      transition: color 0.2s ease, background-color 0.2s ease;
+.site-nav__icon-button {
+  border-radius: 999px;
+  border: 1px solid var(--color-border-soft);
+  background: var(--color-surface-elevated);
+  color: var(--color-heading);
+}
 
-      &:hover {
-        transform: translateY(-2px);
-        color: var(--color-primary) !important;
-        background-color: var(--color-accent);
-      }
-    }
+.site-nav__sheet {
+  background: var(--color-surface-elevated) !important;
+}
 
-    &.navbar-link-disabled {
-      color: var(--color-text-light) !important;
-      cursor: default;
-    }
-  }
+.site-nav__sheet a {
+  color: var(--color-heading);
 }
 
 .mobile-nav-container {
-  margin-left: var(--spacing-6);
+  margin-left: var(--spacing-2);
 }
+
+
+
