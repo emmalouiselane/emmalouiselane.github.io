@@ -2,22 +2,20 @@
 @use "./_variables" as *;
 
 footer {
-  // Removed fixed positioning to work with new flex layout
   width: 100%;
-  background-color: var(--color-background);
+  background-color: transparent;
   z-index: 10;
 
   .footer-content {
     padding-top: var(--spacing-3);
     padding-bottom: var(--spacing-3);
+    border-top-color: var(--color-border-soft);
 
-    // Mobile text style
     &-mobile {
       @apply text-xs;
       text-align: center;
     }
 
-    // Right section (Social Icons)
     &-right {
       display: flex;
       justify-content: flex-end;
@@ -25,7 +23,6 @@ footer {
       gap: var(--spacing-2);
     }
 
-    // Center section (Tagline)
     &-center {
       text-align: center;
       align-items: center;
@@ -44,38 +41,37 @@ footer {
       }
     }
 
-    // Accessibility Link Styling (Button look)
     .navbar-link {
       display: inline-block;
-      padding: 8px 16px; // Explicit padding for button shape
-      border-radius: 4px; // Standard button radius
+      padding: 8px 16px;
+      border-radius: 999px;
       text-decoration: none;
+      font-family: var(--font-ui);
       font-weight: var(--fontWeight-bold);
-      background-color: var(--color-primary);
-      color: #ffffff !important; // Ensure high contrast white text
+      background-color: var(--color-surface-elevated);
+      color: var(--color-heading) !important;
       transition: all 0.2s ease;
       white-space: nowrap;
       text-align: center;
-      border: 1px solid var(--color-primary); // Define edges
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // Subtle shadow for depth
+      border: 1px solid var(--color-border-soft);
+      box-shadow: var(--shadow-soft);
 
       &:hover {
         transform: translateY(-1px);
-        background-color: var(--color-highlight);
-        border-color: var(--color-highlight);
-        color: #ffffff !important;
+        background-color: var(--color-accent-light);
+        border-color: var(--color-accent-highlight);
+        color: var(--color-heading) !important;
         text-decoration: none;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+        box-shadow: var(--shadow-lift);
       }
 
       &:active {
         transform: translateY(0);
-        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        box-shadow: var(--shadow-soft);
       }
     }
   }
 
-  // Social Links Styling
   .social-link {
     color: var(--color-heading);
     transition: color 0.2s ease;

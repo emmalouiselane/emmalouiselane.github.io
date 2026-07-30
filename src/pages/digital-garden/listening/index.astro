@@ -3,46 +3,69 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 ---
 
 <BaseLayout title="Listening" description="What I've been listening to">
-  <div class="container">
-    <div class="row mb-8">
-      <h1 class="text-2xl font-bold text-center">What am I listening to? 🎵🎶</h1>
-      <p class="text-sm text-center">Music holds a very special place in my heart. </p>
-      <p class="text-sm text-center">It helps me focus, it helps me unwind, it helps me feel, it amps me up; it's my constant companion.</p>
-      <p class="text-xs text-center">I'm forever looking for new music or podcasts, so if you have any recommendations, please let me know!</p>
-    </div>
-    
-    <div class="row mt-4">
-      <div class="grid md:grid-cols-2 mb-3 border rounded-lg">
-        <div class="flex justify-end">
-          <iframe data-testid="embed-iframe-song" style="border-radius:12px" 
-                src="https://open.spotify.com/embed/track/6gqTgtJ3aBDrWE9wrCe7L6?utm_source=generator&theme=0" 
-                width="100%" height="152" class="spotify-widget"
-                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-                loading="lazy">
-          </iframe>
-        </div>       
-
-        <div class="p-3 text-xs text-left my-auto">
-          <h2 class="font-semibold">Currently obsessed with...</h2>
-          <p>I'm currently obsessed with <em>The Song of Orpheus</em> by Ruari O'Connor.</p>
-          <p>This song draws from Greek mythology and is a beautiful piece of music; it is sung in greek and I <i>cannot</i> stop listening to it.</p>
-        </div>
+  <div class="listening-page">
+    <section class="listening-hero">
+      <p class="home-kicker">Digital garden</p>
+      <h1>What I am listening to.</h1>
+      <p>
+        Music holds a very special place in my heart. It helps me focus, unwind, feel things properly, or get a little more energy when I need it.
+      </p>
+      <p>
+        I am always looking for new music or podcasts, so recommendations are very welcome.
+      </p>
+      <div class="garden-hero-flower garden-hero-flower--herb" aria-hidden="true">
+        <img src="/images/flowers/pressed-herb.svg" alt="" />
       </div>
+    </section>
 
-      <div class="grid md:grid-cols-2 mt-3">
-        <div class="p-3 text-xs text-right my-auto">
-          <h2 class="font-semibold">If you need a laugh...</h2>
-          <p>Check out <em>Toni and Ryan</em>. I've been an avid listener for years, and they never cease to make me laugh, a fantastic podcast especially when you need an uplift.</p>
+    <section class="listening-card-list" aria-label="Listening recommendations">
+      <article class="listening-card listening-card--track">
+        <div class="listening-card__embed">
+          <iframe
+            data-testid="embed-iframe-song"
+            src="https://open.spotify.com/embed/track/6gqTgtJ3aBDrWE9wrCe7L6?utm_source=generator&theme=0"
+            width="100%"
+            height="152"
+            class="spotify-widget"
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy"
+            title="Spotify embed for The Song of Orpheus by Ruari O'Connor"
+          ></iframe>
         </div>
 
-        <div class="flex justify-start">
-          <iframe data-testid="embed-iframe-podcast" style="border-radius:12px" 
-                  src="https://open.spotify.com/embed/show/5OzkclFjD6iAjtAuo7aIYt?utm_source=generator&theme=0" 
-                  width="100%" height="152" class="spotify-widget"
-                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-                  loading="lazy">
-          </iframe>
+        <div class="listening-card__content">
+          <p class="home-card__eyebrow">Currently obsessed with</p>
+          <h2>The Song of Orpheus</h2>
+          <p>
+            I am currently obsessed with <em>The Song of Orpheus</em> by Ruari O'Connor. It draws from Greek mythology, is sung in Greek, and I cannot stop listening to it.
+          </p>
         </div>
-      </div>
+      </article>
+
+      <article class="listening-card listening-card--podcast">
+        <div class="listening-card__content">
+          <p class="home-card__eyebrow">If you need a laugh</p>
+          <h2>Toni and Ryan</h2>
+          <p>
+            I have been an avid listener for years. They never cease to make me laugh, and it is a fantastic podcast when you need a proper uplift.
+          </p>
+        </div>
+
+        <div class="listening-card__embed">
+          <iframe
+            data-testid="embed-iframe-podcast"
+            src="https://open.spotify.com/embed/show/5OzkclFjD6iAjtAuo7aIYt?utm_source=generator&theme=0"
+            width="100%"
+            height="152"
+            class="spotify-widget"
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy"
+            title="Spotify embed for Toni and Ryan podcast"
+          ></iframe>
+        </div>
+      </article>
+    </section>
   </div>
 </BaseLayout>
+
+

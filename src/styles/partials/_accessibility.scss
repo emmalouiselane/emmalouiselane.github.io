@@ -1,6 +1,5 @@
 @use "./_variables" as *;
 
-// Skip link styles
 .skip-link {
   position: absolute;
   top: -40px;
@@ -13,14 +12,13 @@
   font-weight: bold;
   z-index: 100;
   transition: top 0.3s ease;
-  
+
   &:focus {
     top: 6px;
-    color: var(--color-text)
+    color: var(--color-text);
   }
 }
 
-// Reduced motion support
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -32,112 +30,101 @@
   }
 }
 
-// Accessibility page styles
-.accessibility-wrapper {
-  // Light mode styles
-  .prose {
-    max-width: none;
-    
-    h1, h2, h3, h4, h5, h6 {
-      color: var(--color-heading);
-    }
-    
-    p, li {
-      color: var(--color-text);
-    }
-    
-    a {
-      color: var(--color-highlight);
-      text-decoration: underline;
-      
-      &:hover {
-        color: var(--color-accent-highlight);
-      }
-    }
-    
-    strong, b {
-      color: var(--color-heading);
-    }
-  }
-  
-  // Gray background box
-  .bg-gray-50 {
-    background-color: #f9fafb;
-    border: 1px solid #e5e7eb;
-    
-    h3, h4 {
-      color: var(--color-heading);
-    }
-    
-    p, li {
-      color: var(--color-text);
-    }
-  }
-  
-  // Yellow warning box
-  .bg-yellow-50 {
-    background-color: #fefce8;
-    border-left-color: #fbbf24;
-    
-    .text-yellow-800 {
-      color: #92400e;
-    }
-    
-    li {
-      color: #78350f;
-    }
-  }
+.accessibility-page {
+  max-width: var(--maxWidth-3xl);
+  margin: 0 auto;
 }
 
-// Dark mode styles
-.dark-html.dark .accessibility-wrapper {
-  .prose {
-    h1, h2, h3, h4, h5, h6 {
-      color: var(--color-heading);
-    }
-    
-    p, li {
-      color: var(--color-text);
-    }
-    
-    a {
-      color: var(--color-highlight);
-      
-      &:hover {
-        color: var(--color-accent-highlight);
-      }
-    }
-    
-    strong, b {
-      color: var(--color-heading);
-    }
+.accessibility-page__title {
+  margin: 0 auto var(--spacing-8);
+  text-align: center;
+  font-size: clamp(2.2rem, 4vw, 3.8rem);
+}
+
+.accessibility-page__content {
+  max-width: 48rem;
+  margin: 0 auto;
+}
+
+.accessibility-page__content p {
+  margin-bottom: var(--spacing-4);
+}
+
+.accessibility-lead {
+  color: var(--color-text-light);
+  font-size: 1.1rem;
+  line-height: var(--lineHeight-relaxed);
+  margin-bottom: var(--spacing-10) !important;
+}
+
+.accessibility-page__heading {
+  margin-top: var(--spacing-10);
+  margin-bottom: var(--spacing-4);
+  font-size: clamp(1.45rem, 2.4vw, 2.1rem);
+}
+
+.accessibility-list {
+  list-style-type: disc;
+  list-style-position: outside;
+  margin: 0 0 var(--spacing-8);
+  padding-left: var(--spacing-6);
+}
+
+.accessibility-list li {
+  margin: 0 0 var(--spacing-3);
+  padding-left: var(--spacing-1);
+}
+
+.accessibility-note {
+  margin: var(--spacing-6) 0 var(--spacing-8);
+  padding: var(--spacing-5) var(--spacing-6);
+  border: 1px solid var(--color-border-soft);
+  border-left: 4px solid var(--color-accent-highlight);
+  border-radius: 0.75rem;
+  background: var(--color-surface-elevated);
+  box-shadow: var(--shadow-soft);
+}
+
+.accessibility-note__title {
+  margin-bottom: var(--spacing-3) !important;
+  color: var(--color-heading);
+  font-weight: var(--fontWeight-bold);
+}
+
+.accessibility-note .accessibility-list {
+  margin-bottom: 0;
+}
+
+.accessibility-page__divider {
+  margin: var(--spacing-10) 0;
+  background: var(--color-accent);
+}
+
+.accessibility-page a {
+  color: var(--color-highlight);
+  text-decoration: underline;
+  text-underline-offset: 0.14em;
+}
+
+.accessibility-page a:hover,
+.accessibility-page a:focus {
+  color: var(--color-accent-highlight);
+}
+
+.accessibility-page code {
+  padding: 0.1em 0.3em;
+  border-radius: 0.25rem;
+  background: var(--color-accent-light);
+  color: var(--color-heading);
+  font-size: 0.9em;
+}
+
+@media (max-width: 42rem) {
+  .accessibility-page__title {
+    text-align: left;
   }
-  
-  // Dark gray background box
-  .bg-gray-50 {
-    background-color: var(--color-surface);
-    border: 1px solid var(--color-accent-light);
-    
-    h3, h4 {
-      color: var(--color-heading);
-    }
-    
-    p, li {
-      color: var(--color-text);
-    }
-  }
-  
-  // Dark yellow warning box
-  .bg-yellow-50 {
-    background-color: rgba(251, 191, 36, 0.1);
-    border-left-color: #fbbf24;
-    
-    .text-yellow-800 {
-      color: #fbbf24;
-    }
-    
-    li {
-      color: var(--color-text-light);
-    }
+
+  .accessibility-note {
+    padding: var(--spacing-4);
   }
 }

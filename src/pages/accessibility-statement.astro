@@ -3,101 +3,56 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
 <BaseLayout title="Accessibility Statement" description="Accessibility statement for Spark Lane Dev">
-  <div class="container accessibility-wrapper">   
-    <h1 class="text-3xl font-bold mb-8 text-center">Accessibility Statement</h1>
-    
-    <div class="prose prose-lg max-w-none">
-      <p class="lead text-lg mb-8">
-        This website (sparklane.dev) is frequently updated and is consistently built with care and intention. The web should be a friendly and accessible place for everyone. I aim to develop inclusively, aiming to provide good usability across a range of abilities, devices, and situations.
+  <div class="accessibility-page">
+    <h1 class="accessibility-page__title">Accessibility Statement</h1>
+
+    <div class="accessibility-page__content">
+      <p class="accessibility-lead">
+        I want sparklane.dev to be usable by as many people as possible. I build and maintain the site with accessibility in mind, including people who use assistive technology, keyboard navigation, browser zoom, or other ways of accessing the web.
       </p>
-      
-      <h2 class="text-xl font-semibold mb-4 mt-8">My accessibility standards</h2>
-      <p class="mb-6">
-        I aim to meet <strong>WCAG 2.2 to Level AA standard</strong> as a minimum throughout the site.
+
+      <h2 class="accessibility-page__heading">How accessible this website is</h2>
+      <p>
+        I have not made a formal, independent WCAG conformance claim. The site is intended to follow the relevant principles of <a href="https://www.w3.org/TR/WCAG22/">WCAG 2.2</a> and I am continuing to improve it.
       </p>
-      
-      <div class="bg-gray-800/5 p-6 rounded-lg mb-8 dark:bg-gray-200/5">
-        <h3 class="text-lg font-semibold mb-3">Core practices</h3>
-        <div class="grid md:grid-cols-2 gap-4">
-          <div>
-            <h4 class="font-medium mb-2">Level AA</h4>
-            <ul class="list-disc list-inside space-y-1 text-sm">
-              <li>semantic HTML5 with clear heading structure</li>
-              <li>skip link to main content</li>
-              <li>responsive, zoom-friendly layout (up to 200%)</li>
-              <li>keyboard-accessible navigation and links</li>
-              <li>custom focus styles for visibility</li>
-              <li>alt text for meaningful images, decorative images hidden</li>
-              <li>readable font sizes and color contrast of at least 4.5:1</li>
-              <li>support for prefers-reduced-motion</li>
-            </ul>
-          </div>
-          <div>
-            <h4 class="font-medium mb-2">Level AAA</h4>
-            <ul class="list-disc list-inside space-y-1 text-sm">
-              <li>most body text meets or exceeds 7:1 contrast</li>
-              <!-- <li>pronunciation hints or language markers for non-English phrases</li> -->
-              <li>focus styles are consistent across browsers and high contrast</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      
-      <h2 class="text-xl font-semibold mb-4 mt-8">Your experience, your way</h2>
-      <p class="mb-6">
-        You should be able to:
-      </p>
-      <ul class="list-disc list-inside space-y-2 mb-8">
-        <li>use your browser defaults for settings, sizes and styling</li>
-        <li>zoom in (or out) without breaking your experience</li>
-        <li>navigate the site with just your keyboard</li>
-        <li>listen to the site using a screen reader</li>
-        <li>choose between three color themes (green, pink, or peach) with dark and light variants while maintaining accessibility</li>
-      </ul>
-    <p>
-      I also make the website text as simple as possible to understand.
-      AbilityNet has advice on <a href="https://mcmw.abilitynet.org.uk/">making your device easier to use</a> if you have a disability.
-    </p>
-    <h2 class="text-xl font-semibold mb-4 mt-8">How accessible this website is</h2>
-      <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6">
-        <p class="font-medium text-yellow-800 mb-2">
-          Parts of this website are not fully accessible. For example:
-        </p>
-        <ul class="list-disc list-inside space-y-1 text-sm">
-          <li>some pages may not be written in plain English</li>
-          <li>some images may not have adequate image descriptions</li>
-          <li>some heading elements may not be consistent</li>
+      <div class="accessibility-note">
+        <p class="accessibility-note__title">Known limitations</p>
+        <ul class="accessibility-list">
+          <li>Some older or user-authored content may need clearer headings, simpler language, or better image descriptions.</li>
+          <li>Some embedded or linked third-party content, such as media players, is outside my direct control.</li>
+          <li>Some interactive features and content are provided by third-party components and may not behave consistently with every assistive technology.</li>
         </ul>
       </div>
-    <h2 class="text-xl">Feedback and contact information</h2>
-    <p>
-      If you need information in a different format, please contact me:
-    </p>
-    <ul>
-      <li>Email: <a href="mailto:emma@sparklane.dev">emma@sparklane.dev</a></li>
-      <li>LinkedIn: <a href="https://www.linkedin.com/in/emmalouiselane/" target="_blank" rel="noopener noreferrer">Connect with me on LinkedIn</a></li>
-    </ul>
-    <p>
-      In your message, include:
-    </p>
-    <ul>
-      <li>the web address (URL) of the content</li>
-      <li>your email address and name</li>
-      <li>the format you need - for example, plain text, large print or audio</li>
-    </ul>
-    <h2 class="text-xl">Reporting accessibility problems with this website</h2>
-    <p>
-      If you find any problems that are not listed on this page or you think I'm not meeting accessibility requirements, <a href="mailto:emma@sparklane.dev">contact me</a>.
-    </p>
-    <h2 class="text-xl">Technical information about this website's accessibility</h2>
-    <p>
-      I am committed to making this website accessible, in accordance with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018.
-    </p>
-    <hr />
-    <h3>Date</h3>
-    <p>
-      This statement was created on
-      <span class="basic-information statement-created-date">15 February 2026.</span>
-    </p>
+
+      <h2 class="accessibility-page__heading">What I do to improve accessibility</h2>
+      <ul class="accessibility-list">
+        <li>use semantic HTML and a logical heading structure</li>
+        <li>provide a skip link and keyboard-accessible navigation</li>
+        <li>include alternative text for meaningful images and treat decorative images as decorative</li>
+        <li>provide visible focus styles and support browser zoom and responsive layouts</li>
+        <li>respect the <code>prefers-reduced-motion</code> setting where possible</li>
+        <li>provide light and dark colour themes and review colour contrast as the site changes</li>
+        <li>write content as clearly and plainly as I can</li>
+      </ul>
+
+      <h2 class="accessibility-page__heading">Feedback and alternative formats</h2>
+      <p>
+        If you have difficulty using any part of this website, or need information in another format, please email <a href="mailto:emma@sparklane.dev">emma@sparklane.dev</a>. Please include the page URL, what you were trying to do, and the format or adjustment you need. I will do my best to provide the information or an accessible alternative.
+      </p>
+      <p>
+        You can also <a href="https://mcmw.abilitynet.org.uk/">find advice from AbilityNet about making your device easier to use</a>.
+      </p>
+
+      <h2 class="accessibility-page__heading">Technical information</h2>
+      <p>
+        This website is a personal site built with Astro and hosted as a static website. It includes content from external services and components, which may have their own accessibility limitations. I use WAVE to identify common accessibility issues and review changes as I update the site. This does not replace testing with a range of assistive technologies.
+      </p>
+
+      <hr class="accessibility-page__divider" />
+      <h2 class="accessibility-page__heading">Statement details</h2>
+      <p>
+        This statement applies to <a href="https://sparklane.dev">sparklane.dev</a>. It was created on 15 February 2026 and last reviewed on 30 July 2026.
+      </p>
+    </div>
   </div>
 </BaseLayout>

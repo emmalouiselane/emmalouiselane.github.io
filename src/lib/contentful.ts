@@ -84,6 +84,15 @@ export async function getPortfolioItemBySlug(slug: string) {
           slug
           description
           detailedDescription
+          images: imagesCollection {
+            items {
+              url
+              title
+              description
+              fileName
+              contentType
+            }
+          }
           features {
             json
           }

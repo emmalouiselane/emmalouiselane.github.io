@@ -12,17 +12,12 @@
 @use "./partials/_footer" as *;
 @use "./partials/_portfolio" as *;
 @use "./partials/_digitalGarden" as *;
-@use "./partials/_wordCloud" as *;
 @use "./partials/_recipe" as *;
 @use "./partials/_sign" as *;
 @use "./partials/_gaming" as *;
 @use "./partials/_accessibility" as *;
 @use "./partials/_watching" as *;
 
-// Accessibility wrapper
-.accessibility-wrapper li {
-  margin: var(--spacing-6);
-}
 
 body {
   background-color: var(--color-background);
@@ -30,3 +25,4 @@ body {
   font-family: var(--font-body);
   transition: background-color 0.3s ease, color 0.3s ease;
 }
+

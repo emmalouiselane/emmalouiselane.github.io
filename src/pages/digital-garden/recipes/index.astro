@@ -3,112 +3,111 @@ import RecipeCard from '@sparklane.dev/sparklane-recipecard-react';
 import '@sparklane.dev/sparklane-recipecard-react/dist/RecipeCard.css';
 import { createRecipeImage } from '../../../components/RecipeImageComponent';
 
-import BaseLayout from "../../../layouts/BaseLayout.astro";
-import { getAllRecipes } from "../../../lib/contentful";
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getAllRecipes } from '../../../lib/contentful';
 
 const recipes = await getAllRecipes();
 const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 ---
 
 <BaseLayout title="Recipes" description="Browse my collection of recipes.">
-  <div class="container">
-    <div class="flex flex-row justify-between">
-      <h1 class="text-2xl font-bold">Recipes</h1>
-
-      <div class="flex flex-row">
-        <button
-          id="toggleSearch"
-          class="my-auto ml-2 px-3 py-2 bg-[var(--color-primary)] text-white rounded-lg hover:bg-[var(--color-highlight)] focus:outline-none"
-          aria-label="Toggle search"
-        >
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-          </svg>
-        </button>
-        <button
-          id="clearSearch"
-          class="my-auto ml-2 px-3 py-2 bg-slate-600 text-white rounded-lg hover:bg-slate-700 focus:outline-none dark:bg-slate-500 dark:hover:bg-slate-600 disabled:opacity-50 disabled:cursor-not-allowed"
-          aria-label="Clear search"
-          title="Clear Filters"
-          disabled
-        >
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path>
-          </svg>
-        </button>
+  <div class="recipe-index-page">
+    <section class="recipe-index-hero">
+      <div>
+        <p class="home-kicker">Digital garden</p>
+        <h1>Recipes I want to come back to.</h1>
+        <p>
+          A practical little archive of recipes, experiments and reliable favourites. Some are polished, some are notes-to-self, and all of them are here because I wanted an easy way back to them.
+        </p>
       </div>
-    </div>
-    
+
+      <div class="pressed-hero-flower pressed-hero-flower--bloom" aria-hidden="true">
+        <img src="/images/flowers/pressed-bloom.svg" alt="" />
+      </div>
+
+      <div class="recipe-index-toolbar">
+        <p><strong>{recipes.length}</strong> saved recipes</p>
+        <div class="recipe-index-actions">
+          <button
+            id="toggleSearch"
+            class="recipe-icon-button"
+            aria-label="Toggle search"
+          >
+            <svg class="recipe-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+          </button>
+          <button
+            id="clearSearch"
+            class="recipe-icon-button recipe-icon-button--secondary"
+            aria-label="Clear search"
+            title="Clear filters"
+            disabled
+          >
+            <svg class="recipe-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
     <!-- Search Wrapper -->
-    <div class="relative">
+    <div class="recipe-filter-wrapper">
       <!-- Search Section (Hidden by default) -->
-      <div id="searchSection" class="hidden absolute top-full right-0 z-50 w-full max-w-2xl bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 mt-2">
-        <div class="mb-4">
-          <label for="search" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-            Search Recipes
-          </label>
-          <div class="flex space-x-2">
+      <div id="searchSection" class="recipe-filter-panel hidden">
+        <div class="recipe-filter-field">
+          <label for="search">Search recipes</label>
+          <div class="recipe-search-row">
             <input
               type="text"
               id="search"
               placeholder="Search by recipe name..."
-              class="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:border-blue-500 dark:bg-gray-700 dark:text-white"
             />
-            <button
-              id="searchBtn"
-              class="px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg hover:bg-[var(--color-highlight)] focus:outline-none"
-            >
+            <button id="searchBtn">
               Search
             </button>
           </div>
         </div>
       </div>
     </div>
-    
+
     <!-- Letter Filter Section (Always Visible) -->
-    <div class="mb-3">
-      <span class="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-2">
-        Filter by First Letter
-      </span>
-      <div class="w-fit flex flex-wrap gap-2 mx-auto justify-center" id="letterButtons">
-        <button
-          data-letter="all"
-          class="px-2 py-1 text-sm bg-slate-600 text-white rounded hover:bg-slate-700 focus:outline-none dark:bg-slate-500 dark:hover:bg-slate-600 cursor-pointer"
-        >
+    <section class="recipe-letter-panel" aria-label="Recipe first-letter filter">
+      <span>Filter by first letter</span>
+      <div class="recipe-letter-buttons" id="letterButtons">
+        <button data-letter="all">
           All
         </button>
         {letters.map((letter: string) => (
-          <button
-            data-letter={letter}
-            class="px-2 py-1 text-sm bg-slate-600 text-white rounded hover:bg-slate-700 focus:outline-none dark:bg-slate-500 dark:hover:bg-slate-600 cursor-pointer"
-          >
+          <button data-letter={letter}>
             {letter}
           </button>
         ))}
       </div>
-    </div>
+    </section>
 
     <!-- No Results Message -->
-    <div id="noResults" class="hidden text-center py-8 text-gray-600 dark:text-gray-400">
-      <p class="text-lg">No recipes found</p>
-      <p class="text-sm">Try adjusting your search or letter filter</p>
+    <div id="noResults" class="recipe-empty-state hidden">
+      <p>No recipes found</p>
+      <small>Try adjusting your search or letter filter.</small>
     </div>
 
-    <div class="row recipe-list grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2" id="recipeList">
+    <div class="recipe-list" id="recipeList">
       {
         recipes
           .sort((a: any, b: any) => a.name.localeCompare(b.name))
           .map((recipe: any) => (
-            <div data-recipe-name={recipe.name.toLowerCase()} data-recipe-slug={recipe.slug}>
+            <div class="recipe-list__item" data-recipe-name={recipe.name.toLowerCase()} data-recipe-slug={recipe.slug}>
               <RecipeCard
-                name={recipe.name} 
+                name={recipe.name}
                 image={createRecipeImage({ imageUrl: recipe.imagesCollection?.items?.[0]?.url, recipeName: recipe.name })}
-                rating={recipe.rating} 
+                rating={recipe.rating}
                 recipeCardOverrideClassName="recipe-card-custom"
-                emptyRatingClassName="text-gray-600 dark:text-gray-400 text-xs"
+                emptyRatingClassName="recipe-empty-rating"
                 showRatingNumber={false}
                 showRecipeButton={true}
-                recipeButtonClassName="py-1 px-2 cursor-pointer rounded-md text-xs bg-slate-600 text-white hover:bg-slate-700 dark:bg-slate-500 dark:hover:bg-slate-600"
+                recipeButtonClassName="recipe-card-button"
               />
             </div>
           ))
@@ -145,7 +144,7 @@ const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
         searchSection.classList.add('hidden');
         if (toggleBtn) {
           toggleBtn.innerHTML = `
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="recipe-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
             </svg>
           `;
@@ -161,14 +160,14 @@ const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
         if (searchSection.classList.contains('hidden')) {
           searchSection.classList.remove('hidden');
           toggleBtn.innerHTML = `
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="recipe-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
             </svg>
           `;
         } else {
           searchSection.classList.add('hidden');
           toggleBtn.innerHTML = `
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="recipe-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
             </svg>
           `;
@@ -217,10 +216,12 @@ const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
       (document.querySelectorAll('#letterButtons button') as NodeListOf<HTMLButtonElement>).forEach((btn: HTMLButtonElement) => {
         if (btn.dataset.letter === letter) {
           btn.style.backgroundColor = 'var(--color-primary)';
-          btn.classList.remove('bg-slate-600', 'dark:bg-slate-500');
+          btn.style.color = 'var(--primary-foreground)';
+          btn.classList.add('is-active');
         } else {
-          btn.classList.add('bg-slate-600', 'dark:bg-slate-500');
           btn.style.backgroundColor = '';
+          btn.style.color = '';
+          btn.classList.remove('is-active');
         }
       });
 
@@ -256,7 +257,7 @@ const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
       // Recipe button event delegation
       document.addEventListener('click', function(event) {
         const target = event.target as HTMLElement;
-        const recipeButton = target.closest('.recipe-button');
+        const recipeButton = target.closest('.recipe-button, .recipe-card-button');
         if (recipeButton) {
           const recipeCard = recipeButton.closest('[data-recipe-slug]');
           if (recipeCard) {
@@ -273,3 +274,4 @@ const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
     });
   </script>
 </BaseLayout>
+
