@@ -1,0 +1,205 @@
+---
+interface ContributionDay {
+  key: string;
+  count: number;
+  level: number;
+  tooltip: string;
+}
+
+const githubUsername = "emmalouiselane";
+const today = new Date();
+const twelveMonthsAgo = new Date(today);
+twelveMonthsAgo.setMonth(twelveMonthsAgo.getMonth() - 12);
+
+const toDateKey = (date: Date) => {
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, "0");
+  const d = String(date.getDate()).padStart(2, "0");
+  return `${y}-${m}-${d}`;
+};
+
+const contributionByDate = new Map<string, ContributionDay>();
+let loadError = "";
+let retrievedAt: string | null = null;
+
+try {
+  const response = await fetch(`https://github.com/users/${githubUsername}/contributions`, {
+    headers: {
+      "User-Agent": "portfolio-site",
+    },
+  });
+
+  if (!response.ok) throw new Error(`GitHub contributions request failed: ${response.status}`);
+
+  const html = await response.text();
+  retrievedAt = response.headers.get("date");
+  const tooltipById = new Map<string, string>();
+  const tooltipRegex = /<tool-tip[^>]*for="([^"]+)"[^>]*>([\s\S]*?)<\/tool-tip>/g;
+  let tooltipMatch: RegExpExecArray | null;
+
+  while ((tooltipMatch = tooltipRegex.exec(html)) !== null) {
+    tooltipById.set(tooltipMatch[1], tooltipMatch[2].replace(/<[^>]+>/g, "").trim());
+  }
+
+  const tdRegex = /<td[^>]*class="ContributionCalendar-day"[^>]*>/g;
+  const attr = (tag: string, name: string) => {
+    const match = tag.match(new RegExp(`${name}="([^"]+)"`));
+    return match ? match[1] : "";
+  };
+
+  let tdMatch: RegExpExecArray | null;
+  while ((tdMatch = tdRegex.exec(html)) !== null) {
+    const tag = tdMatch[0];
+    const date = attr(tag, "data-date");
+    if (!date) continue;
+
+    const tooltip = tooltipById.get(attr(tag, "id")) || `No contributions on ${date}.`;
+    const countMatch = tooltip.match(/(\d+)\s+contributions?/i);
+    const count = countMatch ? Number.parseInt(countMatch[1], 10) : 0;
+    const level = Number.parseInt(attr(tag, "data-level") || "0", 10);
+    contributionByDate.set(date, { key: date, count, level, tooltip });
+  }
+
+  if (contributionByDate.size === 0) throw new Error("No contribution days retrieved from GitHub response");
+} catch (error) {
+  console.error("Unable to load GitHub contributions:", error);
+  loadError = "I couldn't load the GitHub contribution data right now. Please try refreshing the page.";
+}
+
+const weeks: Array<Array<ContributionDay | null>> = [];
+let currentWeek: Array<ContributionDay | null> = new Array(twelveMonthsAgo.getDay()).fill(null);
+
+for (let cursor = new Date(twelveMonthsAgo); cursor <= today; cursor.setDate(cursor.getDate() + 1)) {
+  const key = toDateKey(cursor);
+  currentWeek.push(contributionByDate.get(key) || { key, count: 0, level: 0, tooltip: `No contributions on ${key}.` });
+
+  if (currentWeek.length === 7) {
+    weeks.push(currentWeek);
+    currentWeek = [];
+  }
+}
+
+if (currentWeek.length > 0) {
+  while (currentWeek.length < 7) currentWeek.push(null);
+  weeks.push(currentWeek);
+}
+
+const totalContributions = weeks
+  .flat()
+  .filter((day): day is ContributionDay => day !== null)
+  .reduce((sum, day) => sum + day.count, 0);
+---
+
+<article class="portfolio-contribution-panel">
+  <header>
+    <p class="home-card__eyebrow">GitHub activity</p>
+    <div class="github-chart-copy">
+      <p>{totalContributions} contributions across public repositories over the past 12 months.</p>
+    </div>
+  </header>
+
+  {loadError ? (
+    <p class="github-chart-error">{loadError}</p>
+  ) : (
+    <div class="contribution-grid" role="img" aria-label={`GitHub contribution chart for ${githubUsername} (last 12 months)`}>
+      {weeks.map((week) => (
+        <div class="contribution-week">
+          {week.map((day) =>
+            day ? (
+              <span
+                class={`contribution-cell level-${day.level}`}
+                data-tooltip={day.tooltip}
+                tabindex="0"
+                role="img"
+                aria-label={day.tooltip}
+              />
+            ) : (
+              <span class="contribution-cell contribution-cell-empty" aria-hidden="true" />
+            )
+          )}
+        </div>
+      ))}
+    </div>
+    
+  )}
+
+  {retrievedAt && (
+    <p class="github-chart-retrieved">
+      Last retrieved <time datetime={retrievedAt}>{retrievedAt}</time>
+    </p>
+  )}
+</article>
+
+<script>
+  const contributionGrid = document.querySelector<HTMLElement>('.contribution-grid');
+  const cells = document.querySelectorAll<HTMLElement>('.contribution-cell[data-tooltip]');
+
+  const scrollToLatestContributions = () => {
+    if (contributionGrid && contributionGrid.scrollWidth > contributionGrid.clientWidth) {
+      contributionGrid.scrollLeft = contributionGrid.scrollWidth;
+    }
+  };
+  const tooltip = document.createElement('div');
+  tooltip.className = 'contribution-tooltip';
+  tooltip.setAttribute('role', 'tooltip');
+  tooltip.hidden = true;
+  tooltip.id = 'contribution-tooltip';
+  document.body.appendChild(tooltip);
+
+  let activeCell: HTMLElement | null = null;
+  let isHovered = false;
+  let isFocused = false;
+
+  const positionTooltip = () => {
+    if (!activeCell) return;
+    const cellRect = activeCell.getBoundingClientRect();
+    const tooltipRect = tooltip.getBoundingClientRect();
+    const halfWidth = tooltipRect.width / 2;
+    const horizontalPadding = 8;
+    const left = Math.min(
+      Math.max(cellRect.left + cellRect.width / 2, halfWidth + horizontalPadding),
+      window.innerWidth - halfWidth - horizontalPadding,
+    );
+    const fitsAbove = cellRect.top - tooltipRect.height - 8 >= horizontalPadding;
+    tooltip.style.left = `${left}px`;
+    tooltip.style.top = `${fitsAbove ? cellRect.top - 8 : cellRect.bottom + 8}px`;
+    tooltip.classList.toggle('is-below', !fitsAbove);
+  };
+
+  const hideTooltip = () => {
+    activeCell = null;
+    tooltip.hidden = true;
+  };
+
+  const showTooltip = (cell: HTMLElement) => {
+    activeCell = cell;
+    tooltip.textContent = cell.dataset.tooltip || '';
+    tooltip.hidden = false;
+    cell.setAttribute('aria-describedby', tooltip.id);
+    positionTooltip();
+  };
+
+  cells.forEach((cell) => {
+    cell.addEventListener('pointerenter', () => {
+      isHovered = true;
+      showTooltip(cell);
+    });
+    cell.addEventListener('pointerleave', () => {
+      isHovered = false;
+      if (!isFocused) hideTooltip();
+    });
+    cell.addEventListener('focus', () => {
+      isFocused = true;
+      showTooltip(cell);
+    });
+    cell.addEventListener('blur', () => {
+      isFocused = false;
+      if (!isHovered) hideTooltip();
+    });
+  });
+
+  window.addEventListener('resize', positionTooltip);
+  window.addEventListener('resize', scrollToLatestContributions);
+  requestAnimationFrame(scrollToLatestContributions);
+  window.addEventListener('scroll', positionTooltip, true);
+</script>
