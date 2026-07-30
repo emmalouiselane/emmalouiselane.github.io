@@ -18,10 +18,6 @@
 @use "./partials/_accessibility" as *;
 @use "./partials/_watching" as *;
 
-// Accessibility wrapper
-.accessibility-wrapper li {
-  margin: var(--spacing-6);
-}
 
 body {
   background-color: var(--color-background);
