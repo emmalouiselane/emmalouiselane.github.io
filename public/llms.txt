@@ -1,0 +1,35 @@
+# Spark Lane
+
+> Spark Lane (sparklane.dev) is Emma Lane's personal website covering software engineering, accessibility, research, writing, and personal interests.
+
+Spark Lane is a static Astro site with selected content managed through Contentful. It includes technical writing, portfolio work, dissertation research, and a Digital Garden of recommendations and guides.
+
+## Main sections
+
+- [Home](https://sparklane.dev/): Overview of the site and latest additions.
+- [About Emma Lane](https://sparklane.dev/about/): Background, interests, skills, and contact information.
+- [Blog posts](https://sparklane.dev/blog-posts/): Technical posts, personal notes, accessibility thoughts, and development updates.
+- [Portfolio](https://sparklane.dev/portfolio/): Selected software engineering projects and practical builds.
+- [Dissertation research](https://sparklane.dev/dissertation/): Research and dissertation updates.
+- [Digital Garden](https://sparklane.dev/digital-garden/): Personal collections and curated notes.
+
+## Digital Garden
+
+- [Gaming](https://sparklane.dev/digital-garden/gaming/): Gaming guides and notes.
+- [Listening](https://sparklane.dev/digital-garden/listening/): Music and podcast recommendations.
+- [Reading](https://sparklane.dev/digital-garden/reading/): Book reviews and reading lists.
+- [Recipes](https://sparklane.dev/digital-garden/recipes/): Personal recipes and cooking notes.
+- [Watching](https://sparklane.dev/digital-garden/watching/): Film and television recommendations.
+
+## Accessibility
+
+- [Accessibility statement](https://sparklane.dev/accessibility-statement/): Accessibility approach, known limitations, feedback, and alternative-format requests.
+
+The site aims to follow relevant WCAG 2.2 principles. No formal independent WCAG conformance claim has been made. Accessibility issues can be reported to emma@sparklane.dev.
+
+## About the site
+
+- Built with Astro, React, TypeScript, SCSS, and Tailwind CSS.
+- Content is partly managed through Contentful.
+- Hosted as a static site at sparklane.dev.
+- Content and recommendations represent Emma Lane's personal views and interests.

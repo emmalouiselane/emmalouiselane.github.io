@@ -61,7 +61,7 @@ The `postinstall` script patches the third-party RecipeCard package when depende
 
 ```
 /
-├── public/                  # Static assets
+├── public/                  # Static assets, including /llms.txt
 ├── src/
 │   ├── components/          # React and Astro components
 │   │   └── ui/              # Reusable UI components
@@ -109,6 +109,7 @@ The `postinstall` script patches the third-party RecipeCard package when depende
 - Custom RecipeCard component using `@sparklane.dev/sparklane-recipecard-react`
 - Accessibility statement with ongoing WCAG 2.2-informed improvements
 - Accessibility checks using WAVE
+- Static llms.txt site summary for AI-readable discovery
 
 ## Content management
 
@@ -156,6 +157,8 @@ Client-side React components provide:
 - Git commit history in the footer
 
 The site supports reduced motion through the `prefers-reduced-motion` media feature.
+
+A static llms.txt file is published at https://sparklane.dev/llms.txt with a concise, link-based overview of the site and its main sections.
 
 ## Deployment
 
