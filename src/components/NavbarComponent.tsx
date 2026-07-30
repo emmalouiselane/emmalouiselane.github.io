@@ -6,7 +6,7 @@ import { useTracking } from "../hooks/useTracking";
 
 const NavbarComponent = () => {
     const { trackEvent } = useTracking();
-    const [isDarkMode, setIsDarkMode] = useState(false);
+    const [isDarkMode, setIsDarkMode] = useState(true);
     const [isOpen, setIsOpen] = useState(false);
 
     const handleNavigation = (section: string) => {
