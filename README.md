@@ -2,30 +2,33 @@
 
 This is the Astro version of the Spark Lane blog and portfolio site, migrated from Gatsby.
 
-## 🚀 Quick Start
+## Quick start
 
 ### Prerequisites
 
-- Node.js 18+ 
-- npm or yarn
+- Node.js 22 (the deployment workflows use Node.js 22)
+- npm
 
 ### Installation
 
-1. Clone the repository
+1. Clone the repository.
 2. Install dependencies:
+
    ```bash
    npm install
    ```
 
-3. Copy `.env.example` to `.env` and fill in your Contentful credentials:
+3. Copy the example environment file:
+
    ```bash
    cp .env.example .env
    ```
 
-4. Add your Contentful Space ID and Delivery Token to `.env`:
+4. Add your Contentful credentials to `.env`:
+
    ```
-   PUBLIC_CONTENTFUL_SPACE_ID=your_space_id
-   PUBLIC_CONTENTFUL_DELIVERY_TOKEN=your_delivery_token
+   PUBLIC_CONTENTFUL_SPACE_ID=your_space_id_here
+   PUBLIC_CONTENTFUL_DELIVERY_TOKEN=your_delivery_token_here
    ```
 
 ### Development
@@ -36,11 +39,11 @@ Start the development server:
 npm run dev
 ```
 
-The site will be available at `http://localhost:4321`
+The site will be available at `http://localhost:4321`.
 
-### Build
+### Build and preview
 
-Build the site for production:
+Build the static production site:
 
 ```bash
 npm run build
@@ -52,112 +55,125 @@ Preview the production build:
 npm run preview
 ```
 
-## 📁 Project Structure
+The `postinstall` script patches the third-party RecipeCard package when dependencies are installed.
+
+## Project structure
 
 ```
 /
-├── public/              # Static assets
-│   ├── robots.txt
-│   ├── favicon.svg
-│   └── images/
+├── public/                  # Static assets
 ├── src/
-│   ├── components/      # React and Astro components
-│   │   └── ui/          # Reusable UI components
-│   ├── hooks/           # React hooks
-│   ├── interface/       # TypeScript interfaces
-│   ├── layouts/         # Page layouts
-│   ├── lib/             # Utilities and Contentful client
-│   ├── pages/           # File-based routing
+│   ├── components/          # React and Astro components
+│   │   └── ui/              # Reusable UI components
+│   ├── hooks/               # React hooks
+│   ├── interface/           # TypeScript interfaces
+│   ├── layouts/             # Shared page layouts
+│   ├── lib/                 # Utilities, types, and Contentful client
+│   ├── pages/               # File-based routes
 │   │   ├── blog-posts/
-│   │   ├── portfolio/
 │   │   ├── digital-garden/
 │   │   │   ├── gaming/
 │   │   │   ├── listening/
 │   │   │   ├── reading/
-│   │   │   └── recipes/
+│   │   │   ├── recipes/
+│   │   │   └── watching/
+│   │   ├── portfolio/
+│   │   ├── dissertation/
+│   │   ├── workshop/
 │   │   ├── about.astro
+│   │   ├── 404.astro
 │   │   └── accessibility-statement.astro
-│   ├── styles/          # SCSS styles
-│   │   └── partials/    # Style modules
-│   └── images/          # Image assets
-├── tests/               # Test files
-├── astro.config.mjs     # Astro configuration
+│   ├── styles/              # SCSS and Tailwind styles
+│   └── images/              # Source image assets
+├── scripts/                 # Build and dependency helper scripts
+├── tests/                   # Test files
+├── .github/                 # GitHub Actions and Dependabot configuration
+├── astro.config.mjs         # Astro configuration
 ├── package.json
 └── tsconfig.json
 ```
 
-## 🧩 Key Features
+## Key features
 
-- **Static Site Generation** with Astro 5.x
-- **React Components** with hooks for dynamic, interactive elements
-- **Real-time filtering and pagination** without page refreshes
-- **TypeScript** support with strict configuration
-- **Contentful CMS** integration with blog type categorization
-- **SCSS** styling with Tailwind CSS 4.x
-- **SEOComponent optimized** with meta tags and sitemap
-- **Responsive design** with mobile-first approach
-- **Dark mode** support
-- **Digital Garden** sections for gaming, listening, reading, and recipes
-- **Accessibility** statement and WCAG compliance
-- **Component library** with reusable UI components using Radix UI
-- **Custom RecipeCard Component** using @sparklane.dev/sparklane-recipecard-react package
+- Static site generation with Astro 6
+- React components for dynamic and interactive elements
+- TypeScript with strict configuration
+- Contentful CMS integration
+- SCSS styling with Tailwind CSS 4
+- SEO metadata and sitemap generation
+- Responsive, mobile-first layouts
+- Light and dark colour themes
+- Digital Garden sections for gaming, listening, reading, recipes, and watching
+- Blog search, filtering, and pagination
+- Reusable UI components built with Radix UI
+- Custom RecipeCard component using `@sparklane.dev/sparklane-recipecard-react`
+- Accessibility statement with ongoing WCAG 2.2-informed improvements
+- Accessibility checks using WAVE
 
-## 📝 Content Management
+## Content management
 
 Content is managed through Contentful CMS:
-- **Blog posts** with type categorization and rich text content
+
+- **Blog posts** with type categorisation and rich text content
 - **Portfolio items** with external links and descriptions
 - **Recipes** with ratings, ingredients, and directions
+- **Book reviews** and **watching-list items**
 
-## 🌿 Digital Garden
+## Digital Garden
 
-The site includes a digital garden with personal collections:
-- **Gaming**: Game reviews and recommendations
-- **Listening**: Music and podcast favorites
+The Digital Garden contains personal collections:
+
+- **Gaming**: Game reviews and guides
+- **Listening**: Music and podcast favourites
 - **Reading**: Book reviews and reading lists
-- **Recipes**: Personal recipe collection with ratings and custom RecipeCard components
+- **Recipes**: Personal recipes with ratings and custom RecipeCard components
+- **Watching**: Films and television recommendations
 
-### RecipeCard Implementation
+## RecipeCard
 
-The recipes page uses my custom RecipeCard component built with `@sparklane.dev/sparklane-recipecard-react` package: https://www.npmjs.com/package/@sparklane.dev/sparklane-recipecard-react
+The recipes page uses the custom `@sparklane.dev/sparklane-recipecard-react` package.
 
-#### Package Features:
-- **Customizable styling** with override classes
-- **Image handling** with fallback support
-- **Star ratings** with configurable display
-- **Interactive buttons** with click handlers
-- **Responsive design** with proper image scaling
-- **Hover animations** with bounce effects
+The implementation includes:
 
-#### Custom Implementation:
-- **RecipeImageComponent**: Handles image display with proper React element types
-- **Event delegation**: Client-side click handling for recipe navigation
-- **Custom styling**: SCSS overrides for card appearance and animations
-- **Filtering integration**: Works with search and letter-based filtering
+- Customisable styling and responsive image handling
+- Fallback images
+- Star ratings
+- Interactive navigation
+- Search and first-letter filtering
+- SCSS overrides for card appearance
 
-## ⚡ Dynamic Features
+Package details: https://www.npmjs.com/package/@sparklane.dev/sparklane-recipecard-react
 
-The site includes several client-side React components for enhanced user experience:
+## Dynamic features
 
-- **Blog Posts Page**: Real-time search and filtering by blog type, with pagination
-- **Home Page**: Dynamic loading of latest content from Contentful
-- **Navigation**: Responsive mobile menu with smooth animations
+Client-side React components provide:
 
-All interactive elements use React hooks for state management, providing instant updates without page refreshes.
+- Blog search and filtering by blog type
+- Blog pagination
+- Home-page content loaded from Contentful
+- Responsive mobile navigation
+- Light/dark theme switching
+- Git commit history in the footer
 
-## 🚢 Deployment
+The site supports reduced motion through the `prefers-reduced-motion` media feature.
 
-The site is configured for GitHub Pages deployment with automatic deployment via GitHub Actions. The site is deployed to `https://sparklane.dev`.
+## Deployment
 
-### GitHub Actions Workflows
+The site is deployed to GitHub Pages at https://sparklane.dev using the custom domain in `CNAME`.
 
-- **Build and Deploy**: Automatically builds and deploys the site on push to main branch
-- **Dependency Updates**: Dependabot configured for automatic dependency updates
+Deployment runs through GitHub Actions:
 
-## 📄 License
+- `deploy.yml` runs on pushes to `main` and can also be run manually.
+- `build-on-publish.yml` runs when Contentful publishes a `contentful-content-update` repository dispatch event.
+- Both workflows use Node.js 22, install with `npm ci`, build with `npm run build`, and deploy the `dist/` directory.
+- Dependabot checks npm dependencies daily.
+
+For local development, use the `PUBLIC_CONTENTFUL_*` variables shown above. The GitHub Actions workflows currently read the repository secrets `GATSBY_CONTENTFUL_SPACE_ID` and `GATSBY_CONTENTFUL_DELIVERY_TOKEN`, then map them to the `PUBLIC_CONTENTFUL_*` variables during the build.
+
+## License
 
 MIT
 
-## 👤 Author
+## Author
 
 Emma Lane - [emma@sparklane.dev](mailto:emma@sparklane.dev)
