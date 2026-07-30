@@ -1,16 +1,24 @@
 import { useState, useEffect } from 'react';
 import { getAllWatchList } from '../lib/contentful';
-import type { WatchList } from '@/lib/types/watchList';
+import type { WatchList } from '../lib/types/watchList';
 
 const REVIEWS_PER_PAGE = 5;
+
+const getInitialFilter = (key: string) => {
+  if (typeof window === 'undefined') {
+    return '';
+  }
+
+  return new URLSearchParams(window.location.search).get(key) ?? '';
+};
 
 const WatchListComponent = () => {
   const [allWatchList, setAllWatchList] = useState<WatchList[]>([]);
   const [filteredWatchList, setFilteredWatchList] = useState<WatchList[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedType, setSelectedType] = useState('');
-  const [selectedStatus, setSelectedStatus] = useState('');
+  const [selectedType, setSelectedType] = useState(() => getInitialFilter('type'));
+  const [selectedStatus, setSelectedStatus] = useState(() => getInitialFilter('status'));
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -65,10 +73,30 @@ const WatchListComponent = () => {
     setIsFilterOpen(!isFilterOpen);
   };
 
+  const updateUrlFilter = (key: string, value: string) => {
+    const url = new URL(window.location.href);
+    if (value) {
+      url.searchParams.set(key, value);
+    } else {
+      url.searchParams.delete(key);
+    }
+    window.history.replaceState({}, '', url);
+  };
+
+  const updateTypeFilter = (type: string) => {
+    setSelectedType(type);
+    updateUrlFilter('type', type);
+  };
+
+  const updateStatusFilter = (status: string) => {
+    setSelectedStatus(status);
+    updateUrlFilter('status', status);
+  };
+
   const clearFilters = () => {
     setSearchTerm('');
-    setSelectedStatus('');
-    setSelectedType('');
+    updateStatusFilter('');
+    updateTypeFilter('');
     setIsFilterOpen(false);
   };
 
@@ -100,11 +128,7 @@ const WatchListComponent = () => {
       <button
         key={pageNum}
         onClick={() => handlePageChange(pageNum)}
-        className={`px-3 py-2 text-sm font-medium rounded-md cursor-pointer ${
-          pageNum === currentPage
-            ? 'text-white bg-gray-900 dark:bg-white dark:text-gray-900 border border-gray-900 dark:border-white'
-            : 'text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700'
-        }`}
+        className={`garden-page-button${pageNum === currentPage ? ' is-active' : ''}`}
       >
         {pageNum}
       </button>
@@ -112,79 +136,67 @@ const WatchListComponent = () => {
   };
 
   if (loading) {
-    return <div className="text-center py-8">Loading watches...</div>;
+    return <div className="garden-page-loading">Loading watches...</div>;
   }
 
   return (
-    <div className="container">
-      <div className="flex flex-row justify-between">
-        <h1 className="text-2xl font-bold">What have I been watching?</h1>
+    <div className="watching-page garden-list-page">
+      <section className="garden-list-hero garden-list-hero--watching">
+        <p className="home-kicker">Digital garden</p>
+        <h1>What I have been watching.</h1>
+        <p>
+          A watch list for films, shows and anything else I want to remember. Some entries are just quick tracking notes, and some have fuller thoughts attached.
+        </p>
+              <div className="garden-hero-flower garden-hero-flower--sprig" aria-hidden="true">
+          <img src="/images/flowers/pressed-sprig.svg" alt="" />
+        </div>
+      </section>
 
-        <div className="flex flex-row">
-          <div className="text-center mt-4 mb-4 text-sm text-gray-600 dark:text-gray-400">
-            <span>{Math.min(endIndex, filteredWatchList.length)}</span> of {filteredWatchList.length} watches found
-          </div>
-          <button
-            onClick={toggleFilters}
-            className="my-auto ml-2 px-3 py-2 bg-[var(--color-primary)] text-white rounded-lg hover:bg-[var(--color-highlight)] focus:outline-none"
-            aria-label="Toggle filters"
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <section className="garden-list-toolbar" aria-label="Watch list controls">
+        <p><span>{Math.min(endIndex, filteredWatchList.length)}</span> of {filteredWatchList.length} watches found</p>
+        <div className="garden-list-actions">
+          <button onClick={toggleFilters} className="garden-icon-button" aria-label="Toggle filters">
+            <svg className="garden-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
             </svg>
           </button>
           <button
             onClick={clearFilters}
-            className="my-auto ml-2 px-3 py-2 bg-slate-600 text-white rounded-lg hover:bg-slate-700 focus:outline-none dark:bg-slate-500 dark:hover:bg-slate-600 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="garden-icon-button garden-icon-button--secondary"
             aria-label="Clear Filters"
             disabled={searchTerm === '' && selectedStatus === '' && selectedType === ''}
           >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="garden-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path>
             </svg>
           </button>
         </div>
-      </div>
+      </section>
 
       {/* Filter Wrapper */}
-      <div className="mb-4 relative">
+      <div className="garden-filter-wrapper">
         {/* Search and Filter Section */}
         {isFilterOpen && (
-          <div className="absolute top-full right-0 z-50 w-96 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 mt-2">
+          <div className="garden-filter-panel">
             {/* Search Input */}
-            <div className="mb-4">
-              <label htmlFor="search" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Search Watch List
-              </label>
-              <div className="flex space-x-2">
+            <div className="garden-filter-field">
+              <label htmlFor="search">Search Watch List</label>
+              <div className="garden-search-row">
                 <input
                   type="text"
                   id="search"
                   placeholder="Search by title..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:border-blue-500 dark:bg-gray-700 dark:text-white"
                 />
-                <button
-                  onClick={() => setSearchTerm(searchTerm)} // Trigger filter
-                  className="px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg hover:bg-[var(--color-highlight)] focus:outline-none"
-                >
-                  Search
-                </button>
+                <button onClick={() => setSearchTerm(searchTerm)}>Search</button>
               </div>
             </div>
 
             {/* Status Filter */}
-            <div className="mt-2">
-              <label htmlFor="status" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Filter by Status
-              </label>
-              <select
-                id="status"
-                value={selectedStatus}
-                onChange={(e) => setSelectedStatus(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:border-blue-500 dark:bg-gray-700 dark:text-white"
-              >
+            <div className="garden-filter-field">
+              <label htmlFor="status">Filter by Status</label>
+              <select id="status" value={selectedStatus} onChange={(e) => updateStatusFilter(e.target.value)}>
                 <option value="">All Statuses</option>
                 <option value="To be watched">To be watched</option>
                 <option value="Watching">Watching</option>
@@ -194,16 +206,9 @@ const WatchListComponent = () => {
 
             {/* Type Filter */}
             {types && types.length > 0 && (
-              <div className="mt-2">
-                <label htmlFor="type" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Filter by Type
-                </label>
-                <select
-                  id="type"
-                  value={selectedType}
-                  onChange={(e) => setSelectedType(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:border-blue-500 dark:bg-gray-700 dark:text-white"
-                >
+              <div className="garden-filter-field">
+                <label htmlFor="type">Filter by Type</label>
+                <select id="type" value={selectedType} onChange={(e) => updateTypeFilter(e.target.value)}>
                   <option value="">All Types</option>
                   {types.map(type => (
                     <option key={type} value={type}>{type}</option>
@@ -215,89 +220,67 @@ const WatchListComponent = () => {
         )}
       </div>
 
-      <div className="watch-list">
+      <div className="garden-card-list watch-list">
         {currentWatchList.length === 0 ? (
-          <div className="text-center py-8 text-gray-600 dark:text-gray-400">
+          <div className="garden-empty-state">
             <p>No watch records found matching your criteria.</p>
           </div>
         ) : (
           currentWatchList.map((watch) => (
-            <div className="row mb-2 watch-item" key={watch.sys.id}>
-              <article
-                className="watch-list-item"
-                itemScope
-                itemType="http://schema.org/Review"
-              >
+            <article className="watch-list-item garden-list-card" key={watch.sys.id} itemScope itemType="http://schema.org/Review">
+              <div className="garden-list-card__topline">
                 <div>
-                  <div className="flex flex-row justify-between items-start">
-                    <div className="flex-1">
-                      <h2 className="text-xl">{watch.title}</h2>
-                    </div> 
-                    {watch.type && watch.type.length > 0 && (
-                        <div className="flex flex-wrap gap-1 mb-2 ml-3">
-                           <span 
-                            key={watch.type} 
-                            className="inline-block px-2 py-1 text-xs bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
-                            onClick={() => setSelectedType(watch.type)}
-                            title={`Filter by ${watch.type}`}
-                          >
-                            {watch.type}
-                          </span>
-                        </div>
-                      )}
-                  </div>
-
-                  <section className="flex flex-row justify-between mt-1">
-                    {watch.platform ? (watch.status === 'Watching' ? (
-                      <span className="text-sm mr-4 text-gray-500 dark:text-gray-400">Currently watching on {watch.platform}</span>
-                    ) : (
-                      <span className="text-sm mr-4 text-gray-500 dark:text-gray-400">Watched on {watch.platform}</span>
-                    )) : <></>}
-
-                    {watch.thoughts && (
-                      <a className="text-sm min-w-fit whitespace-nowrap" href={`/digital-garden/watching/${watch.sys.id}/`}>
-                        <span>Read my thoughts</span>
-                        <span className="sr-only">Read thoughts on {watch.title}</span>
-                      </a>
-                    )} 
-                  </section>
+                  <h2>{watch.title}</h2>
+                  {watch.platform && (
+                    <p>{watch.status === 'Watching' ? `Currently watching on ${watch.platform}` : `Watched on ${watch.platform}`}</p>
+                  )}
                 </div>
-              </article>
-            </div>
+                {watch.type && watch.type.length > 0 && (
+                  <div className="garden-tag-list">
+                    <button onClick={() => updateTypeFilter(watch.type)} title={`Filter by ${watch.type}`}>
+                      {watch.type}
+                    </button>
+                  </div>
+                )}
+              </div>
+
+              <div className="garden-list-card__footer">
+                <span>{watch.status}</span>
+                {watch.thoughts && (
+                  <a href={`/digital-garden/watching/${watch.sys.id}/`}>
+                    <span>Read my thoughts</span>
+                    <span className="sr-only">Read thoughts on {watch.title}</span>
+                  </a>
+                )}
+              </div>
+            </article>
           ))
         )}
       </div>
 
       {totalPages > 1 && (
-        <div className="mt-4">
-          <nav className="justify-center flex items-center space-x-2" aria-label="Pagination">
-            {/* Previous Button */}
-            <button
-              onClick={() => handlePageChange(currentPage - 1)}
-              disabled={currentPage === 1}
-              className="px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
-            >
-              Previous
-            </button>
+        <nav className="garden-pagination" aria-label="Pagination">
+          {/* Previous Button */}
+          <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1} className="garden-page-button">
+            Previous
+          </button>
 
-            {/* Page Numbers */}
-            <div className="flex space-x-2">
-              {renderPageNumbers()}
-            </div>
+          {/* Page Numbers */}
+          <div className="garden-pagination__pages">
+            {renderPageNumbers()}
+          </div>
 
-            {/* Next Button */}
-            <button
-              onClick={() => handlePageChange(currentPage + 1)}
-              disabled={currentPage === totalPages}
-              className="px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
-            >
-              Next
-            </button>
-          </nav>
-        </div>
+          {/* Next Button */}
+          <button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages} className="garden-page-button">
+            Next
+          </button>
+        </nav>
       )}
     </div>
   );
 };
 
 export default WatchListComponent;
+
+
+

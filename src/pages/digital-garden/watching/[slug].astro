@@ -8,7 +8,6 @@ import { displayRichText } from '../../../lib/richTextOptions';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import AuthorNoteComponent from '../../../components/AuthorNoteComponent.astro';
 
-
 export const getStaticPaths = (async () => {
   const watchList = await getAllWatchList();
 
@@ -22,32 +21,64 @@ const { item } = Astro.props;
 const pathname = Astro.url.pathname;
 
 if (!item?.sys?.id) {
-  throw new Error('Book review ID is required but not found');
+  throw new Error('Watch list item ID is required but not found');
 }
 const watchItem = await getWatchListById(item.sys.id);
 
+const getTypeFilterUrl = (type: string) => `/digital-garden/watching/?type=${encodeURIComponent(type)}`;
+const getStatusFilterUrl = (status: string) => `/digital-garden/watching/?status=${encodeURIComponent(status)}`;
 ---
 
 <BaseLayout title={`${watchItem.title} - Watch List`} description={`Watch list item: ${watchItem.title}`}>
-  <div class="book-review">
+  <div class="garden-detail-page watching-detail-page">
     <article itemscope itemtype="http://schema.org/Article">
-      <header>
-        <h1 class="text-2xl font-bold !mb-1">{watchItem.title}</h1>
+      <header class="garden-detail-hero">
+        <div>
+          <p class="home-kicker">Watching notes</p>
+          <h1>{watchItem.title}</h1>
+          {watchItem.platform && (
+            <p>{watchItem.status === 'Watching' ? `Currently watching on ${watchItem.platform}` : `Watched on ${watchItem.platform}`}</p>
+          )}
+        </div>
+
+        <div class="garden-hero-flower garden-hero-flower--sprig" aria-hidden="true">
+          <img src="/images/flowers/pressed-sprig.svg" alt="" />
+        </div>
+
+        <div class="garden-detail-meta">
+          <button class="tinylytics_kudos" data-path={pathname}></button>
+        </div>
       </header>
 
-      
-      <div class="row prose prose-lg max-w-none mt-1">
-        <h2 class="mt-8">My Thoughts</h2>
+      <div class="garden-tag-list">      
+          {watchItem.type && (
+            <a href={getTypeFilterUrl(watchItem.type)} title={`See more ${watchItem.type} watches`}>
+              {watchItem.type}
+            </a>
+          )}
+          {watchItem.status && (
+            <a href={getStatusFilterUrl(watchItem.status)} title={`See more ${watchItem.status.toLowerCase()} watches`}>
+              {watchItem.status}
+            </a>
+          )}
+        </div>
+
+      <section class="garden-detail-panel garden-detail-body">
+        <p class="home-card__eyebrow">My thoughts</p>
         {
           watchItem.thoughts ? (
             <Fragment set:html={displayRichText(watchItem.thoughts)} />
           ) : (
-            <p class="text-gray-500 dark:text-gray-400">No thoughts have been recorded for this watch yet.</p>
+            <p>No thoughts have been recorded for this watch yet.</p>
           )
         }
-      </div>
+      </section>
 
       <AuthorNoteComponent />
     </article>
   </div>
 </BaseLayout>
+
+
+
+

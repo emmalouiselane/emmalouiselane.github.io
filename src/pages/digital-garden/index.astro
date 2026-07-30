@@ -1,62 +1,86 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const gardenLinks = [
+  {
+    title: 'Blog',
+    href: '/blog-posts/',
+    flower: '/images/flowers/pressed-sprig.svg',
+    description: 'Longer notes on code, cybersecurity, learning and the odd personal thread.',
+  },
+  {
+    title: 'Recipes',
+    href: '/digital-garden/recipes/',
+    flower: '/images/flowers/pressed-bloom.svg',
+    description: 'A cosy recipe bank for bakes, dinners, preserves and things worth making again.',
+  },
+  {
+    title: 'Gaming',
+    href: '/digital-garden/gaming/',
+    flower: '/images/flowers/pressed-herb.svg',
+    description: 'Game notes, references and little guides for the worlds I keep wandering back to.',
+  },
+  {
+    title: 'Reading',
+    href: '/digital-garden/reading/',
+    flower: '/images/flowers/pressed-bloom.svg',
+    description: 'A reading journal for books I have finished, paused, loved or want to remember.',
+  },
+  {
+    title: 'Listening',
+    href: '/digital-garden/listening/',
+    flower: '/images/flowers/pressed-herb.svg',
+    description: 'Music and podcasts currently keeping me company while I work, walk or potter.',
+  },
+  {
+    title: 'Watching',
+    href: '/digital-garden/watching/',
+    flower: '/images/flowers/pressed-sprig.svg',
+    description: 'Films and shows I am watching, tracking, or saving thoughts on for later.',
+  },
+];
 ---
 
-<BaseLayout title="Digital Garden" description="My digital garden!">
-  <div class="digital-garden-list">
-    <div class="row">
-      <h1 class="text-xl">Welcome to my digital garden!</h1>
-      <p>This is my digital garden, you can see what I'm currently working on, my recipe bank, musings about any current reads, any obsessions with what I'm listening to or watching, as well as personal guides and notes for any games that I play.</p>
-    </div>
+<BaseLayout title="Digital Garden" description="Notes, recipes, recommendations and curiosities from Emma Lane.">
+  <div class="digital-garden-page">
+    <section class="digital-garden-hero">
+      <div class="digital-garden-hero__content">
+        <p class="home-kicker">Digital garden</p>
+        <h1>Notes, recipes and small useful things.</h1>
+        <p>
+          This is the less polished, more personal side of the site: a place for things I am learning, making, reading, watching, listening to, cooking and quietly collecting.
+        </p>
+      </div>
 
-    <div class="grid md:grid-cols-1 gap-3 mt-10">
-      <a class="digital-garden-link font-md" href="/portfolio/">
-        <div>
-          <img src="/images/flowers/flowers-row-1.svg" alt="flowers" class="flower-icon">
-          <p class="font-bold">Portfolio</p>
-        </div>
-      </a>
-    </div>
+      <div class="digital-garden-hero__floral" aria-hidden="true">
+        <img src="/images/flowers/pressed-sprig.svg" alt="" />
+        <span></span>
+        <img src="/images/flowers/pressed-bloom.svg" alt="" />
+      </div>
+    </section>
 
-    <div class="grid md:grid-cols-2 gap-3 mt-10">
-      <a class="digital-garden-link font-md" href="/blog-posts/">
-        <div>
-          <img src="/images/flowers/flowers-row-1.svg" alt="flowers" class="flower-icon">
-          <p class="font-bold">Blog</p>
-        </div>
-      </a>
-      <a class="digital-garden-link" href="/digital-garden/recipes/">
-        <div>
-          <img src="/images/flowers/flowers-row-2.svg" alt="flowers" class="flower-icon">
-          <p>Recipes</p>
-        </div>
-      </a>
+    <section class="digital-garden-feature" aria-labelledby="garden-feature-title">
+      <div>
+        <p class="home-card__eyebrow">Start here</p>
+        <h2 id="garden-feature-title">A living index for whatever I want to come back to.</h2>
+      </div>
+      <p>
+        Some parts are practical, some are reflective, and some are just here because I like keeping a little trail of what has caught my attention.
+      </p>
+      <a href="/portfolio/">Visit my portfolio</a>
+    </section>
 
-      <a class="digital-garden-link" href="/digital-garden/gaming/">
-        <div>
-          <img src="/images/flowers/flowers-row-2.svg" alt="flowers" class="flower-icon">
-          <p>Gaming</p>
-        </div>
-      </a>
-      <a class="digital-garden-link" href="/digital-garden/reading/">
-        <div>
-          <img src="/images/flowers/flowers-row-1.svg" alt="flowers" class="flower-icon">
-          <p>Reading</p>
-        </div>
-      </a>
-
-      <a class="digital-garden-link" href="/digital-garden/listening/">
-        <div>
-          <img src="/images/flowers/flowers-row-1.svg" alt="flowers" class="flower-icon">
-          <p>Listening</p>
-        </div>
-      </a>
-      <a class="digital-garden-link" href="/digital-garden/watching/">
-        <div>
-          <img src="/images/flowers/flowers-row-2.svg" alt="flowers" class="flower-icon">
-          <p>Watching</p>
-        </div>
-      </a>
-    </div>
+    <section class="digital-garden-grid" aria-label="Digital garden sections">
+      {gardenLinks.map((item, index) => (
+        <a class={`digital-garden-card digital-garden-card--${index % 2 === 0 ? 'sprig' : 'bloom'}`} href={item.href}>
+          <img src={item.flower} alt="" class="digital-garden-card__flower" aria-hidden="true" />
+          <span class="digital-garden-card__number">{String(index + 1).padStart(2, '0')}</span>
+          <h2>{item.title}</h2>
+          <p>{item.description}</p>
+        </a>
+      ))}
+    </section>
   </div>
 </BaseLayout>
+
+

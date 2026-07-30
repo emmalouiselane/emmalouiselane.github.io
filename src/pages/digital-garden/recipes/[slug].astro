@@ -6,7 +6,9 @@ import { ToastContainer } from 'react-toastify';
 import type { Recipe } from '../../../lib/types/recipe';
 import { getAllRecipes, getRecipeBySlug } from '../../../lib/contentful';
 import { displayRichText } from '../../../lib/richTextOptions';
+import { normalizeAssetUrl } from '../../../lib/utils';
 
+import RecipeStructuredData from '../../../components/RecipeStructuredData.astro';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 
 export const getStaticPaths = (async () => {
@@ -28,6 +30,8 @@ if (!recipe?.slug) {
 const fullRecipe = await getRecipeBySlug(recipe.slug);
 const hasImages = fullRecipe.imagesCollection && fullRecipe.imagesCollection.items && fullRecipe.imagesCollection.items.length > 0;
 const firstImage = hasImages && fullRecipe.imagesCollection?.items[0] ? fullRecipe.imagesCollection?.items[0] : null;
+
+const recipeImageUrl = normalizeAssetUrl(firstImage?.url);
 
 ---
 
@@ -60,44 +64,38 @@ const firstImage = hasImages && fullRecipe.imagesCollection?.items[0] ? fullReci
   });  
 </script>
 
-<BaseLayout title={fullRecipe.name} description={"Recipe for " + fullRecipe.name}>
+<BaseLayout title={fullRecipe.name} description={"Recipe for " + fullRecipe.name} image={recipeImageUrl}>
+  <RecipeStructuredData recipe={fullRecipe} imageUrl={recipeImageUrl} />
+  
   <ToastContainer client:load theme="light" position="top-right" 
                   closeOnClick={false} autoClose={2500} pauseOnFocusLoss={false}
                   draggable={false} pauseOnHover={false}/>
-  <div class="container recipe" itemscope itemtype="http://schema.org/Recipe">    
-    <div class="row">
-      <div class="flex flex-row justify-between">
-        <h1 class="text-2xl font-bold mb-2 ml-2">{fullRecipe.name}</h1>
-
-        <div>
-          {fullRecipe.rating ? (
-            <p class="!mt-3 hidden md:block">Rating: {'⭐'.repeat(fullRecipe.rating)}</p>
-          ) : (
-            <p class="!mt-3 hidden md:block text-gray-500">Not rated (yet!)</p>
-          )}
-          <button class="tinylytics_kudos" data-path={pathname}></button>
-        </div>
+  <article class="container recipe">
+    <section class="recipe-hero">
+      <div class="recipe-hero__copy">
+        <p class="recipe-kicker">Recipe archive</p>
+        <h1 class="text-3xl md:text-5xl font-bold mb-2">{fullRecipe.name}</h1>
+        <p class="recipe-hero__subtitle">A saved recipe from my digital garden, kept here with notes, tweaks, and a proper place to come back to.</p>
       </div>
 
-      <div class="flex flex-row justify-between md:hidden">
+      <div class="recipe-hero__meta">
         <div>
           {fullRecipe.rating ? (
-            <p class="!mt-2">Rating: {'⭐'.repeat(fullRecipe.rating)}</p>
+            <p class="recipe-rating">Rating: {String.fromCharCode(9733).repeat(fullRecipe.rating)}</p>
           ) : (
-            <p class="!mt-2 text-gray-500">Not rated (yet!)</p>
+            <p class="recipe-rating text-gray-500">Not rated yet</p>
           )}
           <button class="tinylytics_kudos" data-path={pathname}></button>
         </div>
-
-        <button id="keepAwakeButton" class="text-xs my-auto min-w-fit whitespace-nowrap cursor-pointer border border-gray-300 rounded px-2 py-1">
+        <button id="keepAwakeButton" class="recipe-awake-button text-xs my-auto min-w-fit whitespace-nowrap cursor-pointer">
           Keep Screen Awake?
         </button>
       </div>
-    </div>
+    </section>
     
-    <div class={`grid grid-cols-1 ${hasImages ? 'lg:grid-cols-3' : 'lg:grid-cols-2'} gap-4`}>
+    <section class={`recipe-overview grid grid-cols-1 ${hasImages ? 'lg:grid-cols-3' : 'lg:grid-cols-2'} gap-6`}>
       <div>
-        <div class="bg-gray-50 p-6 rounded-lg">
+        <div class="recipe-panel p-6 rounded-[1.75rem]">
           <h2 class="text-xl font-semibold mb-4">Ingredients</h2>
           {fullRecipe.ingredients && (
             <Fragment set:html={displayRichText(fullRecipe.ingredients)} />
@@ -106,11 +104,11 @@ const firstImage = hasImages && fullRecipe.imagesCollection?.items[0] ? fullReci
       </div>
       
       {hasImages && firstImage && (
-        <div class="size-fit my-auto mx-auto">
+        <div class="recipe-image-card size-fit my-auto mx-auto">
           <img 
-            src={firstImage.url} 
+            src={recipeImageUrl} 
             alt={firstImage.title || fullRecipe.name}
-            class="w-full h-96 object-cover rounded-lg"
+            class="w-full h-96 object-cover rounded-[1.75rem]"
           />
           {firstImage.description && (
             <p class="text-sm text-gray-600 mt-5 italic text-center">{firstImage.description}</p>
@@ -120,33 +118,39 @@ const firstImage = hasImages && fullRecipe.imagesCollection?.items[0] ? fullReci
         
       <div class="flex flex-col md:gap-5 my-auto">
         {fullRecipe.personalNote && (
-          <blockquote class="mt-2">
+          <blockquote class="mt-2 recipe-note">
             <h2 class="text-lg font-semibold mb-2">Personal Note</h2>
             <p>{fullRecipe.personalNote}</p>
           </blockquote>
           )}
 
           {fullRecipe.notes && (
-            <blockquote class="mt-2 pink">
+            <blockquote class="mt-2 pink recipe-note">
               <h2 class="text-lg font-semibold mb-2">Notes</h2>
               <Fragment set:html={displayRichText(fullRecipe.notes)} />
             </blockquote>
           )}
         </div>
+      </section>
         
+    <section class="recipe-body">
+      <div class="recipe-panel recipe-panel--method">
+        <h2 class="text-2xl font-semibold mb-4">Method</h2>
+        {fullRecipe.directions && (
+          <Fragment set:html={displayRichText(fullRecipe.directions)} />
+        )}
       </div>
-    </div>
-        
-    <h2 class="text-2xl font-semibold mb-4">Method</h2>
-    {fullRecipe.directions && (
-      <Fragment set:html={displayRichText(fullRecipe.directions)} />
-    )}
+    </section>
        
     {fullRecipe.review && (
-      <div class="mt-8">
+      <section class="mt-8">
         <h2 class="text-2xl font-semibold mb-4">Review</h2>
-        <Fragment set:html={displayRichText(fullRecipe.review)} />
-      </div>
+        <div class="recipe-panel recipe-panel--review">
+          <Fragment set:html={displayRichText(fullRecipe.review)} />
+        </div>
+      </section>
     )}
-  </div>
+  </article>
 </BaseLayout>
+
+
