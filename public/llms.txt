@@ -29,7 +29,7 @@ The site aims to follow relevant WCAG 2.2 principles. No formal independent WCAG
 
 ## About the site
 
-- Built with Astro, React, TypeScript, SCSS, and Tailwind CSS.
+- Built with Astro, React, TypeScript, and SCSS.
 - Content is partly managed through Contentful.
 - Hosted as a static site at sparklane.dev.
 - Content and recommendations represent Emma Lane's personal views and interests.

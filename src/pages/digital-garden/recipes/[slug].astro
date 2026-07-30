@@ -70,11 +70,11 @@ const recipeImageUrl = normalizeAssetUrl(firstImage?.url);
   <ToastContainer client:load theme="light" position="top-right" 
                   closeOnClick={false} autoClose={2500} pauseOnFocusLoss={false}
                   draggable={false} pauseOnHover={false}/>
-  <article class="container recipe">
+  <article class="recipe">
     <section class="recipe-hero">
       <div class="recipe-hero__copy">
         <p class="recipe-kicker">Recipe archive</p>
-        <h1 class="text-3xl md:text-5xl font-bold mb-2">{fullRecipe.name}</h1>
+        <h1 class="recipe-title">{fullRecipe.name}</h1>
         <p class="recipe-hero__subtitle">A saved recipe from my digital garden, kept here with notes, tweaks, and a proper place to come back to.</p>
       </div>
 
@@ -83,20 +83,20 @@ const recipeImageUrl = normalizeAssetUrl(firstImage?.url);
           {fullRecipe.rating ? (
             <p class="recipe-rating">Rating: {String.fromCharCode(9733).repeat(fullRecipe.rating)}</p>
           ) : (
-            <p class="recipe-rating text-gray-500">Not rated yet</p>
+            <p class="recipe-rating recipe-rating--empty">Not rated yet</p>
           )}
           <button class="tinylytics_kudos" data-path={pathname}></button>
         </div>
-        <button id="keepAwakeButton" class="recipe-awake-button text-xs my-auto min-w-fit whitespace-nowrap cursor-pointer">
+        <button id="keepAwakeButton" class="recipe-awake-button">
           Keep Screen Awake?
         </button>
       </div>
     </section>
     
-    <section class={`recipe-overview grid grid-cols-1 ${hasImages ? 'lg:grid-cols-3' : 'lg:grid-cols-2'} gap-6`}>
+    <section class={`recipe-overview ${hasImages ? 'recipe-overview--with-image' : 'recipe-overview--without-image'}`}>
       <div>
-        <div class="recipe-panel p-6 rounded-[1.75rem]">
-          <h2 class="text-xl font-semibold mb-4">Ingredients</h2>
+        <div class="recipe-panel">
+          <h2 class="recipe-section-title recipe-section-title--ingredients">Ingredients</h2>
           {fullRecipe.ingredients && (
             <Fragment set:html={displayRichText(fullRecipe.ingredients)} />
           )}
@@ -104,29 +104,29 @@ const recipeImageUrl = normalizeAssetUrl(firstImage?.url);
       </div>
       
       {hasImages && firstImage && (
-        <div class="recipe-image-card size-fit my-auto mx-auto">
+        <div class="recipe-image-card">
           <img 
             src={recipeImageUrl} 
             alt={firstImage.title || fullRecipe.name}
-            class="w-full h-96 object-cover rounded-[1.75rem]"
+            class="recipe-image"
           />
           {firstImage.description && (
-            <p class="text-sm text-gray-600 mt-5 italic text-center">{firstImage.description}</p>
+            <p class="recipe-image-description">{firstImage.description}</p>
           )}
         </div>
       )}
         
-      <div class="flex flex-col md:gap-5 my-auto">
+      <div class="recipe-notes">
         {fullRecipe.personalNote && (
-          <blockquote class="mt-2 recipe-note">
-            <h2 class="text-lg font-semibold mb-2">Personal Note</h2>
+          <blockquote class="recipe-note">
+            <h2 class="recipe-note-title">Personal Note</h2>
             <p>{fullRecipe.personalNote}</p>
           </blockquote>
           )}
 
           {fullRecipe.notes && (
-            <blockquote class="mt-2 pink recipe-note">
-              <h2 class="text-lg font-semibold mb-2">Notes</h2>
+            <blockquote class="pink recipe-note">
+              <h2 class="recipe-note-title">Notes</h2>
               <Fragment set:html={displayRichText(fullRecipe.notes)} />
             </blockquote>
           )}
@@ -135,7 +135,7 @@ const recipeImageUrl = normalizeAssetUrl(firstImage?.url);
         
     <section class="recipe-body">
       <div class="recipe-panel recipe-panel--method">
-        <h2 class="text-2xl font-semibold mb-4">Method</h2>
+        <h2 class="recipe-section-title">Method</h2>
         {fullRecipe.directions && (
           <Fragment set:html={displayRichText(fullRecipe.directions)} />
         )}
@@ -143,8 +143,8 @@ const recipeImageUrl = normalizeAssetUrl(firstImage?.url);
     </section>
        
     {fullRecipe.review && (
-      <section class="mt-8">
-        <h2 class="text-2xl font-semibold mb-4">Review</h2>
+      <section class="recipe-review">
+        <h2 class="recipe-section-title">Review</h2>
         <div class="recipe-panel recipe-panel--review">
           <Fragment set:html={displayRichText(fullRecipe.review)} />
         </div>

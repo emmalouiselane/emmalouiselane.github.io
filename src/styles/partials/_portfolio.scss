@@ -620,4 +620,11 @@
   }
 }
 
+ .portfolio-detail-kudos {
+  margin-left: var(--spacing-3);
+}
 
+.portfolio-detail-links .link,
+.portfolio-detail-links .link-disabled {
+  text-align: center;
+}

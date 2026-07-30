@@ -4,8 +4,6 @@ import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 
-import tailwindcss from '@tailwindcss/vite';
-
 export default defineConfig({
   site: 'https://sparklane.dev',
 
@@ -19,7 +17,6 @@ export default defineConfig({
   },
 
   vite: {
-    plugins: [tailwindcss()],
     ssr: {
       noExternal: ['@sparklane.dev/sparklane-recipecard-react'],
     },

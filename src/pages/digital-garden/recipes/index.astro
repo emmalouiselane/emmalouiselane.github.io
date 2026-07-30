@@ -55,7 +55,7 @@ const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
     <!-- Search Wrapper -->
     <div class="recipe-filter-wrapper">
       <!-- Search Section (Hidden by default) -->
-      <div id="searchSection" class="recipe-filter-panel hidden">
+      <div id="searchSection" class="recipe-filter-panel is-hidden">
         <div class="recipe-filter-field">
           <label for="search">Search recipes</label>
           <div class="recipe-search-row">
@@ -88,7 +88,7 @@ const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
     </section>
 
     <!-- No Results Message -->
-    <div id="noResults" class="recipe-empty-state hidden">
+    <div id="noResults" class="recipe-empty-state is-hidden">
       <p>No recipes found</p>
       <small>Try adjusting your search or letter filter.</small>
     </div>
@@ -140,8 +140,8 @@ const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
       // Hide search section
       const searchSection = document.getElementById('searchSection');
       const toggleBtn = document.getElementById('toggleSearch');
-      if (searchSection && !searchSection.classList.contains('hidden')) {
-        searchSection.classList.add('hidden');
+      if (searchSection && !searchSection.classList.contains('is-hidden')) {
+        searchSection.classList.add('is-hidden');
         if (toggleBtn) {
           toggleBtn.innerHTML = `
             <svg class="recipe-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -157,15 +157,15 @@ const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
       const toggleBtn = document.getElementById('toggleSearch');
 
       if (searchSection && toggleBtn) {
-        if (searchSection.classList.contains('hidden')) {
-          searchSection.classList.remove('hidden');
+        if (searchSection.classList.contains('is-hidden')) {
+          searchSection.classList.remove('is-hidden');
           toggleBtn.innerHTML = `
             <svg class="recipe-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
             </svg>
           `;
         } else {
-          searchSection.classList.add('hidden');
+          searchSection.classList.add('is-hidden');
           toggleBtn.innerHTML = `
             <svg class="recipe-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
@@ -202,9 +202,9 @@ const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
       // Show/hide no results message
       if (noResults) {
         if (visibleCount === 0) {
-          noResults.classList.remove('hidden');
+          noResults.classList.remove('is-hidden');
         } else {
-          noResults.classList.add('hidden');
+          noResults.classList.add('is-hidden');
         }
       }
     }

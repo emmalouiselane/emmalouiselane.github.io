@@ -11,23 +11,23 @@ const social = {
 };
 ---
 
-<div class="footer-content px-4 border-t">
-  <div class="container mx-auto grid grid-cols-2 md:grid-cols-12 gap-4 items-center">
+<div class="footer-content">
+  <div class="footer-content__inner">
     <div
-      class="col-span-1 md:col-span-2 order-2 md:order-1 flex justify-left md:justify-start items-center"
+      class="footer-content__accessibility"
     >
       <a class="navbar-link" href="/accessibility-statement">Accessibility</a>
     </div>
 
-    <div class="col-span-2 md:col-span-8 order-1 md:order-2">
+    <div class="footer-content__center">
       <div class="footer-content-center">
         <p>{footerTagline}</p>
       </div>
     </div>
 
-    <div class="col-span-1 md:col-span-2 order-3 md:order-3">
+    <div class="footer-content__social">
       <div
-        class="footer-content-right flex justify-center md:justify-end items-center"
+        class="footer-content-right"
       >
         <GitCommitsModal />
 

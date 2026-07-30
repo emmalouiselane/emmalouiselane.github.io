@@ -3,7 +3,7 @@ import '@fontsource-variable/montserrat';
 import SEOComponent from '../components/SEOComponent.astro';
 import NavbarComponent from '../components/NavbarComponent';
 import FooterComponent from '../components/FooterComponent.astro';
-import '../styles/global.css'; // Shadcn/Tailwind styles
+import '../styles/global.css';
 import '../styles/global.scss'; // Custom SCSS
 
 interface Props {
@@ -44,18 +44,18 @@ const isRootPath = pathname === '/';
       }
     </script>
   </head>
-  <body class="h-full m-0 p-0">
+  <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
-    <div class="site-shell flex flex-col min-h-screen overflow-hidden">
+    <div class="site-shell">
       <NavbarComponent client:load />
       
-      <main id="main-content" class="site-main flex-1 overflow-y-auto overflow-x-hidden">
-        <div class:list={['site-frame container mx-auto w-full px-4 md:px-6', isRootPath && 'is-root-path']} data-is-root-path={isRootPath}>
+      <main id="main-content" class="site-main">
+        <div class:list={['site-frame', isRootPath && 'is-root-path']} data-is-root-path={isRootPath}>
           <slot />
         </div>
       </main>
       
-      <footer class="site-footer shrink-0 pt-2">
+      <footer class="site-footer">
         <FooterComponent />
       </footer>
     </div>

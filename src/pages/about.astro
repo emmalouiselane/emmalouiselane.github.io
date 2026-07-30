@@ -91,7 +91,7 @@ const yearsExperience = now.getFullYear() - careerStart.getFullYear() - (now.get
           </div>
           
           <!-- This Space Tab -->
-          <div id="space-content" class="tab-content hidden">
+          <div id="space-content" class="tab-content is-hidden">
             <p>Spark Lane is where I keep the different parts of my work and interests in one place. It is part professional portfolio, part blog, and part digital garden for the things I am learning, making and enjoying. Here you'll find:</p>
             <ul>
               <li><strong>Blog Posts</strong>: Technical posts, accessibility thoughts, development notes, dissertation updates and the odd personal musing</li>
@@ -102,7 +102,7 @@ const yearsExperience = now.getFullYear() - careerStart.getFullYear() - (now.get
           </div>
           
           <!-- Technical Expertise Tab -->
-          <div id="technical-content" class="tab-content hidden">
+          <div id="technical-content" class="tab-content is-hidden">
             <p>I work with a diverse and modern tech stack, CI/CD and with a deep expertise in a multitude of technologies:</p>
             <ul>
               <li><strong>Backend</strong>: C#, .NET & .NET Core, ASP.NET, NodeJS, NestJS, Python, Java</li>
@@ -115,7 +115,7 @@ const yearsExperience = now.getFullYear() - careerStart.getFullYear() - (now.get
           </div>
           
           <!-- Professional Experience Tab -->
-          <div id="experience-content" class="tab-content hidden">
+          <div id="experience-content" class="tab-content is-hidden">
             <p>With extensive experience across the entire software lifecycle, I've successfully designed, developed and deployed numerous desktop and web-based applications while working with and managing mixed-discipline teams. </p>
             <p>My career spans from apprentice to junior developer to team leadership, with key roles including: Team Lead, Senior Software Engineer and Lead Back-end Developer.</p>
             <p>Throughout my career, I have worked across multiple industries, from fintech to digital agencies to defense, and have delivered projects of varying sizes and complexity while developing strong leadership and technical expertise.</p>
@@ -128,7 +128,7 @@ const yearsExperience = now.getFullYear() - careerStart.getFullYear() - (now.get
       function showTab(tabName) {
         // Hide all content immediately
         document.querySelectorAll('.tab-content').forEach(content => {
-          content.classList.add('hidden');
+          content.classList.add('is-hidden');
           content.classList.remove('tab-fade-in');
         });
         
@@ -139,7 +139,7 @@ const yearsExperience = now.getFullYear() - careerStart.getFullYear() - (now.get
         
         // Show selected content with fade animation
         const selectedContent = document.getElementById(tabName + '-content');
-        selectedContent.classList.remove('hidden');
+        selectedContent.classList.remove('is-hidden');
         selectedContent.classList.add('tab-fade-in');
         
         // Add active class to clicked button

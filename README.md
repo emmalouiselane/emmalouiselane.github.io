@@ -83,7 +83,7 @@ The `postinstall` script patches the third-party RecipeCard package when depende
 │   │   ├── about.astro
 │   │   ├── 404.astro
 │   │   └── accessibility-statement.astro
-│   ├── styles/              # SCSS and Tailwind styles
+│   ├── styles/              # SCSS styles
 │   └── images/              # Source image assets
 ├── scripts/                 # Build and dependency helper scripts
 ├── tests/                   # Test files
@@ -99,7 +99,7 @@ The `postinstall` script patches the third-party RecipeCard package when depende
 - React components for dynamic and interactive elements
 - TypeScript with strict configuration
 - Contentful CMS integration
-- SCSS styling with Tailwind CSS 4
+- SCSS styling
 - SEO metadata and sitemap generation
 - Responsive, mobile-first layouts
 - Light and dark colour themes

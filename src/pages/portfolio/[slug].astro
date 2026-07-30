@@ -38,7 +38,7 @@ const hasImages = imageItems.length > 0;
       </div>
 
       <div class="portfolio-detail-meta">
-        <button class="tinylytics_kudos ml-3" data-path={pathname}></button>
+        <button class="tinylytics_kudos portfolio-detail-kudos" data-path={pathname}></button>
 
         {fullItem.isInDevelopment && (
           <span>
@@ -61,20 +61,20 @@ const hasImages = imageItems.length > 0;
 
           <div class="portfolio-detail-links">
             {fullItem.externalUrl ? (
-              <a href={fullItem.externalUrl} target="_blank" rel="noopener noreferrer" class="link text-center">
+              <a href={fullItem.externalUrl} target="_blank" rel="noopener noreferrer" class="link">
                 View Live Site
               </a>
             ) : (
-              <span class="link link-disabled text-center" aria-disabled="true">
+              <span class="link link-disabled" aria-disabled="true">
                 View Live Site
               </span>
             )}
             {fullItem.githubUrl ? (
-              <a href={fullItem.githubUrl} target="_blank" rel="noopener noreferrer" class="link text-center">
+              <a href={fullItem.githubUrl} target="_blank" rel="noopener noreferrer" class="link">
                 View on GitHub
               </a>
             ) : (
-              <span class="link link-disabled text-center" aria-disabled="true">
+              <span class="link link-disabled" aria-disabled="true">
                 View on GitHub
               </span>
             )}

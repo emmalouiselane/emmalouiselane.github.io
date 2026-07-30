@@ -64,7 +64,7 @@ const HomeContentComponent = () => {
   }, []);
 
   if (loading) {
-    return <div className="text-center py-8">Loading...</div>;
+    return <div className="home-content-loading">Loading...</div>;
   }
 
   return (
