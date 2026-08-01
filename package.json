@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@astrojs/react": "^6.0.1",
-    "@astrojs/sitemap": "^3.7.1",
+    "@astrojs/sitemap": "^3.7.3",
     "@contentful/rich-text-html-renderer": "^17.2.2",
     "@contentful/rich-text-react-renderer": "^16.1.6",
     "@contentful/rich-text-types": "^17.2.5",
