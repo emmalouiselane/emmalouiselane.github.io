@@ -78,7 +78,7 @@ const HomeContentComponent = () => {
           <p className="home-kicker">Hello hello!</p>
           <h1>My digital garden for code, projects, recipes and notes.</h1>
           <p className="home-hero__lede">
-            This is where I keep track of what I am building, learning and enjoying: technical posts, portfolio work, recipes, reading notes, cosy game references and the odd personal musing. It is a true labour of love, and I may never quite finish it.
+            This is where I'm keeping track of what I am building, learning and enjoying: technical posts, portfolio work, recipes, reading notes, cosy game references and the odd personal musing. It is a labour of love, and I doubt I'll ever finish it.
           </p>
 
           <div className="home-hero__actions">
@@ -96,10 +96,9 @@ const HomeContentComponent = () => {
           <span className="home-note__pin" aria-hidden="true"></span>
           <p className="home-note__label">At the moment</p>
           <ul>
-            <li>Accessibility-first websites, CMS builds and practical tools</li>
             <li>Technical posts, personal musings and portfolio experiments</li>
-            <li>Recipes, reading notes, music recommendations and cosy game references</li>
-            <li>Dissertation work and MSc Deepfake Defence updates</li>
+            <li>Recipes, reading notes, musical obsessions and cosy game references</li>
+            <li>Accessibility-first websites, CMS builds and practical tools</li>
           </ul>
         </aside>
       </section>
@@ -108,15 +107,15 @@ const HomeContentComponent = () => {
         <a href="mailto:emma@sparklane.dev" className="home-feature-card home-feature-card--work">
           <p className="home-card__eyebrow">Freelance availability</p>
           <h2>Open to work</h2>
-          <p>If you have a project in mind, I would love to hear from you. I am especially interested in thoughtful websites, accessible user experiences, and practical tools that make people&apos;s lives a bit easier.</p>
+          <p>If you have a project in mind, I would love to hear from you. I am especially interested in thoughtful websites, accessible user experiences, and practical tools that will make people's lives even a little bit easier.</p>
           <span className="home-card__cta">Email me</span>
         </a>
 
         <a href="/dissertation/" className="home-feature-card home-feature-card--wide">
           <p className="home-card__eyebrow">Featured collection</p>
           <h2>Dissertation hub</h2>
-          <p>Browse all dissertation-related posts and my MSc Deepfake Defence project in one place.</p>
-          <span className="home-card__cta">Visit the dissertation hub</span>
+          <p>Browse all of my dissertation-related posts as well as my MSc Deepfake Defence project in one place.</p>
+          <span className="home-card__cta">Visit my dissertation hub</span>
         </a>
       </section>
 
@@ -137,7 +136,7 @@ const HomeContentComponent = () => {
           <div id="latest-additions-content" className="home-section__content">
             <div className="home-section__heading">
               <p className="home-kicker">Latest additions</p>
-              <h2>What I have been adding recently</h2>
+              <h2>What have I been adding recently?</h2>
             </div>
 
             <div className="home-grid home-grid--primary">
@@ -182,7 +181,7 @@ const HomeContentComponent = () => {
         {showDigitalGarden && (
           <div id="digital-garden-content" className="home-section__content">
             <div className="home-section__heading">
-              <p className="home-kicker">From the digital garden</p>
+              <p className="home-kicker">Direct from the digital garden</p>
               <h2>Small updates and recommendations</h2>
             </div>
 
