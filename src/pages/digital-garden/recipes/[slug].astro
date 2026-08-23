@@ -32,6 +32,8 @@ const hasImages = fullRecipe.imagesCollection && fullRecipe.imagesCollection.ite
 const firstImage = hasImages && fullRecipe.imagesCollection?.items[0] ? fullRecipe.imagesCollection?.items[0] : null;
 
 const recipeImageUrl = normalizeAssetUrl(firstImage?.url);
+const displayImageUrl = recipeImageUrl || '/images/no-image.jpg';
+const imageAlt = firstImage ? (firstImage.title || fullRecipe.name) : 'No image available';
 
 ---
 
@@ -75,7 +77,12 @@ const recipeImageUrl = normalizeAssetUrl(firstImage?.url);
       <div class="recipe-hero__copy">
         <p class="recipe-kicker">Recipe archive</p>
         <h1 class="recipe-title">{fullRecipe.name}</h1>
-        <p class="recipe-hero__subtitle">A saved recipe from my digital garden, kept here with notes, tweaks, and a proper place to come back to.</p>
+        {fullRecipe.personalNote && (
+          <p class="recipe-hero__subtitle">
+            <strong><i>A note from me... </i></strong>
+            {fullRecipe.personalNote}
+          </p>
+        )}
       </div>
 
       <div class="recipe-hero__meta">
@@ -93,8 +100,8 @@ const recipeImageUrl = normalizeAssetUrl(firstImage?.url);
       </div>
     </section>
     
-    <section class={`recipe-overview ${hasImages ? 'recipe-overview--with-image' : 'recipe-overview--without-image'}`}>
-      <div>
+    <section class="recipe-overview recipe-overview--with-image">
+      <div class="recipe-overview__ingredients">
         <div class="recipe-panel">
           <h2 class="recipe-section-title recipe-section-title--ingredients">Ingredients</h2>
           {fullRecipe.ingredients && (
@@ -103,27 +110,19 @@ const recipeImageUrl = normalizeAssetUrl(firstImage?.url);
         </div>
       </div>
       
-      {hasImages && firstImage && (
+      <div class="recipe-overview__side">
         <div class="recipe-image-card">
-          <img 
-            src={recipeImageUrl} 
-            alt={firstImage.title || fullRecipe.name}
+          <img
+            src={displayImageUrl}
+            alt={imageAlt}
             class="recipe-image"
           />
-          {firstImage.description && (
+          {firstImage?.description && (
             <p class="recipe-image-description">{firstImage.description}</p>
           )}
         </div>
-      )}
-        
-      <div class="recipe-notes">
-        {fullRecipe.personalNote && (
-          <blockquote class="recipe-note">
-            <h2 class="recipe-note-title">Personal Note</h2>
-            <p>{fullRecipe.personalNote}</p>
-          </blockquote>
-          )}
 
+        <div class="recipe-notes">
           {fullRecipe.notes && (
             <blockquote class="pink recipe-note">
               <h2 class="recipe-note-title">Notes</h2>
@@ -131,7 +130,8 @@ const recipeImageUrl = normalizeAssetUrl(firstImage?.url);
             </blockquote>
           )}
         </div>
-      </section>
+      </div>
+    </section>
         
     <section class="recipe-body">
       <div class="recipe-panel recipe-panel--method">
@@ -152,5 +152,3 @@ const recipeImageUrl = normalizeAssetUrl(firstImage?.url);
     )}
   </article>
 </BaseLayout>
-
-
