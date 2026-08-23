@@ -119,9 +119,9 @@ const BlogPostsListComponent = () => {
       <section className="blog-index-hero">
         <div>
           <p className="home-kicker">Blog posts</p>
-          <h1>Technical posts, personal musings and things I wanted to write down.</h1>
+          <h1>Technical posts, personal musings and anything I wanted to write down.</h1>
           <p>
-            A mix of development notes, accessibility thoughts, dissertation updates and whatever else has been taking up space in my brain recently.
+            A mix of development notes, accessibility thoughts and whatever else has been taking up space in my brain recently.
           </p>
         </div>
 
