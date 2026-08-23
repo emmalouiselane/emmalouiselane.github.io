@@ -12,6 +12,40 @@
   white-space: nowrap;
   border: 0;
 }
+
+.tinylytics_kudos {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  min-height: 2rem;
+  margin: 0;
+  border: 1px solid var(--color-border-soft);
+  border-radius: 999px;
+  background: var(--color-primary);
+  color: var(--primary-foreground);
+  cursor: pointer;
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  font-weight: 700;
+  line-height: 1;
+  padding: 0.45rem 0.75rem;
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.tinylytics_kudos:hover,
+.tinylytics_kudos:focus-visible {
+  border-color: var(--color-accent-highlight);
+  background: var(--color-highlight);
+  color: var(--primary-foreground);
+  transform: translateY(-1px);
+}
+
+.tinylytics_kudos:focus-visible {
+  outline: 2px solid var(--color-accent-highlight);
+  outline-offset: 2px;
+}
+
 // Accessibility wrapper
 [data-theme="loading"] {
   opacity: 0;

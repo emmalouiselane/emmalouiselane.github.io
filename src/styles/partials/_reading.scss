@@ -304,10 +304,26 @@
 
 .garden-tag-list button,
 .garden-tag-list a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2rem;
   background: var(--color-accent-light-faded);
   color: var(--color-heading);
   font-size: 0.75rem;
   padding: 0.35rem 0.6rem;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.garden-tag-list button {
+  appearance: none;
+}
+
+.garden-tag-list button:focus-visible,
+.garden-tag-list a:focus-visible {
+  outline: 2px solid var(--color-accent-highlight);
+  outline-offset: 2px;
 }
 
 .garden-list-card__footer {
@@ -546,5 +562,3 @@
     text-align: left;
   }
 }
-
-
