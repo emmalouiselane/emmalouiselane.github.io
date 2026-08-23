@@ -1,0 +1,41 @@
+name: End-to-end page checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  pages:
+    # Forked PRs cannot access the Contentful secrets needed to generate the site.
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browser
+        run: npx playwright install --with-deps chromium
+
+      - name: Build site
+        run: npm run build
+        env:
+          PUBLIC_CONTENTFUL_SPACE_ID: ${{ secrets.GATSBY_CONTENTFUL_SPACE_ID }}
+          PUBLIC_CONTENTFUL_DELIVERY_TOKEN: ${{ secrets.GATSBY_CONTENTFUL_DELIVERY_TOKEN }}
+
+      - name: Check every generated page
+        run: npm run test:e2e

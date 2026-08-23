@@ -57,6 +57,36 @@ npm run preview
 
 The `postinstall` script patches the third-party RecipeCard package when dependencies are installed.
 
+## Testing
+
+Run the unit test suite with:
+
+```bash
+npm test
+```
+
+The unit tests use Vitest and cover the shared utilities and rich-text rendering/sanitisation logic. Use watch mode while developing:
+
+```bash
+npm run test:watch
+```
+
+The Playwright smoke tests build and serve the site, then visit every generated page to check that it responds successfully, has a page title, and exposes the main content area. Run them with:
+
+```bash
+npm run build
+npx playwright install chromium
+npm run test:e2e
+```
+
+Commits run the complete validation sequence through Husky:
+
+```bash
+npm test && npm run build && npm run test:e2e
+```
+
+GitHub Actions runs the unit tests on pushes and pull requests. The end-to-end page checks run after a production build with the Contentful credentials configured in repository secrets.
+
 ## Project structure
 
 ```
