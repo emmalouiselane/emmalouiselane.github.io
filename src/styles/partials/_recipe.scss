@@ -594,7 +594,7 @@
 .recipe-overview {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: var(--spacing-2);
+  gap: var(--spacing-6);
 }
 
 .recipe-image-card {
@@ -668,6 +668,7 @@
 @media (min-width: 900px) {
   .recipe-overview--with-image {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--spacing-2);
   }
 
   .recipe-overview__ingredients {
