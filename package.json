@@ -20,7 +20,7 @@
     "@fortawesome/free-brands-svg-icons": "^7.3.1",
     "@fortawesome/react-fontawesome": "^3.5.0",
     "@sparklane.dev/sparklane-recipecard-react": "^1.1.0",
-    "@types/react": "^19.2.14",
+    "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.4",
     "astro": "^7.2.3",
     "clsx": "^2.1.1",
