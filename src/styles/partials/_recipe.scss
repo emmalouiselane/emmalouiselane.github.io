@@ -127,7 +127,7 @@
 
   blockquote {
     border-left: 4px solid var(--color-highlight);
-    margin: 0.5rem 0;
+    margin: 0.5rem 0 0 0;
     font-style: italic;
     color: var(--color-text-light);
     padding: 1rem 1.15rem;
@@ -594,7 +594,7 @@
 .recipe-overview {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: var(--spacing-6);
+  gap: var(--spacing-2);
 }
 
 .recipe-image-card {
@@ -681,6 +681,14 @@
     width: 100%;
     min-height: 0;
     overflow-y: auto;
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+  }
+
+  .recipe-overview__side .recipe-image,
+  .recipe-overview__side .recipe-note  {
+    border-top-left-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
   }
 
   .recipe-overview--without-image {

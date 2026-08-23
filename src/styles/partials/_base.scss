@@ -1,5 +1,30 @@
 @use "./_variables" as *;
 
+* {
+  scrollbar-width: auto;
+  scrollbar-color: var(--color-accent) var(--color-surface);
+}
+
+*::-webkit-scrollbar {
+  width: 0.7rem;
+  height: 0.7rem;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--color-surface);
+  border-radius: 999px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--color-accent);
+  border: 2px solid var(--color-surface);
+  border-radius: 999px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--color-highlight);
+}
+
 // Keep content available to assistive technology while hiding it visually.
 .sr-only {
   position: absolute;
