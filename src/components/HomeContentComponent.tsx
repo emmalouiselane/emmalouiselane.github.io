@@ -36,9 +36,13 @@ const HomeContentComponent = () => {
           getAllWatchList()
         ]);
 
-        const latestNonDissertationBlog = blogs.find(
-          (post) => !(post.blogType || []).some((type) => type.toLowerCase().includes('dissertation'))
-        ) ?? null;
+        const latestNonDissertationBlog = blogs.find((post) => {
+          const blogTypes = (post.blogType || []).map((type) => type.toLowerCase());
+          const hasDissertationType = blogTypes.some((type) => type.includes('dissertation'));
+          const hasNonDissertationType = blogTypes.some((type) => !type.includes('dissertation'));
+
+          return !(hasDissertationType && !hasNonDissertationType);
+        }) ?? null;
 
         const latestNonDissertationPortfolio = portfolioItems.find((item) => {
           const slug = item.slug?.toLowerCase() || '';
