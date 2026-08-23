@@ -3,7 +3,7 @@ import type { GetStaticPaths } from 'astro';
 
 import type { PortfolioItem } from '../../lib/types/portfolioItem';
 import { getAllPortfolioItems, getPortfolioItemBySlug } from '../../lib/contentful';
-import { displayRichText } from '../../lib/richTextOptions';
+import { displayLongText, displayRichText } from '../../lib/richTextOptions';
 
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
@@ -57,7 +57,9 @@ const hasImages = imageItems.length > 0;
       <section class="portfolio-detail-main" data-portfolio-detail-main>
         <div class="portfolio-detail-panel">
           <h2>Project Details</h2>
-          <p>{fullItem.detailedDescription || fullItem.description}</p>
+          <div class="portfolio-detail-richtext-content">
+            <Fragment set:html={displayLongText(fullItem.detailedDescription || fullItem.description)} />
+          </div>
 
           <div class="portfolio-detail-links">
             {fullItem.externalUrl ? (
@@ -190,7 +192,7 @@ const hasImages = imageItems.length > 0;
       });
     };
 
-    const showSlide = (index) => {
+    const showSlide = (index: number) => {
       activeIndex = (index + slides.length) % slides.length;
       renderSlides();
     };

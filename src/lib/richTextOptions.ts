@@ -45,3 +45,32 @@ export function displayRichText(richText: { json?: unknown } | null | undefined)
   const displayHtml = documentToHtmlString(richText.json as any, defaultRichTextOptions as any);
   return sanitizeHtml(displayHtml, strictSanitizeOptions);
 }
+
+export function displayLongText(text: string | null | undefined): string {
+  if (!text) {
+    return '';
+  }
+
+  const escapedText = text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/\"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+
+  const html = escapedText
+    .split(/\n{2,}/)
+    .map((paragraph) => {
+      const formattedParagraph = paragraph
+        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+        .replace(/__(.+?)__/g, '<strong>$1</strong>')
+        .replace(/\*([^*\n]+)\*/g, '<em>$1</em>')
+        .replace(/_([^_\n]+)_/g, '<em>$1</em>')
+        .replace(/\n/g, '<br />');
+
+      return `<p>${formattedParagraph}</p>`;
+    })
+    .join('');
+
+  return sanitizeHtml(html, strictSanitizeOptions);
+}

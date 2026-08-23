@@ -267,6 +267,11 @@
 
 .portfolio-detail-richtext :where(ul, ol) {
   padding-left: 1.25rem;
+  list-style-position: outside;
+}
+
+.portfolio-detail-richtext :where(li > p) {
+  display: inline;
 }
 
 .portfolio-detail-richtext :where(li + li) {
@@ -612,10 +617,6 @@
 
 @media (max-width: 767px) {
   .portfolio-detail-links {
-    grid-template-columns: 1fr;
-  }
-
-  .portfolio-carousel-controls {
     grid-template-columns: 1fr;
   }
 }
