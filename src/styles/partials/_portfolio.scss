@@ -411,7 +411,7 @@
 
 .dark .portfolio-contribution-panel {
   background:
-    linear-gradient(145deg, rgba(64, 52, 67, 0.82), rgba(43, 38, 48, 0.96) 58%, rgba(22, 20, 23, 0.94)),
+    linear-gradient(145deg, rgba(52, 75, 59, 0.82), rgba(37, 55, 43, 0.96) 58%, rgba(16, 23, 19, 0.94)),
     var(--color-accent-light);
 }
 
@@ -484,7 +484,7 @@
 }
 
 .dark .contribution-cell.level-0 {
-  background: #302d33;
+  background: #26382c;
 }
 
 .contribution-cell.level-0 {
@@ -508,19 +508,19 @@
 }
 
 .dark .contribution-cell.level-1 {
-  background: #7c5348;
+  background: #45624d;
 }
 
 .dark .contribution-cell.level-2 {
-  background: #a96a50;
+  background: #5f8b68;
 }
 
 .dark .contribution-cell.level-3 {
-  background: #d28a5f;
+  background: #78b58a;
 }
 
 .dark .contribution-cell.level-4 {
-  background: #e6a176;
+  background: #a7d8ad;
 }
 
 .contribution-cell-empty {
