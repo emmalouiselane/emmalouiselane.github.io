@@ -384,6 +384,11 @@
 }
 
 @media (min-width: 900px) {
+  .review-list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
   .garden-card-list .garden-list-card {
     flex-basis: calc(42% - var(--spacing-5));
   }

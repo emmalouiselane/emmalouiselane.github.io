@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { getAllBookReviews } from '../lib/contentful';
 import type { BookReview } from '../lib/types/bookReview';
 
-const REVIEWS_PER_PAGE = 5;
+const REVIEWS_PER_PAGE = 6;
 
 const getInitialGenre = () => {
   if (typeof window === 'undefined') {
