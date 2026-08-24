@@ -1,0 +1,120 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { calculateYearsExperience } from '../../lib/experience';
+
+const yearsExperience = calculateYearsExperience();
+---
+
+<BaseLayout title="My CV" description="Emma Lane's software engineering experience, technical expertise and career highlights">
+  <div class="cv-page">
+    <header class="cv-hero">
+      <p class="home-kicker">About me</p>
+      <h1>My CV</h1>
+      <p>Senior Software Engineer and Team Lead with over {yearsExperience} years of experience across software engineering, technical leadership, DevOps and full-stack delivery.</p>
+      <p><a href="https://www.linkedin.com/in/emmalouiselane/" class="cv-link-button" target="_blank" rel="noopener noreferrer">Connect with me on LinkedIn</a></p>
+    </header>
+
+    <section class="about-card cv-card cv-card--wide" aria-labelledby="cv-summary-heading">
+      <p class="home-card__eyebrow">Professional profile</p>
+      <h2 id="cv-summary-heading">My engineering focus</h2>
+      <div class="cv-summary-switcher" role="group" aria-label="Choose a professional summary">
+        <button type="button" class="cv-summary-toggle is-active" data-summary-toggle="broader" aria-pressed="true">Engineering &amp; Leadership</button>
+        <button type="button" class="cv-summary-toggle" data-summary-toggle="dotnet" aria-pressed="false">.NET</button>
+        <button type="button" class="cv-summary-toggle" data-summary-toggle="javascript" aria-pressed="false">JavaScript</button>
+      </div>
+      <div class="cv-summary-panel" data-summary-panel="dotnet" hidden>
+        <p>When working in .NET-focused roles, I bring over {yearsExperience} years of software engineering experience to designing and delivering applications with C# and .NET. My experience includes .NET Core, MVC, Entity Framework, LINQ, SQL and Azure, spanning backend development, solution design, testing and production delivery.</p>
+        <p>I bring a practical approach to building maintainable systems, improving development workflows and supporting teams through technical decisions, DevOps, automated CI/CD and full-stack delivery.</p>
+      </div>
+      <div class="cv-summary-panel" data-summary-panel="javascript" hidden>
+        <p>When working in JavaScript-focused roles, I bring over {yearsExperience} years of software engineering experience to building full-stack applications with NodeJS, TypeScript, React and related frameworks including NestJS, NextJS and VueJS. I have worked across frontend and backend development, application migrations, API design and cloud delivery on Azure.</p>
+        <p>Alongside hands-on development, I have experience with DevOps, deployment workflows and mentoring developers, helping teams deliver maintainable, scalable products.</p>
+      </div>
+      <div class="cv-summary-panel" data-summary-panel="broader">
+        <p>With over {yearsExperience} years of experience across software engineering and technical leadership, I have supported products through the full lifecycle: understanding requirements, shaping solutions, building and testing software, and improving delivery in production.</p>
+        <p>I combine hands-on development with stakeholder management, team leadership, mentoring, DevOps and CI/CD, accessibility and security-minded engineering. I am particularly comfortable helping mixed-discipline teams turn complex needs into practical, maintainable software.</p>
+      </div>
+    </section>
+
+    <div class="cv-grid">
+      <div class="cv-skills-row cv-card--wide">
+      <section class="about-card cv-card cv-card--skills">
+        <p class="home-card__eyebrow">Key skills</p>
+        <ul class="cv-list">
+          <li>Team leadership and mentoring</li><li>Software delivery and stakeholder management</li><li>Requirements gathering, analysis and estimation</li><li>Solution design and application development</li><li>DevOps, CI/CD and pipeline maintenance</li><li>Test-driven development and full-stack testing</li><li>Configuration, task and project management</li><li>Business needs analysis and complex problem-solving</li>
+        </ul>
+      </section>
+
+      <section class="about-card cv-card cv-card--technologies">
+        <p class="home-card__eyebrow">Key technologies</p>
+        <div class="cv-skills-grid cv-skills-grid--single">
+          <div><h3>Backend</h3><p>C#, .NET, .NET Core, ASP.NET, NodeJS, NestJS, Python, Java, Entity Framework and LINQ</p></div>
+          <div><h3>Frontend</h3><p>React, VueJS, NextJS, AngularJS, TypeScript, JavaScript and Material UI</p></div>
+          <div><h3>Cloud and delivery</h3><p>Azure DevOps, Azure Web Apps, Azure Functions, Azure Static Web Apps, Docker, GitLab and GitHub</p></div>
+          <div><h3>Data and testing</h3><p>MS SQL, MySQL, PL/SQL, PostgreSQL, NoSQL, Jest, Cypress, Selenium and Playwright</p></div>
+          <div><h3>Security</h3><p>OWASP principles and Top 10 awareness, security assessments, vulnerability identification, secure development and security-minded solution design</p></div>
+          <div><h3>Ways of working</h3><p>Agile delivery, Scrum, TDD, accessibility, secure development and collaborative solution design</p></div>
+        </div>
+      </section>
+      </div>
+
+      <div class="cv-experience-grid cv-card--wide">
+      <section class="about-card cv-card cv-card--experience">
+        <p class="home-card__eyebrow">Professional experience</p>
+        <div id="cv-timeline" class="cv-timeline" data-experience-collapsed>
+          <article class="cv-role"><h3>Spindogs</h3><p class="cv-role__meta">.NET Team Lead · April 2025 - Present</p></article>
+          <article class="cv-role"><h3>Female Invest</h3><p class="cv-role__meta">Senior Software Engineer · September 2024 - February 2025 · Remote</p><ul><li>Contributed to the flagship web application using NodeJS, React and TypeScript.</li><li>Led migration of legacy back-office software from NestJS to a more maintainable NodeJS system.</li><li>Used Azure DevOps, Azure Web Apps, Azure Static Web Apps and Docker to deploy and manage projects.</li><li>Mentored junior developers through pair programming and knowledge sharing.</li></ul></article>
+          <article class="cv-role"><h3>Empyrean Digital</h3><p class="cv-role__meta">Team Lead · June 2024 - August 2024; Lead Back-end Developer · June 2023 - June 2024</p><ul><li>Led software, infrastructure and architecture delivery for internal and external clients.</li><li>Supported planning, resource allocation, delivery monitoring, technical guidance and team development.</li></ul></article>
+          <article class="cv-role"><h3>BAE Systems</h3><p class="cv-role__meta">Microservice and Cognitive Solutions Team Lead · April 2022 - June 2023; Software Engineer · February 2019 - April 2022</p><ul><li>Worked across Python, NodeJS, TypeScript, React, Express, C#, .NET, NestJS, SQL and PowerShell.</li><li>Contributed to team and resource management, DevOps, CI/CD improvement, delivery and developer mentoring.</li></ul></article>
+          <article class="cv-role"><h3>Intelligent Enterprise Products</h3><p class="cv-role__meta">Software Developer · December 2017 - February 2019; Software Developer · August 2012 - September 2016</p><ul><li>Worked across the product lifecycle, including requirements, prototyping, development, testing, releases and customer feedback.</li><li>Handled security assessments, audits and software security vulnerabilities, alongside Scrum and team management responsibilities.</li></ul></article>
+          <article class="cv-role"><h3>Metron Technology</h3><p class="cv-role__meta">Junior Software Developer · September 2016 - November 2017</p><p>Worked on GUI development, release testing, support, maintenance and feature estimation.</p></article>
+        </div>
+        <button type="button" class="home-section__toggle cv-experience-toggle" data-experience-toggle aria-expanded="false" aria-controls="cv-timeline">Load more</button>
+      </section>
+
+      <section class="about-card cv-card cv-card--education">
+        <p class="home-card__eyebrow">Education</p>
+        <div class="cv-education">
+          <div><h3>MSc Computer Science and Cyber Security</h3><p>University of Sunderland · Distinction · 2026 </p></div>
+          <div><h3>Foundation Degree in Computing</h3><p>University Centre, Yeovil · Distinction · 2016</p></div>
+          <div><h3>Level 4 Apprenticeship in ICT Professional Competence</h3><p>Yeovil College · Pass · 2016</p></div>
+          <div><h3>Level 3 Advanced Apprenticeship in IT Software, Web and Telecoms Professionals</h3><p>Yeovil College · Pass · 2013</p></div>
+          <div><h3>BTEC Level 3 Extended Diploma</h3><p>Yeovil College · D*D*D · 2012</p></div>
+        </div>
+      </section>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<script is:inline>
+  document.querySelectorAll('[data-summary-toggle]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const selectedSummary = button.getAttribute('data-summary-toggle');
+      document.querySelectorAll('[data-summary-toggle]').forEach((toggle) => {
+        const isSelected = toggle === button;
+        toggle.classList.toggle('is-active', isSelected);
+        toggle.setAttribute('aria-pressed', String(isSelected));
+      });
+      document.querySelectorAll('[data-summary-panel]').forEach((panel) => {
+        panel.toggleAttribute('hidden', panel.getAttribute('data-summary-panel') !== selectedSummary);
+      });
+    });
+  });
+
+  const experienceToggle = document.querySelector('[data-experience-toggle]');
+  const experienceTimeline = document.querySelector('[data-experience-collapsed]');
+
+  experienceToggle?.addEventListener('click', () => {
+    const isCollapsed = experienceTimeline?.hasAttribute('data-experience-collapsed');
+
+    if (isCollapsed) {
+      experienceTimeline.removeAttribute('data-experience-collapsed');
+    } else {
+      experienceTimeline.setAttribute('data-experience-collapsed', '');
+    }
+
+    experienceToggle.setAttribute('aria-expanded', String(isCollapsed));
+    experienceToggle.textContent = isCollapsed ? 'Show less experience' : 'Load more';
+  });
+</script>

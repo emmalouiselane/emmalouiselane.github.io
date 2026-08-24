@@ -1,10 +1,8 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { calculateYearsExperience } from '../../lib/experience';
 
-const careerStart = new Date(2012, 8, 1);
-const now = new Date();
-
-const yearsExperience = now.getFullYear() - careerStart.getFullYear() - (now.getMonth() < careerStart.getMonth() ? 1 : 0);
+const yearsExperience = calculateYearsExperience();
 ---
 
 <BaseLayout title="About Me" description="Learn more about Emma Lane - Senior Software Engineer & Team Lead">
@@ -61,18 +59,11 @@ const yearsExperience = now.getFullYear() - careerStart.getFullYear() - (now.get
               This Space
             </button>
             <button 
-              onclick="showTab('technical')" 
-              id="technical-btn"
-              class="tab-btn"
-            >
-              Technical Expertise
-            </button>
-            <button 
               onclick="showTab('experience')" 
               id="experience-btn"
               class="tab-btn"
             >
-              Professional Experience
+              Experience & Expertise
             </button>
           </nav>
         </div>
@@ -104,24 +95,14 @@ const yearsExperience = now.getFullYear() - careerStart.getFullYear() - (now.get
             </ul>
           </div>
           
-          <!-- Technical Expertise Tab -->
-          <div id="technical-content" class="tab-content is-hidden">
-            <p>I work with a diverse and modern tech stack, CI/CD and with a deep expertise in a multitude of technologies:</p>
-            <ul>
-              <li><strong>Backend</strong>: C#, .NET & .NET Core, ASP.NET, NodeJS, NestJS, Python, Java</li>
-              <li><strong>Frontend</strong>: React, VueJS, NextJS, AngularJS, TypeScript as well as various CSS frameworks</li>
-              <li><strong>CMS</strong>: Umbraco, WordPress, Contentful</li>
-              <li><strong>Databases</strong>: MS SQL, MySQL, PostgreSQL, NoSQL (12 years of SQL experience)</li>              
-              <li><strong>Cloud & DevOps</strong>: Azure DevOps, Azure Web Apps, Azure Functions, Docker</li>
-              <li><strong>Testing</strong>: Jest, Cypress, Selenium, Playwright</li>
-            </ul>
-          </div>
-          
-          <!-- Professional Experience Tab -->
+          <!-- Experience & Expertise Tab -->
           <div id="experience-content" class="tab-content is-hidden">
-            <p>With extensive experience across the entire software lifecycle, I've successfully designed, developed and deployed numerous desktop and web-based applications while working with and managing mixed-discipline teams. </p>
-            <p>My career spans from apprentice to junior developer to team leadership, with key roles including: Team Lead, Senior Software Engineer and Lead Back-end Developer.</p>
-            <p>Throughout my career, I have worked across multiple industries, from fintech to digital agencies to defense, and have delivered projects of varying sizes and complexity while developing strong leadership and technical expertise.</p>
+            <p>With extensive experience across the entire software lifecycle, I've designed, developed and deployed desktop and web-based applications while working with and managing mixed-discipline teams.</p>
+            <p>My career has taken me from apprentice and junior developer roles into team leadership, including work as a Team Lead, Senior Software Engineer and Lead Back-end Developer across fintech, digital agencies and defence.</p>
+            <p>I've worked with a diverse modern stack across backend, frontend, CMS, databases, cloud, DevOps and testing.</p>
+            <p>To see the bigger picture, take a look at my full CV!</p>
+
+            <p><a href="/about/my-cv/" class="about-contact-card">View my CV</a></p>
           </div>
         </div>
       </section>
@@ -171,6 +152,3 @@ const yearsExperience = now.getFullYear() - careerStart.getFullYear() - (now.get
     </section>
   </div>
 </BaseLayout>
-
-
-

@@ -36,3 +36,46 @@ test('every generated page responds and exposes the main content area', async ({
     await expect(page, `${route} should have a page title`).toHaveTitle(/.+/);
   }
 });
+
+test('CV summaries and professional experience can be expanded', async ({ page }) => {
+  await page.goto('/about/my-cv/', { waitUntil: 'domcontentloaded' });
+
+  const broaderSummaryToggle = page.locator('[data-summary-toggle="broader"]');
+  const dotnetSummaryToggle = page.locator('[data-summary-toggle="dotnet"]');
+  const javascriptSummaryToggle = page.locator('[data-summary-toggle="javascript"]');
+
+  await expect(broaderSummaryToggle).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.locator('[data-summary-panel="broader"]')).toBeVisible();
+  await expect(page.locator('[data-summary-panel="dotnet"]')).toBeHidden();
+  await expect(page.locator('[data-summary-panel="javascript"]')).toBeHidden();
+
+  await dotnetSummaryToggle.click();
+  await expect(dotnetSummaryToggle).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.locator('[data-summary-panel="dotnet"]')).toBeVisible();
+
+  await javascriptSummaryToggle.click();
+  await expect(javascriptSummaryToggle).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.locator('[data-summary-panel="javascript"]')).toBeVisible();
+
+  const roles = page.locator('#cv-timeline .cv-role');
+  await expect(roles).toHaveCount(6);
+  await expect(roles.nth(0)).toBeVisible();
+  await expect(roles.nth(1)).toBeVisible();
+  await expect(roles.nth(2)).toBeVisible();
+  await expect(roles.nth(3)).toBeHidden();
+  await expect(roles.nth(4)).toBeHidden();
+  await expect(roles.nth(5)).toBeHidden();
+
+  const experienceToggle = page.locator('[data-experience-toggle]');
+  await expect(experienceToggle).toHaveText('Load more');
+
+  await experienceToggle.click();
+  await expect(roles.nth(3)).toBeVisible();
+  await expect(roles.nth(4)).toBeVisible();
+  await expect(roles.nth(5)).toBeVisible();
+  await expect(experienceToggle).toHaveText('Show less experience');
+
+  await experienceToggle.click();
+  await expect(roles.nth(3)).toBeHidden();
+  await expect(experienceToggle).toHaveText('Load more');
+});
