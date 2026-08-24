@@ -438,8 +438,22 @@
   }
 
   .blog-index-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-2);
+    flex-wrap: nowrap;
     justify-self: stretch;
     width: 100%;
+  }
+
+  .blog-index-toolbar p {
+    margin: 0;
+    white-space: nowrap;
+  }
+
+  .blog-index-actions {
+    flex-shrink: 0;
   }
 
   .blog-filter-panel {

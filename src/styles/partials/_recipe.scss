@@ -484,8 +484,22 @@
   }
 
   .recipe-index-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-2);
+    flex-wrap: nowrap;
     justify-self: stretch;
     width: 100%;
+  }
+
+  .recipe-index-toolbar p {
+    margin: 0;
+    white-space: nowrap;
+  }
+
+  .recipe-index-actions {
+    flex-shrink: 0;
   }
 
   .recipe-filter-panel {

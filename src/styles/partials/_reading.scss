@@ -395,6 +395,19 @@
 }
 
 @media (max-width: 760px) {
+  .garden-list-toolbar {
+    flex-wrap: nowrap;
+    gap: var(--spacing-2);
+  }
+
+  .garden-list-toolbar p {
+    white-space: nowrap;
+  }
+
+  .garden-list-actions {
+    flex-shrink: 0;
+  }
+
   .garden-detail-date {
     text-align: left;
   }
