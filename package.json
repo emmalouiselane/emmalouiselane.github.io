@@ -25,7 +25,7 @@
     "@fortawesome/react-fontawesome": "^3.5.0",
     "@sparklane.dev/sparklane-recipecard-react": "^1.1.0",
     "@types/react": "^19.2.18",
-    "@types/react-dom": "^19.2.4",
+    "@types/react-dom": "^19.2.5",
     "astro": "^7.2.3",
     "clsx": "^2.1.1",
     "contentful": "^11.12.9",
