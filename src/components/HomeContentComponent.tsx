@@ -28,7 +28,6 @@ const HomeContentComponent = ({ recentRecipe, recentBlog, recentPortfolioItem, r
           <div className="home-hero__actions">
             <a href="/blog-posts/" className="home-pill">Read the blog</a>
             <a href="/digital-garden/" className="home-pill home-pill--secondary">Explore the garden</a>
-            <a href="/freelance/" className="home-pill home-pill--secondary">Work with me</a>
           </div>
 
           <div className="pressed-hero-flower pressed-hero-flower--sprig" aria-hidden="true">

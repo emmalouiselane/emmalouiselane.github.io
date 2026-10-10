@@ -16,9 +16,7 @@ const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
       <div>
         <p class="home-kicker">Digital garden</p>
         <h1>Recipes I want to come back to.</h1>
-        <p>
-          A practical little archive of recipes, experiments and reliable favourites.
-        </p>
+        <h2>A practical little archive of recipes, experiments and reliable favourites. </h2>
          <p>
           Some are polished, some are notes-to-self, and all of them are here because I wanted an easy way back to them.
         </p>
@@ -92,7 +90,7 @@ const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 
     <!-- No Results Message -->
     <div id="noResults" class="recipe-empty-state is-hidden">
-      <p>No recipes found</p>
+      <h3>No recipes found</h3>
       <small>Try adjusting your search or letter filter.</small>
     </div>
 
@@ -193,7 +191,7 @@ const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 
         const isVisible = matchesSearch && matchesLetter;
         htmlItem.classList.toggle('is-hidden', !isVisible);
-        
+
         if (isVisible) visibleCount++;
       });
 
