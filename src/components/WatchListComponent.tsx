@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { getAllWatchList } from '../lib/contentful';
 import type { WatchList } from '../lib/types/watchList';
 
-const REVIEWS_PER_PAGE = 5;
+const REVIEWS_PER_PAGE = 9;
 
 const getInitialFilter = (key: string) => {
   if (typeof window === 'undefined') {
@@ -231,8 +231,8 @@ const WatchListComponent = () => {
               <div className="garden-list-card__topline">
                 <div>
                   <h2>{watch.title}</h2>
-                  {watch.platform && (
-                    <p>{watch.status === 'Watching' ? `Currently watching on ${watch.platform}` : `Watched on ${watch.platform}`}</p>
+                  {watch.platform && watch.status !== 'Watching' && (
+                    <p>{`Watched on ${watch.platform}`}</p>
                   )}
                 </div>
                 {watch.type && watch.type.length > 0 && (
@@ -245,7 +245,7 @@ const WatchListComponent = () => {
               </div>
 
               <div className="garden-list-card__footer">
-                <span>{watch.status}</span>
+                <span>{watch.status === 'Watching' && watch.platform ? `Currently watching on ${watch.platform}` : watch.status}</span>
                 {watch.thoughts && (
                   <a href={`/digital-garden/watching/${watch.sys.id}/`}>
                     <span>Read my thoughts</span>

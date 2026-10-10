@@ -374,7 +374,7 @@ export async function getBookReviewById(id: string) {
 export async function getAllWatchList() {
   const query = `
     {
-      watchListCollection(order: sys_publishedAt_DESC) {
+      watchListCollection(order: sys_firstPublishedAt_DESC) {
         items {
           sys {
             id

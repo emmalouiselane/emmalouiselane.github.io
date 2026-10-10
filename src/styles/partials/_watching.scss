@@ -1,1 +1,42 @@
 @use "./_variables" as *;
+
+.watching-page .watch-list {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-auto-rows: 1fr;
+  gap: var(--spacing-5);
+}
+
+.watching-page .watch-list-item {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.watching-page .garden-list-card__topline {
+  flex-wrap: nowrap;
+}
+
+.watching-page .garden-list-card__topline > div:first-child {
+  flex: 1;
+  min-width: 0;
+}
+
+.watching-page .garden-list-card__topline > .garden-tag-list {
+  flex: 0 0 auto;
+}
+
+.watching-page .garden-empty-state {
+  grid-column: 1 / -1;
+}
+
+@media (min-width: 600px) {
+  .watching-page .watch-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 900px) {
+  .watching-page .watch-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
