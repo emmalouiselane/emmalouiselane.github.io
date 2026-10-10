@@ -13,16 +13,20 @@
 }
 
 .watching-page .garden-list-card__topline {
-  flex-wrap: nowrap;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
 }
 
 .watching-page .garden-list-card__topline > div:first-child {
-  flex: 1;
   min-width: 0;
 }
 
 .watching-page .garden-list-card__topline > .garden-tag-list {
-  flex: 0 0 auto;
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: end;
+  align-self: start;
 }
 
 .watching-page .garden-empty-state {
