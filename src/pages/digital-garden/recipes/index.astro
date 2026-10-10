@@ -10,7 +10,7 @@ const recipes = await getAllRecipes();
 const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 ---
 
-<BaseLayout title="Recipes" description="Browse my collection of recipes.">
+<BaseLayout title="Recipes" description="Recipes from Emma Lane’s kitchen, with ingredients, step-by-step methods and personal cooking notes.">
   <div class="recipe-index-page">
     <section class="recipe-index-hero">
       <div>
@@ -25,7 +25,7 @@ const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
       </div>
 
       <div class="pressed-hero-flower pressed-hero-flower--bloom" aria-hidden="true">
-        <img src="/images/flowers/pressed-bloom.svg" alt="" />
+        <img src="/images/flowers/pressed-bloom.svg" alt="" width="220" height="220" />
       </div>
 
       <div class="recipe-index-toolbar">
@@ -104,7 +104,7 @@ const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
             <div class="recipe-list__item" data-recipe-name={recipe.name.toLowerCase()} data-recipe-slug={recipe.slug}>
               <RecipeCard
                 name={recipe.name}
-                image={createRecipeImage({ imageUrl: recipe.imagesCollection?.items?.[0]?.url, recipeName: recipe.name })}
+                image={createRecipeImage({ imageUrl: recipe.imagesCollection?.items?.[0]?.url, recipeName: recipe.name, width: recipe.imagesCollection?.items?.[0]?.width, height: recipe.imagesCollection?.items?.[0]?.height })}
                 rating={recipe.rating}
                 recipeCardOverrideClassName="recipe-card-custom"
                 emptyRatingClassName="recipe-empty-rating"
@@ -191,12 +191,10 @@ const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
         const matchesSearch = recipeName.includes(searchTerm);
         const matchesLetter = currentLetter === 'all' || recipeName.startsWith(currentLetter.toLowerCase());
 
-        if (matchesSearch && matchesLetter) {
-          htmlItem.style.display = 'block';
-          visibleCount++;
-        } else {
-          htmlItem.style.display = 'none';
-        }
+        const isVisible = matchesSearch && matchesLetter;
+        htmlItem.classList.toggle('is-hidden', !isVisible);
+        
+        if (isVisible) visibleCount++;
       });
 
       // Update clear button state
@@ -215,17 +213,9 @@ const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
     function setLetter(letter: string) {
       currentLetter = letter;
 
-      // Update button styles
+      // Update the active letter filter
       (document.querySelectorAll('#letterButtons button') as NodeListOf<HTMLButtonElement>).forEach((btn: HTMLButtonElement) => {
-        if (btn.dataset.letter === letter) {
-          btn.style.backgroundColor = 'var(--color-primary)';
-          btn.style.color = 'var(--primary-foreground)';
-          btn.classList.add('is-active');
-        } else {
-          btn.style.backgroundColor = '';
-          btn.style.color = '';
-          btn.classList.remove('is-active');
-        }
+        btn.classList.toggle('is-active', btn.dataset.letter === letter);
       });
 
       filterRecipes();

@@ -1,0 +1,17 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import WatchListComponent from '../../../../components/WatchListComponent';
+import { getAllWatchList } from '../../../../lib/contentful';
+import { additionalPages, WATCHING_PAGE_SIZE } from '../../../../lib/pagination';
+
+export const getStaticPaths = (async () => {
+  const items = (await getAllWatchList()).map(({ thoughts, ...item }) => ({ ...item, hasThoughts: Boolean(thoughts) }));
+  return additionalPages(items.length, WATCHING_PAGE_SIZE).map(page => ({ params: { page: String(page) }, props: { items, page } }));
+}) satisfies GetStaticPaths;
+
+const { items, page } = Astro.props;
+---
+<BaseLayout title={`Films, TV and watching notes - Page ${page}`} description="Films and television in Emma Lane’s watch list, with personal thoughts, viewing notes and progress updates.">
+  <WatchListComponent initialWatchList={items} initialPage={page} client:load />
+</BaseLayout>

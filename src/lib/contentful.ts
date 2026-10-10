@@ -87,6 +87,8 @@ export async function getPortfolioItemBySlug(slug: string) {
           images: imagesCollection {
             items {
               url
+              width
+              height
               title
               description
               fileName
@@ -163,6 +165,7 @@ export async function getBlogPostBySlug(slug: string) {
         items {
           sys {
             id
+            publishedAt
           }
           title
           date
@@ -209,6 +212,8 @@ export async function getAllRecipes() {
           imagesCollection {
             items {
               url
+              width
+              height
               title
               description
               fileName
@@ -250,6 +255,8 @@ export async function getRecipeBySlug(slug: string) {
           imagesCollection {
             items {
               url
+              width
+              height
               title
               description
               fileName

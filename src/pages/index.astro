@@ -1,8 +1,29 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import HomeContentComponent from "../components/HomeContentComponent";
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HomeContentComponent from '../components/HomeContentComponent';
+import { getAllRecipes, getAllBlogs, getAllPortfolioItems, getAllBookReviews, getAllWatchList } from '../lib/contentful';
+
+const [recipes, blogs, portfolioItems, reviews, watchList] = await Promise.all([
+  getAllRecipes(), getAllBlogs(), getAllPortfolioItems(), getAllBookReviews(), getAllWatchList(),
+]);
+
+const recentBlog = blogs.find(post => {
+  const types = (post.blogType || []).map(type => type.toLowerCase());
+  return !(types.some(type => type.includes('dissertation')) && !types.some(type => !type.includes('dissertation')));
+}) ?? null;
+
+const recentPortfolioItem = portfolioItems
+  .sort((a, b) => new Date(b.sys.publishedAt).getTime() - new Date(a.sys.publishedAt).getTime())
+  .find(item => item.slug.toLowerCase() !== 'msc-deepfake-defence' && !item.title.toLowerCase().includes('dissertation')) ?? null;
+
+const recentRead = reviews.find(review => review.status === 'Complete') ?? reviews[0] ?? null;
 ---
 
-<BaseLayout title="Home">
-  <HomeContentComponent client:load />
+<BaseLayout>
+  <HomeContentComponent 
+    recentRecipe={recipes[0] ?? null} 
+    recentBlog={recentBlog}
+    recentPortfolioItem={recentPortfolioItem} 
+    recentRead={recentRead} 
+    recentWatch={watchList[0] ?? null} />
 </BaseLayout>

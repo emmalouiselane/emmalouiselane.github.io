@@ -6,71 +6,15 @@ import type { WatchList } from '../lib/types/watchList';
 
 import moment from 'moment';
 
-import { useState, useEffect } from 'react';
-import {
-  getAllRecipes,
-  getAllBlogs,
-  getAllPortfolioItems,
-  getAllBookReviews,
-  getAllWatchList
-} from '../lib/contentful';
+interface Props {
+  recentRecipe: Recipe | null;
+  recentBlog: Blog | null;
+  recentPortfolioItem: PortfolioItem | null;
+  recentRead: BookReview | null;
+  recentWatch: WatchList | null;
+}
 
-const HomeContentComponent = () => {
-  const [recentRecipe, setRecentRecipe] = useState<Recipe | null>(null);
-  const [recentBlog, setRecentBlog] = useState<Blog | null>(null);
-  const [recentPortfolioItem, setRecentPortfolioItem] = useState<PortfolioItem | null>(null);
-  const [recentRead, setRecentRead] = useState<BookReview | null>(null);
-  const [recentWatch, setRecentWatch] = useState<WatchList | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [showLatestAdditions, setShowLatestAdditions] = useState(false);
-  const [showDigitalGarden, setShowDigitalGarden] = useState(false);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [recipes, blogs, portfolioItems, reviews, watchList] = await Promise.all([
-          getAllRecipes(),
-          getAllBlogs(),
-          getAllPortfolioItems(),
-          getAllBookReviews(),
-          getAllWatchList()
-        ]);
-
-        const latestNonDissertationBlog = blogs.find((post) => {
-          const blogTypes = (post.blogType || []).map((type) => type.toLowerCase());
-          const hasDissertationType = blogTypes.some((type) => type.includes('dissertation'));
-          const hasNonDissertationType = blogTypes.some((type) => !type.includes('dissertation'));
-
-          return !(hasDissertationType && !hasNonDissertationType);
-        }) ?? null;
-
-        const latestNonDissertationPortfolio = portfolioItems.find((item) => {
-          const slug = item.slug?.toLowerCase() || '';
-          const title = item.title?.toLowerCase() || '';
-          return slug !== 'msc-deepfake-defence' && !title.includes('dissertation');
-        }) ?? null;
-
-        setRecentRecipe(recipes.length > 0 ? recipes[0] : null);
-        setRecentBlog(latestNonDissertationBlog);
-        setRecentPortfolioItem(latestNonDissertationPortfolio);
-
-        const completedReviews = reviews.filter((review) => review.status === 'Complete');
-        setRecentRead((completedReviews.length > 0 ? completedReviews : reviews)[0] ?? null);
-        setRecentWatch(watchList.length > 0 ? watchList[0] : null);
-      } catch (error) {
-        console.error('Error fetching home data:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  if (loading) {
-    return <div className="home-content-loading">Loading...</div>;
-  }
-
+const HomeContentComponent = ({ recentRecipe, recentBlog, recentPortfolioItem, recentRead, recentWatch }: Props) => {
   return (
     <div className="home-page">
       <section className="home-hero">
@@ -84,31 +28,31 @@ const HomeContentComponent = () => {
           <div className="home-hero__actions">
             <a href="/blog-posts/" className="home-pill">Read the blog</a>
             <a href="/digital-garden/" className="home-pill home-pill--secondary">Explore the garden</a>
-            <a href="mailto:emma@sparklane.dev" className="home-pill home-pill--secondary">Work with me</a>
+            <a href="/freelance/" className="home-pill home-pill--secondary">Work with me</a>
           </div>
 
           <div className="pressed-hero-flower pressed-hero-flower--sprig" aria-hidden="true">
-            <img src="/images/flowers/pressed-sprig.svg" alt="" />
+            <img src="/images/flowers/pressed-sprig.svg" alt="" width="220" height="252" />
           </div>
         </div>
 
         <aside className="home-hero__note">
-          <span className="home-note__pin" aria-hidden="true"></span>
           <p className="home-note__label">At the moment</p>
           <ul>
             <li>Technical posts, personal musings and portfolio experiments</li>
             <li>Recipes, reading notes, musical obsessions and cosy game references</li>
             <li>Accessibility-first websites, CMS builds and practical tools</li>
+            <li>Reflections on renovating an old house</li>
           </ul>
         </aside>
       </section>
 
       <section className="home-feature-strip">
-        <a href="mailto:emma@sparklane.dev" className="home-feature-card home-feature-card--work">
+        <a href="/freelance/" className="home-feature-card home-feature-card--work">
           <p className="home-card__eyebrow">Freelance availability</p>
           <h2>Open to work</h2>
           <p>If you have a project in mind, I would love to hear from you. I am especially interested in thoughtful websites, accessible user experiences, and practical tools that will make people's lives even a little bit easier.</p>
-          <span className="home-card__cta">Email me</span>
+          <span className="home-card__cta">Explore freelance services</span>
         </a>
 
         <a href="/dissertation/" className="home-feature-card home-feature-card--wide">
@@ -120,19 +64,11 @@ const HomeContentComponent = () => {
       </section>
 
       <section className="home-section">
-         {!showLatestAdditions && (
-            <button
-              type="button"
-              className="home-section__toggle"
-              onClick={() => setShowLatestAdditions((current) => !current)}
-              aria-expanded={showLatestAdditions}
-              aria-controls="digital-garden-content"
-            >
-              Want to see the latest additions?
-            </button>
-        )}
-
-        {showLatestAdditions && (
+        <details className="home-disclosure">
+          <summary className="home-section__toggle">
+            <span className="home-disclosure__show">Want to see the latest additions?</span>
+            <span className="home-disclosure__hide">Hide the latest additions</span>
+          </summary>
           <div id="latest-additions-content" className="home-section__content">
             <div className="home-section__heading">
               <p className="home-kicker">Latest additions</p>
@@ -161,59 +97,48 @@ const HomeContentComponent = () => {
               )}
             </div>
           </div>
-        )}
+          <section className="home-section home-section--garden">
+            <details className="home-disclosure">
+              <summary className="home-section__toggle">
+                <span className="home-disclosure__show">More from the digital garden?</span>
+                <span className="home-disclosure__hide">Hide the digital garden updates</span>
+              </summary>
+              <div id="digital-garden-content" className="home-section__content">
+                <div className="home-section__heading">
+                  <p className="home-kicker">Direct from the digital garden</p>
+                  <h2>Small updates and recommendations</h2>
+                </div>
+
+                <div className="home-grid home-grid--secondary">
+                  {recentRead && (
+                    <a href={`/digital-garden/reading/${recentRead.sys.id}/`} className="home-card home-card--garden">
+                      <p className="home-card__eyebrow">Reading</p>
+                      <h3>{recentRead.title}</h3>
+                      <p>by {recentRead.author?.name || 'Unknown Author'}</p>
+                    </a>
+                  )}
+
+                  {recentRecipe && (
+                    <a href={`/digital-garden/recipes/${recentRecipe.slug}/`} className="home-card home-card--garden">
+                      <p className="home-card__eyebrow">Recipe</p>
+                      <h3>{recentRecipe.name}</h3>
+                      <p>{recentRecipe.rating ? `${String.fromCharCode(9733).repeat(recentRecipe.rating)} personal rating` : 'New recipe! Not yet rated'}</p>
+                    </a>
+                  )}
+
+                  {recentWatch && (
+                    <a href={`/digital-garden/watching/${recentWatch.sys.id}/`} className="home-card home-card--garden">
+                      <p className="home-card__eyebrow">Watching</p>
+                      <h3>{recentWatch.title}</h3>
+                      <p>{recentWatch.type} ~ {recentWatch.status}</p>
+                    </a>
+                  )}
+                </div>
+              </div>
+            </details>
+          </section>
+        </details>
       </section>
-
-    {showLatestAdditions && (
-      <section className="home-section">
-        {!showDigitalGarden && (
-          <button
-            type="button"
-            className="home-section__toggle"
-            onClick={() => setShowDigitalGarden((current) => !current)}
-            aria-expanded={showDigitalGarden}
-            aria-controls="digital-garden-content"
-          >
-            More from the digital garden?
-          </button>
-        )}
-
-        {showDigitalGarden && (
-          <div id="digital-garden-content" className="home-section__content">
-            <div className="home-section__heading">
-              <p className="home-kicker">Direct from the digital garden</p>
-              <h2>Small updates and recommendations</h2>
-            </div>
-
-            <div className="home-grid home-grid--secondary">
-              {recentRead && (
-                <a href={`/digital-garden/reading/${recentRead.sys.id}/`} className="home-card home-card--garden">
-                  <p className="home-card__eyebrow">Reading</p>
-                  <h3>{recentRead.title}</h3>
-                  <p>by {recentRead.author?.name || 'Unknown Author'}</p>
-                </a>
-              )}
-
-              {recentRecipe && (
-                <a href={`/digital-garden/recipes/${recentRecipe.slug}/`} className="home-card home-card--garden">
-                  <p className="home-card__eyebrow">Recipe</p>
-                  <h3>{recentRecipe.name}</h3>
-                  <p>{recentRecipe.rating ? `${String.fromCharCode(9733).repeat(recentRecipe.rating)} personal rating` : 'New recipe! Not yet rated'}</p>
-                </a>
-              )}
-
-              {recentWatch && (
-                <a href={`/digital-garden/watching/${recentWatch.sys.id}/`} className="home-card home-card--garden">
-                  <p className="home-card__eyebrow">Watching</p>
-                  <h3>{recentWatch.title}</h3>
-                  <p>{recentWatch.type} ~ {recentWatch.status}</p>
-                </a>
-              )}
-            </div>
-          </div>
-        )}
-      </section>
-    )}
     </div>
   );
 };

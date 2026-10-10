@@ -1,18 +1,23 @@
 ---
 import '@fontsource-variable/montserrat';
 import SEOComponent from '../components/SEOComponent.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { breadcrumbsFor } from '../lib/seo';
 import NavbarComponent from '../components/NavbarComponent';
 import FooterComponent from '../components/FooterComponent.astro';
-import '../styles/global.css';
 import '../styles/global.scss'; // Custom SCSS
 
 interface Props {
   title?: string;
   description?: string;
   image?: string;
+  imageAlt?: string;
+  type?: 'website' | 'article';
+  noindex?: boolean;
+  structuredData?: Record<string, unknown>;
 }
 
-const { title, description, image } = Astro.props;
+const { title, description, image, imageAlt, type, noindex, structuredData } = Astro.props;
 const pathname = Astro.url.pathname;
 const isRootPath = pathname === '/';
 ---
@@ -21,7 +26,7 @@ const isRootPath = pathname === '/';
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <SEOComponent title={title} description={description} image={image} />
+    <SEOComponent title={title} description={description} image={image} imageAlt={imageAlt} type={type} noindex={noindex} structuredData={structuredData} />
     
     <!-- Tinylytics -->
     <script src="https://tinylytics.app/embed/XpJY1f7mwvZcsmaUenvF.js?kudos=%E2%9D%A4%EF%B8%8F" defer></script>
@@ -51,6 +56,7 @@ const isRootPath = pathname === '/';
       
       <main id="main-content" class="site-main">
         <div class:list={['site-frame', isRootPath && 'is-root-path']} data-is-root-path={isRootPath}>
+          {!isRootPath && !noindex && <Breadcrumbs items={breadcrumbsFor(pathname, title)} />}
           <slot />
         </div>
       </main>

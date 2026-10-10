@@ -1,8 +1,10 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BlogPostsListComponent from '../../components/BlogPostsListComponent';
----
+import { getAllBlogs } from '../../lib/contentful';
 
-<BaseLayout title="Blog Posts" description="Read my latest blog posts!">
-  <BlogPostsListComponent client:load />
+const items = await getAllBlogs();
+---
+<BaseLayout title="Blog Posts" description="Development notes, accessibility articles, research updates and personal writing by software engineer Emma Lane.">
+  <BlogPostsListComponent initialPosts={items} client:load />
 </BaseLayout>

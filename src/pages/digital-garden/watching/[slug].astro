@@ -7,6 +7,7 @@ import { displayRichText } from '../../../lib/richTextOptions';
 
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import AuthorNoteComponent from '../../../components/AuthorNoteComponent.astro';
+import { person, richTextSummary, siteMetadata } from '../../../lib/seo';
 
 export const getStaticPaths = (async () => {
   const watchList = await getAllWatchList();
@@ -25,13 +26,22 @@ if (!item?.sys?.id) {
 }
 const watchItem = await getWatchListById(item.sys.id);
 
+const description = richTextSummary(watchItem.thoughts, `Emma Lane’s watching notes for ${watchItem.title}, with viewing status and ${watchItem.type.toLowerCase()} details.`);
+
+const structuredData = watchItem.thoughts ? {
+  '@context': 'https://schema.org', '@type': 'BlogPosting',
+  headline: `Watching notes: ${watchItem.title}`, description,
+  author: { '@type': 'Person', '@id': person['@id'], name: person.name, url: person.url },
+  mainEntityOfPage: `${siteMetadata.url}/digital-garden/watching/${watchItem.sys.id}/`,
+} : undefined;
+
 const getTypeFilterUrl = (type: string) => `/digital-garden/watching/?type=${encodeURIComponent(type)}`;
 const getStatusFilterUrl = (status: string) => `/digital-garden/watching/?status=${encodeURIComponent(status)}`;
 ---
 
-<BaseLayout title={`${watchItem.title} - Watch List`} description={`Watch list item: ${watchItem.title}`}>
+<BaseLayout title={`${watchItem.title} - Watch List`} description={description} type="article" structuredData={structuredData}>
   <div class="garden-detail-page watching-detail-page">
-    <article itemscope itemtype="http://schema.org/Article">
+    <article>
       <header class="garden-detail-hero">
         <div>
           <p class="home-kicker">Watching notes</p>
@@ -42,7 +52,7 @@ const getStatusFilterUrl = (status: string) => `/digital-garden/watching/?status
         </div>
 
         <div class="garden-hero-flower garden-hero-flower--sprig" aria-hidden="true">
-          <img src="/images/flowers/pressed-sprig.svg" alt="" />
+          <img src="/images/flowers/pressed-sprig.svg" alt="" width="220" height="252" />
         </div>
 
         <div class="garden-detail-meta">

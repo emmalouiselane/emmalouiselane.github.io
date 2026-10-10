@@ -8,6 +8,7 @@ import { displayRichText } from '../../lib/richTextOptions';
 
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import AuthorNoteComponent from '../../components/AuthorNoteComponent.astro';
+import { person, siteMetadata } from '../../lib/seo';
 
 export const getStaticPaths = (async () => {
   const blogPosts = await getAllBlogs();
@@ -27,21 +28,31 @@ if (!post?.slug) {
 const fullPost = await getBlogPostBySlug(post.slug);
 
 const blogContentHtml = fullPost.blogContent ? displayRichText(fullPost.blogContent) : '';
+const structuredData = {
+  '@context': 'https://schema.org', '@type': 'BlogPosting',
+  '@id': `${siteMetadata.url}/blog-posts/${fullPost.slug}/#article`,
+  headline: fullPost.title, description: fullPost.description,
+  datePublished: fullPost.date,
+  ...(fullPost.sys.publishedAt ? { dateModified: fullPost.sys.publishedAt } : {}),
+  author: { '@type': 'Person', '@id': person['@id'], name: person.name, url: person.url },
+  mainEntityOfPage: `${siteMetadata.url}/blog-posts/${fullPost.slug}/`,
+  inLanguage: 'en-GB',
+};
 const getBlogTypeFilterUrl = (type: string) => `/blog-posts/?type=${encodeURIComponent(type)}`;
 ---
 
-<BaseLayout title={fullPost.title} description={fullPost.description}>
+<BaseLayout title={fullPost.title} description={fullPost.description} type="article" structuredData={structuredData}>
   <div class="blog-post">
-    <article itemscope itemtype="http://schema.org/Article">
+    <article>
       <header class="blog-detail-hero">
         <div class="blog-detail-hero__copy">
-          <p class="home-kicker">Journal</p>
+          <p class="home-kicker">Blog Post</p>
           <h1>{fullPost.title}</h1>
           {fullPost.description && <p>{fullPost.description}</p>}
         </div>
 
         <div class="pressed-hero-flower pressed-hero-flower--bloom" aria-hidden="true">
-          <img src="/images/flowers/pressed-bloom.svg" alt="" />
+          <img src="/images/flowers/pressed-bloom.svg" alt="" width="220" height="220" />
         </div>
 
         <div class="blog-detail-meta">

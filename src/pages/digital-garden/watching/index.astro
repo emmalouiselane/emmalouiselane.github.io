@@ -1,8 +1,10 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import WatchListComponent from '../../../components/WatchListComponent';
----
+import { getAllWatchList } from '../../../lib/contentful';
 
-<BaseLayout title="Watch List" description="Check out what I'm watching!">
-  <WatchListComponent client:load />
+const items = (await getAllWatchList()).map(({ thoughts, ...item }) => ({ ...item, hasThoughts: Boolean(thoughts) }));
+---
+<BaseLayout title="Watching" description="Films and television in Emma Lane’s watch list, with personal thoughts, viewing notes and progress updates.">
+  <WatchListComponent initialWatchList={items} client:load />
 </BaseLayout>

@@ -1,35 +1,22 @@
 import { useState, useEffect } from 'react';
-import { getAllBlogs } from '../lib/contentful';
 import type { BlogPost } from '../lib/types/blogPost';
 import moment from 'moment';
 
-const POSTS_PER_PAGE = 6;
+import { BLOG_PAGE_SIZE } from '../lib/pagination';
+import Pagination from './PaginationComponent';
 
-const BlogPostsListComponent = () => {
-  const [allPosts, setAllPosts] = useState<BlogPost[]>([]);
-  const [filteredPosts, setFilteredPosts] = useState<BlogPost[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
+interface Props { initialPosts: BlogPost[]; initialPage?: number; }
+
+const BlogPostsListComponent = ({ initialPosts, initialPage = 1 }: Props) => {
+  const allPosts = initialPosts;
+  const [filteredPosts, setFilteredPosts] = useState<BlogPost[]>(initialPosts);
+  const [currentPage, setCurrentPage] = useState(initialPage);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedBlogType, setSelectedBlogType] = useState('');
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const posts = await getAllBlogs();
-        const sortedPosts = posts.sort((a: BlogPost, b: BlogPost) =>
-          new Date(b.date).getTime() - new Date(a.date).getTime()
-        );
-        setAllPosts(sortedPosts);
-        setFilteredPosts(sortedPosts);
-      } catch (error) {
-        console.error('Error fetching blog posts:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchPosts();
+    setSelectedBlogType(new URLSearchParams(window.location.search).get('type') ?? '');
   }, []);
 
   useEffect(() => {
@@ -47,14 +34,14 @@ const BlogPostsListComponent = () => {
     }
 
     setFilteredPosts(filtered);
-    setCurrentPage(1);
-  }, [searchTerm, selectedBlogType, allPosts]);
+    setCurrentPage(searchTerm !== '' || selectedBlogType !== '' ? 1 : initialPage);
+  }, [searchTerm, selectedBlogType, allPosts, initialPage]);
 
   const blogTypes = [...new Set(allPosts.flatMap(post => post.blogType || []))];
 
-  const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE);
-  const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
-  const endIndex = startIndex + POSTS_PER_PAGE;
+  const totalPages = Math.ceil(filteredPosts.length / BLOG_PAGE_SIZE);
+  const startIndex = (currentPage - 1) * BLOG_PAGE_SIZE;
+  const endIndex = startIndex + BLOG_PAGE_SIZE;
   const currentPosts = filteredPosts.slice(startIndex, endIndex);
 
   const handlePageChange = (page: number) => {
@@ -75,45 +62,6 @@ const BlogPostsListComponent = () => {
 
   const hasActiveFilters = searchTerm !== '' || selectedBlogType !== '';
 
-  const renderPageNumbers = () => {
-    const pages = [];
-    const maxVisible = 5;
-
-    if (totalPages <= maxVisible) {
-      for (let i = 1; i <= totalPages; i++) {
-        pages.push(i);
-      }
-    } else {
-      if (currentPage <= 3) {
-        for (let i = 1; i <= 5; i++) {
-          pages.push(i);
-        }
-      } else if (currentPage >= totalPages - 2) {
-        for (let i = totalPages - 4; i <= totalPages; i++) {
-          pages.push(i);
-        }
-      } else {
-        for (let i = currentPage - 2; i <= currentPage + 2; i++) {
-          pages.push(i);
-        }
-      }
-    }
-
-    return pages.map(pageNum => (
-      <button
-        key={pageNum}
-        onClick={() => handlePageChange(pageNum)}
-        className={`blog-page-button ${pageNum === currentPage ? 'is-active' : ''}`}
-      >
-        {pageNum}
-      </button>
-    ));
-  };
-
-  if (loading) {
-    return <div className="blog-page-loading">Loading blog posts...</div>;
-  }
-
   return (
     <div className="blog-index-page">
       <section className="blog-index-hero">
@@ -126,7 +74,7 @@ const BlogPostsListComponent = () => {
         </div>
 
         <div className="pressed-hero-flower pressed-hero-flower--bloom" aria-hidden="true">
-          <img src="/images/flowers/pressed-bloom.svg" alt="" />
+          <img src="/images/flowers/pressed-bloom.svg" alt="" width="220" height="220" />
         </div>
 
         <div className="blog-index-toolbar">
@@ -200,8 +148,6 @@ const BlogPostsListComponent = () => {
             <article
               className="post-list-item"
               key={post.sys.id}
-              itemScope
-              itemType="http://schema.org/Article"
             >
               <div className="post-list-item__topline">
                 <time dateTime={post.date}>{moment(post.date).format('DD MMM YYYY')}</time>
@@ -232,29 +178,14 @@ const BlogPostsListComponent = () => {
         )}
       </div>
 
-      {totalPages > 1 && (
-        <nav className="blog-pagination" aria-label="Pagination">
-          <button
-            onClick={() => handlePageChange(currentPage - 1)}
-            disabled={currentPage === 1}
-            className="blog-page-button"
-          >
-            Previous
-          </button>
-
-          <div className="blog-pagination__pages">
-            {renderPageNumbers()}
-          </div>
-
-          <button
-            onClick={() => handlePageChange(currentPage + 1)}
-            disabled={currentPage === totalPages}
-            className="blog-page-button"
-          >
-            Next
-          </button>
-        </nav>
-      )}
+      <Pagination
+        basePath="/blog-posts/"
+        currentPage={currentPage}
+        totalPages={totalPages}
+        filtered={searchTerm !== '' || selectedBlogType !== ''}
+        onPageChange={handlePageChange}
+        variant="blog"
+      />
     </div>
   );
 };

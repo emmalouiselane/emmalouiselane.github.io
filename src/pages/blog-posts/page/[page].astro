@@ -1,0 +1,17 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import BlogPostsListComponent from '../../../components/BlogPostsListComponent';
+import { getAllBlogs } from '../../../lib/contentful';
+import { additionalPages, BLOG_PAGE_SIZE } from '../../../lib/pagination';
+
+export const getStaticPaths = (async () => {
+  const items = await getAllBlogs();
+  return additionalPages(items.length, BLOG_PAGE_SIZE).map(page => ({ params: { page: String(page) }, props: { items, page } }));
+}) satisfies GetStaticPaths;
+
+const { items, page } = Astro.props;
+---
+<BaseLayout title={`Blog Posts - Page ${page}`} description="Development notes, accessibility articles, research updates and personal writing by software engineer Emma Lane.">
+  <BlogPostsListComponent initialPosts={items} initialPage={page} client:load />
+</BaseLayout>

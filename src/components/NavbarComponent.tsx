@@ -13,7 +13,7 @@ const NavbarComponent = () => {
     };
 
     const navLinks = [
-        { text: "Journal", path: "/blog-posts/" },
+        { text: "Blog", path: "/blog-posts/" },
         { text: "Research", path: "/dissertation/" },
         {
             text: "Garden",
@@ -28,6 +28,7 @@ const NavbarComponent = () => {
             ],
         },
         { text: "About Me", path: "/about/" },
+        { text: "Work with me", path: "/freelance/" },
     ];
 
     const toggleDarkMode = () => {

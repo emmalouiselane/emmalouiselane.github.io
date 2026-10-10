@@ -1,40 +1,22 @@
 import { useState, useEffect } from 'react';
-import { getAllBookReviews } from '../lib/contentful';
 import type { BookReview } from '../lib/types/bookReview';
 
-const REVIEWS_PER_PAGE = 6;
+import { READING_PAGE_SIZE } from '../lib/pagination';
+import Pagination from './PaginationComponent';
 
-const getInitialGenre = () => {
-  if (typeof window === 'undefined') {
-    return '';
-  }
+interface Props { initialReviews: BookReview[]; initialPage?: number; }
 
-  return new URLSearchParams(window.location.search).get('genre') ?? '';
-};
-
-const BookReviewsList = () => {
-  const [allReviews, setAllReviews] = useState<BookReview[]>([]);
-  const [filteredReviews, setFilteredReviews] = useState<BookReview[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
+const BookReviewsList = ({ initialReviews, initialPage = 1 }: Props) => {
+  const allReviews = initialReviews;
+  const [filteredReviews, setFilteredReviews] = useState<BookReview[]>(initialReviews);
+  const [currentPage, setCurrentPage] = useState(initialPage);
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedGenre, setSelectedGenre] = useState(getInitialGenre);
+  const [selectedGenre, setSelectedGenre] = useState('');
   const [selectedStatus, setSelectedStatus] = useState('');
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchReviews = async () => {
-      try {
-        const reviews = await getAllBookReviews();
-        setAllReviews(reviews);
-        setFilteredReviews(reviews);
-      } catch (error) {
-        console.error('Error fetching book reviews:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchReviews();
+    setSelectedGenre(new URLSearchParams(window.location.search).get('genre') ?? '');
   }, []);
 
   useEffect(() => {
@@ -56,14 +38,14 @@ const BookReviewsList = () => {
     }
 
     setFilteredReviews(filtered);
-    setCurrentPage(1);
-  }, [searchTerm, selectedGenre, selectedStatus, allReviews]);
+    setCurrentPage(searchTerm !== '' || selectedGenre !== '' || selectedStatus !== '' ? 1 : initialPage);
+  }, [searchTerm, selectedGenre, selectedStatus, allReviews, initialPage]);
 
   const genres = Array.from(new Set(allReviews.flatMap(review => review.genres || [])));
 
-  const totalPages = Math.ceil(filteredReviews.length / REVIEWS_PER_PAGE);
-  const startIndex = (currentPage - 1) * REVIEWS_PER_PAGE;
-  const endIndex = startIndex + REVIEWS_PER_PAGE;
+  const totalPages = Math.ceil(filteredReviews.length / READING_PAGE_SIZE);
+  const startIndex = (currentPage - 1) * READING_PAGE_SIZE;
+  const endIndex = startIndex + READING_PAGE_SIZE;
   const currentReviews = filteredReviews.slice(startIndex, endIndex);
 
   const handlePageChange = (page: number) => {
@@ -107,45 +89,6 @@ const BookReviewsList = () => {
     return stars;
   };
 
-  const renderPageNumbers = () => {
-    const pages = [];
-    const maxVisible = 5;
-
-    if (totalPages <= maxVisible) {
-      for (let i = 1; i <= totalPages; i++) {
-        pages.push(i);
-      }
-    } else {
-      if (currentPage <= 3) {
-        for (let i = 1; i <= 5; i++) {
-          pages.push(i);
-        }
-      } else if (currentPage >= totalPages - 2) {
-        for (let i = totalPages - 4; i <= totalPages; i++) {
-          pages.push(i);
-        }
-      } else {
-        for (let i = currentPage - 2; i <= currentPage + 2; i++) {
-          pages.push(i);
-        }
-      }
-    }
-
-    return pages.map(pageNum => (
-      <button
-        key={pageNum}
-        onClick={() => handlePageChange(pageNum)}
-        className={`garden-page-button${pageNum === currentPage ? ' is-active' : ''}`}
-      >
-        {pageNum}
-      </button>
-    ));
-  };
-
-  if (loading) {
-    return <div className="garden-page-loading">Loading books...</div>;
-  }
-
   return (
     <div className="reading-page garden-list-page">
       <section className="garden-list-hero garden-list-hero--reading">
@@ -155,7 +98,7 @@ const BookReviewsList = () => {
           Part reading journal, part recommendation shelf. This is where I keep track of what I have read, what I am working through, and what might be worth passing on.
         </p>
               <div className="garden-hero-flower garden-hero-flower--bloom" aria-hidden="true">
-          <img src="/images/flowers/pressed-bloom.svg" alt="" />
+          <img src="/images/flowers/pressed-bloom.svg" alt="" width="220" height="220" />
         </div>
       </section>
 
@@ -232,7 +175,7 @@ const BookReviewsList = () => {
           </div>
         ) : (
           currentReviews.map((review) => (
-            <article className="review-list-item garden-list-card" key={review.sys.id} itemScope itemType="http://schema.org/Review">
+            <article className="review-list-item garden-list-card" key={review.sys.id}>
               <div className="garden-list-card__topline">
                 <div>
                   <h2>{review.title}</h2>
@@ -258,7 +201,7 @@ const BookReviewsList = () => {
 
               <div className="garden-list-card__footer">
                 {review.completionDate && (
-                  <span>Completed: {new Date(review.completionDate).toLocaleDateString()}</span>
+                  <span>Completed: {new Date(review.completionDate).toLocaleDateString('en-GB', { timeZone: 'UTC' })}</span>
                 )}
 
                 <div className="garden-card-links">
@@ -278,24 +221,14 @@ const BookReviewsList = () => {
         )}
       </div>
 
-      {totalPages > 1 && (
-        <nav className="garden-pagination" aria-label="Pagination">
-          {/* Previous Button */}
-          <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1} className="garden-page-button">
-            Previous
-          </button>
-
-          {/* Page Numbers */}
-          <div className="garden-pagination__pages">
-            {renderPageNumbers()}
-          </div>
-
-          {/* Next Button */}
-          <button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages} className="garden-page-button">
-            Next
-          </button>
-        </nav>
-      )}
+      <Pagination
+        basePath="/digital-garden/reading/"
+        currentPage={currentPage}
+        totalPages={totalPages}
+        filtered={searchTerm !== '' || selectedGenre !== '' || selectedStatus !== ''}
+        onPageChange={handlePageChange}
+        variant="garden"
+      />
     </div>
   );
 };

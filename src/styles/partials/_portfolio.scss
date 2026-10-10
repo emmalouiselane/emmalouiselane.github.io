@@ -533,6 +533,8 @@
 
 .contribution-tooltip {
   position: fixed;
+  left: var(--contribution-tooltip-left, 0px);
+  top: var(--contribution-tooltip-top, 0px);
   max-width: calc(100vw - 1rem);
   padding: 0.25rem 0.45rem;
   background: var(--color-surface-elevated);
@@ -609,12 +611,16 @@
 
   .portfolio-detail-side {
     grid-column: 2;
+    position: relative;
     height: 100%;
     display: flex;
     min-height: 0;
   }
 
   .portfolio-detail-side .portfolio-detail-panel {
+    position: absolute;
+    inset: 0;
+    height: auto;
     border-top-left-radius: 0.25rem;
     border-bottom-left-radius: 0.25rem;
   }

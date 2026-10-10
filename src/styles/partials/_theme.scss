@@ -6,7 +6,6 @@
   --color-text: var(--foreground);
   --color-surface: var(--card);
   --color-heading: var(--foreground);
-
   --radius: 0.65rem;
   --background: #f6eadc;
   --foreground: #38251c;
@@ -49,42 +48,12 @@
   --ring: #8bc79a;
 }
 
-* { box-sizing: border-box; border-color: var(--border); }
-
-body { background-color: var(--background); color: var(--foreground); }
-
-@media (prefers-color-scheme: dark) {
-  .Toastify__toast-container {
-    --toastify-color-light: var(--foreground);
-    --toastify-color-dark: var(--background);
-    --toastify-color-info: var(--primary);
-    --toastify-color-success: var(--primary);
-    --toastify-color-warning: #f1c40f;
-    --toastify-color-error: var(--destructive);
-  }
-  
-  .Toastify__toast {
-    background: var(--background) !important;
-    color: var(--foreground) !important;
-    border: 1px solid var(--border) !important;
-  }
-  
-  .Toastify__progress-bar {
-    background: var(--primary) !important;
-  }
+* {
+  box-sizing: border-box;
+  border-color: var(--border);
 }
 
-.dark .Toastify__toast {
-  background: var(--background) !important;
-  color: var(--foreground) !important;
-  border: 1px solid var(--border) !important;
+body {
+  background-color: var(--background);
+  color: var(--foreground);
 }
-
-.dark .Toastify__progress-bar {
-  background: var(--primary) !important;
-}
-
-
-
-
-

@@ -10,12 +10,13 @@ const yearsExperience = calculateYearsExperience();
     <section class="about-hero">
       <img
         src="/images/real-profile-pic.jpg"
+    width="200" height="200" decoding="async"
         alt="Emma Lane"
         class="about-hero__image"
       />
 
       <div class="pressed-hero-flower pressed-hero-flower--bloom" aria-hidden="true">
-        <img src="/images/flowers/pressed-bloom.svg" alt="" />
+        <img src="/images/flowers/pressed-bloom.svg" alt="" width="220" height="220" />
       </div>
 
       <div class="about-hero__copy">
@@ -130,10 +131,6 @@ const yearsExperience = calculateYearsExperience();
         const activeBtn = document.getElementById(tabName + '-btn');
         activeBtn.classList.add('active');
         
-        // Reset scale after animation
-        setTimeout(() => {
-          activeBtn.style.transform = 'scale(1)';
-        }, 200);
       }
     </script>
 
@@ -141,7 +138,7 @@ const yearsExperience = calculateYearsExperience();
       <p class="home-card__eyebrow">Let's connect</p>
       <h2>Have a project in mind?</h2>
       <p>I'm always excited to connect with my peers. Whether you're interested in collaboration, have a project in mind, or want to discuss leadership and technical challenges, I'd love to hear from you.</p>
-      <p>Feel free to reach out!</p>
+      <p><a href="/freelance/">Explore my freelance development services</a>, or get in touch to discuss your project.</p>
 
       <a href="https://www.linkedin.com/in/emmalouiselane/" target="_blank" rel="noopener noreferrer" class="about-contact-card">
         <span class="about-card__cta">LinkedIn</span>

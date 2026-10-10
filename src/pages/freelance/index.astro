@@ -1,0 +1,107 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getAllPortfolioItems } from '../../lib/contentful';
+import { calculateYearsExperience } from '../../lib/experience';
+import { person, siteMetadata } from '../../lib/seo';
+
+const yearsExperience = calculateYearsExperience();
+const projects = (await getAllPortfolioItems())
+  .filter(item => item.slug.toLowerCase() !== 'msc-deepfake-defence')
+  // Contentful's publishedAt tracks the latest published update; show newest first.
+  .sort((a, b) => new Date(b.sys.publishedAt).getTime() - new Date(a.sys.publishedAt).getTime())
+  .slice(0, 3);
+
+const services = [
+  { number: '01', title: 'Consultancy, guidance and mentoring', text: 'An experienced sounding board when you or your team need direction. I can help untangle requirements, review technical decisions, improve delivery workflows or build your confidence as a developer through mentoring and pair programming.', detail: 'Technical consultancy, code reviews, solution planning, CI/CD improvements and one-to-one developer mentoring.' },
+  { number: '02', title: 'Full-stack development', text: 'Practical applications that connect the interface to the systems behind it. I work across React, TypeScript, Node.js, C# and .NET, with experience in APIs, databases and cloud delivery.', detail: 'Web applications, API integrations, internal tools and maintainable backend services.' },
+  { number: '03', title: 'Accessibility improvements', text: 'Help finding and fixing the barriers that make a website difficult to use. I bring an accessibility-first approach to structure, keyboard interaction, forms and readable content.', detail: 'Focused reviews, practical fixes and accessible component development.' }, 
+  { number: '04', title: 'Websites and CMS builds', text: 'A new site, a refresh or a better way to manage your content. I build responsive websites with clear navigation, accessible interfaces and a CMS that works for the people using it.', detail: 'Content-led websites, portfolios, CMS integrations and existing-site improvements.' }  
+];
+
+const structuredData = {
+  '@context': 'https://schema.org', '@type': 'Service',
+  name: 'Freelance development, consultancy and mentoring',
+  url: `${siteMetadata.url}/freelance/`,
+  description: 'Freelance website and CMS development, full-stack applications, accessibility improvements, technical consultancy, guidance and developer mentoring from Emma Lane, with an MSc in Computer Science and Cyber Security.',
+  provider: { '@id': person['@id'] },
+  serviceType: services.map(service => service.title),
+};
+---
+
+<BaseLayout title="Freelance - Work with me" description="Accessible websites, full-stack development, technical consultancy, guidance and mentoring from Emma Lane, with an MSc in Computer Science and Cyber Security." structuredData={structuredData}>
+  <div class="freelance-page">
+    <header class="freelance-hero">
+      <div class="freelance-hero__copy">
+        <p class="home-kicker">Work with me</p>
+        <h1>Thoughtful websites.<br />Practical software.<br /><em>Built around people.</em></h1>
+        <p class="freelance-summary">I'm Emma, a software engineer and technical lead with over {yearsExperience} years of experience. I help people turn ideas into accessible websites and useful, maintainable tools, and offer technical consultancy, guidance and developer mentoring.</p>
+        <div class="freelance-actions">
+          <a href="#contact" class="home-pill">Tell me how I can help</a>
+          <a href="/portfolio/" class="home-pill home-pill--secondary">Explore my work</a>
+        </div>
+      </div>
+      <aside class="freelance-note">
+        <p class="home-card__eyebrow">A little about my approach</p>
+        <h2>Good work starts with listening.</h2>
+        <p>I like clear communication, considered decisions and making things easier for the people who use them.</p>
+        <p>Whether you need a small improvement, support with a larger build or a focused guidance or mentoring session, we can start with what matters most to you.</p>
+        <img src="/images/flowers/pressed-sprig.svg" alt="" width="150" height="150" />
+      </aside>
+    </header>
+
+    <section class="freelance-section freelance-card" aria-labelledby="qualification-heading">
+      <p class="home-kicker">Security-minded engineering</p>
+      <h2 id="qualification-heading">MSc Computer Science and Cyber Security</h2>
+      <p><strong>University of Sunderland · Distinction · 2026</strong></p>
+      <p>My cybersecurity MSc complements my development and technical leadership experience, informing how I think about security, risk and the decisions behind maintainable software.</p>
+      <p>My dissertation focused on deepfake detection through the Deepfake Defence project. <a href="/dissertation/" class="freelance-text-link">Explore my MSc research <span aria-hidden="true">→</span></a></p>
+    </section>
+
+    <section class="freelance-section" aria-labelledby="services-heading">
+      <p class="home-kicker">How I can help</p>
+      <h2 id="services-heading">Development, consultancy and mentoring</h2>
+      <div class="freelance-services">
+        {services.map(service => <article class="freelance-card">
+          <div>
+            <span class="freelance-number" aria-hidden="true">{service.number}</span>
+            <h3>{service.title}</h3>
+          </div>          
+          <p>{service.text}</p>
+          <p class="freelance-detail">{service.detail}</p>
+        </article>)}
+      </div>
+    </section>
+
+    <section class="freelance-section" aria-labelledby="work-heading">
+      <p class="home-kicker">From my portfolio</p>
+      <h2 id="work-heading">A feel for the things I build</h2>
+      <p>These projects show my approach to development and problem-solving. Each project page has more detail about the implementation.</p>
+      <div class="freelance-projects">
+        {projects.map(project => <article class="freelance-card">
+          <h3><a href={`/portfolio/${project.slug}/`}>{project.title}</a></h3>
+          <p>{project.description}</p>
+          <a href={`/portfolio/${project.slug}/`} class="freelance-text-link">Explore {project.title} <span aria-hidden="true">→</span></a>
+        </article>)}
+      </div>
+      <p><a class="freelance-text-link" href="/about/my-cv/">Read about my experience and technical skills <span aria-hidden="true">→</span></a></p>
+    </section>
+
+    <section class="freelance-section" aria-labelledby="process-heading">
+      <p class="home-kicker">Working together</p>
+      <h2 id="process-heading">From a conversation to a clear next step</h2>
+      <ol class="freelance-process">
+        <li><h3>Start with a conversation</h3><p>Tell me what you want to achieve, whether it's a project, a technical decision or something you'd like to learn. An outline is enough to get started.</p></li>
+        <li><h3>Agree the scope</h3><p>We'll work through priorities, constraints and the best approach, from a focused consultancy or mentoring session to a larger build, then agree outcomes, timings and costs.</p></li>
+        <li><h3>Build, guide and review</h3><p>I'll keep you involved through development, practical advice or mentoring, and make sure you leave with useful outcomes and clear next steps.</p></li>
+      </ol>
+    </section>
+
+    <section id="contact" class="freelance-contact" aria-labelledby="contact-heading">
+      <p class="home-kicker">Have a project, question or learning goal?</p>
+      <h2 id="contact-heading">Let's talk about what you need.</h2>
+      <p>Email me a little about your project, the technical guidance you need or what you'd like to work on through mentoring. Include any relevant website, budget and timeline if you have them. I'll get back to you to discuss scope and availability.</p>
+      <a href="mailto:emma@sparklane.dev?subject=Development%2C%20consultancy%20or%20mentoring%20enquiry" class="home-pill">Email me at emma@sparklane.dev</a>
+      <p class="freelance-contact__aside">Prefer to learn a bit more first? <a href="/about/">read about me</a> or <a href="/blog-posts/">read my blog posts</a>.</p>
+    </section>
+  </div>
+</BaseLayout>

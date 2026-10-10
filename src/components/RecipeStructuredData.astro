@@ -1,6 +1,7 @@
 ---
 import { displayRichText } from '../lib/richTextOptions';
 import type { Recipe } from '../lib/types/recipe';
+import StructuredData from './StructuredData.astro';
 
 interface Props {
   recipe: Recipe;
@@ -42,7 +43,7 @@ const recipeStructuredData = {
   '@context': 'https://schema.org',
   '@type': 'Recipe',
   name: recipe.name,
-  description: `Recipe for ${recipe.name}`,
+  description: recipe.personalNote || `Ingredients and step-by-step instructions for ${recipe.name}.`,
   url: new URL(Astro.url.pathname, Astro.site).toString(),
   ...(imageUrl ? { image: [imageUrl] } : {}),
   ...(recipeIngredients.length > 0 ? { recipeIngredient: recipeIngredients } : {}),
@@ -57,4 +58,4 @@ const recipeStructuredData = {
 };
 ---
 
-<script type="application/ld+json" set:html={JSON.stringify(recipeStructuredData)} />
+<StructuredData data={recipeStructuredData} />

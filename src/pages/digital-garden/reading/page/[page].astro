@@ -1,0 +1,17 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import BookReviewsListComponent from '../../../../components/BookReviewsListComponent';
+import { getAllBookReviews } from '../../../../lib/contentful';
+import { additionalPages, READING_PAGE_SIZE } from '../../../../lib/pagination';
+
+export const getStaticPaths = (async () => {
+  const items = await getAllBookReviews();
+  return additionalPages(items.length, READING_PAGE_SIZE).map(page => ({ params: { page: String(page) }, props: { items, page } }));
+}) satisfies GetStaticPaths;
+
+const { items, page } = Astro.props;
+---
+<BaseLayout title={`Book reviews and reading notes - Page ${page}`} description="Emma Lane’s reading journal: book reviews, favourite reads, authors, genres and notes on what to read next.">
+  <BookReviewsListComponent initialReviews={items} initialPage={page} client:load />
+</BaseLayout>

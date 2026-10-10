@@ -6,3 +6,5 @@ export interface WatchList {
   type: string;
   platform: string;
 }
+
+export type WatchListSummary = Omit<WatchList, 'thoughts'> & { hasThoughts: boolean };

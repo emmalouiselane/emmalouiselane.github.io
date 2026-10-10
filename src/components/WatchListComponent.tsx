@@ -1,40 +1,24 @@
 import { useState, useEffect } from 'react';
-import { getAllWatchList } from '../lib/contentful';
-import type { WatchList } from '../lib/types/watchList';
+import type { WatchListSummary } from '../lib/types/watchList';
 
-const REVIEWS_PER_PAGE = 9;
+import { WATCHING_PAGE_SIZE } from '../lib/pagination';
+import Pagination from './PaginationComponent';
 
-const getInitialFilter = (key: string) => {
-  if (typeof window === 'undefined') {
-    return '';
-  }
+interface Props { initialWatchList: WatchListSummary[]; initialPage?: number; }
 
-  return new URLSearchParams(window.location.search).get(key) ?? '';
-};
-
-const WatchListComponent = () => {
-  const [allWatchList, setAllWatchList] = useState<WatchList[]>([]);
-  const [filteredWatchList, setFilteredWatchList] = useState<WatchList[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
+const WatchListComponent = ({ initialWatchList, initialPage = 1 }: Props) => {
+  const allWatchList = initialWatchList;
+  const [filteredWatchList, setFilteredWatchList] = useState<WatchListSummary[]>(initialWatchList);
+  const [currentPage, setCurrentPage] = useState(initialPage);
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedType, setSelectedType] = useState(() => getInitialFilter('type'));
-  const [selectedStatus, setSelectedStatus] = useState(() => getInitialFilter('status'));
+  const [selectedType, setSelectedType] = useState('');
+  const [selectedStatus, setSelectedStatus] = useState('');
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchWatchList = async () => {
-      try {
-        const watchList = await getAllWatchList();
-        setAllWatchList(watchList);
-        setFilteredWatchList(watchList);
-      } catch (error) {
-        console.error('Error fetching watch list:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchWatchList();
+    const params = new URLSearchParams(window.location.search);
+    setSelectedType(params.get('type') ?? '');
+    setSelectedStatus(params.get('status') ?? '');
   }, []);
 
   useEffect(() => {
@@ -53,14 +37,14 @@ const WatchListComponent = () => {
     }
 
     setFilteredWatchList(filtered);
-    setCurrentPage(1);
-  }, [searchTerm, selectedType, selectedStatus, allWatchList]);
+    setCurrentPage(searchTerm !== '' || selectedType !== '' || selectedStatus !== '' ? 1 : initialPage);
+  }, [searchTerm, selectedType, selectedStatus, allWatchList, initialPage]);
 
   const types = Array.from(new Set(allWatchList.map(item => item.type)));
 
-  const totalPages = Math.ceil(filteredWatchList.length / REVIEWS_PER_PAGE);
-  const startIndex = (currentPage - 1) * REVIEWS_PER_PAGE;
-  const endIndex = startIndex + REVIEWS_PER_PAGE;
+  const totalPages = Math.ceil(filteredWatchList.length / WATCHING_PAGE_SIZE);
+  const startIndex = (currentPage - 1) * WATCHING_PAGE_SIZE;
+  const endIndex = startIndex + WATCHING_PAGE_SIZE;
   const currentWatchList = filteredWatchList.slice(startIndex, endIndex);
 
   const handlePageChange = (page: number) => {
@@ -100,45 +84,6 @@ const WatchListComponent = () => {
     setIsFilterOpen(false);
   };
 
-  const renderPageNumbers = () => {
-    const pages = [];
-    const maxVisible = 5;
-
-    if (totalPages <= maxVisible) {
-      for (let i = 1; i <= totalPages; i++) {
-        pages.push(i);
-      }
-    } else {
-      if (currentPage <= 3) {
-        for (let i = 1; i <= 5; i++) {
-          pages.push(i);
-        }
-      } else if (currentPage >= totalPages - 2) {
-        for (let i = totalPages - 4; i <= totalPages; i++) {
-          pages.push(i);
-        }
-      } else {
-        for (let i = currentPage - 2; i <= currentPage + 2; i++) {
-          pages.push(i);
-        }
-      }
-    }
-
-    return pages.map(pageNum => (
-      <button
-        key={pageNum}
-        onClick={() => handlePageChange(pageNum)}
-        className={`garden-page-button${pageNum === currentPage ? ' is-active' : ''}`}
-      >
-        {pageNum}
-      </button>
-    ));
-  };
-
-  if (loading) {
-    return <div className="garden-page-loading">Loading watches...</div>;
-  }
-
   return (
     <div className="watching-page garden-list-page">
       <section className="garden-list-hero garden-list-hero--watching">
@@ -148,7 +93,7 @@ const WatchListComponent = () => {
           A watch list for films, shows and anything else I want to remember. Some entries are just quick tracking notes, and some have fuller thoughts attached.
         </p>
               <div className="garden-hero-flower garden-hero-flower--sprig" aria-hidden="true">
-          <img src="/images/flowers/pressed-sprig.svg" alt="" />
+          <img src="/images/flowers/pressed-sprig.svg" alt="" width="220" height="252" />
         </div>
       </section>
 
@@ -227,7 +172,7 @@ const WatchListComponent = () => {
           </div>
         ) : (
           currentWatchList.map((watch) => (
-            <article className="watch-list-item garden-list-card" key={watch.sys.id} itemScope itemType="http://schema.org/Review">
+            <article className="watch-list-item garden-list-card" key={watch.sys.id}>
               <div className="garden-list-card__topline">
                 <div>
                   <h2>{watch.title}</h2>
@@ -246,7 +191,7 @@ const WatchListComponent = () => {
 
               <div className="garden-list-card__footer">
                 <span>{watch.status === 'Watching' && watch.platform ? `Currently watching on ${watch.platform}` : watch.status}</span>
-                {watch.thoughts && (
+                {watch.hasThoughts && (
                   <a href={`/digital-garden/watching/${watch.sys.id}/`}>
                     <span>Read my thoughts</span>
                     <span className="sr-only">Read thoughts on {watch.title}</span>
@@ -258,24 +203,14 @@ const WatchListComponent = () => {
         )}
       </div>
 
-      {totalPages > 1 && (
-        <nav className="garden-pagination" aria-label="Pagination">
-          {/* Previous Button */}
-          <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1} className="garden-page-button">
-            Previous
-          </button>
-
-          {/* Page Numbers */}
-          <div className="garden-pagination__pages">
-            {renderPageNumbers()}
-          </div>
-
-          {/* Next Button */}
-          <button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages} className="garden-page-button">
-            Next
-          </button>
-        </nav>
-      )}
+      <Pagination
+        basePath="/digital-garden/watching/"
+        currentPage={currentPage}
+        totalPages={totalPages}
+        filtered={searchTerm !== '' || selectedType !== '' || selectedStatus !== ''}
+        onPageChange={handlePageChange}
+        variant="garden"
+      />
     </div>
   );
 };

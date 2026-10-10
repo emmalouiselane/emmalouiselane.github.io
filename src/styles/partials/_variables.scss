@@ -1,13 +1,13 @@
 // CSS Custom Properties
 :root {
   /* ---------- BACKGROUND & SURFACE ---------- */
-  /* --color-background handled by global.css */
+  /* --color-background handled by _theme.scss */
   --color-surface: #fff6eb;
   --color-accent-light: #f0d2bd;
   --color-accent-light-faded: rgba(240, 210, 189, 0.76);
 
   /* ---------- TEXT ---------- */
-  /* --color-text handled by global.css (foreground) */
+  /* --color-text handled by _theme.scss (foreground) */
   --color-heading: #38251c;
   --color-text-light: #7a5b49;
 

@@ -1,0 +1,15 @@
+---
+import { contentfulImageUrl, contentfulSrcSet } from '../lib/images';
+interface Props {
+  src: string;
+  alt: string;
+  width?: number;
+  height?: number;
+  class?: string;
+  loading?: 'lazy' | 'eager';
+  sizes?: string;
+}
+const { src, alt, width, height, class: className, loading = 'lazy', sizes = '(max-width: 640px) 100vw, 60vw' } = Astro.props;
+---
+<img src={contentfulImageUrl(src, 960)} srcset={contentfulSrcSet(src)} sizes={sizes}
+  alt={alt} width={width} height={height} class={className} loading={loading} decoding="async" />

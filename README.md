@@ -41,6 +41,8 @@ npm run dev
 
 The site will be available at `http://localhost:4321`.
 
+Development, build, and sync commands use separate Vite dependency caches so running a build while the dev server is open does not break React island hydration.
+
 ### Build and preview
 
 Build the static production site:
@@ -140,6 +142,16 @@ GitHub Actions runs the unit tests on pushes and pull requests. The end-to-end p
 - Accessibility statement with ongoing WCAG 2.2-informed improvements
 - Accessibility checks using WAVE
 - Static llms.txt site summary for AI-readable discovery
+
+## SEO and search monitoring
+
+The homepage and journal, reading and watching collections fetch Contentful data at build time. Core content and links are available without JavaScript; interactive search and filters use the preloaded summaries. Collections have static `/page/2/` routes with ordinary pagination links and a canonical URL for each page.
+
+Shared metadata uses concise titles, page descriptions, matching canonical and Open Graph URLs, and a 1200 × 630 social preview. Project and recipe pages use their own images where available. JSON-LD covers the site, Emma's profile, breadcrumbs, blog posts, project work, reviews, recipes and freelance services. Legacy `/workshop/` redirects are excluded from the sitemap.
+
+Run `npm test`, `npm run build` and `npm run test:e2e` for the local checks. The SEO browser tests verify content without JavaScript, static pagination, canonical/social URLs, valid JSON-LD, sitemap exclusions and desktop/mobile freelance layouts.
+
+The editable source for the default sharing image is `public/images/social-preview.svg`; the PNG is the asset used by social platforms. Regenerate it with the installed image renderer when changing the SVG.
 
 ## Content management
 

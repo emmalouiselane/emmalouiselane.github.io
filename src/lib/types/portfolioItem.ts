@@ -6,6 +6,8 @@ export interface PortfolioItem {
   images?: {
     items: Array<{
       url: string;
+      width?: number;
+      height?: number;
       title?: string;
       description?: string;
       fileName?: string;

@@ -7,6 +7,7 @@ import { displayRichText } from '../../../lib/richTextOptions';
 
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import AuthorNoteComponent from '../../../components/AuthorNoteComponent.astro';
+import { person, richTextSummary, siteMetadata } from '../../../lib/seo';
 
 export const getStaticPaths = (async () => {
   const bookReviews = await getAllBookReviews();
@@ -25,6 +26,18 @@ if (!review?.sys?.id) {
 }
 const fullReview = await getBookReviewById(review.sys.id);
 
+const description = richTextSummary(fullReview.thoughts, `Reading notes on ${fullReview.title} by ${fullReview.author.name}, from Emma Lane’s book journal.`);
+
+const structuredData = fullReview.thoughts ? {
+  '@context': 'https://schema.org', '@type': 'Review',
+  name: `Emma Lane’s review of ${fullReview.title}`,
+  author: { '@type': 'Person', '@id': person['@id'], name: person.name, url: person.url },
+  url: `${siteMetadata.url}/digital-garden/reading/${fullReview.sys.id}/`,
+  reviewBody: richTextSummary(fullReview.thoughts, description),
+  itemReviewed: { '@type': 'Book', name: fullReview.title, author: { '@type': 'Person', name: fullReview.author.name } },
+  ...(fullReview.starRating > 0 ? { reviewRating: { '@type': 'Rating', ratingValue: fullReview.starRating, bestRating: 5, worstRating: 1 } } : {}),
+} : undefined;
+
 const getGenreFilterUrl = (genre: string) => `/digital-garden/reading/?genre=${encodeURIComponent(genre)}`;
 
 const renderStars = (rating: number) => {
@@ -36,9 +49,9 @@ const renderStars = (rating: number) => {
 };
 ---
 
-<BaseLayout title={`${fullReview.title} - Book Review`} description={`Review of ${fullReview.title} by ${fullReview.author.name}`}>
+<BaseLayout title={`${fullReview.title} - Book Review`} description={description} type="article" structuredData={structuredData}>
   <div class="garden-detail-page reading-detail-page">
-    <article itemscope itemtype="http://schema.org/Review">
+    <article>
       <header class="garden-detail-hero">
         <div>
           <p class="home-kicker">Reading notes</p>
@@ -47,7 +60,7 @@ const renderStars = (rating: number) => {
         </div>
 
         <div class="garden-hero-flower garden-hero-flower--bloom" aria-hidden="true">
-          <img src="/images/flowers/pressed-bloom.svg" alt="" />
+          <img src="/images/flowers/pressed-bloom.svg" alt="" width="220" height="220" />
         </div>
 
         <div class="garden-detail-meta">

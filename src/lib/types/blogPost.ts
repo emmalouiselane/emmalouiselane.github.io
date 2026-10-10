@@ -1,5 +1,5 @@
 export interface BlogPost {
-  sys: { id: string };
+  sys: { id: string; publishedAt?: string };
   title: string;
   date: string;
   slug: string;

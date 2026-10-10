@@ -154,7 +154,7 @@
   font-weight: var(--fontWeight-normal) !important;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 1023px) {
   .site-nav__desktop {
     display: none;
   }
@@ -164,7 +164,7 @@
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .site-nav__mobile-panel {
     display: none;
   }

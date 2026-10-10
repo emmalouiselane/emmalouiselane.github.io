@@ -1,8 +1,10 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import BookReviewsListComponent from '../../../components/BookReviewsListComponent';
----
+import { getAllBookReviews } from '../../../lib/contentful';
 
-<BaseLayout title="Book Reviews" description="Check out what I've been reading and my recommendations!">
-  <BookReviewsListComponent client:load />
+const items = await getAllBookReviews();
+---
+<BaseLayout title="Reading" description="Emma Lane’s reading journal: book reviews, favourite reads, authors, genres and notes on what to read next.">
+  <BookReviewsListComponent initialReviews={items} client:load />
 </BaseLayout>

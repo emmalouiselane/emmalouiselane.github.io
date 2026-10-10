@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#1d2a22" />
+  <rect x="40" y="40" width="1120" height="550" rx="30" fill="#25372b" stroke="#45624d" stroke-width="2" />
+  <circle cx="1060" cy="115" r="170" fill="#344b3b" />
+  <path d="M990 500 Q910 380 1000 250 M985 380 Q870 300 890 230 M990 350 Q1110 340 1100 260" stroke="#8bc79a" stroke-width="7" fill="none" />
+  <text x="105" y="150" font-family="Arial, sans-serif" font-size="25" letter-spacing="5" fill="#a7d8ad">EMMA LANE</text>
+  <text x="100" y="290" font-family="Arial, sans-serif" font-size="98" font-weight="700" fill="#e8f0e8">Spark Lane</text>
+  <text x="105" y="370" font-family="Arial, sans-serif" font-size="36" fill="#c1d2c4">code, notes and curiosities</text>
+  <text x="105" y="500" font-family="Arial, sans-serif" font-size="27" fill="#a7d8ad">Web development &#183; accessibility &#183; digital garden</text>
+</svg>

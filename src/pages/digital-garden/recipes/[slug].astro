@@ -9,6 +9,7 @@ import { displayRichText } from '../../../lib/richTextOptions';
 import { normalizeAssetUrl } from '../../../lib/utils';
 
 import RecipeStructuredData from '../../../components/RecipeStructuredData.astro';
+import ContentImage from '../../../components/ContentImage.astro';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 
 export const getStaticPaths = (async () => {
@@ -66,7 +67,7 @@ const imageAlt = firstImage ? (firstImage.title || fullRecipe.name) : 'No image 
   });  
 </script>
 
-<BaseLayout title={fullRecipe.name} description={"Recipe for " + fullRecipe.name} image={recipeImageUrl}>
+<BaseLayout title={fullRecipe.name} description={fullRecipe.personalNote || `Make ${fullRecipe.name} with ingredients, step-by-step instructions and personal cooking notes from Emma Lane’s recipe archive.`} image={recipeImageUrl} imageAlt={imageAlt}>
   <RecipeStructuredData recipe={fullRecipe} imageUrl={recipeImageUrl} />
   
   <ToastContainer client:load theme="light" position="top-right" 
@@ -112,8 +113,11 @@ const imageAlt = firstImage ? (firstImage.title || fullRecipe.name) : 'No image 
       
       <div class="recipe-overview__side">
         <div class="recipe-image-card">
-          <img
+          <ContentImage
             src={displayImageUrl}
+            width={firstImage?.width || (!recipeImageUrl ? 900 : undefined)}
+            height={firstImage?.height || (!recipeImageUrl ? 497 : undefined)}
+            loading="eager"
             alt={imageAlt}
             class="recipe-image"
           />

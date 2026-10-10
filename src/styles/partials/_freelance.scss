@@ -1,0 +1,186 @@
+.freelance-page {
+  display: grid;
+  gap: clamp(2.5rem, 6vw, 3rem);
+}
+
+.freelance-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  gap: 2rem;
+  align-items: center;
+}
+
+.freelance-hero h1 {
+  font-size: clamp(2rem, 4.5vw, 3.6rem);
+  line-height: 1.16;
+  margin-bottom: 1.5rem;
+}
+
+.freelance-hero h1 em {
+  color: var(--color-highlight);
+  font-style: normal;
+}
+
+.freelance-summary {
+  font-size: 1.12rem;
+}
+
+.freelance-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem;
+  margin-top: 1.5rem;
+}
+
+.freelance-note, .freelance-card {
+  background: var(--color-surface-elevated);
+  border: 1px solid var(--color-border-soft);
+  border-radius: 1.2rem;
+  padding: clamp(1.25rem, 3vw, 2rem);
+}
+
+.freelance-note {
+  position: relative;
+  padding-bottom: 9rem;
+  box-shadow: var(--shadow-soft);
+}
+
+.freelance-note h2 {
+  font-size: 1.4rem;
+}
+
+.freelance-note img {
+  position: absolute;
+  bottom: .5rem;
+  right: .5rem;
+  object-fit: contain;
+  pointer-events: none;
+  opacity: .8;
+}
+
+.freelance-section > h2 {
+  margin-bottom: 1.25rem;
+}
+
+.freelance-services, .freelance-projects {
+  display: grid;
+  gap: 1.25rem;
+  margin-block: 1.5rem;
+}
+
+.freelance-services {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.freelance-projects {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.freelance-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.freelance-card div {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.freelance-card div h3 {
+  font-size: 1.3rem;
+  margin-left: 1rem;
+}
+
+.freelance-card div h3 a {
+  color: var(--color-heading);
+}
+
+.freelance-number {
+  color: var(--color-highlight);
+  font-size: .85rem;
+  font-weight: 700;
+  margin: auto;
+}
+
+.freelance-detail {
+  border-top: 1px solid var(--color-border-soft);
+  padding-top: 1rem;
+  font-size: .9rem;
+  color: var(--color-text-light);
+}
+
+.freelance-text-link {
+  font-weight: 700;
+}
+
+.freelance-process {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2rem;
+  padding-left: 1.5rem;
+}
+
+.freelance-process li {
+  padding-left: .35rem;
+}
+
+.freelance-process li::marker {
+  color: var(--color-highlight);
+  font-weight: 700;
+}
+
+.freelance-process h3 {
+  font-size: 1.1rem;
+}
+
+.freelance-contact {
+  padding: clamp(1.5rem, 4vw, 3rem);
+  border: 1px solid var(--color-border-soft);
+  border-radius: 1.5rem;
+  background: var(--color-surface);
+  scroll-margin-top: 7rem;
+}
+
+.freelance-contact > p {
+  max-width: 42rem;
+}
+
+.freelance-contact .home-pill {
+  display: inline-flex;
+  margin-block: .5rem 1rem;
+}
+
+.freelance-contact__aside {
+  font-size: .9rem;
+}
+
+@media (max-width: 900px) {
+  .freelance-projects {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+@media (max-width: 640px) {
+  .freelance-hero, .freelance-services, .freelance-process {
+    grid-template-columns: 1fr;
+  }
+
+  .freelance-note {
+    padding-bottom: 6.5rem;
+  }
+
+  .freelance-note img {
+    width: 96px;
+    height: 96px;
+  }
+
+  .freelance-actions .home-pill {
+    width: 100%;
+    text-align: center;
+  }
+
+}
