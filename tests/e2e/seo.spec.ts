@@ -80,7 +80,14 @@ test.describe('content is available to crawlers without JavaScript', () => {
 
 test('journal filtering survives hydration and makes no browser-side CMS requests', async ({ page }) => {
   const cmsRequests: string[] = [];
-  page.on('request', request => { if (request.url().includes('graphql.contentful.com')) cmsRequests.push(request.url()); });
+  page.on('request', request => {
+    const requestUrl = request.url();
+    try {
+      if (new URL(requestUrl).hostname === 'graphql.contentful.com') cmsRequests.push(requestUrl);
+    } catch {
+      // Ignore non-standard URLs that cannot be parsed.
+    }
+  });
   await page.goto('/blog-posts/page/2/');
   await page.getByRole('button', { name: 'Toggle filters' }).click();
   const firstTitle = await page.locator('.post-list-item h2').first().textContent();
