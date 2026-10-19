@@ -81,6 +81,8 @@ npx playwright install chromium
 npm run test:e2e
 ```
 
+After updating Playwright or installing a newer lockfile, rerun `npx playwright install chromium` to install the matching browser revision. An `Executable doesn't exist` error usually means that revision is missing from the local browser cache.
+
 Commits run the complete validation sequence through Husky:
 
 ```bash
