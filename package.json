@@ -35,7 +35,7 @@
     "react-dom": "^19.3.0",
     "react-toastify": "^11.1.0",
     "sanitize-html": "^2.18.0",
-    "sass": "^1.105.1",
+    "sass": "^1.105.2",
     "satteri": "0.10.5"
   },
   "devDependencies": {
