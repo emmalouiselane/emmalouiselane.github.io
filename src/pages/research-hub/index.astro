@@ -8,9 +8,9 @@ import moment from "moment";
 const blogPosts = await getAllBlogs();
 const portfolioItems = await getAllPortfolioItems();
 
-const dissertationPosts = blogPosts
+const researchPosts = blogPosts
   .filter((post: BlogPost) =>
-    (post.blogType || []).some((type) => type.toLowerCase().includes("dissertation"))
+    (post.blogType || []).some((type) => type.toLowerCase().includes("dissertation") || type.toLowerCase().includes("research"))
   )
   .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
@@ -19,13 +19,13 @@ const dissertationItem = portfolioItems.find(
 );
 ---
 
-<BaseLayout title="Dissertation" description="Explore Emma Lane’s MSc Deepfake Defence project and research writing on deepfake detection, computer science and cyber security.">
+<BaseLayout title="Research Hub" description="Explore Emma Lane’s MSc Deepfake Defence project and research writing on deepfake detection, computer science and cyber security.">
   <div class="dissertation-hub-page">
     <section class="dissertation-hub-hero">
       <p class="home-kicker">Research</p>
-      <h1>Dissertation hub</h1>
+      <h1>Research Hub</h1>
       <p>
-        Everything related to my MSc dissertation in one place: the main Deepfake Defence project, supporting posts, and all of the notes I wanted to keep together.
+        A home for my MSc dissertation and any wider research projects. Here you'll find my Deepfake Defence project and supporting posts, alongside the ideas, experiments, findings and notes I want to share as I explore new research questions.
       </p>
       <div class="pressed-hero-flower pressed-hero-flower--herb" aria-hidden="true">
         <img src="/images/flowers/pressed-herb.svg" alt="" width="220" height="238" />
@@ -57,23 +57,37 @@ const dissertationItem = portfolioItems.find(
         <p class="home-kicker">Related writing</p>
       </div>
 
-      {dissertationPosts.length === 0 ? (
+      {researchPosts.length === 0 ? (
         <div class="blog-empty-state">
-          <p>No dissertation-tagged posts found yet.</p>
+          <p>No research hub tagged posts found yet.</p>
         </div>
       ) : (
         <div class="blog-list dissertation-blog-list">
-          {dissertationPosts.map((post: BlogPost) => (
+          {researchPosts.map((post: BlogPost) => (
             <article class="post-list-item" itemscope itemtype="http://schema.org/Article">
               <div class="post-list-item__topline">
                 <time datetime={post.date}>{moment(post.date).format("DD MMM YYYY")}</time>
+                {post.blogType?.length > 0 && (
+                  <div class="post-list-item__tags">
+                    {post.blogType.map((type: string) => (
+                      ['dissertation', 'research'].includes(type.trim().toLowerCase()) ? (
+                        <span>{type}</span>
+                      ) : (
+                        <a href={`/blog-posts/?type=${encodeURIComponent(type)}`}>
+                          View more {type} posts →
+                        </a>
+                      )
+                    ))}
+                  </div>
+                )}
               </div>
 
               <h2>{post.title}</h2>
               <p>{post.description}</p>
 
               <a class="post-list-item__link" href={`/blog-posts/${post.slug}/`}>
-                Read: {post.title}
+                <span>Read article</span>
+                <span class="sr-only">: {post.title}</span>
               </a>
             </article>
           ))}

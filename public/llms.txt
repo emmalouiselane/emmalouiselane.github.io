@@ -10,7 +10,7 @@ Spark Lane is a static Astro site with selected content managed through Contentf
 - [About Emma Lane](https://sparklane.dev/about/): Background, interests, skills, and contact information.
 - [Blog posts](https://sparklane.dev/blog-posts/): Technical posts, personal notes, accessibility thoughts, and development updates.
 - [Portfolio](https://sparklane.dev/portfolio/): Selected software engineering projects and practical builds.
-- [Dissertation research](https://sparklane.dev/dissertation/): Research and dissertation updates.
+- [Research hub](https://sparklane.dev/research-hub/): Research and dissertation updates.
 - [Digital Garden](https://sparklane.dev/digital-garden/): Personal collections and curated notes.
 
 ## Digital Garden

@@ -112,7 +112,7 @@ GitHub Actions runs the unit tests on pushes and pull requests. The end-to-end p
 │   │   │   ├── recipes/
 │   │   │   └── watching/
 │   │   ├── portfolio/
-│   │   ├── dissertation/
+│   │   ├── research-hub/
 │   │   ├── workshop/
 │   │   ├── about.astro
 │   │   ├── 404.astro
@@ -149,7 +149,7 @@ GitHub Actions runs the unit tests on pushes and pull requests. The end-to-end p
 
 The homepage and journal, reading and watching collections fetch Contentful data at build time. Core content and links are available without JavaScript; interactive search and filters use the preloaded summaries. Collections have static `/page/2/` routes with ordinary pagination links and a canonical URL for each page.
 
-Shared metadata uses concise titles, page descriptions, matching canonical and Open Graph URLs, and a 1200 × 630 social preview. Project and recipe pages use their own images where available. JSON-LD covers the site, Emma's profile, breadcrumbs, blog posts, project work, reviews, recipes and freelance services. Legacy `/workshop/` redirects are excluded from the sitemap.
+Shared metadata uses concise titles, page descriptions, matching canonical and Open Graph URLs, and a 1200 × 630 social preview. Project and recipe pages use their own images where available. JSON-LD covers the site, Emma's profile, breadcrumbs, blog posts, project work, reviews, recipes and freelance services. Legacy `/workshop/` and `/dissertation/` redirects are excluded from the sitemap.
 
 Run `npm test`, `npm run build` and `npm run test:e2e` for the local checks. The SEO browser tests verify content without JavaScript, static pagination, canonical/social URLs, valid JSON-LD, sitemap exclusions and desktop/mobile freelance layouts.
 

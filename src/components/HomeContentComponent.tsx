@@ -27,6 +27,7 @@ const HomeContentComponent = ({ recentRecipe, recentBlog, recentPortfolioItem, r
 
           <div className="home-hero__actions button-group">
             <a href="/blog-posts/" className="home-pill">Read the blog</a>
+            <a href="/about/" className="home-pill home-pill--secondary">About me</a>
             <a href="/digital-garden/" className="home-pill home-pill--secondary">Explore the garden</a>
           </div>
 
@@ -55,12 +56,12 @@ const HomeContentComponent = ({ recentRecipe, recentBlog, recentPortfolioItem, r
           <a href="/freelance/" className="home-card__cta">Explore freelance services</a>
         </article>
 
-        <a href="/dissertation/" className="home-feature-card home-feature-card--wide">
+        <article className="home-feature-card home-feature-card--wide">
           <p className="home-card__eyebrow">Featured collection</p>
-          <h2>Dissertation hub</h2>
-          <p>Browse all of my dissertation-related posts as well as my MSc Deepfake Defence project in one place.</p>
-          <span className="home-card__cta">Visit my dissertation hub</span>
-        </a>
+          <h2>Research hub</h2>
+          <p>Browse all of my research and dissertation-related posts as well as my any research projects like the MSc Deepfake Defence project in one place.</p>
+          <a href="/research-hub/" className="home-card__cta">Visit my research hub</a>
+        </article>
       </section>
 
       <section className="home-section">

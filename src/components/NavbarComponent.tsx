@@ -15,7 +15,7 @@ const NavbarComponent = () => {
     const navLinks = [
         { text: "Portfolio", path: "/portfolio/" },
         { text: "Blog", path: "/blog-posts/" },
-        { text: "Research", path: "/dissertation/" },
+        { text: "Research", path: "/research-hub/" },
         {
             text: "Garden",
             path: "/digital-garden/",

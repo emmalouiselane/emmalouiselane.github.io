@@ -8,6 +8,9 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://sparklane.dev',
   trailingSlash: 'always',
+  redirects: {
+    '/dissertation/': '/research-hub/',
+  },
 
   integrations: [
     {
@@ -24,7 +27,7 @@ export default defineConfig({
       },
     },
     react(),
-    sitemap({ filter: (page) => !new URL(page).pathname.startsWith('/workshop/') && new URL(page).pathname !== '/404/' })
+    sitemap({ filter: (page) => !new URL(page).pathname.startsWith('/workshop/') && !['/404/', '/dissertation/'].includes(new URL(page).pathname) })
   ],
 
   build: {

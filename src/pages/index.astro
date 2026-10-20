@@ -9,12 +9,14 @@ const [recipes, blogs, portfolioItems, reviews, watchList] = await Promise.all([
 
 const recentBlog = blogs.find(post => {
   const types = (post.blogType || []).map(type => type.toLowerCase());
-  return !(types.some(type => type.includes('dissertation')) && !types.some(type => !type.includes('dissertation')));
+  return !types.some(type =>
+    type.includes('dissertation') || type.includes('research')
+  );
 }) ?? null;
 
 const recentPortfolioItem = portfolioItems
   .sort((a, b) => new Date(b.sys.publishedAt).getTime() - new Date(a.sys.publishedAt).getTime())
-  .find(item => item.slug.toLowerCase() !== 'msc-deepfake-defence' && !item.title.toLowerCase().includes('dissertation')) ?? null;
+  .find(item => item.slug.toLowerCase() !== 'msc-deepfake-defence' && !item.title.toLowerCase().includes('dissertation') && !item.title.toLowerCase().includes('research')) ?? null;
 
 const recentRead = reviews.find(review => review.status === 'Complete') ?? reviews[0] ?? null;
 ---

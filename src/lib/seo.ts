@@ -42,7 +42,7 @@ export function breadcrumbsFor(pathname: string, title?: string) {
   const labels: Record<string, string> = {
     'blog-posts': 'Blog Posts', portfolio: 'Portfolio', 'digital-garden': 'Digital garden',
     reading: 'Reading', watching: 'Watching', recipes: 'Recipes', gaming: 'Gaming',
-    listening: 'Listening', about: 'About me', dissertation: 'Research', freelance: 'Freelance work',
+    listening: 'Listening', about: 'About me', 'research-hub': 'Research', freelance: 'Freelance work',
   };
 
   const segments = canonicalPath(pathname).split('/').filter(Boolean);
