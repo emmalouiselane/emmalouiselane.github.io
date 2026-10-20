@@ -1,6 +1,43 @@
 import { describe, expect, it } from 'vitest';
 
-import { displayRichText } from '../src/lib/richTextOptions';
+import { displayMarkdown, displayRichText } from '../src/lib/richTextOptions';
+
+describe('displayMarkdown', () => {
+  it('renders Markdown paragraphs, emphasis, lists and descriptive links', () => {
+    const html = displayMarkdown('A **favourite** with *feeling*.\n\n- First choice\n- Second choice\n\n[Listen on Spotify](https://open.spotify.com/)');
+    expect(html).toContain('<strong>favourite</strong>');
+    expect(html).toContain('<em>feeling</em>');
+    expect(html).toContain('<ul>');
+    expect(html).toContain('<li>First choice</li>');
+    expect(html).toContain('<a href="https://open.spotify.com/">Listen on Spotify</a>');
+  });
+
+  it('supports basic HTML without retaining scripts, event handlers or unsafe links', () => {
+    const html = displayMarkdown('<p><strong>Recommended</strong> <em>listening</em></p>\n\n<script>alert(1)</script><style>body{display:none}</style><iframe src="https://example.com"></iframe><a href="javascript:alert(1)" onclick="alert(2)" style="display:none">Bad link</a>');
+    expect(html).toContain('<strong>Recommended</strong>');
+    expect(html).toContain('<em>listening</em>');
+    expect(html).toContain('Bad link');
+    expect(html).not.toMatch(/<script|<style|<iframe|javascript:|onclick|style=|alert\(/);
+  });
+
+  it('keeps description headings beneath the card title', () => {
+    const html = displayMarkdown('# Favourites\n\n## Another recommendation\n\n### Notes');
+    expect(html).not.toMatch(/<h[12][\s>]/);
+    expect(html).toContain('<h3>Favourites</h3>');
+    expect(html).toContain('<h3>Another recommendation</h3>');
+    expect(html).toContain('<h3>Notes</h3>');
+  });
+
+  it('does not interpret content as executable MDX', () => {
+    const html = displayMarkdown('A literal `{expression}` and `<script>` in code.');
+    expect(html).toContain('<code>{expression}</code>');
+    expect(html).toContain('<code>&lt;script&gt;</code>');
+  });
+
+  it.each([undefined, null, '', '   '])('handles missing descriptions: %s', value => {
+    expect(displayMarkdown(value)).toBe('');
+  });
+});
 
 const documentWith = (content: unknown[]) => ({
   nodeType: 'document',

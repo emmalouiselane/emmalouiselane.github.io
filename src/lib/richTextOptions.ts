@@ -3,6 +3,7 @@ import type { Block, Node } from '@contentful/rich-text-types';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import sanitizeHtml from 'sanitize-html';
+import { markdownToHtml } from 'satteri';
 
 const strictSanitizeOptions = {
   allowedTags: [
@@ -73,4 +74,22 @@ export function displayLongText(text: string | null | undefined): string {
     .join('');
 
   return sanitizeHtml(html, strictSanitizeOptions);
+}
+
+export function displayMarkdown(text: string | null | undefined): string {
+  if (!text?.trim()) return '';
+
+  const { html } = markdownToHtml(text, {
+    features: { rawHtml: true, frontmatter: false, gfm: { footnotes: false } },
+  });
+
+  return sanitizeHtml(html, {
+    ...strictSanitizeOptions,
+    allowedTags: [...strictSanitizeOptions.allowedTags, 'del', 's', 'hr', 'table', 'thead', 'tbody', 'tr', 'th', 'td'],
+    allowedAttributes: { a: ['href', 'title'], ol: ['start'] },
+    // Description headings belong beneath the card's h2 title.
+    transformTags: {
+      h1: 'h3', h2: 'h3',
+    },
+  });
 }

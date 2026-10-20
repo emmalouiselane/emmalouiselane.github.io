@@ -292,10 +292,21 @@ hr {
   font-size: 1.03rem;
 }
 
-.home-hero__actions {
+.button-group {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
   gap: var(--spacing-3);
+}
+
+.button-group > :is(a, button, span) {
+  flex: 0 1 auto;
+  max-width: 100%;
+  margin: 0;
+}
+
+.home-hero__actions {
   margin-top: var(--spacing-6);
 }
 
@@ -368,7 +379,7 @@ hr {
   transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
 }
 
-.home-feature-card:hover,
+a.home-feature-card:hover,
 .home-card:hover {
   transform: translateY(-4px) rotate(-0.3deg);
   border-color: var(--color-accent-highlight);

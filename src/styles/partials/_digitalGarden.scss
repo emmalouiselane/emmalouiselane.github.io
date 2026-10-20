@@ -63,15 +63,19 @@
 
 .digital-garden-hero__floral {
   position: relative;
-  display: grid;
+  display: flex;
+  flex-direction: row;
   gap: var(--spacing-2);
-  justify-items: center;
+  justify-content: center;
+  align-items: center;
   min-width: min(16rem, 30vw);
   opacity: 0.92;
 }
 
 .digital-garden-hero__floral img {
   width: clamp(8rem, 16vw, 13rem);
+  min-width: 0;
+  height: auto;
   filter: sepia(0.16) saturate(0.95);
 }
 
@@ -87,6 +91,7 @@
   grid-template-columns: minmax(0, 1.1fr) minmax(16rem, 0.9fr) auto;
   gap: var(--spacing-5);
   align-items: center;
+  border-color: var(--color-accent-highlight);
   border-radius: 1.5rem;
   background:
     linear-gradient(145deg, rgba(255, 246, 235, 0.42), rgba(184, 95, 60, 0.08) 62%, rgba(123, 71, 47, 0.1)),
@@ -113,8 +118,8 @@
   justify-self: end;
   border: 1px solid var(--color-border-soft);
   border-radius: 999px;
-  background: var(--color-surface-elevated);
-  color: var(--color-heading);
+  background: var(--color-primary);
+  color: var(--primary-foreground);
   font-family: var(--font-ui);
   font-size: 0.9rem;
   font-weight: 700;
@@ -125,8 +130,8 @@
 .digital-garden-feature a:hover,
 .digital-garden-feature a:focus {
   border-color: var(--color-accent-highlight);
-  background: var(--color-accent-light-faded);
-  color: var(--color-heading);
+  background: var(--color-highlight);
+  color: var(--primary-foreground);
 }
 
 .digital-garden-grid {
@@ -254,7 +259,7 @@
   }
 
   .digital-garden-hero__floral {
-    justify-items: start;
+    justify-content: flex-start;
     min-width: 0;
   }
 
@@ -374,20 +379,13 @@
   padding: clamp(1.25rem, 2.2vw, 1.8rem);
 }
 
-.listening-card--podcast {
-  background:
-    linear-gradient(145deg, rgba(255, 246, 235, 0.42), rgba(184, 95, 60, 0.08) 62%, rgba(123, 71, 47, 0.1)),
-    var(--color-accent-light);
-}
-
-.dark .listening-card--podcast {
-  background:
-    linear-gradient(145deg, rgba(52, 75, 59, 0.82), rgba(37, 55, 43, 0.96) 58%, rgba(16, 23, 19, 0.94)),
-    var(--color-accent-light);
-}
-
 .listening-card__content {
   min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.listening-card__description > :last-child {
+  margin-bottom: 0;
 }
 
 .listening-card h2 {
@@ -403,6 +401,11 @@
 .listening-card__embed {
   min-width: 0;
   margin-top: auto;
+
+  p {
+    margin-top: 15px;
+    margin-bottom: 0;
+  }
 }
 
 .spotify-widget {
@@ -418,14 +421,36 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .listening-card--track {
-    border-top-right-radius: 0.25rem;
-    border-bottom-right-radius: 0.25rem;
+  .listening-card--playlist {
+    grid-row: span 2;
   }
 
-  .listening-card--podcast {
-    border-top-left-radius: 0.25rem;
-    border-bottom-left-radius: 0.25rem;
+  .listening-card--playlist .listening-card__embed {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
   }
+
+  .listening-card--playlist .spotify-widget {
+    flex: 1;
+    min-height: 352px;
+  }
+
+  .listening-card-list:has(> .listening-card--playlist:first-child + .listening-card:not(.listening-card--playlist) + .listening-card:not(.listening-card--playlist)) {
+    gap: var(--spacing-2);
+
+    > .listening-card:first-child {
+      border-radius: 1.75rem 0 0 1.75rem;
+    }
+
+    > .listening-card:nth-child(2) {
+      border-radius: 0 1.75rem 0 0;
+    }
+
+    > .listening-card:nth-child(3) {
+      border-radius: 0 0 1.75rem 0;
+    }
+  }
+
 }
 

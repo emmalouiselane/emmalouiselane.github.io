@@ -47,7 +47,7 @@ const dissertationItem = portfolioItems.find(
         <p>{dissertationItem.description}</p>
 
         <a class="post-list-item__link" href={`/portfolio/${dissertationItem.slug}/`}>
-          View project
+          Explore {dissertationItem.title}
         </a>
       </article>
     )}
@@ -73,7 +73,7 @@ const dissertationItem = portfolioItems.find(
               <p>{post.description}</p>
 
               <a class="post-list-item__link" href={`/blog-posts/${post.slug}/`}>
-                Read more
+                Read: {post.title}
               </a>
             </article>
           ))}

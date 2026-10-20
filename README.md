@@ -142,7 +142,7 @@ GitHub Actions runs the unit tests on pushes and pull requests. The end-to-end p
 - Reusable UI components built with Radix UI
 - Custom RecipeCard component using `@sparklane.dev/sparklane-recipecard-react`
 - Accessibility statement with ongoing WCAG 2.2-informed improvements
-- Accessibility checks using WAVE
+- Regular accessibility assessments using WAVE and axe to guide ongoing improvements
 - Static llms.txt site summary for AI-readable discovery
 
 ## SEO and search monitoring

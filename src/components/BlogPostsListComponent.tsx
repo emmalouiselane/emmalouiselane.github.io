@@ -79,7 +79,7 @@ const BlogPostsListComponent = ({ initialPosts, initialPage = 1 }: Props) => {
 
         <div className="blog-index-toolbar">
           <p><strong>{Math.min(endIndex, filteredPosts.length)}</strong> of {filteredPosts.length} posts found</p>
-          <div className="blog-index-actions">
+          <div className="blog-index-actions button-group">
             <button
               onClick={toggleFilters}
               className="blog-icon-button"

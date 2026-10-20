@@ -1,5 +1,20 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ListeningItemMedia from '../../../components/ListeningItemMedia.astro';
+import { getAllListeningItems } from '../../../lib/contentful';
+import { getSpotifyLinks } from '../../../lib/spotify';
+import { displayMarkdown } from '../../../lib/richTextOptions';
+import { isPlaylist, selectListeningHighlights } from '../../../lib/listening';
+
+const listeningItems = selectListeningHighlights(await getAllListeningItems()).map(item => {
+  const spotify = getSpotifyLinks(item.spotifyUrl);
+  return {
+    ...item,
+    spotify,
+    personalDescriptionHtml: displayMarkdown(item.personalDescription),
+    isPlaylist: isPlaylist(item),
+  };
+});
 ---
 
 <BaseLayout title="Listening" description="Music, playlists and listening favourites from Emma Lane’s digital garden.">
@@ -11,7 +26,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
         Music holds a very special place in my heart. It helps me focus, unwind, feel things properly, or get a little more energy when I need it.
       </p>
       <p>
-        I am always looking for new music or podcasts, so recommendations are very welcome.
+        You can explore more of my favourite playlists on <a href="https://open.spotify.com/user/31kzx7kmb4wuf2b6vhrup3xbchry">my Spotify profile</a>. I am always looking for new music or podcasts, so recommendations are always very welcome.
       </p>
       <div class="garden-hero-flower garden-hero-flower--herb" aria-hidden="true">
         <img src="/images/flowers/pressed-herb.svg" alt="" width="220" height="238" />
@@ -19,51 +34,19 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
     </section>
 
     <section class="listening-card-list" aria-label="Listening recommendations">
-      <article class="listening-card listening-card--track">
-        <div class="listening-card__embed">
-          <iframe
-            data-testid="embed-iframe-song"
-            src="https://open.spotify.com/embed/track/6gqTgtJ3aBDrWE9wrCe7L6?utm_source=generator&theme=0"
-            width="100%"
-            height="152"
-            class="spotify-widget"
-            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-            loading="lazy"
-            title="Spotify embed for The Song of Orpheus by Ruari O'Connor"
-          ></iframe>
-        </div>
+      {listeningItems.length === 0 ? (
+        <p>I'll share more listening favourites here soon.</p>
+      ) : listeningItems.map(item => (
+        <article class:list={['listening-card', { 'listening-card--playlist': item.isPlaylist }]}>
+          <div class="listening-card__content">
+            {item.type && <p class="home-card__eyebrow">{item.type}</p>}
+            <h2>{item.title}</h2>
+            {item.personalDescriptionHtml && <div class="listening-card__description" set:html={item.personalDescriptionHtml} />}
+          </div>
 
-        <div class="listening-card__content">
-          <p class="home-card__eyebrow">Currently obsessed with</p>
-          <h2>The Song of Orpheus</h2>
-          <p>
-            I am currently obsessed with <em>The Song of Orpheus</em> by Ruari O'Connor. It draws from Greek mythology, and I cannot stop listening to it.
-          </p>
-        </div>
-      </article>
-
-      <article class="listening-card listening-card--podcast">
-        <div class="listening-card__content">
-          <p class="home-card__eyebrow">If you need a laugh</p>
-          <h2>Toni and Ryan</h2>
-          <p>
-            I have been an avid listener for years. They never cease to make me laugh, and it is a fantastic podcast when you need a proper uplift.
-          </p>
-        </div>
-
-        <div class="listening-card__embed">
-          <iframe
-            data-testid="embed-iframe-podcast"
-            src="https://open.spotify.com/embed/show/5OzkclFjD6iAjtAuo7aIYt?utm_source=generator&theme=0"
-            width="100%"
-            height="152"
-            class="spotify-widget"
-            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-            loading="lazy"
-            title="Spotify embed for Toni and Ryan podcast"
-          ></iframe>
-        </div>
-      </article>
+          <ListeningItemMedia item={item} />
+        </article>
+      ))}
     </section>
   </div>
 </BaseLayout>

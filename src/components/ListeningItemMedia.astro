@@ -1,0 +1,23 @@
+---
+import type { ListeningItem } from '../lib/types/listeningItem';
+import type { getSpotifyLinks } from '../lib/spotify';
+
+interface Props {
+  item: ListeningItem & { spotify: ReturnType<typeof getSpotifyLinks> };
+}
+
+const { item } = Astro.props;
+---
+
+{item.spotify && <div class="listening-card__embed">
+  {item.showEmbeddedPlayer && item.spotify.embedUrl && <iframe
+    src={item.spotify.embedUrl}
+    width="100%"
+    height={item.spotify.embedHeight}
+    class="spotify-widget"
+    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+    loading="lazy"
+    title={`Spotify player: ${item.title}${item.creator ? ` by ${item.creator}` : ''}`}
+  ></iframe>}
+  <p><a href={item.spotify.url}>View {item.title} on Spotify</a></p>
+</div>}

@@ -1,65 +1,52 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getAllPortfolioItems } from '../../lib/contentful';
 import { calculateYearsExperience } from '../../lib/experience';
 import { person, siteMetadata } from '../../lib/seo';
 
 const yearsExperience = calculateYearsExperience();
-const projects = (await getAllPortfolioItems())
-  .filter(item => item.slug.toLowerCase() !== 'msc-deepfake-defence')
-  // Contentful's publishedAt tracks the latest published update; show newest first.
-  .sort((a, b) => new Date(b.sys.publishedAt).getTime() - new Date(a.sys.publishedAt).getTime())
-  .slice(0, 3);
 
 const services = [
-  { number: '01', title: 'Consultancy, guidance and mentoring', text: 'An experienced sounding board when you or your team need direction. I can help untangle requirements, review technical decisions, improve delivery workflows or build your confidence as a developer through mentoring and pair programming.', detail: 'Technical consultancy, code reviews, solution planning, CI/CD improvements and one-to-one developer mentoring.' },
-  { number: '02', title: 'Full-stack development', text: 'Practical applications that connect the interface to the systems behind it. I work across React, TypeScript, Node.js, C# and .NET, with experience in APIs, databases and cloud delivery.', detail: 'Web applications, API integrations, internal tools and maintainable backend services.' },
-  { number: '03', title: 'Accessibility improvements', text: 'Help finding and fixing the barriers that make a website difficult to use. I bring an accessibility-first approach to structure, keyboard interaction, forms and readable content.', detail: 'Focused reviews, practical fixes and accessible component development.' }, 
-  { number: '04', title: 'Websites and CMS builds', text: 'A new site, a refresh or a better way to manage your content. I build responsive websites with clear navigation, accessible interfaces and a CMS that works for the people using it.', detail: 'Content-led websites, portfolios, CMS integrations and existing-site improvements.' }  
+  { number: '01', title: 'Consultancy, guidance and mentoring', text: 'Help with requirements, technical decisions and delivery workflows, plus code reviews, pair programming and one-to-one mentoring to build developer confidence.' },
+  { number: '02', title: 'Application security reviews', text: 'Focused reviews of websites, applications and APIs, guided by OWASP principles, with prioritised findings, practical recommendations and support implementing fixes.' },
+  { number: '03', title: 'Secure development and design', text: 'Help considering risks, reviewing solution designs and building safer practices into code reviews, developer mentoring and CI/CD workflows.' },
+  { number: '04', title: 'Full-stack development', text: 'Web applications, APIs and internal tools built with React, TypeScript, Node.js, C# and .NET, connecting accessible interfaces with maintainable backend services.' },
+  { number: '05', title: 'Websites and CMS builds', text: 'New websites, refreshes and CMS integrations with responsive layouts, clear navigation and content management that works for the people using it.' },
+  { number: '06', title: 'Accessibility improvements', text: 'Focused reviews and practical fixes for page structure, keyboard interaction, forms and readable content, alongside accessible component development.' }
 ];
 
 const structuredData = {
   '@context': 'https://schema.org', '@type': 'Service',
-  name: 'Freelance development, consultancy and mentoring',
+  name: 'Freelance development, security reviews, consultancy and mentoring',
   url: `${siteMetadata.url}/freelance/`,
-  description: 'Freelance website and CMS development, full-stack applications, accessibility improvements, technical consultancy, guidance and developer mentoring from Emma Lane, with an MSc in Computer Science and Cyber Security.',
+  description: 'Freelance website and full-stack development, application security reviews, secure development guidance, accessibility improvements, consultancy and mentoring from Emma Lane, with an MSc in Computer Science and Cyber Security.',
   provider: { '@id': person['@id'] },
   serviceType: services.map(service => service.title),
 };
 ---
 
-<BaseLayout title="Freelance - Work with me" description="Accessible websites, full-stack development, technical consultancy, guidance and mentoring from Emma Lane, with an MSc in Computer Science and Cyber Security." structuredData={structuredData}>
+<BaseLayout title="Freelance - Work with me" description="Accessible websites, full-stack development, application security reviews, secure development guidance and mentoring from Emma Lane, software engineer and technical lead." structuredData={structuredData}>
   <div class="freelance-page">
     <header class="freelance-hero">
       <div class="freelance-hero__copy">
         <p class="home-kicker">Work with me</p>
         <h1>Thoughtful websites.<br />Practical software.<br /><em>Built around people.</em></h1>
-        <p class="freelance-summary">I'm Emma, a software engineer and technical lead with over {yearsExperience} years of experience. I help people turn ideas into accessible websites and useful, maintainable tools, and offer technical consultancy, guidance and developer mentoring.</p>
-        <div class="freelance-actions">
+        <p class="freelance-summary">I build accessible websites and practical software, and offer application security reviews, consultancy and mentoring.</p>
+        <div class="freelance-actions button-group">
           <a href="#contact" class="home-pill">Tell me how I can help</a>
-          <a href="/portfolio/" class="home-pill home-pill--secondary">Explore my work</a>
+          <a href="/about/" class="home-pill home-pill home-pill--secondary">About me</a>
         </div>
       </div>
       <aside class="freelance-note">
         <p class="home-card__eyebrow">A little about my approach</p>
         <h2>Good work starts with listening.</h2>
-        <p>I like clear communication, considered decisions and making things easier for the people who use them.</p>
-        <p>Whether you need a small improvement, support with a larger build or a focused guidance or mentoring session, we can start with what matters most to you.</p>
+        <p>Clear communication, practical advice and thoughtful decisions, shaped around what you need.</p>
         <img src="/images/flowers/pressed-sprig.svg" alt="" width="150" height="150" />
       </aside>
     </header>
 
-    <section class="freelance-section freelance-card" aria-labelledby="qualification-heading">
-      <p class="home-kicker">Security-minded engineering</p>
-      <h2 id="qualification-heading">MSc Computer Science and Cyber Security</h2>
-      <p><strong>University of Sunderland · Distinction · 2026</strong></p>
-      <p>My cybersecurity MSc complements my development and technical leadership experience, informing how I think about security, risk and the decisions behind maintainable software.</p>
-      <p>My dissertation focused on deepfake detection through the Deepfake Defence project. <a href="/dissertation/" class="freelance-text-link">Explore my MSc research <span aria-hidden="true">→</span></a></p>
-    </section>
-
     <section class="freelance-section" aria-labelledby="services-heading">
       <p class="home-kicker">How I can help</p>
-      <h2 id="services-heading">Development, consultancy and mentoring</h2>
+      <h2 id="services-heading">Development, security reviews and guidance</h2>
       <div class="freelance-services">
         {services.map(service => <article class="freelance-card">
           <div>
@@ -67,22 +54,22 @@ const structuredData = {
             <h3>{service.title}</h3>
           </div>          
           <p>{service.text}</p>
-          <p class="freelance-detail">{service.detail}</p>
         </article>)}
       </div>
     </section>
 
     <section class="freelance-section" aria-labelledby="work-heading">
       <p class="home-kicker">From my portfolio</p>
-      <h2 id="work-heading">A feel for the things I build</h2>
-      <p>These projects show my approach to development and problem-solving. Each project page has more detail about the implementation.</p>
-      <div class="freelance-projects">
-        {projects.map(project => <article class="freelance-card">
-          <h3>{project.title}</h3>
-          <p>{project.description}</p>
-          <a href={`/portfolio/${project.slug}/`} class="freelance-text-link">Explore {project.title} <span aria-hidden="true">→</span></a>
-        </article>)}
-      </div>
+      <h2 id="work-heading">Explore my work</h2>
+      <p>See examples of my development work, with implementation details, live demos and source code.</p>
+      <a href="/portfolio/" class="freelance-text-link">View my portfolio <span aria-hidden="true">→</span></a>
+    </section>
+
+    <section class="freelance-section freelance-card" aria-labelledby="experience-heading">
+      <p class="home-kicker">Engineering, leadership and security</p>
+      <h2 id="experience-heading">Experience behind the work</h2>
+      <p>I bring over {yearsExperience} years in development and technical leadership, including practical experience of security assessments, audits and resolving software vulnerabilities.</p>
+      <p>I hold an <strong>MSc in Computer Science and Cyber Security with Distinction from the University of Sunderland</strong>.</p>
       <p><a class="freelance-text-link" href="/about/my-cv/">Read about my experience and technical skills <span aria-hidden="true">→</span></a></p>
     </section>
 
@@ -90,18 +77,27 @@ const structuredData = {
       <p class="home-kicker">Working together</p>
       <h2 id="process-heading">From a conversation to a clear next step</h2>
       <ol class="freelance-process">
-        <li><h3>Start with a conversation</h3><p>Tell me what you want to achieve, whether it's a project, a technical decision or something you'd like to learn. An outline is enough to get started.</p></li>
-        <li><h3>Agree the scope</h3><p>We'll work through priorities, constraints and the best approach, from a focused consultancy or mentoring session to a larger build, then agree outcomes, timings and costs.</p></li>
-        <li><h3>Build, guide and review</h3><p>I'll keep you involved through development, practical advice or mentoring, and make sure you leave with useful outcomes and clear next steps.</p></li>
+        <li><h3>Start with a conversation</h3><p>Tell me what you want to achieve; an outline is enough to get started.</p></li>
+        <li><h3>Agree the scope</h3><p>We'll agree outcomes, timings and costs, including the systems and code in scope, required access and permitted activities for security reviews.</p></li>
+        <li><h3>Build, guide and review</h3><p>I'll keep you involved throughout the work, with practical outcomes and clear next steps.</p></li>
       </ol>
     </section>
 
-    <section id="contact" class="freelance-contact" aria-labelledby="contact-heading">
-      <p class="home-kicker">Have a project, question or learning goal?</p>
-      <h2 id="contact-heading">Let's talk about what you need.</h2>
-      <p>Email me a little about your project, the technical guidance you need or what you'd like to work on through mentoring. Include any relevant website, budget and timeline if you have them. I'll get back to you to discuss scope and availability.</p>
-      <a href="mailto:emma@sparklane.dev?subject=Development%2C%20consultancy%20or%20mentoring%20enquiry" class="home-pill">Email me at emma@sparklane.dev</a>
-      <p class="freelance-contact__aside">Prefer to learn a bit more first? <a href="/about/">read about me</a> or <a href="/blog-posts/">read my blog posts</a>.</p>
-    </section>
+    <div class="freelance-enquiries">
+      <section id="tech-for-good" class="freelance-section freelance-card" aria-labelledby="tech-for-good-heading" tabindex="-1">
+        <p class="home-kicker">Making a positive difference</p>
+        <h2 id="tech-for-good-heading">Tech for good and charity projects</h2>
+        <p>I offer work free of charge or at heavily reduced rates for charities, community groups and projects with a positive social or environmental impact, depending on scope and availability.</p>
+        <p>Tell me who your project helps, what you need and your budget, even if that's none.</p>
+        <a href="mailto:emma@sparklane.dev?subject=Tech%20for%20good%20or%20charity%20enquiry" class="freelance-text-link">Email me about your tech for good project</a>
+      </section>
+
+      <section id="contact" class="freelance-contact" aria-labelledby="contact-heading">
+        <p class="home-kicker">Have a project, question or learning goal?</p>
+        <h2 id="contact-heading">Let's talk about what you need.</h2>
+        <p>Tell me what you need, with a website link, budget and timescale if you have them. I'll get back to you to discuss scope and availability.</p>
+        <a href="mailto:emma@sparklane.dev?subject=Development%2C%20security%20review%20or%20consultancy%20enquiry" class="home-pill">Email me at emma@sparklane.dev</a>
+      </section>
+    </div>
   </div>
 </BaseLayout>

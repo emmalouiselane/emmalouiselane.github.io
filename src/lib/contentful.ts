@@ -3,6 +3,7 @@ import type { BookReview } from "./types/bookReview";
 import type { PortfolioItem } from "./types/portfolioItem";
 import type { Recipe } from "./types/recipe";
 import type { WatchList } from "./types/watchList";
+import type { ListeningItem } from "./types/listeningItem";
 import { mapEntries, mapEntry } from "./utils";
 
 const SPACE = import.meta.env.PUBLIC_CONTENTFUL_SPACE_ID;
@@ -33,6 +34,40 @@ async function entriesApiCall(query: string, variables?: Record<string, any>) {
   }
   
   return response;
+}
+
+export async function getAllListeningItems(): Promise<ListeningItem[]> {
+  const query = `
+    query ($skip: Int!) {
+      listeningItemCollection(limit: 100, skip: $skip, order: [sys_firstPublishedAt_DESC, sys_id_ASC]) {
+        total
+        items {
+          sys { id }
+          title
+          creator
+          type
+          personalDescription
+          spotifyUrl
+          showEmbeddedPlayer
+        }
+      }
+    }
+  `;
+  const items: ListeningItem[] = [];
+
+  for (let skip = 0; ; skip += 100) {
+    const response = await entriesApiCall(query, { skip });
+    const json = await response.json();
+    const collection = json.data?.listeningItemCollection;
+    if (json.errors?.length || !Array.isArray(collection?.items)
+      || !Number.isInteger(collection.total) || collection.total < 0) {
+      throw new Error('Listening items not found or invalid Contentful response');
+    }
+    items.push(...collection.items.filter((item: ListeningItem | null) => item?.title?.trim()));
+    if (skip + 100 >= collection.total) break;
+  }
+
+  return items;
 }
 
 export async function getAllPortfolioItems() {

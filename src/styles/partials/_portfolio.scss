@@ -243,9 +243,6 @@
 
 .portfolio-detail-links {
   margin-top: var(--spacing-6);
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--spacing-3);
 }
 
 .portfolio-detail-links .link,
@@ -625,12 +622,6 @@
 
   .portfolio-detail-full {
     grid-column: 1 / -1;
-  }
-}
-
-@media (max-width: 767px) {
-  .portfolio-detail-links {
-    grid-template-columns: 1fr;
   }
 }
 

@@ -25,7 +25,7 @@ Spark Lane is a static Astro site with selected content managed through Contentf
 
 - [Accessibility statement](https://sparklane.dev/accessibility-statement/): Accessibility approach, known limitations, feedback, and alternative-format requests.
 
-The site aims to follow relevant WCAG 2.2 principles. No formal independent WCAG conformance claim has been made. Accessibility issues can be reported to emma@sparklane.dev.
+The site aims to follow relevant WCAG 2.2 principles and is regularly assessed using WAVE and axe to guide accessibility improvements. No formal independent WCAG conformance claim has been made. Accessibility issues can be reported to emma@sparklane.dev.
 
 ## About the site
 

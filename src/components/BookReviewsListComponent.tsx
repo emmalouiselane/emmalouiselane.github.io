@@ -104,7 +104,7 @@ const BookReviewsList = ({ initialReviews, initialPage = 1 }: Props) => {
 
       <section className="garden-list-toolbar" aria-label="Reading list controls">
         <p><span>{Math.min(endIndex, filteredReviews.length)}</span> of {filteredReviews.length} books found</p>
-        <div className="garden-list-actions">
+        <div className="garden-list-actions button-group">
           <button onClick={toggleFilters} className="garden-icon-button" aria-label="Toggle filters">
             <svg className="garden-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
@@ -204,7 +204,7 @@ const BookReviewsList = ({ initialReviews, initialPage = 1 }: Props) => {
                   <span>Completed: {new Date(review.completionDate).toLocaleDateString('en-GB', { timeZone: 'UTC' })}</span>
                 )}
 
-                <div className="garden-card-links">
+                <div className="garden-card-links button-group">
                   {review.amazonLink && (
                     <a href={review.amazonLink} target="_blank" rel="noopener noreferrer">View on Amazon</a>
                   )}

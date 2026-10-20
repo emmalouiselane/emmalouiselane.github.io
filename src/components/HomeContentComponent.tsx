@@ -25,7 +25,7 @@ const HomeContentComponent = ({ recentRecipe, recentBlog, recentPortfolioItem, r
             This is where I'm keeping track of what I am building, learning and enjoying: technical posts, portfolio work, recipes, reading notes, cosy game references and the odd personal musing. It is a labour of love, and I doubt I'll ever finish it.
           </p>
 
-          <div className="home-hero__actions">
+          <div className="home-hero__actions button-group">
             <a href="/blog-posts/" className="home-pill">Read the blog</a>
             <a href="/digital-garden/" className="home-pill home-pill--secondary">Explore the garden</a>
           </div>
@@ -47,12 +47,13 @@ const HomeContentComponent = ({ recentRecipe, recentBlog, recentPortfolioItem, r
       </section>
 
       <section className="home-feature-strip">
-        <a href="/freelance/" className="home-feature-card home-feature-card--work">
+        <article className="home-feature-card home-feature-card--work">
           <p className="home-card__eyebrow">Freelance availability</p>
           <h2>Open to work</h2>
           <p>If you have a project in mind, I would love to hear from you. I am especially interested in thoughtful websites, accessible user experiences, and practical tools that will make people's lives even a little bit easier.</p>
-          <span className="home-card__cta">Explore freelance services</span>
-        </a>
+          <p>I also welcome <a href="/freelance/#tech-for-good">tech for good and charity projects</a>, with support available free of charge or at heavily reduced rates depending on scope and availability.</p>
+          <a href="/freelance/" className="home-card__cta">Explore freelance services</a>
+        </article>
 
         <a href="/dissertation/" className="home-feature-card home-feature-card--wide">
           <p className="home-card__eyebrow">Featured collection</p>
