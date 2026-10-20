@@ -31,7 +31,7 @@
     "contentful": "^11.12.10",
     "dotenv": "^18.0.8",
     "lucide-react": "^1.57.0",
-    "react": "^19.2.5",
+    "react": "^19.3.1",
     "react-dom": "^19.3.0",
     "react-toastify": "^11.1.0",
     "sanitize-html": "^2.18.1",
