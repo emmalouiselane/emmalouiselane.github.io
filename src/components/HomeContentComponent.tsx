@@ -5,6 +5,7 @@ import type { BookReview } from '../lib/types/bookReview';
 import type { WatchList } from '../lib/types/watchList';
 
 import { formatDate } from '../lib/dates';
+import { homeQuotes } from '../lib/quotes';
 
 interface Props {
   recentRecipe: Recipe | null;
@@ -36,15 +37,24 @@ const HomeContentComponent = ({ recentRecipe, recentBlog, recentPortfolioItem, r
           </div>
         </div>
 
-        <aside className="home-hero__note">
-          <p className="home-note__label">At the moment</p>
-          <ul>
-            <li>Technical posts, personal musings and portfolio experiments</li>
-            <li>Recipes, reading notes, musical obsessions and cosy game references</li>
-            <li>Accessibility-first websites, CMS builds and practical tools</li>
-            <li>Reflections on renovating an old house</li>
-          </ul>
-        </aside>
+        <div className="home-hero__sidebar">
+          <section className="home-quote" aria-labelledby="home-quote-label">
+            <p id="home-quote-label" className="home-note__label">A little inspiration</p>
+            <blockquote>
+              <p data-home-quote>{homeQuotes[0]}</p>
+            </blockquote>
+          </section>
+
+          <aside className="home-hero__note">
+            <p className="home-note__label">At the moment</p>
+            <ul>
+              <li>Technical posts, personal musings and portfolio experiments</li>
+              <li>Recipes, reading notes, musical obsessions and cosy game references</li>
+              <li>Accessibility-first websites, CMS builds and practical tools</li>
+              <li>Reflections on renovating an old house</li>
+            </ul>
+          </aside>
+        </div>
       </section>
 
       <section className="home-feature-strip">

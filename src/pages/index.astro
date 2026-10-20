@@ -28,4 +28,12 @@ const recentRead = reviews.find(review => review.status === 'Complete') ?? revie
     recentPortfolioItem={recentPortfolioItem} 
     recentRead={recentRead} 
     recentWatch={watchList[0] ?? null} />
+  <script>
+    import { homeQuotes } from '../lib/quotes';
+
+    const quote = document.querySelector<HTMLElement>('[data-home-quote]');
+    if (quote && homeQuotes.length > 1) {
+      quote.textContent = homeQuotes[Math.floor(Math.random() * homeQuotes.length)];
+    }
+  </script>
 </BaseLayout>
