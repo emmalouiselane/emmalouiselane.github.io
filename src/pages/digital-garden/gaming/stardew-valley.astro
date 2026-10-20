@@ -29,13 +29,13 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 
       <div class="gaming-tabs">
         <div class="gaming-tab-list" role="tablist" aria-label="Stardew Valley resources">
-          <button class="gaming-tab-button active" id="mods-tab" type="button" role="tab" aria-controls="mods" aria-selected="true" onclick="showTab('mods')">
+          <button class="gaming-tab-button active" id="mods-tab" type="button" role="tab" aria-controls="mods" aria-selected="true" data-tab="mods">
             Current Mods
           </button>
-          <button class="gaming-tab-button" id="museum-tab" type="button" role="tab" aria-controls="museum" aria-selected="true" onclick="showTab('museum')">
+          <button class="gaming-tab-button" id="museum-tab" type="button" role="tab" aria-controls="museum" aria-selected="false" data-tab="museum">
             Museum layout
           </button>
-          <button class="gaming-tab-button" id="fish-tab" type="button" role="tab" aria-controls="fish" aria-selected="false" onclick="showTab('fish')">
+          <button class="gaming-tab-button" id="fish-tab" type="button" role="tab" aria-controls="fish" aria-selected="false" data-tab="fish">
             Fish guide
           </button>
         </div>
@@ -81,8 +81,8 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
     </section>
   </div>
 
-  <script is:inline>
-    function showTab(tabId) {
+  <script>
+    function showTab(tabId: string) {
       // Hide all tab panes before showing the selected resource.
       const tabPanes = document.querySelectorAll('.gaming-tab-pane');
       tabPanes.forEach((pane) => {
@@ -109,6 +109,9 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
         selectedButton.setAttribute('aria-selected', 'true');
       }
     }
+    document.querySelectorAll<HTMLButtonElement>('.gaming-tab-list [data-tab]').forEach(button => {
+      button.addEventListener('click', () => showTab(button.dataset.tab!));
+    });
   </script>
 </BaseLayout>
 

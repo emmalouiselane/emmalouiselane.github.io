@@ -4,7 +4,7 @@ import type { PortfolioItem } from '../interface/PortfolioItem';
 import type { BookReview } from '../lib/types/bookReview';
 import type { WatchList } from '../lib/types/watchList';
 
-import moment from 'moment';
+import { formatDate } from '../lib/dates';
 
 interface Props {
   recentRecipe: Recipe | null;
@@ -27,8 +27,8 @@ const HomeContentComponent = ({ recentRecipe, recentBlog, recentPortfolioItem, r
 
           <div className="home-hero__actions button-group">
             <a href="/blog-posts/" className="home-pill">Read the blog</a>
-            <a href="/about/" className="home-pill home-pill--secondary">About me</a>
             <a href="/digital-garden/" className="home-pill home-pill--secondary">Explore the garden</a>
+            <a href="/about/" className="home-pill home-pill--secondary">About me</a>
           </div>
 
           <div className="pressed-hero-flower pressed-hero-flower--sprig" aria-hidden="true">
@@ -52,7 +52,7 @@ const HomeContentComponent = ({ recentRecipe, recentBlog, recentPortfolioItem, r
           <p className="home-card__eyebrow">Freelance availability</p>
           <h2>Open to work</h2>
           <p>If you have a project in mind, I would love to hear from you. I am especially interested in thoughtful websites, accessible user experiences, and practical tools that will make people's lives even a little bit easier.</p>
-          <p>I also welcome <a href="/freelance/#tech-for-good">tech for good and charity projects</a>, with support available free of charge or at heavily reduced rates depending on scope and availability.</p>
+          <p>I welcome <a href="/freelance/#tech-for-good">tech for good and charity projects</a>, with support available free of charge or at heavily reduced rates depending on scope and availability.</p>
           <a href="/freelance/" className="home-card__cta">Explore freelance services</a>
         </article>
 
@@ -80,7 +80,7 @@ const HomeContentComponent = ({ recentRecipe, recentBlog, recentPortfolioItem, r
               {recentBlog && (
                 <a href={`/blog-posts/${recentBlog.slug}/`} className="home-card home-card--journal">
                   <p className="home-card__eyebrow">Blog</p>
-                  <div className="home-card__meta">{moment(recentBlog.date).format('DD MMM YYYY')}</div>
+                  <div className="home-card__meta">{formatDate(recentBlog.date)}</div>
                   <h3>{recentBlog.title}</h3>
                   <p>{recentBlog.description}</p>
                 </a>
@@ -90,7 +90,7 @@ const HomeContentComponent = ({ recentRecipe, recentBlog, recentPortfolioItem, r
                 <a href={`/portfolio/${recentPortfolioItem.slug}/`} className="home-card home-card--project">
                   <p className="home-card__eyebrow">Portfolio</p>
                   {recentPortfolioItem.sys?.publishedAt && (
-                    <div className="home-card__meta">{moment(recentPortfolioItem.sys.publishedAt).format('DD MMM YYYY')}</div>
+                    <div className="home-card__meta">{formatDate(recentPortfolioItem.sys.publishedAt)}</div>
                   )}
                   <h3>{recentPortfolioItem.title}</h3>
                   <p>{recentPortfolioItem.description}</p>

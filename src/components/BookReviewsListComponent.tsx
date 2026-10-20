@@ -3,6 +3,7 @@ import type { BookReview } from '../lib/types/bookReview';
 
 import { READING_PAGE_SIZE } from '../lib/pagination';
 import Pagination from './PaginationComponent';
+import { safeExternalUrl } from '../lib/urls';
 
 interface Props { initialReviews: BookReview[]; initialPage?: number; }
 
@@ -205,8 +206,8 @@ const BookReviewsList = ({ initialReviews, initialPage = 1 }: Props) => {
                 )}
 
                 <div className="garden-card-links button-group">
-                  {review.amazonLink && (
-                    <a href={review.amazonLink} target="_blank" rel="noopener noreferrer">View on Amazon</a>
+                  {safeExternalUrl(review.amazonLink) && (
+                    <a href={safeExternalUrl(review.amazonLink)} target="_blank" rel="noopener noreferrer">View on Amazon</a>
                   )}
                   {review.status == 'Complete' ? (
                     <a href={`/digital-garden/reading/${review.sys.id}/`}>

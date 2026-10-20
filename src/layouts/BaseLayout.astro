@@ -5,6 +5,8 @@ import Breadcrumbs from '../components/Breadcrumbs.astro';
 import { breadcrumbsFor } from '../lib/seo';
 import NavbarComponent from '../components/NavbarComponent';
 import FooterComponent from '../components/FooterComponent.astro';
+import { createHash } from 'node:crypto';
+import themeScript from '../scripts/theme.js?raw';
 import '../styles/global.scss'; // Custom SCSS
 
 interface Props {
@@ -20,6 +22,10 @@ interface Props {
 const { title, description, image, imageAlt, type, noindex, structuredData } = Astro.props;
 const pathname = Astro.url.pathname;
 const isRootPath = pathname === '/';
+// Register before Astro serialises CSP at the end of head, even though the script runs in body.
+if (import.meta.env.PROD) {
+  Astro.csp.insertScriptHash(`sha256-${createHash('sha256').update(themeScript).digest('base64')}`);
+}
 ---
 
 <!doctype html>
@@ -28,28 +34,11 @@ const isRootPath = pathname === '/';
     <meta charset="UTF-8" />
     <SEOComponent title={title} description={description} image={image} imageAlt={imageAlt} type={type} noindex={noindex} structuredData={structuredData} />
     
-    <!-- Tinylytics -->
-    <script src="https://tinylytics.app/embed/XpJY1f7mwvZcsmaUenvF.js?kudos=%E2%9D%A4%EF%B8%8F" defer></script>
-
-    <script is:inline>
-      const getThemePreference = () => {
-        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-          return localStorage.getItem('theme');
-        }
-        return 'dark';
-      };
-      const isDark = getThemePreference() === 'dark';
-      document.documentElement.classList[isDark ? 'add' : 'remove']('dark');
-      if (typeof localStorage !== 'undefined') {
-        const observer = new MutationObserver(() => {
-          const isDark = document.documentElement.classList.contains('dark');
-          localStorage.setItem('theme', isDark ? 'dark' : 'light');
-        });
-        observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
-      }
-    </script>
   </head>
   <body>
+    <!-- Astro emits CSP at the end of head, before these scripts execute. -->
+    <script is:inline set:html={themeScript} />
+    <script src="https://tinylytics.app/embed/XpJY1f7mwvZcsmaUenvF.js?kudos=%E2%9D%A4%EF%B8%8F" defer></script>
     <a href="#main-content" class="skip-link">Skip to main content</a>
     <div class="site-shell">
       <NavbarComponent client:load />

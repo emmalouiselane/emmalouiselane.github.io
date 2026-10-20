@@ -5,9 +5,11 @@ import type { Recipe } from "./types/recipe";
 import type { WatchList } from "./types/watchList";
 import type { ListeningItem } from "./types/listeningItem";
 import { mapEntries, mapEntry } from "./utils";
+import { fetchJsonWithRetry } from './http';
 
 const SPACE = import.meta.env.PUBLIC_CONTENTFUL_SPACE_ID;
 const TOKEN = import.meta.env.PUBLIC_CONTENTFUL_DELIVERY_TOKEN;
+const entriesCache = new Map<string, Promise<any>>();
 
 async function entriesApiCall(query: string, variables?: Record<string, any>) {
   if (!SPACE || !TOKEN) {
@@ -25,15 +27,21 @@ async function entriesApiCall(query: string, variables?: Record<string, any>) {
       body: JSON.stringify({ query, variables }),
   };
   
-  const response = await fetch(fetchUrl, options);
-  
-  if (!response.ok) {
-      const errorText = await response.text();
-      console.error('Contentful API Error:', errorText);
-      throw new Error(`Contentful API error: ${response.status} - ${errorText}`);
+  // Production builds share completed and in-flight queries. Dev always reads fresh content.
+  const key = options.body;
+  let request = import.meta.env.PROD ? entriesCache.get(key) : undefined;
+  if (!request) {
+    request = fetchJsonWithRetry<any>(fetchUrl, options).then(json => {
+      if (json.errors?.length || !json.data) throw new Error('Contentful GraphQL query failed');
+      return json;
+    }).catch(error => {
+      entriesCache.delete(key);
+      throw error;
+    });
+    if (import.meta.env.PROD) entriesCache.set(key, request);
   }
-  
-  return response;
+  // Consumers sort collections in place; don't let them mutate cached results.
+  return structuredClone(await request);
 }
 
 export async function getAllListeningItems(): Promise<ListeningItem[]> {
@@ -56,8 +64,7 @@ export async function getAllListeningItems(): Promise<ListeningItem[]> {
   const items: ListeningItem[] = [];
 
   for (let skip = 0; ; skip += 100) {
-    const response = await entriesApiCall(query, { skip });
-    const json = await response.json();
+    const json = await entriesApiCall(query, { skip });
     const collection = json.data?.listeningItemCollection;
     if (json.errors?.length || !Array.isArray(collection?.items)
       || !Number.isInteger(collection.total) || collection.total < 0) {
@@ -91,8 +98,7 @@ export async function getAllPortfolioItems() {
     }
   `;
 
-  const response = await entriesApiCall(query);
-  const json = await response.json();
+  const json = await entriesApiCall(query);
   
   if (!json.data || !json.data.portfolioItemCollection) {
     console.error('Invalid Contentful response structure:', json);
@@ -143,8 +149,7 @@ export async function getPortfolioItemBySlug(slug: string) {
   `;
 
   const variables = { slug: slug.trim() };
-  const response = await entriesApiCall(query, variables);
-  const json = await response.json();
+  const json = await entriesApiCall(query, variables);
 
   if (!json.data || !json.data.portfolioItemCollection) {
     console.error('Invalid Contentful response structure:', json);
@@ -177,8 +182,7 @@ export async function getAllBlogs() {
     }
   `;
   
-  const response = await entriesApiCall(query);
-  const json = await response.json();
+  const json = await entriesApiCall(query);
   
   if (!json.data || !json.data.blogPostCollection) {
     console.error('Invalid Contentful response structure:', json);
@@ -216,8 +220,7 @@ export async function getBlogPostBySlug(slug: string) {
   `;
 
   const variables = { slug: slug.trim() };
-  const response = await entriesApiCall(query, variables);
-  const json = await response.json();
+  const json = await entriesApiCall(query, variables);
   
   if (!json.data || !json.data.blogPostCollection) {
     console.error('Invalid Contentful response structure:', json);
@@ -260,8 +263,7 @@ export async function getAllRecipes() {
     }
   `;
 
-  const response = await entriesApiCall(query);
-  const json = await response.json();
+  const json = await entriesApiCall(query);
   
   if (!json.data || !json.data.recipeCollection) {
     console.error('Invalid Contentful response structure:', json);
@@ -317,8 +319,7 @@ export async function getRecipeBySlug(slug: string) {
   `;
 
   const variables = { slug: slug.trim() };
-  const response = await entriesApiCall(query, variables);
-  const json = await response.json();
+  const json = await entriesApiCall(query, variables);
 
   if (!json.data || !json.data.recipeCollection) {
     console.error('Invalid Contentful response structure:', json);
@@ -355,8 +356,7 @@ export async function getAllBookReviews() {
     }
   `;
 
-  const response = await entriesApiCall(query);
-  const json = await response.json();
+  const json = await entriesApiCall(query);
   
   if (!json.data || !json.data.bookReviewCollection) {
     console.error('Invalid Contentful response structure:', json);
@@ -397,8 +397,7 @@ export async function getBookReviewById(id: string) {
   `;
 
   const variables = { id: id.trim() };
-  const response = await entriesApiCall(query, variables);
-  const json = await response.json();
+  const json = await entriesApiCall(query, variables);
   
   if (!json.data || !json.data.bookReviewCollection) {
     console.error('Invalid Contentful response structure:', json);
@@ -433,8 +432,7 @@ export async function getAllWatchList() {
     }
   `;
 
-  const response = await entriesApiCall(query);
-  const json = await response.json();
+  const json = await entriesApiCall(query);
   
   if (!json.data || !json.data.watchListCollection) {
     console.error('Invalid Contentful response structure:', json);
@@ -470,8 +468,7 @@ export async function getWatchListById(id: string) {
   `;
 
   const variables = { id: id.trim() };
-  const response = await entriesApiCall(query, variables);
-  const json = await response.json();
+  const json = await entriesApiCall(query, variables);
   
   if (!json.data || !json.data.watchListCollection) {
     console.error('Invalid Contentful response structure:', json);

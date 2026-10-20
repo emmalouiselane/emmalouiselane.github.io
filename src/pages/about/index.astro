@@ -46,21 +46,21 @@ const yearsExperience = calculateYearsExperience();
         <div class="about-me-container">
           <nav class="about-tabs" aria-label="Tabs">
             <button 
-              onclick="showTab('philosophy')" 
+              data-tab="philosophy"
               id="philosophy-btn"
               class="tab-btn active"
             >
               Approach & Philosophy
             </button>
             <button 
-              onclick="showTab('space')" 
+              data-tab="space"
               id="space-btn"
               class="tab-btn"
             >
               This Space
             </button>
             <button 
-              onclick="showTab('experience')" 
+              data-tab="experience"
               id="experience-btn"
               class="tab-btn"
             >
@@ -113,8 +113,8 @@ const yearsExperience = calculateYearsExperience();
       </section>
     </div>
     
-    <script is:inline>
-      function showTab(tabName) {
+    <script>
+      function showTab(tabName: string) {
         // Hide all content immediately
         document.querySelectorAll('.tab-content').forEach(content => {
           content.classList.add('is-hidden');
@@ -128,14 +128,17 @@ const yearsExperience = calculateYearsExperience();
         
         // Show selected content with fade animation
         const selectedContent = document.getElementById(tabName + '-content');
-        selectedContent.classList.remove('is-hidden');
-        selectedContent.classList.add('tab-fade-in');
+        selectedContent?.classList.remove('is-hidden');
+        selectedContent?.classList.add('tab-fade-in');
         
         // Add active class to clicked button
         const activeBtn = document.getElementById(tabName + '-btn');
-        activeBtn.classList.add('active');
+        activeBtn?.classList.add('active');
         
       }
+      document.querySelectorAll<HTMLButtonElement>('.about-tabs [data-tab]').forEach(button => {
+        button.addEventListener('click', () => showTab(button.dataset.tab!));
+      });
     </script>
 
     <section class="about-card about-connect-card">

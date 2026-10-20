@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import type { BlogPost } from '../lib/types/blogPost';
-import moment from 'moment';
+import { formatDate } from '../lib/dates';
 
 import { BLOG_PAGE_SIZE } from '../lib/pagination';
 import Pagination from './PaginationComponent';
@@ -150,7 +150,7 @@ const BlogPostsListComponent = ({ initialPosts, initialPage = 1 }: Props) => {
               key={post.sys.id}
             >
               <div className="post-list-item__topline">
-                <time dateTime={post.date}>{moment(post.date).format('DD MMM YYYY')}</time>
+                <time dateTime={post.date}>{formatDate(post.date)}</time>
                 {post.blogType && post.blogType.length > 0 && (
                   <div className="post-list-item__tags">
                     {post.blogType.map(type => (

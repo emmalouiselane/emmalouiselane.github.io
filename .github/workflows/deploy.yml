@@ -1,70 +1,37 @@
-# Simple workflow for deploying static content to GitHub Pages
 name: Deploy static content to Pages
 
 on:
-  # Runs on pushes targeting the default branch
   push:
-    branches: ["main"]
-
-  # Allows you to run this workflow manually from the Actions tab
+    branches: [main]
   workflow_dispatch:
 
-# Sets the GITHUB_TOKEN permissions to allow deployment to GitHub Pages
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
-# Allow one concurrent deployment
 concurrency:
-  group: "pages"
+  group: pages
   cancel-in-progress: true
 
 jobs:
-  # Single deploy job since we're just deploying
+  build:
+    uses: ./.github/workflows/validate-and-build.yml
+    secrets:
+      contentful_space_id: ${{ secrets.GATSBY_CONTENTFUL_SPACE_ID }}
+      contentful_delivery_token: ${{ secrets.GATSBY_CONTENTFUL_DELIVERY_TOKEN }}
+
   deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 5
-        
-      - name: Set up Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: 'npm'
-          
-      - name: Install dependencies
-        run: npm install
-        
-      - name: Build
-        run: npm run build
-        env:
-          PUBLIC_CONTENTFUL_SPACE_ID: ${{ secrets.GATSBY_CONTENTFUL_SPACE_ID }}
-          PUBLIC_CONTENTFUL_DELIVERY_TOKEN: ${{ secrets.GATSBY_CONTENTFUL_DELIVERY_TOKEN }}
-          
       - name: Setup Pages
-        uses: actions/configure-pages@v4
-      - name: Include CNAME for custom domain
-        if: ${{ always() }}
-        run: |
-          if [ -f CNAME ]; then
-            cp CNAME dist/CNAME
-          fi
-        shell: bash
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: dist
-          
-      - name: Deploy to GitHub Pages
+        uses: actions/configure-pages@1f0c5cde4bc74cd7e1254d0cb4de8d49e9068c7d # v4
+      - name: Deploy validated artifact to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
-        with:
-          token: ${{ github.token }}
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4

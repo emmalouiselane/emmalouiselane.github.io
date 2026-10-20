@@ -1,5 +1,5 @@
 ---
-import moment from 'moment';
+import { formatDate } from '../../lib/dates';
 import type { GetStaticPaths } from 'astro';
 
 import type { BlogPost } from '../../lib/types/blogPost';
@@ -56,7 +56,7 @@ const getBlogTypeFilterUrl = (type: string) => `/blog-posts/?type=${encodeURICom
         </div>
 
         <div class="blog-detail-meta">
-          <time datetime={fullPost.date}>{moment(fullPost.date).format('DD MMM YYYY')}</time>
+          <time datetime={fullPost.date}>{formatDate(fullPost.date)}</time>
           <button class="tinylytics_kudos" data-path={pathname}></button>
         </div>
       </header>

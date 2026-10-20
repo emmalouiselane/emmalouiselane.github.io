@@ -113,7 +113,6 @@ GitHub Actions runs the unit tests on pushes and pull requests. The end-to-end p
 │   │   │   └── watching/
 │   │   ├── portfolio/
 │   │   ├── research-hub/
-│   │   ├── workshop/
 │   │   ├── about.astro
 │   │   ├── 404.astro
 │   │   └── accessibility-statement.astro
@@ -212,10 +211,21 @@ Deployment runs through GitHub Actions:
 
 - `deploy.yml` runs on pushes to `main` and can also be run manually.
 - `build-on-publish.yml` runs when Contentful publishes a `contentful-content-update` repository dispatch event.
-- Both workflows use Node.js 22, install with `npm ci`, build with `npm run build`, and deploy the `dist/` directory.
-- Dependabot checks npm dependencies daily.
+- Both workflows call `validate-and-build.yml`: Node.js 22, `npm ci`, unit tests, a production build, and Playwright checks must all pass before the Pages artifact is uploaded. The deployment job depends on that validated artifact.
+- Only the deployment job has Pages write and OIDC permissions. GitHub Actions are pinned to verified commit SHAs, and checkout does not persist credentials.
+- Dependabot checks npm dependencies and GitHub Actions weekly, including updates to action pins.
 
 For local development, use the `PUBLIC_CONTENTFUL_*` variables shown above. The GitHub Actions workflows currently read the repository secrets `GATSBY_CONTENTFUL_SPACE_ID` and `GATSBY_CONTENTFUL_DELIVERY_TOKEN`, then map them to the `PUBLIC_CONTENTFUL_*` variables during the build.
+
+## API resilience and browser security
+
+Contentful requests have a 15-second timeout per attempt, at most two retries for network failures, rate limits and selected temporary HTTP failures, and exponential backoff with jitter. Retries honour Contentful's reset header and `Retry-After`; waits longer than 30 seconds fail the build instead of retrying too early. Permanent HTTP failures and GraphQL errors fail the build. Identical queries share in-flight and successful results within a production build; development always fetches fresh content. GitHub contribution fetching has a 10-second timeout and falls back to its existing unavailable state.
+
+Production pages use Astro's generated Content Security Policy. Scripts require a trusted source or a build-generated hash; inline event handlers, plugins and unapproved frames are blocked. Tinylytics, Contentful images and Spotify embeds have explicit allowances. Inline style attributes remain allowed for React components and tooltip positioning. Legacy dissertation and workshop recipe URLs are configured in `astro.config.mjs`; Astro generates script-free meta-refresh redirect files for GitHub Pages, preserving recipe slugs. HTTP status redirects would require hosting or CDN support.
+
+CMS external links accept absolute HTTPS URLs without embedded credentials or non-default ports. Portfolio demo origins are explicitly listed in `src/lib/urls.ts` and shared with CSP configuration; changing a CMS URL cannot expand that list. Demos use a script-only sandbox without access to the parent document or browser storage. If a new demo needs more capabilities, review its requirements and isolation before extending permissions. The theme script's hash is registered before the page head is rendered, and the script executes after CSP takes effect.
+
+The browser security tests check CSP coverage and script hashes, hydration, theme persistence, tabs, the commit modal, blocked script injection and sandbox permissions. They mock third-party responses to keep CI deterministic. Date formatting uses native `Intl.DateTimeFormat` in UTC, and decorative footer icons render without React hydration.
 
 ## License
 

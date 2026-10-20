@@ -1,7 +1,7 @@
 ---
 import type { GetStaticPaths } from 'astro';
 import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer } from 'react-toastify/unstyled';
 
 import type { Recipe } from '../../../lib/types/recipe';
 import { getAllRecipes, getRecipeBySlug } from '../../../lib/contentful';
@@ -38,8 +38,11 @@ const imageAlt = firstImage ? (firstImage.title || fullRecipe.name) : 'No image 
 
 ---
 
-<script>
-  import { toast } from 'react-toastify';
+
+
+<BaseLayout title={fullRecipe.name} description={fullRecipe.personalNote || `Make ${fullRecipe.name} with ingredients, step-by-step instructions and personal cooking notes from Emma Lane’s recipe archive.`} image={recipeImageUrl} imageAlt={imageAlt}>
+  <script>
+  import { toast } from 'react-toastify/unstyled';
   
   let wakeLock: WakeLockSentinel | null = null;
   
@@ -66,8 +69,6 @@ const imageAlt = firstImage ? (firstImage.title || fullRecipe.name) : 'No image 
 
   });  
 </script>
-
-<BaseLayout title={fullRecipe.name} description={fullRecipe.personalNote || `Make ${fullRecipe.name} with ingredients, step-by-step instructions and personal cooking notes from Emma Lane’s recipe archive.`} image={recipeImageUrl} imageAlt={imageAlt}>
   <RecipeStructuredData recipe={fullRecipe} imageUrl={recipeImageUrl} />
   
   <ToastContainer client:load theme="light" position="top-right" 

@@ -1,0 +1,55 @@
+name: Validate and build Pages artifact
+
+on:
+  workflow_call:
+    secrets:
+      contentful_space_id:
+        required: true
+      contentful_delivery_token:
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 5
+          persist-credentials: false
+
+      - name: Set up Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run unit tests
+        run: npm test
+
+      - name: Install Playwright browser
+        run: npx playwright install --with-deps chromium
+
+      - name: Build site
+        run: npm run build
+        env:
+          PUBLIC_CONTENTFUL_SPACE_ID: ${{ secrets.contentful_space_id }}
+          PUBLIC_CONTENTFUL_DELIVERY_TOKEN: ${{ secrets.contentful_delivery_token }}
+
+      - name: Check generated pages and security policy
+        run: npm run test:e2e
+
+      - name: Include custom domain
+        run: cp CNAME dist/CNAME
+
+      - name: Upload validated Pages artifact
+        uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
+        with:
+          path: dist

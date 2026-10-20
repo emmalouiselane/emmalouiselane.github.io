@@ -8,6 +8,7 @@ import { displayRichText } from '../../../lib/richTextOptions';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import AuthorNoteComponent from '../../../components/AuthorNoteComponent.astro';
 import { person, richTextSummary, siteMetadata } from '../../../lib/seo';
+import { safeExternalUrl } from '../../../lib/urls';
 
 export const getStaticPaths = (async () => {
   const bookReviews = await getAllBookReviews();
@@ -25,6 +26,7 @@ if (!review?.sys?.id) {
   throw new Error('Book review ID is required but not found');
 }
 const fullReview = await getBookReviewById(review.sys.id);
+const amazonLink = safeExternalUrl(fullReview.amazonLink);
 
 const description = richTextSummary(fullReview.thoughts, `Reading notes on ${fullReview.title} by ${fullReview.author.name}, from Emma Lane’s book journal.`);
 
@@ -69,8 +71,8 @@ const renderStars = (rating: number) => {
             <small>({fullReview.starRating ?? 0}/5)</small>
           </div>
 
-          {fullReview.amazonLink && (
-            <a href={fullReview.amazonLink} target="_blank" rel="noopener noreferrer">
+          {amazonLink && (
+            <a href={amazonLink} target="_blank" rel="noopener noreferrer">
               View on Amazon
             </a>
           )}

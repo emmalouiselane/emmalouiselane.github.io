@@ -8,6 +8,7 @@ import { displayLongText, displayRichText } from '../../lib/richTextOptions';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ContentImage from '../../components/ContentImage.astro';
 import { person, siteMetadata } from '../../lib/seo';
+import { safeExternalUrl, portfolioEmbedUrl } from '../../lib/urls';
 
 export const getStaticPaths = (async () => {
   const portfolioItems = await getAllPortfolioItems();
@@ -25,6 +26,9 @@ if (!item?.slug) {
   throw new Error('Portfolio item slug is required but not found');
 }
 const fullItem = await getPortfolioItemBySlug(item.slug);
+const externalUrl = safeExternalUrl(fullItem.externalUrl);
+const githubUrl = safeExternalUrl(fullItem.githubUrl);
+const embedUrl = portfolioEmbedUrl(fullItem.externalUrl);
 const imageItems = fullItem.images?.items?.filter((image) => image?.url) ?? [];
 const hasImages = imageItems.length > 0;
 
@@ -72,8 +76,8 @@ const structuredData = {
           </div>
 
           <div class="portfolio-detail-links button-group">
-            {fullItem.externalUrl ? (
-              <a href={fullItem.externalUrl} target="_blank" rel="noopener noreferrer" class="link">
+            {externalUrl ? (
+              <a href={externalUrl} target="_blank" rel="noopener noreferrer" class="link">
                 View Live Site
               </a>
             ) : (
@@ -81,8 +85,8 @@ const structuredData = {
                 View Live Site
               </span>
             )}
-            {fullItem.githubUrl ? (
-              <a href={fullItem.githubUrl} target="_blank" rel="noopener noreferrer" class="link">
+            {githubUrl ? (
+              <a href={githubUrl} target="_blank" rel="noopener noreferrer" class="link">
                 View on GitHub
               </a>
             ) : (
@@ -164,12 +168,14 @@ const structuredData = {
         <a href="/freelance/" class="freelance-text-link">Explore my freelance services</a>
       </aside>
 
-      {fullItem.isIframe && fullItem.externalUrl && (
+      {fullItem.isIframe && embedUrl && (
         <section class="portfolio-detail-full">
           <div class="portfolio-detail-panel">
             <h2>Live Demo</h2>
             <iframe 
-              src={fullItem.externalUrl} 
+              src={embedUrl}
+              sandbox="allow-scripts"
+              referrerpolicy="no-referrer"
               class="portfolio-detail-iframe"
               title={`${fullItem.title} live demo`}
               loading="lazy"

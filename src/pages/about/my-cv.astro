@@ -87,7 +87,7 @@ const yearsExperience = calculateYearsExperience();
   </div>
 </BaseLayout>
 
-<script is:inline>
+<script>
   document.querySelectorAll('[data-summary-toggle]').forEach((button) => {
     button.addEventListener('click', () => {
       const selectedSummary = button.getAttribute('data-summary-toggle');

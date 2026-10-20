@@ -41,6 +41,6 @@ describe('Contentful listening items', () => {
       errors: [{ message: 'Query failed' }],
     }))));
     const { getAllListeningItems } = await import('../src/lib/contentful');
-    await expect(getAllListeningItems()).rejects.toThrow('Listening items not found');
+    await expect(getAllListeningItems()).rejects.toThrow('Contentful GraphQL query failed');
   });
 });

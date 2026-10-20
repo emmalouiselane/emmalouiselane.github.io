@@ -100,6 +100,26 @@ test('journal filtering survives hydration and makes no browser-side CMS request
   expect(cmsRequests).toEqual([]);
 });
 
+test('legacy recipe URLs redirect to the matching garden recipes', async ({ page }) => {
+  const recipeDirectory = join(process.cwd(), 'dist', 'digital-garden', 'recipes');
+  const slugs = readdirSync(recipeDirectory, { withFileTypes: true })
+    .filter(entry => entry.isDirectory()).map(entry => entry.name);
+  expect(slugs.length).toBeGreaterThan(0);
+  for (const slug of ['', ...slugs]) {
+    const oldPath = `/workshop/recipes/${slug ? `${slug}/` : ''}`;
+    const destination = `/digital-garden/recipes/${slug ? `${slug}/` : ''}`;
+    const html = readFileSync(join(process.cwd(), 'dist', oldPath, 'index.html'), 'utf8');
+    expect(html, oldPath).toMatch(/http-equiv="refresh"/);
+    expect(html, oldPath).toContain(destination.replace(/\/$/, ''));
+    expect(html, oldPath).not.toMatch(/<script\b/);
+  }
+  await page.goto('/workshop/recipes/');
+  await expect(page).toHaveURL(/\/digital-garden\/recipes\/$/);
+  await page.goto(`/workshop/recipes/${slugs[0]}/`);
+  await expect(page).toHaveURL(new RegExp(`/digital-garden/recipes/${slugs[0]}/$`));
+  await expect(page.locator('main h1')).toBeVisible();
+});
+
 test('structured data is valid JSON and old redirect routes are excluded from the sitemap', async ({ page }) => {
   const sitemap = readFileSync(join(process.cwd(), 'dist', 'sitemap-0.xml'), 'utf8');
   expect(sitemap).toContain('https://sparklane.dev/freelance/');
