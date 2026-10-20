@@ -55,7 +55,6 @@
 }
 
 .portfolio-index-hero h1 {
-  font-size: clamp(2.2rem, 4vw, 3.8rem);
   line-height: 1;
   max-width: 24ch;
   margin-top: var(--spacing-2);
@@ -185,7 +184,6 @@
 .portfolio-detail-hero h1 {
   max-width: 24ch;
   margin-top: var(--spacing-2);
-  font-size: clamp(2.15rem, 4vw, 3.7rem);
   line-height: 1;
 }
 

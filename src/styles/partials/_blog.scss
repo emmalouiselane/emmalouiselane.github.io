@@ -35,7 +35,6 @@
 .blog-detail-hero h1 {
   max-width: 24ch;
   margin-top: var(--spacing-2);
-  font-size: clamp(2.15rem, 4vw, 3.7rem);
   line-height: 1;
 }
 
@@ -167,7 +166,6 @@
 }
 
 .blog-index-hero h1 {
-  font-size: clamp(2.2rem, 4vw, 3.8rem);
   line-height: 1;
   max-width: 24ch;
   margin-top: var(--spacing-2);
@@ -495,7 +493,6 @@
 }
 
 .dissertation-hub-hero h1 {
-  font-size: clamp(2.2rem, 4vw, 3.8rem);
   line-height: 1;
   margin-top: var(--spacing-2);
 }
