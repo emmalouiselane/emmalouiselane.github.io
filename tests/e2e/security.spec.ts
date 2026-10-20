@@ -48,7 +48,7 @@ test('generated pages authorise scripts with CSP; automatic redirects have no sc
         expect(policy, path).toContain("object-src 'none'");
         expect(policy, path).toContain("script-src-attr 'none'");
         const policyPosition = html.indexOf('http-equiv="content-security-policy"');
-        for (const match of html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)) {
+        for (const match of html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script\b[^>]*>/gi)) {
           const [, attributes, code] = match;
           if (attributes.includes('application/ld+json')) continue;
           expect(match.index, `${path}: executable script precedes CSP`).toBeGreaterThan(policyPosition);
