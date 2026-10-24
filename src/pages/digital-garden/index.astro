@@ -5,37 +5,37 @@ const gardenLinks = [
   {
     title: 'Blog',
     href: '/blog-posts/',
-    accent: '/images/accents/digital-garden-blog.webp',
+    accent: 'blog',
     description: 'Longer notes on code, cybersecurity, learning and the odd personal thread.',
   },
   {
     title: 'Recipes',
     href: '/digital-garden/recipes/',
-    accent: '/images/accents/digital-garden-recipes.webp',
+    accent: 'recipes',
     description: 'A cosy recipe bank for bakes, dinners, preserves and things worth making again.',
   },
   {
     title: 'Reading',
     href: '/digital-garden/reading/',
-    accent: '/images/accents/digital-garden-reading.webp',
+    accent: 'reading',
     description: 'A reading journal for books I have finished, paused, loved or want to remember.',
   },
   {
     title: 'Gaming',
     href: '/digital-garden/gaming/',
-    accent: '/images/accents/digital-garden-gaming.webp',
+    accent: 'gaming',
     description: 'Game notes, references and little guides for the worlds I keep wandering back to.',
   },
   {
     title: 'Listening',
     href: '/digital-garden/listening/',
-    accent: '/images/accents/digital-garden-listening.webp',
+    accent: 'listening',
     description: 'Music and podcasts currently keeping me company while I work, walk or potter.',
   },
   {
     title: 'Watching',
     href: '/digital-garden/watching/',
-    accent: '/images/accents/digital-garden-watching.webp',
+    accent: 'watching',
     description: 'Films and shows I am watching, tracking, or saving thoughts on for later.',
   },
 ] as const;
@@ -70,16 +70,8 @@ const gardenLinks = [
 
     <section class="digital-garden-grid" aria-label="Digital garden sections">
       {gardenLinks.map((item, index) => (
-        <a class="digital-garden-card" href={item.href}>
-          <img
-            class="digital-garden-card__accent"
-            src={item.accent}
-            alt=""
-            width="220"
-            height="78"
-            aria-hidden="true"
-            decoding="async"
-          />
+        <a class="digital-garden-card" data-accent={item.accent} href={item.href}>
+          <span class="digital-garden-card__accent" aria-hidden="true"></span>
           <span class="digital-garden-card__number">{String(index + 1).padStart(2, '0')}</span>
           <h2>{item.title}</h2>
           <p>{item.description}</p>

@@ -177,10 +177,25 @@
   top: var(--spacing-3);
   right: var(--spacing-3);
   width: 12rem;
-  height: auto;
+  aspect-ratio: 2108 / 746;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
   opacity: var(--botanical-accent-opacity);
   transform: rotate(2deg);
   transition: transform 0.25s ease;
+}
+
+$garden-card-accents: blog, recipes, reading, gaming, listening, watching;
+
+@each $accent in $garden-card-accents {
+  .digital-garden-card[data-accent="#{$accent}"] .digital-garden-card__accent {
+    background-image: url("/images/accents/digital-garden-#{$accent}.webp");
+  }
+
+  html:not(.dark) .digital-garden-card[data-accent="#{$accent}"] .digital-garden-card__accent {
+    background-image: url("/images/accents/digital-garden-#{$accent}-light.webp");
+  }
 }
 
 .digital-garden-card:hover .digital-garden-card__accent,
