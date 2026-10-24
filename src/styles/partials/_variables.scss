@@ -2,26 +2,27 @@
 :root {
   /* ---------- BACKGROUND & SURFACE ---------- */
   /* --color-background handled by _theme.scss */
-  --color-surface: #fff6eb;
-  --color-accent-light: #f0d2bd;
-  --color-accent-light-faded: rgba(240, 210, 189, 0.76);
+  --color-surface: #faf8ec;
+  --color-accent-light: #e2e9d8;
+  --color-accent-light-faded: rgba(226, 233, 216, 0.76);
 
   /* ---------- TEXT ---------- */
   /* --color-text handled by _theme.scss (foreground) */
-  --color-heading: #38251c;
-  --color-text-light: #7a5b49;
+  --color-heading: #1b2a1d;
+  --color-text-light: #5b6953;
 
   /* ---------- HIGHLIGHT / INTERACTIVE ---------- */
-  --color-highlight: #91462e;
-  --color-accent-highlight: #d18555;
+  --color-highlight: #355b3a;
+  --color-accent-highlight: #bd954e;
 
   /* ---------- DEPTH & ATMOSPHERE ---------- */
-  --color-surface-elevated: #fff9f2;
-  --color-border-soft: rgba(123, 71, 47, 0.18);
-  --color-bg-glow-1: rgba(184, 95, 60, 0.16);
-  --color-bg-glow-2: rgba(120, 181, 138, 0.07);
-  --shadow-soft: 0 18px 40px rgba(124, 72, 48, 0.1);
-  --shadow-lift: 0 24px 50px rgba(124, 72, 48, 0.16);
+  --color-surface-elevated: #fcfaef;
+  --color-border-soft: rgba(44, 70, 45, 0.18);
+  --color-bg-glow-1: rgba(198, 164, 83, 0.13);
+  --color-bg-glow-2: rgba(70, 103, 62, 0.1);
+  --botanical-accent-opacity: 0.4;
+  --shadow-soft: 0 18px 40px rgba(27, 42, 29, 0.1);
+  --shadow-lift: 0 24px 50px rgba(27, 42, 29, 0.16);
 
   /* Max widths */
   --maxWidth-none: "none";
@@ -69,18 +70,18 @@
 
 .dark-html.dark,
 .dark {
-  --color-surface: #1d2a22;
-  --color-accent-light: #344b3b;
-  --color-accent-light-faded: rgba(52, 75, 59, 0.72);
+  --color-surface: #19271c;
+  --color-accent-light: #344a35;
+  --color-accent-light-faded: rgba(52, 74, 53, 0.72);
   --color-accent-lighter: #45624d;
-  --color-heading: #e8f0e8;
-  --color-text-light: #c1d2c4;
-  --color-highlight: #8bc79a;
-  --color-accent-highlight: #a7d8ad;
-  --color-surface-elevated: #25372b;
-  --color-border-soft: rgba(190, 220, 198, 0.16);
-  --color-bg-glow-1: rgba(139, 199, 154, 0.1);
-  --color-bg-glow-2: rgba(196, 109, 71, 0.07);
+  --color-heading: #f2efdf;
+  --color-text-light: #c6d1ba;
+  --color-highlight: #dfbd67;
+  --color-accent-highlight: #dfbd67;
+  --color-surface-elevated: #213124;
+  --color-border-soft: rgba(208, 220, 188, 0.18);
+  --color-bg-glow-1: rgba(223, 189, 103, 0.1);
+  --color-bg-glow-2: rgba(139, 171, 112, 0.1);
   --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.22);
   --shadow-lift: 0 24px 52px rgba(0, 0, 0, 0.3);
 }

@@ -5,40 +5,40 @@ const gardenLinks = [
   {
     title: 'Blog',
     href: '/blog-posts/',
-    flower: '/images/flowers/pressed-sprig.svg',
+    accent: '/images/accents/digital-garden-blog.webp',
     description: 'Longer notes on code, cybersecurity, learning and the odd personal thread.',
   },
   {
     title: 'Recipes',
     href: '/digital-garden/recipes/',
-    flower: '/images/flowers/pressed-bloom.svg',
+    accent: '/images/accents/digital-garden-recipes.webp',
     description: 'A cosy recipe bank for bakes, dinners, preserves and things worth making again.',
   },
   {
     title: 'Reading',
     href: '/digital-garden/reading/',
-    flower: '/images/flowers/pressed-bloom.svg',
+    accent: '/images/accents/digital-garden-reading.webp',
     description: 'A reading journal for books I have finished, paused, loved or want to remember.',
   },
   {
     title: 'Gaming',
     href: '/digital-garden/gaming/',
-    flower: '/images/flowers/pressed-herb.svg',
+    accent: '/images/accents/digital-garden-gaming.webp',
     description: 'Game notes, references and little guides for the worlds I keep wandering back to.',
   },
   {
     title: 'Listening',
     href: '/digital-garden/listening/',
-    flower: '/images/flowers/pressed-herb.svg',
+    accent: '/images/accents/digital-garden-listening.webp',
     description: 'Music and podcasts currently keeping me company while I work, walk or potter.',
   },
   {
     title: 'Watching',
     href: '/digital-garden/watching/',
-    flower: '/images/flowers/pressed-sprig.svg',
+    accent: '/images/accents/digital-garden-watching.webp',
     description: 'Films and shows I am watching, tracking, or saving thoughts on for later.',
   },
-];
+] as const;
 ---
 
 <BaseLayout title="Digital Garden" description="Notes, recipes, recommendations and curiosities from Emma Lane.">
@@ -52,9 +52,8 @@ const gardenLinks = [
         </p>
       </div>
 
-      <div class="digital-garden-hero__floral" aria-hidden="true">
-        <img src="/images/flowers/pressed-sprig.svg" alt="" width="220" height="252" />
-        <img src="/images/flowers/pressed-bloom.svg" alt="" width="220" height="220" />
+      <div class="digital-garden-hero__accents" aria-hidden="true">
+        <img src="/images/accents/botanical-babys-breath.webp" alt="" width="147" height="220" />
       </div>
     </section>
 
@@ -71,8 +70,16 @@ const gardenLinks = [
 
     <section class="digital-garden-grid" aria-label="Digital garden sections">
       {gardenLinks.map((item, index) => (
-        <a class={`digital-garden-card digital-garden-card--${index % 2 === 0 ? 'sprig' : 'bloom'}`} href={item.href}>
-          <img src={item.flower} alt="" class="digital-garden-card__flower" aria-hidden="true" />
+        <a class="digital-garden-card" href={item.href}>
+          <img
+            class="digital-garden-card__accent"
+            src={item.accent}
+            alt=""
+            width="220"
+            height="78"
+            aria-hidden="true"
+            decoding="async"
+          />
           <span class="digital-garden-card__number">{String(index + 1).padStart(2, '0')}</span>
           <h2>{item.title}</h2>
           <p>{item.description}</p>

@@ -12,9 +12,46 @@
 
 .site-nav__brand {
   display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: inherit;
+}
+
+.site-nav__brand-avatar {
+  flex: 0 0 auto;
+  width: 4.5rem;
+  height: 4.5rem;
+  border: 2px solid var(--color-accent-highlight);
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: var(--shadow-soft);
+}
+
+@media (max-width: 420px) {
+  .site-nav__inner {
+    gap: var(--spacing-2);
+  }
+
+  .site-nav__brand {
+    gap: 0.5rem;
+  }
+
+  .site-nav__brand-avatar {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .site-nav__brand-tag {
+    font-size: 0.58rem;
+    letter-spacing: 0.08em;
+  }
+}
+
+.site-nav__brand-copy {
+  display: flex;
+  min-width: 0;
   flex-direction: column;
   gap: 0.15rem;
-  color: inherit;
 }
 
 .site-nav__brand-mark {

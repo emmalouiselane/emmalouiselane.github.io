@@ -28,13 +28,23 @@ const HomeContentComponent = ({ recentRecipe, recentBlog, recentPortfolioItem, r
 
           <div className="home-hero__actions button-group">
             <a href="/blog-posts/" className="home-pill">Read the blog</a>
-            <a href="/digital-garden/" className="home-pill home-pill--secondary">Explore the garden</a>
             <a href="/about/" className="home-pill home-pill--secondary">About me</a>
+            <a href="/digital-garden/" className="home-pill home-pill--secondary">Explore the garden</a>
           </div>
 
-          <div className="pressed-hero-flower pressed-hero-flower--sprig" aria-hidden="true">
-            <img src="/images/flowers/pressed-sprig.svg" alt="" width="220" height="252" />
+          <div className="botanical-accent botanical-accent--branch" aria-hidden="true">
+            <img src="/images/accents/botanical-japanese-anemone.webp" alt="" width="220" height="347" />
           </div>
+
+          <img
+            className="home-hero__line-art"
+            src="/images/accents/home-hero-line-art.png"
+            width={2108}
+            height={746}
+            alt=""
+            aria-hidden="true"
+            decoding="async"
+          />
         </div>
 
         <div className="home-hero__sidebar">

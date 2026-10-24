@@ -73,8 +73,8 @@ const BlogPostsListComponent = ({ initialPosts, initialPage = 1 }: Props) => {
           </p>
         </div>
 
-        <div className="pressed-hero-flower pressed-hero-flower--bloom" aria-hidden="true">
-          <img src="/images/flowers/pressed-bloom.svg" alt="" width="220" height="220" />
+        <div className="botanical-accent botanical-accent--herb" aria-hidden="true">
+          <img src="/images/accents/botanical-babys-breath.webp" alt="" width="147" height="220" />
         </div>
 
         <div className="blog-index-toolbar">

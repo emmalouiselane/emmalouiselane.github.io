@@ -23,11 +23,11 @@
   border-radius: 2rem;
   padding: clamp(1.5rem, 3vw, 2.5rem);
   background:
-    linear-gradient(135deg, rgba(184, 95, 60, 0.1), transparent 55%),
+    linear-gradient(135deg, rgba(48, 78, 48, 0.1), transparent 55%),
     var(--color-surface-elevated);
 }
 
-.about-hero > :not(.pressed-hero-flower) {
+.about-hero > :not(.botanical-accent) {
   position: relative;
   z-index: 1;
 }
@@ -66,7 +66,7 @@
 
 .about-card--side {
   background:
-    linear-gradient(145deg, rgba(255, 246, 235, 0.42), rgba(184, 95, 60, 0.08) 62%, rgba(123, 71, 47, 0.1)),
+    linear-gradient(145deg, rgba(255, 246, 235, 0.42), rgba(48, 78, 48, 0.08) 62%, rgba(48, 78, 48, 0.1)),
     var(--color-accent-light);
 }
 
@@ -150,7 +150,7 @@
 
 .about-connect-card {
   background:
-    linear-gradient(135deg, rgba(145, 70, 46, 0.12), transparent 52%),
+    linear-gradient(135deg, rgba(48, 78, 48, 0.12), transparent 52%),
     var(--color-surface-elevated);
 }
 
@@ -177,7 +177,7 @@
   color: inherit;
   transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
   background:
-    linear-gradient(135deg, rgba(184, 95, 60, 0.14), transparent 55%),
+    linear-gradient(135deg, rgba(48, 78, 48, 0.14), transparent 55%),
     var(--color-surface-elevated);
   border: 1px solid var(--color-border-soft);
   box-shadow: var(--shadow-soft);
@@ -203,7 +203,7 @@
   border-radius: 2rem;
   padding: clamp(1.5rem, 3vw, 2.5rem);
   background:
-    linear-gradient(135deg, rgba(184, 95, 60, 0.11), transparent 55%),
+    linear-gradient(135deg, rgba(48, 78, 48, 0.11), transparent 55%),
     var(--color-surface-elevated);
   box-shadow: var(--shadow-soft);
 }

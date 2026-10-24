@@ -23,8 +23,8 @@
   overflow: hidden;
   border-radius: 2rem;
   background:
-    radial-gradient(circle at top right, rgba(145, 70, 46, 0.14), transparent 34%),
-    linear-gradient(135deg, rgba(184, 95, 60, 0.12), transparent 55%),
+    radial-gradient(circle at top right, rgba(48, 78, 48, 0.14), transparent 34%),
+    linear-gradient(135deg, rgba(48, 78, 48, 0.12), transparent 55%),
     var(--color-surface-elevated);
   padding: clamp(1.5rem, 3vw, 2.75rem);
 }
@@ -35,7 +35,7 @@
   inset: auto 8% -3rem auto;
   width: 12rem;
   height: 12rem;
-  border: 1px dashed rgba(145, 70, 46, 0.28);
+  border: 1px dashed rgba(48, 78, 48, 0.28);
   border-radius: 999px;
   pointer-events: none;
 }
@@ -61,7 +61,7 @@
   max-width: 70ch;
 }
 
-.digital-garden-hero__floral {
+.digital-garden-hero__accents {
   position: relative;
   display: flex;
   flex-direction: row;
@@ -69,17 +69,16 @@
   justify-content: center;
   align-items: center;
   min-width: min(16rem, 30vw);
-  opacity: 0.92;
+  opacity: var(--botanical-accent-opacity);
 }
 
-.digital-garden-hero__floral img {
+.digital-garden-hero__accents img {
   width: clamp(8rem, 16vw, 13rem);
   min-width: 0;
   height: auto;
-  filter: sepia(0.16) saturate(0.95);
 }
 
-.digital-garden-hero__floral span {
+.digital-garden-hero__accents span {
   display: block;
   width: 1px;
   height: 3.5rem;
@@ -94,7 +93,7 @@
   border-color: var(--color-accent-highlight);
   border-radius: 1.5rem;
   background:
-    linear-gradient(145deg, rgba(255, 246, 235, 0.42), rgba(184, 95, 60, 0.08) 62%, rgba(123, 71, 47, 0.1)),
+    linear-gradient(145deg, rgba(255, 246, 235, 0.42), rgba(48, 78, 48, 0.08) 62%, rgba(48, 78, 48, 0.1)),
     var(--color-accent-light);
   padding: clamp(1.25rem, 2.2vw, 1.8rem);
 }
@@ -151,7 +150,7 @@
   overflow: hidden;
   border-radius: 1.5rem;
   background:
-    linear-gradient(180deg, rgba(184, 95, 60, 0.08), transparent 38%),
+    linear-gradient(180deg, rgba(48, 78, 48, 0.08), transparent 38%),
     var(--color-surface-elevated);
   color: var(--color-text);
   padding: clamp(1.2rem, 2.1vw, 1.7rem);
@@ -159,13 +158,9 @@
   transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
 }
 
-.digital-garden-card:nth-child(3n + 1) {
-  min-height: 18rem;
-}
-
-.digital-garden-card--bloom {
+.digital-garden-card:nth-child(even) {
   background:
-    linear-gradient(145deg, rgba(145, 70, 46, 0.1), transparent 48%),
+    linear-gradient(145deg, rgba(48, 78, 48, 0.1), transparent 48%),
     var(--color-surface-elevated);
 }
 
@@ -177,25 +172,19 @@
   transform: translateY(-3px);
 }
 
-.digital-garden-card__flower {
+.digital-garden-card__accent {
   position: absolute;
-  top: var(--spacing-4);
-  right: clamp(-1rem, -2vw, -0.25rem);
-  width: clamp(8.5rem, 17vw, 13rem);
-  opacity: 0.58;
+  top: var(--spacing-3);
+  right: var(--spacing-3);
+  width: 12rem;
+  height: auto;
+  opacity: var(--botanical-accent-opacity);
   transform: rotate(2deg);
-  transition: opacity 0.25s ease, transform 0.25s ease;
+  transition: transform 0.25s ease;
 }
 
-.digital-garden-card--bloom .digital-garden-card__flower {
-  left: clamp(-1rem, -2vw, -0.25rem);
-  right: auto;
-  transform: rotate(-3deg);
-}
-
-.digital-garden-card:hover .digital-garden-card__flower,
-.digital-garden-card:focus .digital-garden-card__flower {
-  opacity: 0.9;
+.digital-garden-card:hover .digital-garden-card__accent,
+.digital-garden-card:focus .digital-garden-card__accent {
   transform: rotate(0deg) translateY(-0.2rem);
 }
 
@@ -258,7 +247,7 @@
     grid-template-columns: 1fr;
   }
 
-  .digital-garden-hero__floral {
+  .digital-garden-hero__accents {
     justify-content: flex-start;
     min-width: 0;
   }
@@ -282,53 +271,52 @@
   overflow: hidden;
 }
 
-.garden-list-hero > :not(.garden-hero-flower),
-.garden-detail-hero > :not(.garden-hero-flower),
-.listening-hero > :not(.garden-hero-flower),
-.gaming-hero > :not(.garden-hero-flower) {
+.garden-list-hero > :not(.garden-botanical-accent),
+.garden-detail-hero > :not(.garden-botanical-accent),
+.listening-hero > :not(.garden-botanical-accent),
+.gaming-hero > :not(.garden-botanical-accent) {
   position: relative;
   z-index: 1;
 }
 
-.garden-hero-flower {
+.garden-botanical-accent {
   position: absolute;
   top: var(--spacing-3);
   right: var(--spacing-3);
   z-index: 0;
   width: clamp(8.5rem, 18vw, 13.5rem);
-  opacity: 0.26;
+  opacity: var(--botanical-accent-opacity);
   pointer-events: none;
 }
 
-.garden-hero-flower img {
+.garden-botanical-accent img {
   display: block;
   width: 100%;
-  filter: sepia(0.14) saturate(0.95);
+  height: auto;
 }
 
-.garden-hero-flower--bloom {
+.garden-botanical-accent--branch {
   top: var(--spacing-3);
   right: var(--spacing-4);
-  transform: rotate(12deg);
+  transform: rotate(192deg);
 }
 
-.garden-hero-flower--sprig {
+.garden-botanical-accent--sprig {
   transform: rotate(8deg);
 }
 
-.garden-hero-flower--herb {
+.garden-botanical-accent--herb {
   top: var(--spacing-3);
   right: var(--spacing-4);
   transform: rotate(-10deg);
 }
 
 @media (max-width: 760px) {
-  .garden-hero-flower {
+  .garden-botanical-accent {
     top: var(--spacing-3);
     right: var(--spacing-3);
     bottom: auto;
     width: clamp(7rem, 34vw, 10rem);
-    opacity: 0.18;
   }
 }
 .listening-page {
@@ -346,7 +334,7 @@
 .listening-hero {
   border-radius: 2rem;
   background:
-    linear-gradient(135deg, rgba(184, 95, 60, 0.11), transparent 55%),
+    linear-gradient(135deg, rgba(48, 78, 48, 0.11), transparent 55%),
     var(--color-surface-elevated);
   padding: clamp(1.5rem, 3vw, 2.5rem);
 }
@@ -374,7 +362,7 @@
   gap: var(--spacing-4);
   border-radius: 1.75rem;
   background:
-    linear-gradient(180deg, rgba(184, 95, 60, 0.08), transparent 30%),
+    linear-gradient(180deg, rgba(48, 78, 48, 0.08), transparent 30%),
     var(--color-surface-elevated);
   padding: clamp(1.25rem, 2.2vw, 1.8rem);
 }

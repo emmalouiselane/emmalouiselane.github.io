@@ -1,6 +1,6 @@
 ---
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLinkedin, faGithub } from "@fortawesome/free-brands-svg-icons";
+import { faLinkedin, faGithub, faFacebook } from "@fortawesome/free-brands-svg-icons";
 import GitCommitsModal from "./GitCommitsModal.astro";
 
 const footerTagline =
@@ -8,6 +8,7 @@ const footerTagline =
 const social = {
   linkedIn: "https://linkedin.com/in/emmalouiselane",
   gitHub: "https://github.com/emmalouiselane",
+  facebook: "https://www.facebook.com/SparkLaneDev/",
 };
 ---
 
@@ -62,6 +63,24 @@ const social = {
                 icon={faLinkedin}
                 size="2x"
                 aria-label="LinkedIn"
+                aria-hidden="true"
+              />
+            </a>
+          )
+        }
+        {
+          social?.facebook && (
+            <a
+              class="link social-link"
+              href={social.facebook}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Facebook"
+            >
+              <FontAwesomeIcon
+                icon={faFacebook}
+                size="2x"
+                aria-label="Facebook"
                 aria-hidden="true"
               />
             </a>

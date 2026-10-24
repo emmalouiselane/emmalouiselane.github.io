@@ -51,7 +51,7 @@
   right: .5rem;
   object-fit: contain;
   pointer-events: none;
-  opacity: .8;
+  opacity: var(--botanical-accent-opacity);
 }
 
 .freelance-section > h2 {

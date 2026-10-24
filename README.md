@@ -152,7 +152,7 @@ Shared metadata uses concise titles, page descriptions, matching canonical and O
 
 Run `npm test`, `npm run build` and `npm run test:e2e` for the local checks. The SEO browser tests verify content without JavaScript, static pagination, canonical/social URLs, valid JSON-LD, sitemap exclusions and desktop/mobile freelance layouts.
 
-The editable source for the default sharing image is `public/images/social-preview.svg`; the PNG is the asset used by social platforms. Regenerate it with the installed image renderer when changing the SVG.
+The default sharing image is based on the Botanical Garden Tech Banner. `public/images/social-preview.png` is the 1200 by 630 image used by social platforms; `public/images/social-preview.svg` points to the same preview.
 
 ## Content management
 

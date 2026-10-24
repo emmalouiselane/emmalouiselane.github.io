@@ -98,8 +98,8 @@ const BookReviewsList = ({ initialReviews, initialPage = 1 }: Props) => {
         <p>
           Part reading journal, part recommendation shelf. This is where I keep track of what I have read, what I am working through, and what might be worth passing on.
         </p>
-              <div className="garden-hero-flower garden-hero-flower--bloom" aria-hidden="true">
-          <img src="/images/flowers/pressed-bloom.svg" alt="" width="220" height="220" />
+              <div className="garden-botanical-accent garden-botanical-accent--branch" aria-hidden="true">
+          <img src="/images/accents/botanical-japanese-anemone.webp" alt="" width="220" height="347" />
         </div>
       </section>
 

@@ -43,8 +43,18 @@ const NavbarComponent = () => {
         <nav className="site-nav">
             <div className="site-nav__inner">
                 <a className="site-nav__brand" href="/">
-                    <span className="site-nav__brand-mark">Spark Lane</span>
-                    <span className="site-nav__brand-tag">code, notes and curiosities</span>
+                    <img
+                        className="site-nav__brand-avatar"
+                        src="/images/profile-pic.png"
+                        width="48"
+                        height="48"
+                        alt=""
+                        decoding="async"
+                    />
+                    <span className="site-nav__brand-copy">
+                        <span className="site-nav__brand-mark">Spark Lane</span>
+                        <span className="site-nav__brand-tag">code, notes and curiosities</span>
+                    </span>
                 </a>
 
                 <div className="site-nav__desktop">

@@ -92,8 +92,8 @@ const WatchListComponent = ({ initialWatchList, initialPage = 1 }: Props) => {
         <p>
           A watch list for films, shows and anything else I want to remember. Some entries are just quick tracking notes, and some have fuller thoughts attached.
         </p>
-              <div className="garden-hero-flower garden-hero-flower--sprig" aria-hidden="true">
-          <img src="/images/flowers/pressed-sprig.svg" alt="" width="220" height="252" />
+              <div className="garden-botanical-accent garden-botanical-accent--sprig" aria-hidden="true">
+          <img src="/images/accents/botanical-branch.webp" alt="" width="220" height="147" />
         </div>
       </section>
 

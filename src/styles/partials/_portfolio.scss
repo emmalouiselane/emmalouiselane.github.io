@@ -48,7 +48,7 @@
   border: 1px solid var(--color-border-soft);
   border-radius: 2rem;
   background:
-    linear-gradient(135deg, rgba(184, 95, 60, 0.11), transparent 55%),
+    linear-gradient(135deg, rgba(48, 78, 48, 0.11), transparent 55%),
     var(--color-surface-elevated);
   box-shadow: var(--shadow-soft);
   padding: clamp(1.5rem, 3vw, 2.5rem);
@@ -79,7 +79,7 @@
   border: 1px solid var(--color-border-soft);
   border-radius: 1.5rem;
   background:
-    linear-gradient(180deg, rgba(184, 95, 60, 0.08), transparent 30%),
+    linear-gradient(180deg, rgba(48, 78, 48, 0.08), transparent 30%),
     var(--color-surface-elevated);
   box-shadow: var(--shadow-soft);
   padding: clamp(1.25rem, 2.2vw, 1.8rem);
@@ -175,7 +175,7 @@
   border: 1px solid var(--color-border-soft);
   border-radius: 2rem;
   background:
-    linear-gradient(135deg, rgba(184, 95, 60, 0.12), transparent 56%),
+    linear-gradient(135deg, rgba(48, 78, 48, 0.12), transparent 56%),
     var(--color-surface-elevated);
   box-shadow: var(--shadow-soft);
   padding: clamp(1.5rem, 3vw, 2.5rem);
@@ -404,7 +404,7 @@
   margin-top: 0;
   border-radius: 1.5rem;
   background:
-    linear-gradient(145deg, rgba(255, 246, 235, 0.42), rgba(184, 95, 60, 0.08) 62%, rgba(123, 71, 47, 0.1)),
+    linear-gradient(145deg, rgba(255, 246, 235, 0.42), rgba(48, 78, 48, 0.08) 62%, rgba(48, 78, 48, 0.1)),
     var(--color-accent-light);
 }
 
@@ -478,48 +478,48 @@
   height: 0.68rem;
   border-radius: 2px;
   display: inline-block;
-  background: #ead3bf;
+  background: #e2e9d8;
   position: relative;
 }
 
 .dark .contribution-cell.level-0 {
-  background: #26382c;
+  background: #1c2a1f;
 }
 
 .contribution-cell.level-0 {
-  background: #ead3bf;
+  background: #e2e9d8;
 }
 
 .contribution-cell.level-1 {
-  background: #f0c2a6;
+  background: #c8d9b8;
 }
 
 .contribution-cell.level-2 {
-  background: #d98a61;
+  background: #93b476;
 }
 
 .contribution-cell.level-3 {
-  background: #b85f3c;
+  background: #5f844c;
 }
 
 .contribution-cell.level-4 {
-  background: #91462e;
+  background: #294c32;
 }
 
 .dark .contribution-cell.level-1 {
-  background: #45624d;
+  background: #344a35;
 }
 
 .dark .contribution-cell.level-2 {
-  background: #5f8b68;
+  background: #52744c;
 }
 
 .dark .contribution-cell.level-3 {
-  background: #78b58a;
+  background: #7da66c;
 }
 
 .dark .contribution-cell.level-4 {
-  background: #a7d8ad;
+  background: #a9c78b;
 }
 
 .contribution-cell-empty {
